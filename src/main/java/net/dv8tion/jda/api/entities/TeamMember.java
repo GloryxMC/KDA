@@ -19,7 +19,7 @@ package net.dv8tion.jda.api.entities;
 import javax.annotation.Nonnull;
 
 /**
- * Member of a {@link net.dv8tion.jda.api.entities.ApplicationTeam}.
+ * Member of a {@link ApplicationTeam}.
  *
  * @see ApplicationTeam#getMembers()
  * @see ApplicationTeam#getMember(User)
@@ -37,10 +37,10 @@ public interface TeamMember
 
     /**
      * The state of this member.
-     * <br>Note: the API does not seem to provide members with {@link net.dv8tion.jda.api.entities.TeamMember.MembershipState#INVITED}
+     * <br>Note: the API does not seem to provide members with {@link MembershipState#INVITED}
      * to bots.
      *
-     * @return The {@link net.dv8tion.jda.api.entities.TeamMember.MembershipState}, or {@link net.dv8tion.jda.api.entities.TeamMember.MembershipState#UNKNOWN UNKNOWN}
+     * @return The {@link MembershipState}, or {@link MembershipState#UNKNOWN UNKNOWN}
      */
     @Nonnull
     MembershipState getMembershipState();

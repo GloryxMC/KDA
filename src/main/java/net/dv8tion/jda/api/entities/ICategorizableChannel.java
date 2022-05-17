@@ -46,7 +46,7 @@ public interface ICategorizableChannel extends GuildChannel, IPermissionContaine
     long getParentCategoryIdLong();
 
     /**
-     * Get the snowflake of the {@link net.dv8tion.jda.api.entities.Category Category} that contains this channel.
+     * Get the snowflake of the {@link Category Category} that contains this channel.
      *
      * This will return {@code null} if this channel doesn't have a parent category.
      *
@@ -62,12 +62,12 @@ public interface ICategorizableChannel extends GuildChannel, IPermissionContaine
     }
 
     /**
-     * Parent {@link net.dv8tion.jda.api.entities.Category Category} of this
+     * Parent {@link Category Category} of this
      * GuildChannel. Channels don't need to have a parent Category.
-     * <br>Note that a {@link net.dv8tion.jda.api.entities.Category Category} will
+     * <br>Note that a {@link Category Category} will
      * always return {@code null} for this method as nested categories are not supported.
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.Category Category} for this GuildChannel
+     * @return Possibly-null {@link Category Category} for this GuildChannel
      */
     @Nullable
     default Category getParentCategory()
@@ -76,7 +76,7 @@ public interface ICategorizableChannel extends GuildChannel, IPermissionContaine
     }
 
     /**
-     * Whether or not this GuildChannel's {@link net.dv8tion.jda.api.entities.PermissionOverride PermissionOverrides} match
+     * Whether or not this GuildChannel's {@link PermissionOverride PermissionOverrides} match
      * those of {@link #getParentCategory() its parent category}. If the channel doesn't have a parent category, this will return true.
      *
      * <p>This requires {@link net.dv8tion.jda.api.utils.cache.CacheFlag#MEMBER_OVERRIDES CacheFlag.MEMBER_OVERRIDES} to be enabled.

@@ -72,7 +72,7 @@ public class Template
     }
 
     /**
-     * Retrieves a new {@link net.dv8tion.jda.api.entities.templates.Template Template} instance for the given template code.
+     * Retrieves a new {@link Template Template} instance for the given template code.
      *
      * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} include:
      * <ul>
@@ -85,14 +85,14 @@ public class Template
      * @param  code
      *         A valid template code
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         <ul>
      *             <li>If the provided code is null or empty</li>
      *             <li>If the provided code contains a whitespace</li>
      *             <li>If the provided JDA object is null</li>
      *         </ul>
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: {@link net.dv8tion.jda.api.entities.templates.Template Template}
+     * @return {@link RestAction RestAction} - Type: {@link Template Template}
      *         <br>The Template object
      */
     @Nonnull
@@ -111,15 +111,15 @@ public class Template
 
     /**
      * Syncs this template.
-     * <br>Requires {@link net.dv8tion.jda.api.Permission#MANAGE_SERVER MANAGE_SERVER} in the template's guild.
-     * Will throw an {@link net.dv8tion.jda.api.exceptions.InsufficientPermissionException InsufficientPermissionException} otherwise.
+     * <br>Requires {@link Permission#MANAGE_SERVER MANAGE_SERVER} in the template's guild.
+     * Will throw an {@link InsufficientPermissionException InsufficientPermissionException} otherwise.
      *
      * @throws IllegalStateException
      *         If the account is not in the template's guild
-     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
-     *         If the account does not have {@link net.dv8tion.jda.api.Permission#MANAGE_SERVER MANAGE_SERVER} in the template's guild
+     * @throws InsufficientPermissionException
+     *         If the account does not have {@link Permission#MANAGE_SERVER MANAGE_SERVER} in the template's guild
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: {@link net.dv8tion.jda.api.entities.templates.Template Template}
+     * @return {@link RestAction RestAction} - Type: {@link Template Template}
      *         <br>The synced Template object
      */
     @Nonnull
@@ -134,15 +134,15 @@ public class Template
 
     /**
      * Deletes this template.
-     * <br>Requires {@link net.dv8tion.jda.api.Permission#MANAGE_SERVER MANAGE_SERVER} in the template's guild.
-     * Will throw an {@link net.dv8tion.jda.api.exceptions.InsufficientPermissionException InsufficientPermissionException} otherwise.
+     * <br>Requires {@link Permission#MANAGE_SERVER MANAGE_SERVER} in the template's guild.
+     * Will throw an {@link InsufficientPermissionException InsufficientPermissionException} otherwise.
      *
      * @throws IllegalStateException
      *         If the account is not in the template's guild
-     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
-     *         If the account does not have {@link net.dv8tion.jda.api.Permission#MANAGE_SERVER MANAGE_SERVER} in the template's guild
+     * @throws InsufficientPermissionException
+     *         If the account does not have {@link Permission#MANAGE_SERVER MANAGE_SERVER} in the template's guild
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction}
+     * @return {@link RestAction RestAction}
      */
     @Nonnull
     @CheckReturnValue
@@ -257,17 +257,17 @@ public class Template
     }
 
     /**
-     * Returns the {@link net.dv8tion.jda.api.managers.TemplateManager TemplateManager} for this Template.
+     * Returns the {@link TemplateManager TemplateManager} for this Template.
      * <br>In the TemplateManager, you can modify the name or description of the template.
-     * You modify multiple fields in one request by chaining setters before calling {@link net.dv8tion.jda.api.requests.RestAction#queue() RestAction.queue()}.
+     * You modify multiple fields in one request by chaining setters before calling {@link RestAction#queue() RestAction.queue()}.
      *
      * <p>This is a lazy idempotent getter. The manager is retained after the first call.
      * This getter is not thread-safe and would require guards by the user.
      *
      * @throws IllegalStateException
      *         If the account is not in the template's guild
-     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
-     *         If the currently logged in account does not have {@link net.dv8tion.jda.api.Permission#MANAGE_SERVER MANAGE_SERVER}
+     * @throws InsufficientPermissionException
+     *         If the currently logged in account does not have {@link Permission#MANAGE_SERVER MANAGE_SERVER}
      *
      * @return The TemplateManager of this Template
      */
@@ -289,7 +289,7 @@ public class Template
     }
 
     /**
-     * The {@link net.dv8tion.jda.api.JDA JDA} instance used to create this Template instance.
+     * The {@link JDA JDA} instance used to create this Template instance.
      *
      * @return The corresponding JDA instance
      */

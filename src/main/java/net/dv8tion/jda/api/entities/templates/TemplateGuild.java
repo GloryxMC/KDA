@@ -139,7 +139,7 @@ public class TemplateGuild implements ISnowflake
     }
 
     /**
-     * Returns the {@link net.dv8tion.jda.api.entities.Guild.VerificationLevel VerificationLevel} of this guild.
+     * Returns the {@link VerificationLevel VerificationLevel} of this guild.
      *
      * @return the verification level of the guild
      */
@@ -150,7 +150,7 @@ public class TemplateGuild implements ISnowflake
     }
 
     /**
-     * Returns the {@link net.dv8tion.jda.api.entities.Guild.NotificationLevel NotificationLevel} of this guild.
+     * Returns the {@link NotificationLevel NotificationLevel} of this guild.
      *
      * @return the notification level of the guild
      */
@@ -161,7 +161,7 @@ public class TemplateGuild implements ISnowflake
     }
 
     /**
-     * Returns the {@link net.dv8tion.jda.api.entities.Guild.ExplicitContentLevel ExplicitContentLevel} of this guild.
+     * Returns the {@link ExplicitContentLevel ExplicitContentLevel} of this guild.
      *
      * @return the explicit content level of the guild
      */
@@ -183,7 +183,7 @@ public class TemplateGuild implements ISnowflake
     }
 
     /**
-     * Returns the {@link net.dv8tion.jda.api.entities.Guild.Timeout AFK Timeout} for this guild.
+     * Returns the {@link Timeout AFK Timeout} for this guild.
      *
      * @return the afk timeout for this guild
      */
@@ -194,12 +194,12 @@ public class TemplateGuild implements ISnowflake
     }
 
     /**
-     * Provides the {@link net.dv8tion.jda.api.entities.templates.TemplateChannel TemplateChannel} that has been set as the channel
+     * Provides the {@link TemplateChannel TemplateChannel} that has been set as the channel
      * which {@link net.dv8tion.jda.api.entities.Member Members} will be moved to after they have been inactive in a
      * {@link net.dv8tion.jda.api.entities.VoiceChannel VoiceChannel} for longer than {@link #getAfkTimeout()}.
      * <br>If no channel has been set as the AFK channel, this returns {@code null}.
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.templates.TemplateChannel TemplateChannel} that is the AFK Channel.
+     * @return Possibly-null {@link TemplateChannel TemplateChannel} that is the AFK Channel.
      */
     @Nullable
     public TemplateChannel getAfkChannel()
@@ -208,11 +208,11 @@ public class TemplateGuild implements ISnowflake
     }
 
     /**
-     * Provides the {@link net.dv8tion.jda.api.entities.templates.TemplateChannel TemplateChannel} that has been set as the channel
+     * Provides the {@link TemplateChannel TemplateChannel} that has been set as the channel
      * which newly joined {@link net.dv8tion.jda.api.entities.Member Members} will be announced in.
      * <br>If no channel has been set as the system channel, this returns {@code null}.
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.templates.TemplateChannel TemplateChannel} that is the system Channel.
+     * @return Possibly-null {@link TemplateChannel TemplateChannel} that is the system Channel.
      */
     @Nullable
     public TemplateChannel getSystemChannel()
@@ -221,9 +221,9 @@ public class TemplateGuild implements ISnowflake
     }
 
     /**
-     * Gets all {@link net.dv8tion.jda.api.entities.templates.TemplateRole Roles} in this {@link net.dv8tion.jda.api.entities.templates.TemplateGuild Guild}.
+     * Gets all {@link TemplateRole Roles} in this {@link TemplateGuild Guild}.
      *
-     * @return An immutable List of {@link net.dv8tion.jda.api.entities.templates.TemplateRole Roles}.
+     * @return An immutable List of {@link TemplateRole Roles}.
      */
     @Nonnull
     public List<TemplateRole> getRoles()
@@ -232,9 +232,9 @@ public class TemplateGuild implements ISnowflake
     }
 
     /**
-     * Gets all {@link net.dv8tion.jda.api.entities.templates.TemplateChannel Channels} in this {@link net.dv8tion.jda.api.entities.templates.TemplateGuild Guild}.
+     * Gets all {@link TemplateChannel Channels} in this {@link TemplateGuild Guild}.
      *
-     * @return An immutable List of {@link net.dv8tion.jda.api.entities.templates.TemplateChannel Channels}.
+     * @return An immutable List of {@link TemplateChannel Channels}.
      */
     @Nonnull
     public List<TemplateChannel> getChannels()

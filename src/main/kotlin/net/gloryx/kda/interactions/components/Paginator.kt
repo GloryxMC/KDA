@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package dev.minn.jda.ktx.interactions.components
+package net.gloryx.kda.interactions.components
 
-import dev.minn.jda.ktx.messages.Message
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.entities.Emoji
 import net.dv8tion.jda.api.entities.Message
@@ -36,6 +35,7 @@ import net.dv8tion.jda.api.requests.ErrorResponse
 import java.security.SecureRandom
 import java.util.*
 import kotlin.time.Duration
+import net.gloryx.kda.*
 
 /**
  * Defaults used for paginators.

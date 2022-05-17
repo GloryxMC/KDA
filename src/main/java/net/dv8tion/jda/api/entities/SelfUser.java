@@ -67,11 +67,11 @@ public interface SelfUser extends User
 
     /**
      * Returns the maximum size for files that can be uploaded with this account.
-     * <br>Returns {@value net.dv8tion.jda.api.entities.Message#MAX_FILE_SIZE} for bots.
+     * <br>Returns {@value Message#MAX_FILE_SIZE} for bots.
      * 
      * @return The maximum size for files that can be uploaded with this account
      * 
-     * @see net.dv8tion.jda.api.entities.Message#MAX_FILE_SIZE
+     * @see Message#MAX_FILE_SIZE
      */
     long getAllowedFileSize();
 

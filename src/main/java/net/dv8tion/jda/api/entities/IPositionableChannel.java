@@ -42,7 +42,7 @@ public interface IPositionableChannel extends GuildChannel
     /**
      * The position this GuildChannel is displayed at.
      * <br>Higher values mean they are displayed lower in the Client. Position 0 is the top most GuildChannel
-     * Channels of a {@link net.dv8tion.jda.api.entities.Guild Guild} do not have to have continuous positions
+     * Channels of a {@link Guild Guild} do not have to have continuous positions
      *
      * @throws IllegalStateException
      *         If this channel is not in the guild cache

@@ -39,14 +39,14 @@ public enum EmbedType
 
     /**
      * Attempts to find the EmbedType from the provided key.
-     * <br>If the provided key doesn't match any known {@link net.dv8tion.jda.api.entities.EmbedType EmbedType},
-     * this will return {@link net.dv8tion.jda.api.entities.EmbedType#UNKNOWN UNKNOWN}.
+     * <br>If the provided key doesn't match any known {@link EmbedType EmbedType},
+     * this will return {@link EmbedType#UNKNOWN UNKNOWN}.
      *
      * @param  key
-     *         The key related to the {@link net.dv8tion.jda.api.entities.EmbedType EmbedType}.
+     *         The key related to the {@link EmbedType EmbedType}.
      *
-     * @return The {@link net.dv8tion.jda.api.entities.EmbedType EmbedType} matching the provided key,
-     *         or {@link net.dv8tion.jda.api.entities.EmbedType#UNKNOWN UNKNOWN}.
+     * @return The {@link EmbedType EmbedType} matching the provided key,
+     *         or {@link EmbedType#UNKNOWN UNKNOWN}.
      */
     @Nonnull
     public static EmbedType fromKey(String key)

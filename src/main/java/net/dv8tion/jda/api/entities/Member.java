@@ -62,7 +62,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     /**
      * The user wrapped by this Entity.
      *
-     * @return {@link net.dv8tion.jda.api.entities.User User}
+     * @return {@link User User}
      */
     @Nonnull
     User getUser();
@@ -70,7 +70,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     /**
      * The Guild in which this Member is represented.
      *
-     * @return {@link net.dv8tion.jda.api.entities.Guild Guild}
+     * @return {@link Guild Guild}
      */
     @Nonnull
     Guild getGuild();
@@ -84,7 +84,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     JDA getJDA();
 
     /**
-     * The {@link java.time.OffsetDateTime Time} this Member joined the Guild.
+     * The {@link OffsetDateTime Time} this Member joined the Guild.
      * <br>If the member was loaded through a presence update (lazy loading) this will be identical
      * to the creation time of the guild. You can use {@link #hasTimeJoined()} to test whether this time
      * can be relied on.
@@ -150,14 +150,14 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     }
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.GuildVoiceState VoiceState} of this Member.
+     * The {@link GuildVoiceState VoiceState} of this Member.
      * <br><b>This will be null when the {@link net.dv8tion.jda.api.utils.cache.CacheFlag#VOICE_STATE} is disabled manually</b>
      *
      * <p>This can be used to get the Member's VoiceChannel using {@link GuildVoiceState#getChannel()}.
      *
      * <p>This requires {@link net.dv8tion.jda.api.utils.cache.CacheFlag#VOICE_STATE CacheFlag.VOICE_STATE} to be enabled!
      *
-     * @return {@link net.dv8tion.jda.api.entities.GuildVoiceState GuildVoiceState}
+     * @return {@link GuildVoiceState GuildVoiceState}
      */
     @Nullable
     GuildVoiceState getVoiceState();
@@ -174,30 +174,30 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     List<Activity> getActivities();
 
     /**
-     * Returns the {@link net.dv8tion.jda.api.OnlineStatus OnlineStatus} of the User.
-     * <br>If the {@link net.dv8tion.jda.api.OnlineStatus OnlineStatus} is unrecognized, will return {@link net.dv8tion.jda.api.OnlineStatus#UNKNOWN UNKNOWN}.
+     * Returns the {@link OnlineStatus OnlineStatus} of the User.
+     * <br>If the {@link OnlineStatus OnlineStatus} is unrecognized, will return {@link OnlineStatus#UNKNOWN UNKNOWN}.
      *
      * <p>This will always return {@link OnlineStatus#OFFLINE} if {@link net.dv8tion.jda.api.utils.cache.CacheFlag#ONLINE_STATUS CacheFlag.ONLINE_STATUS} is disabled.
      *
-     * @return The current {@link net.dv8tion.jda.api.OnlineStatus OnlineStatus} of the {@link net.dv8tion.jda.api.entities.User User}.
+     * @return The current {@link OnlineStatus OnlineStatus} of the {@link User User}.
      */
     @Nonnull
     OnlineStatus getOnlineStatus();
 
     /**
-     * The platform dependent {@link net.dv8tion.jda.api.OnlineStatus} of this member.
+     * The platform dependent {@link OnlineStatus} of this member.
      * <br>Since a user can be connected from multiple different devices such as web and mobile,
-     * discord specifies a status for each {@link net.dv8tion.jda.api.entities.ClientType}.
+     * discord specifies a status for each {@link ClientType}.
      *
      * <p>If a user is not online on the specified type,
-     * {@link net.dv8tion.jda.api.OnlineStatus#OFFLINE OFFLINE} is returned.
+     * {@link OnlineStatus#OFFLINE OFFLINE} is returned.
      *
      * <p>This requires {@link net.dv8tion.jda.api.utils.cache.CacheFlag#CLIENT_STATUS CacheFlag.CLIENT_STATUS} to be enabled!
      *
      * @param  type
      *         The type of client
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided type is null
      *
      * @return The status for that specific client or OFFLINE
@@ -208,8 +208,8 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     OnlineStatus getOnlineStatus(@Nonnull ClientType type);
 
     /**
-     * A Set of all active {@link net.dv8tion.jda.api.entities.ClientType ClientTypes} of this Member.
-     * Every {@link net.dv8tion.jda.api.OnlineStatus OnlineStatus} other than {@code OFFLINE} and {@code UNKNOWN}
+     * A Set of all active {@link ClientType ClientTypes} of this Member.
+     * Every {@link OnlineStatus OnlineStatus} other than {@code OFFLINE} and {@code UNKNOWN}
      * is interpreted as active.
      * Since {@code INVISIBLE} is only possible for the SelfUser, other Members will never have ClientTypes show as
      * active when actually being {@code INVISIBLE}, since they will show as {@code OFFLINE}.
@@ -217,9 +217,9 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * <br>When {@link net.dv8tion.jda.api.utils.cache.CacheFlag#CLIENT_STATUS CacheFlag.CLIENT_STATUS} is disabled,
      * active clients will not be tracked and this will always return an empty Set.
      * <br>Since a user can be connected from multiple different devices such as web and mobile,
-     * discord specifies a status for each {@link net.dv8tion.jda.api.entities.ClientType}.
+     * discord specifies a status for each {@link ClientType}.
      *
-     * @return EnumSet of all active {@link net.dv8tion.jda.api.entities.ClientType ClientTypes}
+     * @return EnumSet of all active {@link ClientType ClientTypes}
      *
      * @since  4.0.0
      */
@@ -230,7 +230,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * Returns the current nickname of this Member for the parent Guild.
      *
      * <p>This can be changed using
-     * {@link net.dv8tion.jda.api.entities.Guild#modifyNickname(Member, String) modifyNickname(Member, String)}.
+     * {@link Guild#modifyNickname(Member, String) modifyNickname(Member, String)}.
      *
      * @return The nickname or null, if no nickname is set.
      */
@@ -249,7 +249,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * The Discord Id for this member's per guild avatar image.
      * If the member has not set a per guild avatar, this will return null.
      *
-     * @return Possibly-null String containing the {@link net.dv8tion.jda.api.entities.Member} per guild avatar id.
+     * @return Possibly-null String containing the {@link Member} per guild avatar id.
      */
     @Nullable
     String getAvatarId();
@@ -258,7 +258,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * The URL for the member's per guild avatar image.
      * If the member has not set a per guild avatar, this will return null.
      *
-     * @return Possibly-null String containing the {@link net.dv8tion.jda.api.entities.Member} per guild avatar url.
+     * @return Possibly-null String containing the {@link Member} per guild avatar url.
      */
     @Nullable
     default String getAvatarUrl()
@@ -286,7 +286,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * If they do not have a per guild avatar set, this will return the URL of
      * their effective {@link User} avatar.
      *
-     * @return Never-null String containing the {@link net.dv8tion.jda.api.entities.Member} avatar url.
+     * @return Never-null String containing the {@link Member} avatar url.
      */
     @Nonnull
     default String getEffectiveAvatarUrl()
@@ -315,12 +315,12 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * and the lowest at the last index.
      *
      * <p>A Member's roles can be changed using the {@link Guild#addRoleToMember(UserSnowflake, Role)}, {@link Guild#removeRoleFromMember(UserSnowflake, Role)}, and {@link Guild#modifyMemberRoles(Member, Collection, Collection)}
-     * methods in {@link net.dv8tion.jda.api.entities.Guild Guild}.
+     * methods in {@link Guild Guild}.
      *
      * <p><b>The Public Role ({@code @everyone}) is not included in the returned immutable list of roles
      * <br>It is implicit that every member holds the Public Role in a Guild thus it is not listed here!</b>
      *
-     * @return An immutable List of {@link net.dv8tion.jda.api.entities.Role Roles} for this Member.
+     * @return An immutable List of {@link Role Roles} for this Member.
      *
      * @see    Guild#addRoleToMember(UserSnowflake, Role)
      * @see    Guild#removeRoleFromMember(UserSnowflake, Role)
@@ -330,7 +330,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     List<Role> getRoles();
 
     /**
-     * The {@link java.awt.Color Color} of this Member's name in a Guild.
+     * The {@link Color Color} of this Member's name in a Guild.
      *
      * <p>This is determined by the color of the highest role assigned to them that does not have the default color.
      * <br>If all roles have default color, this returns null.
@@ -344,7 +344,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
 
     /**
      * The raw RGB value for the color of this member.
-     * <br>Defaulting to {@link net.dv8tion.jda.api.entities.Role#DEFAULT_COLOR_RAW Role.DEFAULT_COLOR_RAW}
+     * <br>Defaulting to {@link Role#DEFAULT_COLOR_RAW Role.DEFAULT_COLOR_RAW}
      * if this member uses the default color (special property, it changes depending on theme used in the client)
      *
      * @return The raw RGB value or the role default
@@ -368,7 +368,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     boolean canInteract(@Nonnull Member member);
 
     /**
-     * Whether this Member can interact with the provided {@link net.dv8tion.jda.api.entities.Role Role}
+     * Whether this Member can interact with the provided {@link Role Role}
      * (kick/ban/move/modify/delete/etc.)
      *
      * <p>If this returns true this member can assign the role to other members.
@@ -386,7 +386,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     boolean canInteract(@Nonnull Role role);
 
     /**
-     * Whether this Member can interact with the provided {@link net.dv8tion.jda.api.entities.Emote Emote}
+     * Whether this Member can interact with the provided {@link Emote Emote}
      * (use in a message)
      *
      * @param  emote
@@ -402,14 +402,14 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     boolean canInteract(@Nonnull Emote emote);
 
     /**
-     * Checks whether this member is the owner of its related {@link net.dv8tion.jda.api.entities.Guild Guild}.
+     * Checks whether this member is the owner of its related {@link Guild Guild}.
      *
      * @return True, if this member is the owner of the attached Guild.
      */
     boolean isOwner();
 
     /**
-     * Checks whether this member has passed the {@link net.dv8tion.jda.api.entities.Guild Guild's}
+     * Checks whether this member has passed the {@link Guild Guild's}
      * Membership Screening requirements.
      *
      * @incubating Discord is still trying to figure this out
@@ -422,14 +422,14 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     boolean isPending();
 
     /**
-     * The default {@link net.dv8tion.jda.api.entities.BaseGuildMessageChannel BaseGuildMessageChannel} for a {@link net.dv8tion.jda.api.entities.Member Member}.
+     * The default {@link BaseGuildMessageChannel BaseGuildMessageChannel} for a {@link Member Member}.
      * <br>This is the channel that the Discord client will default to opening when a Guild is opened for the first time
      * after joining the guild.
      * <br>The default channel is the channel with the highest position in which the member has
      * {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} permissions. If this requirement doesn't apply for
      * any channel in the guild, this method returns {@code null}.
      *
-     * @return The {@link net.dv8tion.jda.api.entities.BaseGuildMessageChannel BaseGuildMessageChannel} representing the default channel for this member
+     * @return The {@link BaseGuildMessageChannel BaseGuildMessageChannel} representing the default channel for this member
      *         or null if no such channel exists.
      */
     @Nullable
@@ -439,10 +439,10 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * Bans this Member and deletes messages sent by the user based on the amount of delDays.
      * <br>If you wish to ban a member without deleting any messages, provide delDays with a value of 0.
      *
-     * <p>You can unban a user with {@link net.dv8tion.jda.api.entities.Guild#unban(UserSnowflake) Guild.unban(UserSnowflake)}.
+     * <p>You can unban a user with {@link Guild#unban(UserSnowflake) Guild.unban(UserSnowflake)}.
      *
-     * <p><b>Note:</b> {@link net.dv8tion.jda.api.entities.Guild#getMembers()} will still contain the
-     * {@link net.dv8tion.jda.api.entities.Member Member} until Discord sends the
+     * <p><b>Note:</b> {@link Guild#getMembers()} will still contain the
+     * {@link Member Member} until Discord sends the
      * {@link net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent GuildMemberRemoveEvent}.
      *
      * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} caused by
@@ -463,13 +463,13 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * @throws net.dv8tion.jda.api.exceptions.HierarchyException
      *         If the logged in account cannot ban the other user due to permission hierarchy position.
      *         <br>See {@link Member#canInteract(Member)}
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         <ul>
      *             <li>If the provided amount of days (delDays) is less than 0.</li>
      *             <li>If the provided amount of days (delDays) is bigger than 7.</li>
      *         </ul>
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      *
      * @since  4.0.0
      */
@@ -484,10 +484,10 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * Bans this Member and deletes messages sent by the user based on the amount of delDays.
      * <br>If you wish to ban a member without deleting any messages, provide delDays with a value of 0.
      *
-     * <p>You can unban a user with {@link net.dv8tion.jda.api.entities.Guild#unban(UserSnowflake) Guild.unban(UserSnowflake)}.
+     * <p>You can unban a user with {@link Guild#unban(UserSnowflake) Guild.unban(UserSnowflake)}.
      *
-     * <p><b>Note:</b> {@link net.dv8tion.jda.api.entities.Guild#getMembers()} will still contain the
-     * {@link net.dv8tion.jda.api.entities.Member Member} until Discord sends the
+     * <p><b>Note:</b> {@link Guild#getMembers()} will still contain the
+     * {@link Member Member} until Discord sends the
      * {@link net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent GuildMemberRemoveEvent}.
      *
      * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} caused by
@@ -510,7 +510,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * @throws net.dv8tion.jda.api.exceptions.HierarchyException
      *         If the logged in account cannot ban the other user due to permission hierarchy position.
      *         <br>See {@link Member#canInteract(Member)}
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         <ul>
      *             <li>If the provided amount of days (delDays) is less than 0.</li>
      *             <li>If the provided amount of days (delDays) is bigger than 7.</li>
@@ -518,7 +518,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *         </ul>
      *
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      *
      * @since  4.0.0
      */
@@ -530,9 +530,9 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     }
 
     /**
-     * Kicks this Member from the {@link net.dv8tion.jda.api.entities.Guild Guild}.
+     * Kicks this Member from the {@link Guild Guild}.
      *
-     * <p><b>Note:</b> {@link net.dv8tion.jda.api.entities.Guild#getMembers()} will still contain the {@link net.dv8tion.jda.api.entities.User User}
+     * <p><b>Note:</b> {@link Guild#getMembers()} will still contain the {@link User User}
      * until Discord sends the {@link net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent GuildMemberRemoveEvent}.
      *
      * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} caused by
@@ -551,7 +551,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *         If the logged in account cannot kick the other member due to permission hierarchy position.
      *         <br>See {@link Member#canInteract(Member)}
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      *         Kicks the provided Member from the current Guild
      *
      * @since  4.0.0
@@ -564,9 +564,9 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     }
 
     /**
-     * Kicks this Member from the {@link net.dv8tion.jda.api.entities.Guild Guild}.
+     * Kicks this Member from the {@link Guild Guild}.
      *
-     * <p><b>Note:</b> {@link net.dv8tion.jda.api.entities.Guild#getMembers()} will still contain the {@link net.dv8tion.jda.api.entities.Member Member}
+     * <p><b>Note:</b> {@link Guild#getMembers()} will still contain the {@link Member Member}
      * until Discord sends the {@link net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent GuildMemberRemoveEvent}.
      *
      * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} caused by
@@ -587,10 +587,10 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * @throws net.dv8tion.jda.api.exceptions.HierarchyException
      *         If the logged in account cannot kick the other member due to permission hierarchy position.
      *         <br>See {@link Member#canInteract(Member)}
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided reason is longer than 512 characters
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      *         Kicks the provided Member from the current Guild
      *
      * @since  4.0.0
@@ -603,7 +603,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     }
 
     /**
-     * Puts this Member in time out in this {@link net.dv8tion.jda.api.entities.Guild Guild} for a specific amount of time.
+     * Puts this Member in time out in this {@link Guild Guild} for a specific amount of time.
      * <br>While a Member is in time out, all permissions except {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL VIEW_CHANNEL} and
      * {@link net.dv8tion.jda.api.Permission#MESSAGE_HISTORY MESSAGE_HISTORY} are removed from them.
      *
@@ -632,7 +632,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *             <li>The provided {@code amount} with the {@code unit} results in a date that is more than {@value MAX_TIME_OUT_LENGTH} days in the future</li>
      *         </ul>
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      */
     @Nonnull
     @CheckReturnValue
@@ -642,7 +642,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     }
 
     /**
-     * Puts this Member in time out in this {@link net.dv8tion.jda.api.entities.Guild Guild} for a specific amount of time.
+     * Puts this Member in time out in this {@link Guild Guild} for a specific amount of time.
      * <br>While a Member is in time out, all permissions except {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL VIEW_CHANNEL} and
      * {@link net.dv8tion.jda.api.Permission#MESSAGE_HISTORY MESSAGE_HISTORY} are removed from them.
      *
@@ -669,7 +669,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *             <li>The provided {@code duration} results in a date that is more than {@value MAX_TIME_OUT_LENGTH} days in the future</li>
      *         </ul>
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      */
     @Nonnull
     @CheckReturnValue
@@ -679,7 +679,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     }
 
     /**
-     * Puts this Member in time out in this {@link net.dv8tion.jda.api.entities.Guild Guild} until the specified date.
+     * Puts this Member in time out in this {@link Guild Guild} until the specified date.
      * <br>While a Member is in time out, all permissions except {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL VIEW_CHANNEL} and
      * {@link net.dv8tion.jda.api.Permission#MESSAGE_HISTORY MESSAGE_HISTORY} are removed from them.
      *
@@ -705,7 +705,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *             <li>The provided {@code temporal} is more than {@value MAX_TIME_OUT_LENGTH} days in the future</li>
      *         </ul>
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      */
     @Nonnull
     @CheckReturnValue
@@ -715,7 +715,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     }
 
     /**
-     * Removes a time out from this Member in this {@link net.dv8tion.jda.api.entities.Guild Guild}.
+     * Removes a time out from this Member in this {@link Guild Guild}.
      *
      * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} caused by
      * the returned {@link net.dv8tion.jda.api.requests.RestAction RestAction} include the following:
@@ -730,7 +730,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If the logged in account does not have the {@link net.dv8tion.jda.api.Permission#MODERATE_MEMBERS} permission.
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      */
     @Nonnull
     @CheckReturnValue
@@ -743,7 +743,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * Sets the Guild Muted state state of this Member based on the provided
      * boolean.
      *
-     * <p><b>Note:</b> The Member's {@link net.dv8tion.jda.api.entities.GuildVoiceState#isGuildMuted() GuildVoiceState.isGuildMuted()} value won't change
+     * <p><b>Note:</b> The Member's {@link GuildVoiceState#isGuildMuted() GuildVoiceState.isGuildMuted()} value won't change
      * until JDA receives the {@link net.dv8tion.jda.api.events.guild.voice.GuildVoiceGuildMuteEvent GuildVoiceGuildMuteEvent} event related to this change.
      *
      * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} caused by
@@ -760,14 +760,14 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * </ul>
      *
      * @param  mute
-     *         Whether this {@link net.dv8tion.jda.api.entities.Member Member} should be muted or unmuted.
+     *         Whether this {@link Member Member} should be muted or unmuted.
      *
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If the logged in account does not have the {@link net.dv8tion.jda.api.Permission#VOICE_DEAF_OTHERS} permission.
-     * @throws java.lang.IllegalStateException
+     * @throws IllegalStateException
      *         If the member is not currently connected to a voice channel.
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      *
      * @since  4.0.0
      */
@@ -781,7 +781,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
     /**
      * Sets the Guild Deafened state state of this Member based on the provided boolean.
      *
-     * <p><b>Note:</b> The Member's {@link net.dv8tion.jda.api.entities.GuildVoiceState#isGuildDeafened() GuildVoiceState.isGuildDeafened()} value won't change
+     * <p><b>Note:</b> The Member's {@link GuildVoiceState#isGuildDeafened() GuildVoiceState.isGuildDeafened()} value won't change
      * until JDA receives the {@link net.dv8tion.jda.api.events.guild.voice.GuildVoiceGuildDeafenEvent GuildVoiceGuildDeafenEvent} event related to this change.
      *
      * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} caused by
@@ -798,14 +798,14 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * </ul>
      *
      * @param  deafen
-     *         Whether this {@link net.dv8tion.jda.api.entities.Member Member} should be deafened or undeafened.
+     *         Whether this {@link Member Member} should be deafened or undeafened.
      *
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If the logged in account does not have the {@link net.dv8tion.jda.api.Permission#VOICE_DEAF_OTHERS} permission.
-     * @throws java.lang.IllegalStateException
+     * @throws IllegalStateException
      *         If the member is not currently connected to a voice channel.
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      *
      * @since  4.0.0
      */
@@ -822,7 +822,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * <p>To change the nickname for the currently logged in account
      * only the Permission {@link net.dv8tion.jda.api.Permission#NICKNAME_CHANGE NICKNAME_CHANGE} is required.
-     * <br>To change the nickname of <b>any</b> {@link net.dv8tion.jda.api.entities.Member Member} for this {@link net.dv8tion.jda.api.entities.Guild Guild}
+     * <br>To change the nickname of <b>any</b> {@link Member Member} for this {@link Guild Guild}
      * the Permission {@link net.dv8tion.jda.api.Permission#NICKNAME_MANAGE NICKNAME_MANAGE} is required.
      *
      * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} caused by
@@ -836,7 +836,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * </ul>
      *
      * @param  nickname
-     *         The new nickname of the {@link net.dv8tion.jda.api.entities.Member Member}, provide {@code null} or an
+     *         The new nickname of the {@link Member Member}, provide {@code null} or an
      *         empty String to reset the nickname
      *
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
@@ -849,7 +849,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *         If attempting to set nickname for another member and the logged in account cannot manipulate the other user due to permission hierarchy position.
      *         <br>See {@link #canInteract(Member)}.
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      *
      * @since  4.0.0
      */

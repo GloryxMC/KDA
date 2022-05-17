@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 /**
  * The type of client a user might be active on.
  *
- * @see net.dv8tion.jda.api.entities.Member#getOnlineStatus(ClientType) Member.getOnlineStatus(type)
+ * @see Member#getOnlineStatus(ClientType) Member.getOnlineStatus(type)
  */
 public enum ClientType
 {

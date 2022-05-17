@@ -16,7 +16,6 @@
 
 package net.dv8tion.jda.utils.data;
 
-import kotlinx.coroutines.scheduling.DefaultIoScheduler.default
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;

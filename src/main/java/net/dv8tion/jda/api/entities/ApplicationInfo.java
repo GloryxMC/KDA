@@ -31,7 +31,7 @@ import java.util.*;
  * @since  3.0
  * @author Aljoscha Grebe
  * 
- * @see    net.dv8tion.jda.api.JDA#retrieveApplicationInfo()
+ * @see    JDA#retrieveApplicationInfo()
  */
 public interface ApplicationInfo extends ISnowflake
 {
@@ -105,7 +105,7 @@ public interface ApplicationInfo extends ISnowflake
     /**
      * The team information for this application.
      *
-     * @return The {@link net.dv8tion.jda.api.entities.ApplicationTeam}, or null if this application is not in a team.
+     * @return The {@link ApplicationTeam}, or null if this application is not in a team.
      */
     @Nullable
     ApplicationTeam getTeam();
@@ -152,7 +152,7 @@ public interface ApplicationInfo extends ISnowflake
      * <br>Unnecessary query parameters are stripped.
      *
      * @param  permissions
-     *         Possibly empty {@link java.util.Collection Collection} of {@link net.dv8tion.jda.api.Permission Permissions}
+     *         Possibly empty {@link Collection Collection} of {@link Permission Permissions}
      *         that should be requested via invite.
      * 
      * @return The link used to invite the bot
@@ -171,7 +171,7 @@ public interface ApplicationInfo extends ISnowflake
      * <br>Unnecessary query parameters are stripped.
      * 
      * @param  permissions
-     *         {@link net.dv8tion.jda.api.Permission Permissions} that should be requested via invite.
+     *         {@link Permission Permissions} that should be requested via invite.
      * 
      * @return The link used to invite the bot
      */
@@ -191,10 +191,10 @@ public interface ApplicationInfo extends ISnowflake
      * @param  guildId
      *         The id of the pre-selected guild.
      * @param  permissions
-     *         Possibly empty {@link java.util.Collection Collection} of {@link net.dv8tion.jda.api.Permission Permissions}
+     *         Possibly empty {@link Collection Collection} of {@link Permission Permissions}
      *         that should be requested via invite.
      *
-     * @throws java.lang.NumberFormatException
+     * @throws NumberFormatException
      *         If the provided {@code id} cannot be parsed by {@link Long#parseLong(String)}
      * 
      * @return The link used to invite the bot
@@ -212,7 +212,7 @@ public interface ApplicationInfo extends ISnowflake
      * @param  guildId
      *         The id of the pre-selected guild.
      * @param  permissions
-     *         Possibly empty {@link java.util.Collection Collection} of {@link net.dv8tion.jda.api.Permission Permissions}
+     *         Possibly empty {@link Collection Collection} of {@link Permission Permissions}
      *         that should be requested via invite.
      *
      * @return The link used to invite the bot
@@ -233,10 +233,10 @@ public interface ApplicationInfo extends ISnowflake
      * @param  guildId 
      *         The id of the pre-selected guild.
      * @param  permissions 
-     *         Possibly empty array of {@link net.dv8tion.jda.api.Permission Permissions}
+     *         Possibly empty array of {@link Permission Permissions}
      *         that should be requested via invite.
      *
-     * @throws java.lang.NumberFormatException
+     * @throws NumberFormatException
      *         If the provided {@code id} cannot be parsed by {@link Long#parseLong(String)}
      * 
      * @return The link used to invite the bot
@@ -257,7 +257,7 @@ public interface ApplicationInfo extends ISnowflake
      * @param  guildId
      *         The id of the pre-selected guild.
      * @param  permissions
-     *         Possibly empty array of {@link net.dv8tion.jda.api.Permission Permissions}
+     *         Possibly empty array of {@link Permission Permissions}
      *         that should be requested via invite.
      *
      * @return The link used to invite the bot
@@ -269,7 +269,7 @@ public interface ApplicationInfo extends ISnowflake
     }
 
     /**
-     * The {@link net.dv8tion.jda.api.JDA JDA} instance of this ApplicationInfo
+     * The {@link JDA JDA} instance of this ApplicationInfo
      * (the one logged into this application's bot account).
      * 
      * @return The JDA instance of this ApplicationInfo
@@ -303,7 +303,7 @@ public interface ApplicationInfo extends ISnowflake
     boolean isBotPublic();
 
     /**
-     * A {@link java.util.List} containing the tags of this bot's application.
+     * A {@link List} containing the tags of this bot's application.
      *
      * <p>This List is empty if no tags are set in the <a href="https://discord.com/developers/applications" target="_blank">Developer Portal</a>.
      *
@@ -323,7 +323,7 @@ public interface ApplicationInfo extends ISnowflake
     String getCustomAuthorizationUrl();
 
     /**
-     * A {@link java.util.List} of scopes the default authorization URL is set up with.
+     * A {@link List} of scopes the default authorization URL is set up with.
      *
      * <p>This List is empty if you set a custom URL in the <a href="https://discord.com/developers/applications" target="_blank">Developer Portal</a>.
      *
@@ -333,7 +333,7 @@ public interface ApplicationInfo extends ISnowflake
     List<String> getScopes();
 
     /**
-     * An {@link java.util.EnumSet} of permissions the default authorization URL is set up with.
+     * An {@link EnumSet} of permissions the default authorization URL is set up with.
      *
      * <p>This is empty if you set a custom URL in the <a href="https://discord.com/developers/applications" target="_blank">Developer Portal</a>.
      *

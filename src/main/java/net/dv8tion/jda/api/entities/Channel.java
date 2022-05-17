@@ -39,7 +39,7 @@ public interface Channel extends IMentionable
     String getName();
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.ChannelType ChannelType} for this channel
+     * The {@link ChannelType ChannelType} for this channel
      *
      * @return The channel type
      */
@@ -47,7 +47,7 @@ public interface Channel extends IMentionable
     ChannelType getType();
 
     /**
-     * Returns the {@link net.dv8tion.jda.api.JDA JDA} instance of this channel
+     * Returns the {@link JDA JDA} instance of this channel
      *
      * @return the corresponding JDA instance
      */
@@ -64,7 +64,7 @@ public interface Channel extends IMentionable
      *     <br>If this channel was already deleted</li>
      * </ul>
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction}
+     * @return {@link RestAction RestAction}
      */
     @Nonnull
     @CheckReturnValue

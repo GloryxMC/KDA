@@ -52,12 +52,12 @@ public interface Activity
      * Whether this is a <a href="https://discord.com/developers/docs/rich-presence/best-practices" target="_blank">Rich Presence</a>
      * <br>If {@code false} the result of {@link #asRichPresence()} is {@code null}
      *
-     * @return {@code true} if this is a {@link net.dv8tion.jda.api.entities.RichPresence RichPresence}
+     * @return {@code true} if this is a {@link RichPresence RichPresence}
      */
     boolean isRich();
 
     /**
-     * {@link net.dv8tion.jda.api.entities.RichPresence RichPresence} representation of
+     * {@link RichPresence RichPresence} representation of
      * this Activity.
      *
      * @return RichPresence or {@code null} if {@link #isRich()} returns {@code false}
@@ -86,7 +86,7 @@ public interface Activity
     /**
      * The type of {@link Activity Activity}.
      *
-     * @return Never-null {@link net.dv8tion.jda.api.entities.Activity.ActivityType ActivityType} representing the type of Activity
+     * @return Never-null {@link ActivityType ActivityType} representing the type of Activity
      */
     @Nonnull
     ActivityType getType();
@@ -94,7 +94,7 @@ public interface Activity
     /**
      * Information on the match duration, start, and end.
      *
-     * @return {@link net.dv8tion.jda.api.entities.Activity.Timestamps Timestamps} wrapper of {@code null} if unset
+     * @return {@link Timestamps Timestamps} wrapper of {@code null} if unset
      */
     @Nullable
     Timestamps getTimestamps();
@@ -118,7 +118,7 @@ public interface Activity
      * @throws IllegalArgumentException
      *         if the specified name is null, empty, blank or longer than 128 characters
      *
-     * @return A valid Activity instance with the provided name with {@link net.dv8tion.jda.api.entities.Activity.ActivityType#PLAYING}
+     * @return A valid Activity instance with the provided name with {@link ActivityType#PLAYING}
      */
     @Nonnull
     static Activity playing(@Nonnull String name)
@@ -170,7 +170,7 @@ public interface Activity
      * @throws IllegalArgumentException
      *         if the specified name is null, empty, blank or longer than 128 characters
      *
-     * @return A valid Activity instance with the provided name with {@link net.dv8tion.jda.api.entities.Activity.ActivityType#LISTENING}
+     * @return A valid Activity instance with the provided name with {@link ActivityType#LISTENING}
      */
     @Nonnull
     static Activity listening(@Nonnull String name)
@@ -191,7 +191,7 @@ public interface Activity
      * @throws IllegalArgumentException
      *         if the specified name is null, empty, blank or longer than 128 characters
      *
-     * @return A valid Activity instance with the provided name with {@link net.dv8tion.jda.api.entities.Activity.ActivityType#WATCHING}
+     * @return A valid Activity instance with the provided name with {@link ActivityType#WATCHING}
      *
      * @incubating This feature is not yet confirmed for the official bot API
      */
@@ -215,7 +215,7 @@ public interface Activity
      * @throws IllegalArgumentException
      *         If the specified name is null, empty, blank or longer than 128 characters
      * 
-     * @return A valid Activity instance with the provided name with {@link net.dv8tion.jda.api.entities.Activity.ActivityType#COMPETING}
+     * @return A valid Activity instance with the provided name with {@link ActivityType#COMPETING}
      *
      * @since  4.2.1
      */
@@ -232,7 +232,7 @@ public interface Activity
      * Creates a new Activity instance with the specified name.
      *
      * @param  type
-     *         The {@link net.dv8tion.jda.api.entities.Activity.ActivityType ActivityType} to use
+     *         The {@link ActivityType ActivityType} to use
      * @param  name
      *         The not-null name of the newly created game
      *
@@ -252,11 +252,11 @@ public interface Activity
 
     /**
      * Creates a new Activity instance with the specified name and url.
-     * <br>The provided url would only be used for {@link net.dv8tion.jda.api.entities.Activity.ActivityType#STREAMING ActivityType.STREAMING}
+     * <br>The provided url would only be used for {@link ActivityType#STREAMING ActivityType.STREAMING}
      * and should be a twitch url.
      *
      * @param  type
-     *         The {@link net.dv8tion.jda.api.entities.Activity.ActivityType ActivityType} to use
+     *         The {@link ActivityType ActivityType} to use
      * @param  name
      *         The not-null name of the newly created game
      * @param  url
@@ -461,7 +461,7 @@ public interface Activity
          * <br>If {@link #getEndTime()} is {@code null} this will be negative.
          *
          * @param  unit
-         *         The {@link java.time.temporal.TemporalUnit TemporalUnit} to return
+         *         The {@link TemporalUnit TemporalUnit} to return
          *
          * @throws IllegalArgumentException
          *         If the provided unit is {@code null}
@@ -472,10 +472,10 @@ public interface Activity
          * @throws java.time.temporal.UnsupportedTemporalTypeException
          *         If the provided unit is not supported
          *
-         * @return Remaining time in the provided {@link java.time.temporal.TemporalUnit TemporalUnit} or {@code -1} if unset
+         * @return Remaining time in the provided {@link TemporalUnit TemporalUnit} or {@code -1} if unset
          *
-         * @see    java.time.Instant#until(java.time.temporal.Temporal, java.time.temporal.TemporalUnit) Instant.until(Temporal, TemporalUnit)
-         * @see    java.time.temporal.TemporalUnit
+         * @see    Instant#until(java.time.temporal.Temporal, TemporalUnit) Instant.until(Temporal, TemporalUnit)
+         * @see    TemporalUnit
          */
         public long getRemainingTime(TemporalUnit unit)
         {
@@ -489,7 +489,7 @@ public interface Activity
          * <br>If {@link #getStartTime()} is {@code null} this will be negative.
          *
          * @param  unit
-         *         The {@link java.time.temporal.TemporalUnit TemporalUnit} to return
+         *         The {@link TemporalUnit TemporalUnit} to return
          *
          * @throws IllegalArgumentException
          *         If the provided unit is {@code null}
@@ -500,10 +500,10 @@ public interface Activity
          * @throws java.time.temporal.UnsupportedTemporalTypeException
          *         If the provided unit is not supported
          *
-         * @return Elapsed time in the provided {@link java.time.temporal.TemporalUnit TemporalUnit} or {@code -1} if unset
+         * @return Elapsed time in the provided {@link TemporalUnit TemporalUnit} or {@code -1} if unset
          *
-         * @see    java.time.Instant#until(java.time.temporal.Temporal, java.time.temporal.TemporalUnit) Instant.until(Temporal, TemporalUnit)
-         * @see    java.time.temporal.TemporalUnit
+         * @see    Instant#until(java.time.temporal.Temporal, TemporalUnit) Instant.until(Temporal, TemporalUnit)
+         * @see    TemporalUnit
          */
         public long getElapsedTime(TemporalUnit unit)
         {

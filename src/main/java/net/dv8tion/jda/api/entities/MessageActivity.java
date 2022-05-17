@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Represents a {@link net.dv8tion.jda.api.entities.Message} activity.
+ * Represents a {@link Message} activity.
  *
  * @see Message#getActivity()
  */
@@ -39,7 +39,7 @@ public class MessageActivity
     }
 
     /**
-     * The current {@link net.dv8tion.jda.api.entities.MessageActivity.ActivityType ActivityType}
+     * The current {@link ActivityType ActivityType}
      *
      * @return the type of the activity, or {@link ActivityType#UNKNOWN UNKNOWN}
      */
@@ -61,18 +61,18 @@ public class MessageActivity
     }
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.MessageActivity.Application Application} this {@link net.dv8tion.jda.api.entities.MessageActivity MessageActivity} may have.
+     * The {@link Application Application} this {@link MessageActivity MessageActivity} may have.
      *
-     * @return A possibly-null {@link net.dv8tion.jda.api.entities.MessageActivity.Application}
+     * @return A possibly-null {@link Application}
      */
     @Nullable
-    public MessageActivity.Application getApplication()
+    public Application getApplication()
     {
         return application;
     }
 
     /**
-     * Represents the {@link net.dv8tion.jda.api.entities.MessageActivity.Application Application} of a MessageActivity, if it has been set.
+     * Represents the {@link Application Application} of a MessageActivity, if it has been set.
      */
     public static class Application implements ISnowflake
     {
@@ -193,28 +193,28 @@ public class MessageActivity
     }
 
     /**
-     * An enum representing {@link net.dv8tion.jda.api.entities.MessageActivity MessageActivity} types.
+     * An enum representing {@link MessageActivity MessageActivity} types.
      */
     public enum ActivityType
     {
         /**
-         * The {@link net.dv8tion.jda.api.entities.MessageActivity MessageActivity} type used for inviting people to join a game.
+         * The {@link MessageActivity MessageActivity} type used for inviting people to join a game.
          */
         JOIN(1),
         /**
-         * The {@link net.dv8tion.jda.api.entities.MessageActivity MessageActivity} type used for inviting people to spectate a game.
+         * The {@link MessageActivity MessageActivity} type used for inviting people to spectate a game.
          */
         SPECTATE(2),
         /**
-         * The {@link net.dv8tion.jda.api.entities.MessageActivity MessageActivity} type used for inviting people to listen (Spotify) together.
+         * The {@link MessageActivity MessageActivity} type used for inviting people to listen (Spotify) together.
          */
         LISTENING(3),
         /**
-         * The {@link net.dv8tion.jda.api.entities.MessageActivity MessageActivity} type used for requesting to join a game.
+         * The {@link MessageActivity MessageActivity} type used for requesting to join a game.
          */
         JOIN_REQUEST(5),
         /**
-         * Represents any unknown or unsupported {@link net.dv8tion.jda.api.entities.MessageActivity MessageActivity} types.
+         * Represents any unknown or unsupported {@link MessageActivity MessageActivity} types.
          */
         UNKNOWN(-1);
 
@@ -226,7 +226,7 @@ public class MessageActivity
         }
 
         /**
-         * The id of this {@link net.dv8tion.jda.api.entities.MessageActivity.ActivityType ActivityType}.
+         * The id of this {@link ActivityType ActivityType}.
          *
          * @return the id of the type
          */

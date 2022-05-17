@@ -17,7 +17,7 @@ import java.util.List;
  * <br>These are the "<i>normal</i>" message channels that are present in the channel sidebar.
  * These are <b>not</b> {@link ThreadChannel ThreadChannels}.
  *
- * @see net.dv8tion.jda.api.entities.GuildMessageChannel
+ * @see GuildMessageChannel
  * @see TextChannel
  * @see NewsChannel
  */
@@ -45,7 +45,7 @@ public interface BaseGuildMessageChannel extends GuildMessageChannel, IThreadCon
     boolean isNSFW();
 
     /**
-     * Retrieves the {@link net.dv8tion.jda.api.entities.Webhook Webhooks} attached to this TextChannel.
+     * Retrieves the {@link Webhook Webhooks} attached to this TextChannel.
      *
      * <p>Possible ErrorResponses include:
      * <ul>
@@ -56,7 +56,7 @@ public interface BaseGuildMessageChannel extends GuildMessageChannel, IThreadCon
      *     <br>if we were removed from the guild</li>
      * </ul>
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction} - Type: List{@literal <}{@link net.dv8tion.jda.api.entities.Webhook Webhook}{@literal >}
+     * @return {@link RestAction} - Type: List{@literal <}{@link Webhook Webhook}{@literal >}
      *         <br>Retrieved an immutable list of Webhooks attached to this channel
      */
     @Nonnull
@@ -64,10 +64,10 @@ public interface BaseGuildMessageChannel extends GuildMessageChannel, IThreadCon
     RestAction<List<Webhook>> retrieveWebhooks();
 
     /**
-     * Creates a new {@link net.dv8tion.jda.api.entities.Webhook Webhook}.
+     * Creates a new {@link Webhook Webhook}.
      *
      * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} caused by
-     * the returned {@link net.dv8tion.jda.api.requests.RestAction RestAction} include the following:
+     * the returned {@link RestAction RestAction} include the following:
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
      *     <br>The webhook could not be created due to a permission discrepancy</li>
@@ -96,7 +96,7 @@ public interface BaseGuildMessageChannel extends GuildMessageChannel, IThreadCon
     WebhookAction createWebhook(@Nonnull String name);
 
     /**
-     * Deletes a {@link net.dv8tion.jda.api.entities.Webhook Webhook} attached to this channel
+     * Deletes a {@link Webhook Webhook} attached to this channel
      * by the {@code id} specified.
      *
      * <p>Possible ErrorResponses include:
@@ -119,13 +119,13 @@ public interface BaseGuildMessageChannel extends GuildMessageChannel, IThreadCon
      * @param  id
      *         The not-null id for the target Webhook.
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided {@code id} is {@code null} or empty.
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If the currently logged in account does not have
      *         {@link net.dv8tion.jda.api.Permission#MANAGE_WEBHOOKS Permission.MANAGE_WEBHOOKS} in this channel.
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      */
     @Nonnull
     @CheckReturnValue

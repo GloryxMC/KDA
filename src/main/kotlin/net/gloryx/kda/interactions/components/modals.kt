@@ -15,10 +15,9 @@
  */
 
 
-package dev.minn.jda.ktx.interactions.components
+package net.gloryx.kda.interactions.components
 
-import dev.minn.jda.ktx.messages.ComponentAccumulator
-import dev.minn.jda.ktx.messages.Components
+import net.gloryx.kda.*
 import net.dv8tion.jda.api.interactions.callbacks.IModalCallback
 import net.dv8tion.jda.api.interactions.components.ActionRow
 import net.dv8tion.jda.api.interactions.components.LayoutComponent
@@ -26,6 +25,7 @@ import net.dv8tion.jda.api.interactions.components.Modal
 import net.dv8tion.jda.api.interactions.components.text.TextInput
 import net.dv8tion.jda.api.interactions.components.text.TextInputStyle
 import net.dv8tion.jda.api.requests.restaction.interactions.ModalCallbackAction
+import net.gloryx.kda.ComponentAccumulator
 
 /**
  * Send a modal with a kotlin idiomatic builder.
@@ -114,13 +114,13 @@ class InlineModal(val builder: Modal.Builder) {
 
     /** Adds a [TextInput] with [TextInputStyle.PARAGRAPH] to the modal */
     fun paragraph(
-        id: String,
-        label: String,
-        required: Boolean = TextInputDefaults.required,
-        value: String? = TextInputDefaults.value,
-        placeholder: String? = TextInputDefaults.placeholder,
-        requiredLength: IntRange? = TextInputDefaults.requiredLength,
-        builder: TextInput.Builder.() -> Unit = {}
+            id: String,
+            label: String,
+            required: Boolean = TextInputDefaults.required,
+            value: String? = TextInputDefaults.value,
+            placeholder: String? = TextInputDefaults.placeholder,
+            requiredLength: IntRange? = TextInputDefaults.requiredLength,
+            builder: TextInput.Builder.() -> Unit = {}
     ) {
         val text = TextInput.create(id, label, TextInputStyle.PARAGRAPH)
         text.isRequired = required
@@ -134,13 +134,13 @@ class InlineModal(val builder: Modal.Builder) {
 
     /** Adds a [TextInput] with [TextInputStyle.SHORT] to the modal */
     fun short(
-        id: String,
-        label: String,
-        required: Boolean = TextInputDefaults.required,
-        value: String? = TextInputDefaults.value,
-        placeholder: String? = TextInputDefaults.placeholder,
-        requiredLength: IntRange? = TextInputDefaults.requiredLength,
-        builder: TextInput.Builder.() -> Unit = {}
+            id: String,
+            label: String,
+            required: Boolean = TextInputDefaults.required,
+            value: String? = TextInputDefaults.value,
+            placeholder: String? = TextInputDefaults.placeholder,
+            requiredLength: IntRange? = TextInputDefaults.requiredLength,
+            builder: TextInput.Builder.() -> Unit = {}
     ) {
         val text = TextInput.create(id, label, TextInputStyle.SHORT)
         text.isRequired = required

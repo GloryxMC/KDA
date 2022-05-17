@@ -41,7 +41,7 @@ public class TemplateChannel implements ISnowflake
     private final int rawPosition;
     private final long parentId;
     private final boolean isNews;
-    private final List<TemplateChannel.PermissionOverride> permissionOverrides;
+    private final List<PermissionOverride> permissionOverrides;
 
     // text only properties
     private final boolean nsfw;
@@ -52,7 +52,7 @@ public class TemplateChannel implements ISnowflake
     private final int userLimit;
 
     public TemplateChannel(final long id, final ChannelType channelType, final String name, final String topic, final int rawPosition, final long parentId,
-                           final boolean news, final List<TemplateChannel.PermissionOverride> permissionOverrides, final boolean nsfw, final int slowmode,
+                           final boolean news, final List<PermissionOverride> permissionOverrides, final boolean nsfw, final int slowmode,
                            final int bitrate, final int userLimit)
     {
         this.id = id;
@@ -85,7 +85,7 @@ public class TemplateChannel implements ISnowflake
     /**
      * As the ids of channels are their position, the date of creation cannot be calculated.
      *
-     * @throws java.lang.UnsupportedOperationException
+     * @throws UnsupportedOperationException
      *         The date of creation cannot be calculated.
      */
     @Override
@@ -95,7 +95,7 @@ public class TemplateChannel implements ISnowflake
     }
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.ChannelType ChannelType} for this TemplateChannel
+     * The {@link ChannelType ChannelType} for this TemplateChannel
      *
      * @return The channel type
      */
@@ -119,8 +119,8 @@ public class TemplateChannel implements ISnowflake
 
     /**
      * The topic set for this TemplateChannel.
-     * <br>If no topic has been set or the {@link net.dv8tion.jda.api.entities.ChannelType ChannelType}
-     * <b>is not {@link net.dv8tion.jda.api.entities.ChannelType#TEXT TEXT}</b>, this returns {@code null}.
+     * <br>If no topic has been set or the {@link ChannelType ChannelType}
+     * <b>is not {@link ChannelType#TEXT TEXT}</b>, this returns {@code null}.
      *
      * @return Possibly-null String containing the topic of this TemplateChannel.
      */
@@ -131,12 +131,12 @@ public class TemplateChannel implements ISnowflake
     }
 
     /**
-     * The actual position of the {@link net.dv8tion.jda.api.entities.templates.TemplateChannel TemplateChannel} as stored and given by Discord.
+     * The actual position of the {@link TemplateChannel TemplateChannel} as stored and given by Discord.
      * Channel positions are actually based on a pairing of the creation time (as stored in the snowflake id)
      * and the position. If 2 or more channels share the same position then they are sorted based on their creation date.
      * The more recent a channel was created, the lower it is in the hierarchy.
      *
-     * @return The true, Discord stored, position of the {@link net.dv8tion.jda.api.entities.templates.TemplateChannel TemplateChannel}.
+     * @return The true, Discord stored, position of the {@link TemplateChannel TemplateChannel}.
      */
     public int getPositionRaw()
     {
@@ -157,8 +157,8 @@ public class TemplateChannel implements ISnowflake
 
     /**
      * Whether or not this channel is considered as "NSFW" (Not-Safe-For-Work).
-     * <br>If the {@link net.dv8tion.jda.api.entities.ChannelType ChannelType}
-     * <b>is not {@link net.dv8tion.jda.api.entities.ChannelType#TEXT TEXT}</b>, this returns {@code false}.
+     * <br>If the {@link ChannelType ChannelType}
+     * <b>is not {@link ChannelType#TEXT TEXT}</b>, this returns {@code false}.
      *
      * @return Whether this TextChannel is considered NSFW or {@code false} if the channel is not a text channel
      */
@@ -173,8 +173,8 @@ public class TemplateChannel implements ISnowflake
      * <br>If not set this returns {@code 0}.
      *
      * <p>Note bots are unaffected by this.
-     * <br>Having {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE MESSAGE_MANAGE} or
-     * {@link net.dv8tion.jda.api.Permission#MANAGE_CHANNEL MANAGE_CHANNEL} permission also
+     * <br>Having {@link Permission#MESSAGE_MANAGE MESSAGE_MANAGE} or
+     * {@link Permission#MANAGE_CHANNEL MANAGE_CHANNEL} permission also
      * grants immunity to slowmode.
      *
      * @return The slowmode for this TextChannel, between 1 and {@link net.dv8tion.jda.api.entities.TextChannel#MAX_SLOWMODE TextChannel.MAX_SLOWMODE}, {@code 0} if no slowmode is set.
@@ -221,21 +221,21 @@ public class TemplateChannel implements ISnowflake
     }
 
     /**
-     * Gets all of the {@link net.dv8tion.jda.api.entities.templates.TemplateChannel.PermissionOverride PermissionOverrides} that are part
-     * of this {@link net.dv8tion.jda.api.entities.templates.TemplateChannel TemplateChannel}.
-     * <br><b>This will only contain {@link net.dv8tion.jda.api.entities.templates.TemplateRole Role} overrides.</b>
+     * Gets all of the {@link PermissionOverride PermissionOverrides} that are part
+     * of this {@link TemplateChannel TemplateChannel}.
+     * <br><b>This will only contain {@link TemplateRole Role} overrides.</b>
      *
-     * @return Immutable list of all {@link net.dv8tion.jda.api.entities.templates.TemplateChannel.PermissionOverride PermissionOverrides}
-     *         for this {@link net.dv8tion.jda.api.entities.templates.TemplateChannel TemplateChannel}.
+     * @return Immutable list of all {@link PermissionOverride PermissionOverrides}
+     *         for this {@link TemplateChannel TemplateChannel}.
      */
     @Nonnull
-    public List<TemplateChannel.PermissionOverride> getPermissionOverrides()
+    public List<PermissionOverride> getPermissionOverrides()
     {
         return this.permissionOverrides;
     }
 
     /**
-     * Represents the specific {@link net.dv8tion.jda.api.entities.templates.TemplateRole Role}
+     * Represents the specific {@link TemplateRole Role}
      * permission overrides that can be set for channels.
      *
      * @see TemplateChannel#getPermissionOverrides()
@@ -255,7 +255,7 @@ public class TemplateChannel implements ISnowflake
 
         /**
          * This is the raw binary representation (as a base 10 long) of the permissions <b>allowed</b> by this override.
-         * <br>The long relates to the offsets used by each {@link net.dv8tion.jda.api.Permission Permission}.
+         * <br>The long relates to the offsets used by each {@link Permission Permission}.
          *
          * @return Never-negative long containing the binary representation of the allowed permissions of this override.
          */
@@ -266,7 +266,7 @@ public class TemplateChannel implements ISnowflake
 
         /**
          * This is the raw binary representation (as a base 10 long) of the permissions <b>not affected</b> by this override.
-         * <br>The long relates to the offsets used by each {@link net.dv8tion.jda.api.Permission Permission}.
+         * <br>The long relates to the offsets used by each {@link Permission Permission}.
          *
          * @return Never-negative long containing the binary representation of the unaffected permissions of this override.
          */
@@ -277,7 +277,7 @@ public class TemplateChannel implements ISnowflake
 
         /**
          * This is the raw binary representation (as a base 10 long) of the permissions <b>denied</b> by this override.
-         * <br>The long relates to the offsets used by each {@link net.dv8tion.jda.api.Permission Permission}.
+         * <br>The long relates to the offsets used by each {@link Permission Permission}.
          *
          * @return Never-negative long containing the binary representation of the denied permissions of this override.
          */
@@ -287,10 +287,10 @@ public class TemplateChannel implements ISnowflake
         }
 
         /**
-         * EnumSet of all {@link net.dv8tion.jda.api.Permission Permissions} that are specifically allowed by this override.
+         * EnumSet of all {@link Permission Permissions} that are specifically allowed by this override.
          * <br><u>Changes to the returned set do not affect this entity directly.</u>
          *
-         * @return Possibly-empty set of allowed {@link net.dv8tion.jda.api.Permission Permissions}.
+         * @return Possibly-empty set of allowed {@link Permission Permissions}.
          */
         @Nonnull
         public EnumSet<Permission> getAllowed()
@@ -299,10 +299,10 @@ public class TemplateChannel implements ISnowflake
         }
 
         /**
-         * EnumSet of all {@link net.dv8tion.jda.api.Permission Permission} that are unaffected by this override.
+         * EnumSet of all {@link Permission Permission} that are unaffected by this override.
          * <br><u>Changes to the returned set do not affect this entity directly.</u>
          *
-         * @return Possibly-empty set of unaffected {@link net.dv8tion.jda.api.Permission Permissions}.
+         * @return Possibly-empty set of unaffected {@link Permission Permissions}.
          */
         @Nonnull
         public EnumSet<Permission> getInherit()
@@ -311,10 +311,10 @@ public class TemplateChannel implements ISnowflake
         }
 
         /**
-         * EnumSet of all {@link net.dv8tion.jda.api.Permission Permissions} that are denied by this override.
+         * EnumSet of all {@link Permission Permissions} that are denied by this override.
          * <br><u>Changes to the returned set do not affect this entity directly.</u>
          *
-         * @return Possibly-empty set of denied {@link net.dv8tion.jda.api.Permission Permissions}.
+         * @return Possibly-empty set of denied {@link Permission Permissions}.
          */
         @Nonnull
         public EnumSet<Permission> getDenied()
@@ -336,7 +336,7 @@ public class TemplateChannel implements ISnowflake
         /**
          * As the ids of roles are their position, the date of creation cannot be calculated.
          *
-         * @throws java.lang.UnsupportedOperationException
+         * @throws UnsupportedOperationException
          *         The date of creation cannot be calculated.
          */
         @Override

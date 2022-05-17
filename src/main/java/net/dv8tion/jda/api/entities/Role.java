@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 import java.awt.*;
 
 /**
- * Represents a {@link net.dv8tion.jda.api.entities.Guild Guild}'s Role. Used to control permissions for Members.
+ * Represents a {@link Guild Guild}'s Role. Used to control permissions for Members.
  *
  * @see Guild#getRoleCache()
  * @see Guild#getRoleById(long)
@@ -45,49 +45,49 @@ public interface Role extends IMentionable, IPermissionHolder, Comparable<Role>
     int DEFAULT_COLOR_RAW = 0x1FFFFFFF; // java.awt.Color fills the MSB with FF, we just use 1F to provide better consistency
 
     /**
-     * The hierarchical position of this {@link net.dv8tion.jda.api.entities.Role Role}
-     * in the {@link net.dv8tion.jda.api.entities.Guild Guild} hierarchy. (higher value means higher role).
-     * <br>The {@link net.dv8tion.jda.api.entities.Guild#getPublicRole()}'s getPosition() always returns -1.
+     * The hierarchical position of this {@link Role Role}
+     * in the {@link Guild Guild} hierarchy. (higher value means higher role).
+     * <br>The {@link Guild#getPublicRole()}'s getPosition() always returns -1.
      *
      * @throws IllegalStateException
      *         If this role is not in the guild cache
      *
-     * @return The position of this {@link net.dv8tion.jda.api.entities.Role Role} as integer.
+     * @return The position of this {@link Role Role} as integer.
      */
     int getPosition();
 
     /**
-     * The actual position of the {@link net.dv8tion.jda.api.entities.Role Role} as stored and given by Discord.
+     * The actual position of the {@link Role Role} as stored and given by Discord.
      * <br>Role positions are actually based on a pairing of the creation time (as stored in the snowflake id)
      * and the position. If 2 or more roles share the same position then they are sorted based on their creation date.
      * <br>The more recent a role was created, the lower it is in the hierarchy. This is handled by {@link #getPosition()}
      * and it is most likely the method you want. If, for some reason, you want the actual position of the
      * Role then this method will give you that value.
      *
-     * @return The true, Discord stored, position of the {@link net.dv8tion.jda.api.entities.Role Role}.
+     * @return The true, Discord stored, position of the {@link Role Role}.
      */
     int getPositionRaw();
 
     /**
-     * The Name of this {@link net.dv8tion.jda.api.entities.Role Role}.
+     * The Name of this {@link Role Role}.
      *
-     * @return Never-null String containing the name of this {@link net.dv8tion.jda.api.entities.Role Role}.
+     * @return Never-null String containing the name of this {@link Role Role}.
      */
     @Nonnull
     String getName();
 
     /**
-     * Whether this {@link net.dv8tion.jda.api.entities.Role Role} is managed by an integration
+     * Whether this {@link Role Role} is managed by an integration
      *
-     * @return True, if this {@link net.dv8tion.jda.api.entities.Role Role} is managed.
+     * @return True, if this {@link Role Role} is managed.
      */
     boolean isManaged();
 
     /**
-     * Whether this {@link net.dv8tion.jda.api.entities.Role Role} is hoisted
+     * Whether this {@link Role Role} is hoisted
      * <br>Members in a hoisted role are displayed in their own grouping on the user-list
      *
-     * @return True, if this {@link net.dv8tion.jda.api.entities.Role Role} is hoisted.
+     * @return True, if this {@link Role Role} is hoisted.
      */
     boolean isHoisted();
 
@@ -99,7 +99,7 @@ public interface Role extends IMentionable, IPermissionHolder, Comparable<Role>
     boolean isMentionable();
 
     /**
-     * The {@code long} representation of the literal permissions that this {@link net.dv8tion.jda.api.entities.Role Role} has.
+     * The {@code long} representation of the literal permissions that this {@link Role Role} has.
      * <br><b>NOTE:</b> these do not necessarily represent the permissions this role will have in a {@link GuildChannel GuildChannel}.
      *
      * @return Never-negative long containing offset permissions of this role.
@@ -107,7 +107,7 @@ public interface Role extends IMentionable, IPermissionHolder, Comparable<Role>
     long getPermissionsRaw();
 
     /**
-     * The color this {@link net.dv8tion.jda.api.entities.Role Role} is displayed in.
+     * The color this {@link Role Role} is displayed in.
      *
      * @return Color value of Role-color
      *
@@ -125,13 +125,13 @@ public interface Role extends IMentionable, IPermissionHolder, Comparable<Role>
     int getColorRaw();
 
     /**
-     * Whether this role is the @everyone role for its {@link net.dv8tion.jda.api.entities.Guild Guild},
-     * which is assigned to everyone who joins the {@link net.dv8tion.jda.api.entities.Guild Guild}.
+     * Whether this role is the @everyone role for its {@link Guild Guild},
+     * which is assigned to everyone who joins the {@link Guild Guild}.
      *
-     * @return True, if and only if this {@link net.dv8tion.jda.api.entities.Role Role} is the public role
-     * for the {@link net.dv8tion.jda.api.entities.Guild Guild} provided by {@link #getGuild()}.
+     * @return True, if and only if this {@link Role Role} is the public role
+     * for the {@link Guild Guild} provided by {@link #getGuild()}.
      *
-     * @see net.dv8tion.jda.api.entities.Guild#getPublicRole()
+     * @see Guild#getPublicRole()
      */
     boolean isPublicRole();
 
@@ -143,14 +143,14 @@ public interface Role extends IMentionable, IPermissionHolder, Comparable<Role>
      *         The not-null role to compare to
      *
      * @throws IllegalArgumentException
-     *         if the provided Role is null or not from the same {@link net.dv8tion.jda.api.entities.Guild Guild}
+     *         if the provided Role is null or not from the same {@link Guild Guild}
      *
      * @return True, if this role can interact with the specified role
      */
     boolean canInteract(@Nonnull Role role);
 
     /**
-     * Returns the {@link net.dv8tion.jda.api.entities.Guild Guild} this Role exists in
+     * Returns the {@link Guild Guild} this Role exists in
      *
      * @return the Guild containing this Role
      */
@@ -158,14 +158,14 @@ public interface Role extends IMentionable, IPermissionHolder, Comparable<Role>
     Guild getGuild();
 
     /**
-     * Creates a new {@link net.dv8tion.jda.api.entities.Role Role} in the specified {@link net.dv8tion.jda.api.entities.Guild Guild}
-     * with the same settings as the given {@link net.dv8tion.jda.api.entities.Role Role}.
+     * Creates a new {@link Role Role} in the specified {@link Guild Guild}
+     * with the same settings as the given {@link Role Role}.
      * <br>The position of the specified Role does not matter in this case!
      * <br><b>If this {@link Role} has an {@link RoleIcon Icon} set, only its emoji can be copied over.</b>
      *
      * <p>It will be placed at the bottom (just over the Public Role) to avoid permission hierarchy conflicts.
      * <br>For this to be successful, the logged in account has to have the {@link net.dv8tion.jda.api.Permission#MANAGE_ROLES MANAGE_ROLES} Permission
-     * and all {@link net.dv8tion.jda.api.Permission Permissions} the given {@link net.dv8tion.jda.api.entities.Role Role} has.
+     * and all {@link net.dv8tion.jda.api.Permission Permissions} the given {@link Role Role} has.
      *
      * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} caused by
      * the returned {@link net.dv8tion.jda.api.requests.RestAction RestAction} include the following:
@@ -178,29 +178,29 @@ public interface Role extends IMentionable, IPermissionHolder, Comparable<Role>
      * </ul>
      *
      * @param  guild
-     *         The {@link net.dv8tion.jda.api.entities.Role Role} that should be copied
+     *         The {@link Role Role} that should be copied
      *
      * @throws net.dv8tion.jda.api.exceptions.PermissionException
      *         If the logged in account does not have the {@link net.dv8tion.jda.api.Permission#MANAGE_ROLES} Permission and every Permission the provided Role has
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the specified guild is {@code null}
      *
      * @return {@link RoleAction RoleAction}
-     *         <br>RoleAction with already copied values from the specified {@link net.dv8tion.jda.api.entities.Role Role}
+     *         <br>RoleAction with already copied values from the specified {@link Role Role}
      */
     @Nonnull
     @CheckReturnValue
     RoleAction createCopy(@Nonnull Guild guild);
 
     /**
-     * Creates a new {@link net.dv8tion.jda.api.entities.Role Role} in this {@link net.dv8tion.jda.api.entities.Guild Guild}
-     * with the same settings as the given {@link net.dv8tion.jda.api.entities.Role Role}.
+     * Creates a new {@link Role Role} in this {@link Guild Guild}
+     * with the same settings as the given {@link Role Role}.
      * <br>The position of the specified Role does not matter in this case!
      * <br><b>If this {@link Role} has an {@link RoleIcon Icon} set, only its emoji can be copied over.</b>
      *
      * <p>It will be placed at the bottom (just over the Public Role) to avoid permission hierarchy conflicts.
      * <br>For this to be successful, the logged in account has to have the {@link net.dv8tion.jda.api.Permission#MANAGE_ROLES MANAGE_ROLES} Permission
-     * and all {@link net.dv8tion.jda.api.Permission Permissions} the given {@link net.dv8tion.jda.api.entities.Role Role} has.
+     * and all {@link net.dv8tion.jda.api.Permission Permissions} the given {@link Role Role} has.
      *
      * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} caused by
      * the returned {@link net.dv8tion.jda.api.requests.RestAction RestAction} include the following:
@@ -216,7 +216,7 @@ public interface Role extends IMentionable, IPermissionHolder, Comparable<Role>
      *         If the logged in account does not have the {@link net.dv8tion.jda.api.Permission#MANAGE_ROLES} Permission and every Permission the provided Role has
      *
      * @return {@link RoleAction RoleAction}
-     *         <br>RoleAction with already copied values from the specified {@link net.dv8tion.jda.api.entities.Role Role}
+     *         <br>RoleAction with already copied values from the specified {@link Role Role}
      */
     @Nonnull
     @CheckReturnValue
@@ -271,7 +271,7 @@ public interface Role extends IMentionable, IPermissionHolder, Comparable<Role>
     AuditableRestAction<Void> delete();
 
     /**
-     * Returns the {@link net.dv8tion.jda.api.JDA JDA} instance of this Role
+     * Returns the {@link JDA JDA} instance of this Role
      *
      * @return the corresponding JDA instance
      */
@@ -282,7 +282,7 @@ public interface Role extends IMentionable, IPermissionHolder, Comparable<Role>
      * The tags of this role.
      * <br>This is useful to determine the purpose of a managed role.
      *
-     * <p>This requires {@link net.dv8tion.jda.api.utils.cache.CacheFlag#ROLE_TAGS CacheFlag.ROLE_TAGS}
+     * <p>This requires {@link CacheFlag#ROLE_TAGS CacheFlag.ROLE_TAGS}
      * to be enabled.
      * See {@link net.dv8tion.jda.api.JDABuilder#enableCache(CacheFlag, CacheFlag...) JDABuilder.enableCache(...)}.
      *

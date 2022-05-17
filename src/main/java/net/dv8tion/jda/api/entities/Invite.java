@@ -46,7 +46,7 @@ import java.util.Set;
 public interface Invite
 {
     /**
-     * Retrieves a new {@link net.dv8tion.jda.api.entities.Invite Invite} instance for the given invite code.
+     * Retrieves a new {@link Invite Invite} instance for the given invite code.
      * <br><b>You cannot resolve invites if you were banned from the origin Guild!</b>
      *
      * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} include:
@@ -60,7 +60,7 @@ public interface Invite
      * @param  code
      *         A valid invite code
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: {@link net.dv8tion.jda.api.entities.Invite Invite}
+     * @return {@link RestAction RestAction} - Type: {@link Invite Invite}
      *         <br>The Invite object
      */
     @Nonnull
@@ -70,7 +70,7 @@ public interface Invite
     }
     
     /**
-     * Retrieves a new {@link net.dv8tion.jda.api.entities.Invite Invite} instance for the given invite code.
+     * Retrieves a new {@link Invite Invite} instance for the given invite code.
      * <br><b>You cannot resolve invites if you were banned from the origin Guild!</b>
      *
      * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} include:
@@ -86,7 +86,7 @@ public interface Invite
      * @param  withCounts
      *         Whether or not to include online and member counts for guild invites or users for group invites
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: {@link net.dv8tion.jda.api.entities.Invite Invite}
+     * @return {@link RestAction RestAction} - Type: {@link Invite Invite}
      *         <br>The Invite object
      */
     @Nonnull
@@ -103,15 +103,15 @@ public interface Invite
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         if the account does not have {@link net.dv8tion.jda.api.Permission#MANAGE_SERVER MANAGE_SERVER} in the invite's channel
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      */
     @Nonnull
     @CheckReturnValue
     AuditableRestAction<Void> delete();
 
     /**
-     * Tries to retrieve a new expanded {@link net.dv8tion.jda.api.entities.Invite Invite} with more info.
-     * <br>As bots can't be in groups this is only available for guild invites and will throw an {@link java.lang.IllegalStateException IllegalStateException}
+     * Tries to retrieve a new expanded {@link Invite Invite} with more info.
+     * <br>As bots can't be in groups this is only available for guild invites and will throw an {@link IllegalStateException IllegalStateException}
      * for other types.
      * <br>Requires either {@link net.dv8tion.jda.api.Permission#MANAGE_SERVER MANAGE_SERVER} in the invite's guild or
      * {@link net.dv8tion.jda.api.Permission#MANAGE_CHANNEL MANAGE_CHANNEL} in the invite's channel.
@@ -120,10 +120,10 @@ public interface Invite
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         if the account neither has {@link net.dv8tion.jda.api.Permission#MANAGE_SERVER MANAGE_SERVER} in the invite's guild nor
      *         {@link net.dv8tion.jda.api.Permission#MANAGE_CHANNEL MANAGE_CHANNEL} in the invite's channel
-     * @throws java.lang.IllegalStateException
+     * @throws IllegalStateException
      *         If this is a group invite
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: {@link net.dv8tion.jda.api.entities.Invite Invite}
+     * @return {@link RestAction RestAction} - Type: {@link Invite Invite}
      *         <br>The expanded Invite object
      *
      * @see    #getType()
@@ -139,48 +139,48 @@ public interface Invite
      * @return The invite's type
      */
     @Nonnull
-    Invite.InviteType getType();
+    InviteType getType();
 
     /**
      * The target type of this invite or {@link TargetType#NONE} if this invite does not have a {@link #getTarget() InviteTarget}.
      *
      * @return The invite's target type or {@link TargetType#NONE}
      *
-     * @see    Invite.TargetType
+     * @see    TargetType
      */
     @Nonnull
-    Invite.TargetType getTargetType();
+    TargetType getTargetType();
 
     /**
-     * An {@link net.dv8tion.jda.api.entities.Invite.Channel Invite.Channel} object
+     * An {@link Channel Invite.Channel} object
      * containing information about this invite's origin channel.
      *
      * @return Information about this invite's origin channel or null in case of a group invite
      * 
-     * @see    net.dv8tion.jda.api.entities.Invite.Channel
+     * @see    Channel
      */
     @Nullable
     Channel getChannel();
 
     /**
-     * An {@link net.dv8tion.jda.api.entities.Invite.Group Invite.Group} object
+     * An {@link Group Invite.Group} object
      * containing information about this invite's origin group.
      *
      * @return Information about this invite's origin group or null in case of a guild invite
      *
-     * @see    net.dv8tion.jda.api.entities.Invite.Group
+     * @see    Group
      */
     @Nullable
     Group getGroup();
 
     /**
-     * An {@link Invite.InviteTarget Invite.InviteTarget} object
+     * An {@link InviteTarget Invite.InviteTarget} object
      * containing information about this invite's target or {@code null}
      * if this invite does not have a target.
      *
      * @return Information about this invite's target or {@code null}
      *
-     * @see    net.dv8tion.jda.api.entities.Invite.InviteTarget
+     * @see    InviteTarget
      */
     @Nullable
     InviteTarget getTarget();
@@ -206,12 +206,12 @@ public interface Invite
     }
 
     /**
-     * An {@link net.dv8tion.jda.api.entities.Invite.Guild Invite.Guild} object
+     * An {@link Guild Invite.Guild} object
      * containing information about this invite's origin guild.
      *
      * @return Information about this invite's origin guild or null in case of a group invite
      * 
-     * @see    net.dv8tion.jda.api.entities.Invite.Guild
+     * @see    Guild
      */
     @Nullable
     Guild getGuild();
@@ -225,7 +225,7 @@ public interface Invite
     User getInviter();
 
     /**
-     * The {@link net.dv8tion.jda.api.JDA JDA} instance used to create this Invite
+     * The {@link JDA JDA} instance used to create this Invite
      *
      * @return the corresponding JDA instance
      */
@@ -339,8 +339,8 @@ public interface Invite
         String getName();
 
         /**
-         * The {@link net.dv8tion.jda.api.entities.ChannelType ChannelType} of this channel.
-         * <br>Valid values are only {@link net.dv8tion.jda.api.entities.ChannelType#TEXT TEXT} or {@link net.dv8tion.jda.api.entities.ChannelType#VOICE VOICE}
+         * The {@link ChannelType ChannelType} of this channel.
+         * <br>Valid values are only {@link ChannelType#TEXT TEXT} or {@link ChannelType#VOICE VOICE}
          *
          * @return The channel's type
          */
@@ -432,7 +432,7 @@ public interface Invite
         }
         
         /**
-         * Returns the {@link net.dv8tion.jda.api.entities.Guild.VerificationLevel VerificationLevel} of this guild.
+         * Returns the {@link VerificationLevel VerificationLevel} of this guild.
          * 
          * @return the verification level of the guild
          */
@@ -442,7 +442,7 @@ public interface Invite
         /**
          * Returns the approximate count of online members in the guild. If the online member count was not included in the
          * invite, this will return -1. Counts will usually only be returned when resolving the invite via the 
-         * {@link #resolve(net.dv8tion.jda.api.JDA, java.lang.String, boolean) Invite.resolve()} method with the
+         * {@link #resolve(JDA, String, boolean) Invite.resolve()} method with the
          * withCounts boolean set to {@code true}
          * 
          * @return the approximate count of online members in the guild, or -1 if not present in the invite
@@ -452,7 +452,7 @@ public interface Invite
         /**
          * Returns the approximate count of total members in the guild. If the total member count was not included in the
          * invite, this will return -1. Counts will usually only be returned when resolving the invite via the 
-         * {@link #resolve(net.dv8tion.jda.api.JDA, java.lang.String, boolean) Invite.resolve()} method with the
+         * {@link #resolve(JDA, String, boolean) Invite.resolve()} method with the
          * withCounts boolean set to {@code true}
          * 
          * @return the approximate count of total members in the guild, or -1 if not present in the invite
@@ -460,7 +460,7 @@ public interface Invite
         int getMemberCount();
 
         /**
-         * The Features of the {@link net.dv8tion.jda.api.entities.Invite.Guild Guild}.
+         * The Features of the {@link Guild Guild}.
          * <p>
          * <b>Possible known features:</b>
          * <ul>
@@ -529,7 +529,7 @@ public interface Invite
         /**
          * The names of all users in this group. If the users were not included in the
          * invite, this will return {@code null}. Users will only be returned when resolving the invite via the
-         * {@link #resolve(net.dv8tion.jda.api.JDA, java.lang.String, boolean) Invite.resolve()} method with the
+         * {@link #resolve(JDA, String, boolean) Invite.resolve()} method with the
          * {@code withCounts} boolean set to {@code true}.
          *
          * @return The names of the group's users or null if not preset in the invite
@@ -580,7 +580,7 @@ public interface Invite
          *
          * @return The target user of this invite
          *
-         * @see    net.dv8tion.jda.api.entities.User
+         * @see    User
          */
         @Nullable
         User getUser();
@@ -590,7 +590,7 @@ public interface Invite
          *
          * @return The target application of this invite
          *
-         * @see    net.dv8tion.jda.api.entities.Invite.EmbeddedApplication
+         * @see    EmbeddedApplication
          */
         @Nullable
         EmbeddedApplication getApplication();

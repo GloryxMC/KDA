@@ -98,7 +98,7 @@ public interface Webhook extends ISnowflake
     boolean isPartial();
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.Guild Guild} instance
+     * The {@link Guild Guild} instance
      * for this Webhook.
      * <br>This is a shortcut for <code>{@link #getChannel()}.getGuild()</code>.
      *
@@ -111,7 +111,7 @@ public interface Webhook extends ISnowflake
     Guild getGuild();
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.BaseGuildMessageChannel BaseGuildMessageChannel} instance this Webhook is attached to.
+     * The {@link BaseGuildMessageChannel BaseGuildMessageChannel} instance this Webhook is attached to.
      *
      * @throws IllegalStateException
      *         If this webhooks {@link #isPartial() is partial}
@@ -126,7 +126,7 @@ public interface Webhook extends ISnowflake
      * The owner of this Webhook. This will be null for some Webhooks, such as those retrieved from Audit Logs.
      * <br>This requires the member to be cached. You can use {@link #getOwnerAsUser()} to get a reference to the user instead.
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.Member Member} instance
+     * @return Possibly-null {@link Member Member} instance
      *         representing the owner of this Webhook.
      */
     @Nullable
@@ -136,7 +136,7 @@ public interface Webhook extends ISnowflake
      * The owner of this Webhook. This will be null for some Webhooks, such as those retrieved from Audit Logs.
      * <br>This can be non-null even when {@link #getOwner()} is null. {@link #getOwner()} requires the webhook to be local to this shard and in cache.
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.User User} instance
+     * @return Possibly-null {@link User User} instance
      *         representing the owner of this Webhook.
      */
     @Nullable
@@ -145,14 +145,14 @@ public interface Webhook extends ISnowflake
     /**
      * The default User for this Webhook.
      *
-     * <p>The {@link net.dv8tion.jda.api.entities.User User} returned is always fake and cannot be interacted with.
+     * <p>The {@link User User} returned is always fake and cannot be interacted with.
      * <br>This User is used for all messages posted to the Webhook route (found in {@link #getUrl()}),
      * it holds the default references for the message authors of messages by this Webhook.
      *
      * <p>When {@code POST}ing to a Webhook route the name/avatar of this default user
      * can be overridden.
      *
-     * @return A fake {@link net.dv8tion.jda.api.entities.User User} instance
+     * @return A fake {@link User User} instance
      *         representing the default webhook user.
      *
      * @see    <a href="https://discord.com/developers/docs/resources/webhook#execute-webhook">Execute Webhook Docs</a>
@@ -240,7 +240,7 @@ public interface Webhook extends ISnowflake
      *         If the Webhook does not have a token, such as the Webhooks retrieved from Audit Logs and the currently
      *         logged in account does not have {@link net.dv8tion.jda.api.Permission#MANAGE_WEBHOOKS} in this channel.
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      *         <br>The rest action to delete this Webhook.
      */
     @Nonnull
@@ -272,7 +272,7 @@ public interface Webhook extends ISnowflake
      * @throws IllegalArgumentException
      *         If the provided token is null
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      *         <br>The rest action to delete this Webhook.
      *
      * @since  4.0.0
@@ -283,7 +283,7 @@ public interface Webhook extends ISnowflake
 
     /**
      * The {@link WebhookManager WebhookManager} for this Webhook.
-     * <br>You can modify multiple fields in one request by chaining setters before calling {@link net.dv8tion.jda.api.requests.RestAction#queue() RestAction.queue()}.
+     * <br>You can modify multiple fields in one request by chaining setters before calling {@link RestAction#queue() RestAction.queue()}.
      *
      * <p>This is a lazy idempotent getter. The manager is retained after the first call.
      * This getter is not thread-safe and would require guards by the user.

@@ -14,7 +14,20 @@
  * limitations under the License.
  */
 
+package net.dv8tion.jda.utils.data;
+
+import javax.annotation.Nonnull;
+
 /**
- * Serialization features used for communication with Discord.
+ * Allows custom serialization for JSON payloads of an object.
  */
-package net.dv8tion.jda.api.utils.data;
+public interface SerializableArray
+{
+    /**
+     * Serialized {@link DataArray} for this object.
+     *
+     * @return {@link DataArray}
+     */
+    @Nonnull
+    DataArray toDataArray();
+}

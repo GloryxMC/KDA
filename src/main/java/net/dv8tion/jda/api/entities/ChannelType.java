@@ -24,15 +24,15 @@ import java.util.EnumSet;
 public enum ChannelType
 {
     /**
-     * A {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}, Guild-Only.
+     * A {@link TextChannel TextChannel}, Guild-Only.
      */
     TEXT(0, 0, true),
     /**
-     * A {@link net.dv8tion.jda.api.entities.PrivateChannel PrivateChannel}.
+     * A {@link PrivateChannel PrivateChannel}.
      */
     PRIVATE(1, -1),
     /**
-     * A {@link net.dv8tion.jda.api.entities.VoiceChannel VoiceChannel}, Guild-Only.
+     * A {@link VoiceChannel VoiceChannel}, Guild-Only.
      */
     VOICE(2, 1, true),
     /**
@@ -40,11 +40,11 @@ public enum ChannelType
      */
     GROUP(3, -1),
     /**
-     * A {@link net.dv8tion.jda.api.entities.Category Category}, Guild-Only.
+     * A {@link Category Category}, Guild-Only.
      */
     CATEGORY(4, 2, true),
     /**
-     * A {@link net.dv8tion.jda.api.entities.NewsChannel NewsChannel}, Guild-Only.
+     * A {@link NewsChannel NewsChannel}, Guild-Only.
      */
     NEWS(5, 0, true),
     /**
@@ -183,12 +183,12 @@ public enum ChannelType
     }
 
     /**
-     * An {@link java.util.EnumSet} populated with all channel types using the provided sorting bucket.
+     * An {@link EnumSet} populated with all channel types using the provided sorting bucket.
      *
      * @param  bucket
      *         The sorting bucket
      *
-     * @return Possibly-empty {@link java.util.EnumSet} for the bucket
+     * @return Possibly-empty {@link EnumSet} for the bucket
      */
     @Nonnull
     public static EnumSet<ChannelType> fromSortBucket(int bucket)

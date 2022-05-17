@@ -64,7 +64,7 @@ public class Icon
     }
 
     /**
-     * Creates an {@link Icon Icon} with the specified {@link java.io.File File}.
+     * Creates an {@link Icon Icon} with the specified {@link File File}.
      * <br>We here read the specified File and forward the retrieved byte data to {@link #from(byte[], IconType)}.
      *
      * @param  file
@@ -91,9 +91,9 @@ public class Icon
     }
 
     /**
-     * Creates an {@link Icon Icon} with the specified {@link java.io.InputStream InputStream}.
+     * Creates an {@link Icon Icon} with the specified {@link InputStream InputStream}.
      * <br>We here read the specified InputStream and forward the retrieved byte data to {@link #from(byte[], IconType)}.
-     * This will use {@link net.dv8tion.jda.api.entities.Icon.IconType#JPEG} but discord is capable for
+     * This will use {@link IconType#JPEG} but discord is capable for
      * interpreting other types correctly either way.
      *
      * @param  stream
@@ -115,7 +115,7 @@ public class Icon
 
     /**
      * Creates an {@link Icon Icon} with the specified image data.
-     * This will use {@link net.dv8tion.jda.api.entities.Icon.IconType#JPEG} but discord is capable for
+     * This will use {@link IconType#JPEG} but discord is capable for
      * interpreting other types correctly either way.
      *
      * @param  data
@@ -133,7 +133,7 @@ public class Icon
     }
 
     /**
-     * Creates an {@link Icon Icon} with the specified {@link java.io.File File}.
+     * Creates an {@link Icon Icon} with the specified {@link File File}.
      * <br>We here read the specified File and forward the retrieved byte data to {@link #from(byte[], IconType)}.
      *
      * @param  file
@@ -159,7 +159,7 @@ public class Icon
     }
 
     /**
-     * Creates an {@link Icon Icon} with the specified {@link java.io.InputStream InputStream}.
+     * Creates an {@link Icon Icon} with the specified {@link InputStream InputStream}.
      * <br>We here read the specified InputStream and forward the retrieved byte data to {@link #from(byte[], IconType)}.
      *
      * @param  stream

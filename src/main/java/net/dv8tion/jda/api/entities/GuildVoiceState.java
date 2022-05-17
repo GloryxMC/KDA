@@ -25,15 +25,15 @@ import javax.annotation.Nullable;
 import java.time.OffsetDateTime;
 
 /**
- * Represents the voice state of a {@link net.dv8tion.jda.api.entities.Member Member} in a
- * {@link net.dv8tion.jda.api.entities.Guild Guild}.
+ * Represents the voice state of a {@link Member Member} in a
+ * {@link Guild Guild}.
  *
  * @see Member#getVoiceState()
  */
 public interface GuildVoiceState extends ISnowflake
 {
     /**
-     * Returns the {@link net.dv8tion.jda.api.JDA JDA} instance of this VoiceState
+     * Returns the {@link JDA JDA} instance of this VoiceState
      *
      * @return The corresponding JDA instance
      */
@@ -41,21 +41,21 @@ public interface GuildVoiceState extends ISnowflake
     JDA getJDA();
 
     /**
-     * Returns whether the {@link net.dv8tion.jda.api.entities.Member Member} muted themselves.
+     * Returns whether the {@link Member Member} muted themselves.
      *
      * @return The User's self-mute status
      */
     boolean isSelfMuted();
 
     /**
-     * Returns whether the {@link net.dv8tion.jda.api.entities.Member Member} deafened themselves.
+     * Returns whether the {@link Member Member} deafened themselves.
      *
      * @return The User's self-deaf status
      */
     boolean isSelfDeafened();
 
     /**
-     * Returns whether the {@link net.dv8tion.jda.api.entities.Member Member} is muted, either
+     * Returns whether the {@link Member Member} is muted, either
      * by choice {@link #isSelfMuted()} or muted by an admin {@link #isGuildMuted()}
      *
      * @return the Member's mute status
@@ -63,7 +63,7 @@ public interface GuildVoiceState extends ISnowflake
     boolean isMuted();
 
     /**
-     * Returns whether the {@link net.dv8tion.jda.api.entities.Member Member} is deafened, either
+     * Returns whether the {@link Member Member} is deafened, either
      * by choice {@link #isSelfDeafened()} or deafened by an admin {@link #isGuildDeafened()}
      *
      * @return the Member's deaf status
@@ -71,42 +71,42 @@ public interface GuildVoiceState extends ISnowflake
     boolean isDeafened();
 
     /**
-     * Returns whether the {@link net.dv8tion.jda.api.entities.Member Member} got muted by an Admin
+     * Returns whether the {@link Member Member} got muted by an Admin
      *
      * @return the Member's guild-mute status
      */
     boolean isGuildMuted();
 
     /**
-     * Returns whether the {@link net.dv8tion.jda.api.entities.Member Member} got deafened by an Admin
+     * Returns whether the {@link Member Member} got deafened by an Admin
      *
      * @return the Member's guild-deaf status
      */
     boolean isGuildDeafened();
 
     /**
-     * Returns true if this {@link net.dv8tion.jda.api.entities.Member Member} is unable to speak because the
+     * Returns true if this {@link Member Member} is unable to speak because the
      * channel is actively suppressing audio communication. This occurs in
-     * {@link net.dv8tion.jda.api.entities.VoiceChannel VoiceChannels} where the Member either doesn't have
+     * {@link VoiceChannel VoiceChannels} where the Member either doesn't have
      * {@link net.dv8tion.jda.api.Permission#VOICE_SPEAK Permission#VOICE_SPEAK} or if the channel is the
      * designated AFK channel.
      * <br>This is also used by {@link StageChannel StageChannels} for listeners without speaker approval.
      *
-     * @return True, if this {@link net.dv8tion.jda.api.entities.Member Member's} audio is being suppressed.
+     * @return True, if this {@link Member Member's} audio is being suppressed.
      *
      * @see    #getRequestToSpeakTimestamp()
      */
     boolean isSuppressed();
 
     /**
-     * Returns true if this {@link net.dv8tion.jda.api.entities.Member Member} is currently streaming with Go Live.
+     * Returns true if this {@link Member Member} is currently streaming with Go Live.
      *
      * @return True, if this member is streaming
      */
     boolean isStream();
 
     /**
-     * Returns true if this {@link net.dv8tion.jda.api.entities.Member Member} has their camera turned on.
+     * Returns true if this {@link Member Member} has their camera turned on.
      * <br>This does not include streams! See {@link #isStream()}
      *
      * @return True, if this member has their camera turned on.
@@ -114,9 +114,9 @@ public interface GuildVoiceState extends ISnowflake
     boolean isSendingVideo();
 
     /**
-     * Returns the current {@link net.dv8tion.jda.api.entities.AudioChannel AudioChannel} that the {@link net.dv8tion.jda.api.entities.Member Member}
-     * is in. If the {@link net.dv8tion.jda.api.entities.Member Member} is currently not in a
-     * {@link net.dv8tion.jda.api.entities.AudioChannel AudioChannel}, this returns null.
+     * Returns the current {@link AudioChannel AudioChannel} that the {@link Member Member}
+     * is in. If the {@link Member Member} is currently not in a
+     * {@link AudioChannel AudioChannel}, this returns null.
      *
      * @return The AudioChannel that the Member is in, or null.
      */
@@ -124,7 +124,7 @@ public interface GuildVoiceState extends ISnowflake
     AudioChannel getChannel();
 
     /**
-     * Returns the {@link net.dv8tion.jda.api.entities.Guild Guild} for the {@link net.dv8tion.jda.api.entities.Member Member}
+     * Returns the {@link Guild Guild} for the {@link Member Member}
      * that this {@link GuildVoiceState GuildVoiceState} belongs to. (BackReference)
      *
      * @return the Member's Guild
@@ -133,7 +133,7 @@ public interface GuildVoiceState extends ISnowflake
     Guild getGuild();
 
     /**
-     * Returns the {@link net.dv8tion.jda.api.entities.Member Member} corresponding to this GuildVoiceState instance
+     * Returns the {@link Member Member} corresponding to this GuildVoiceState instance
      * (BackReference)
      *
      * @return the Member that holds this GuildVoiceState
@@ -142,12 +142,12 @@ public interface GuildVoiceState extends ISnowflake
     Member getMember();
 
     /**
-     * Used to determine if the {@link net.dv8tion.jda.api.entities.Member Member} is currently in an {@link net.dv8tion.jda.api.entities.AudioChannel AudioChannel}
-     * in the {@link net.dv8tion.jda.api.entities.Guild Guild} returned from {@link #getGuild() getGuild()}.<br>
+     * Used to determine if the {@link Member Member} is currently in an {@link AudioChannel AudioChannel}
+     * in the {@link Guild Guild} returned from {@link #getGuild() getGuild()}.<br>
      * If this is {@code false}, {@link #getChannel() getChannel()} will return {@code null}.
      *
-     * @return True, if the {@link net.dv8tion.jda.api.entities.Member Member} is currently in a {@link net.dv8tion.jda.api.entities.AudioChannel AudioChannel}
-     *         in this {@link net.dv8tion.jda.api.entities.Guild Guild}.
+     * @return True, if the {@link Member Member} is currently in a {@link AudioChannel AudioChannel}
+     *         in this {@link Guild Guild}.
      */
     boolean inAudioChannel();
 

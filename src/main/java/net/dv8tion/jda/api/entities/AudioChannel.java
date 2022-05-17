@@ -59,10 +59,10 @@ public interface AudioChannel extends GuildChannel, IMemberContainer
     int getBitrate();
 
     /**
-     * The {@link net.dv8tion.jda.api.Region Region} of this {@link AudioChannel AudioChannel}.
+     * The {@link Region Region} of this {@link AudioChannel AudioChannel}.
      * <br>This will return {@link Region#AUTOMATIC} if the region of this channel is set to Automatic.
      *
-     * @return the {@link net.dv8tion.jda.api.Region Region} of this channel.
+     * @return the {@link Region Region} of this channel.
      */
     @Nonnull
     default Region getRegion()

@@ -19,15 +19,10 @@
 
 import Build_gradle.Pom
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import de.marcphilipp.gradle.nexus.InitializeNexusStagingRepository
-import de.marcphilipp.gradle.nexus.NexusPublishExtension
-import io.codearte.gradle.nexus.BaseStagingTask
-import io.codearte.gradle.nexus.NexusStagingExtension
 import org.apache.tools.ant.filters.ReplaceTokens
-import java.time.Duration
 
 // Don't remove this, its needed for reasons....
-typealias Pom = org.gradle.api.publish.maven.MavenPom
+typealias Pom = MavenPom
 
 plugins {
     signing
@@ -35,15 +30,13 @@ plugins {
     `maven-publish`
 
     kotlin("jvm") version "1.6.20"
-    kotlin("plugin.serialization") version "1.6.10"
+    kotlin("plugin.serialization") version "1.6.20"
 
-    id("io.codearte.nexus-staging") version "0.30.0"
-    id("de.marcphilipp.nexus-publish") version "0.4.0"
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 val javaVersion = JavaVersion.current()
-val versionObj = Version(major = "5", minor = "0", revision = "0", classifier = "alpha.11")
+val versionObj = Version(major = "5", minor = "0", revision = "11")
 val isCI = System.getProperty("BUILD_NUMBER") != null // jenkins
         || System.getenv("BUILD_NUMBER") != null
         || System.getProperty("GIT_COMMIT") != null // jitpack
@@ -73,7 +66,7 @@ val isNewVersion = previousVersion != versionObj
 // Use normal version string for new releases and commitHash for other builds
 project.version = "$versionObj" + if (isNewVersion) "" else "_$commitHash"
 
-project.group = "net.dv8tion"
+project.group = "net.gloryx"
 
 val archivesBaseName = "JDA"
 
@@ -137,6 +130,7 @@ dependencies {
     }
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
 }
 
 val compileJava: JavaCompile by tasks
@@ -346,6 +340,14 @@ class Version(
     override fun toString(): String {
         return "$major.$minor.$revision" + if (classifier != null) "-$classifier" else ""
     }
+
+    override fun hashCode(): Int {
+        var result = major.hashCode()
+        result = 31 * result + minor.hashCode()
+        result = 31 * result + revision.hashCode()
+        result = 31 * result + (classifier?.hashCode() ?: 0)
+        return result
+    }
 }
 
 
@@ -397,13 +399,16 @@ fun generatePom(pom: Pom) {
 components.java.withVariantsFromConfiguration(configurations.shadowRuntimeElements.get()) { skip() }
 val SoftwareComponentContainer.java
     get() = components.getByName("java") as AdhocComponentWithVariants
+val artifactId: String by project
+val spaceUsername: String by project
+val spacePassword: String by project
 
 publishing {
     publications {
         register("Release", MavenPublication::class) {
             from(components["java"])
 
-            artifactId = project.name
+            artifactId = this@Build_gradle.artifactId
             groupId = project.group as String
             version = project.version as String
 
@@ -413,71 +418,25 @@ publishing {
             generatePom(pom)
         }
     }
-}
 
-
-// Turn off sign tasks if we don't have a key
-val canSign = getProjectProperty("signing.keyId") != null
-if (canSign) {
-    signing {
-        sign(publishing.publications.getByName("Release"))
-    }
-}
-
-// Staging and Promotion
-
-configure<NexusStagingExtension> {
-    username = getProjectProperty("ossrhUser") ?: ""
-    password = getProjectProperty("ossrhPassword") ?: ""
-    stagingProfileId = getProjectProperty("stagingProfileId") ?: ""
-}
-
-configure<NexusPublishExtension> {
-    nexusPublishing {
-        repositories.sonatype {
-            username.set(getProjectProperty("ossrhUser") ?: "")
-            password.set(getProjectProperty("ossrhPassword") ?: "")
-            stagingProfileId.set(getProjectProperty("stagingProfileId") ?: "")
+    repositories {
+        maven {
+            url = uri("https://maven.pkg.jetbrains.space/gloryx/p/discord/maven")
+            name = "space"
+            credentials {
+                username = spaceUsername
+                password = spacePassword
+            }
         }
-        // Sonatype is very slow :)
-        connectTimeout.set(Duration.ofMinutes(1))
-        clientTimeout.set(Duration.ofMinutes(10))
     }
+
 }
-
-// This links the close/release tasks to the right repository (from the publication above)
-
-val ossrhConfigured = getProjectProperty("ossrhUser") != null
-val shouldPublish = isNewVersion && canSign && ossrhConfigured
-
-// Turn off the staging tasks if we don't want to publish
-tasks.withType<InitializeNexusStagingRepository> {
-    enabled = shouldPublish
-}
-
-tasks.withType<BaseStagingTask> {
-    enabled = shouldPublish
-    // We give each step an hour because it takes very long sometimes ...
-    numberOfRetries = 30 // 30 tries
-    delayBetweenRetriesInMillis = 2 * 60 * 1000 // 2 minutes
-}
-
-// Getting staging profile is fine though
-tasks.getByName("getStagingProfile").enabled = ossrhConfigured
-
 tasks.create("release") {
-    // Only close repository after release is published
-    val closeRepository by tasks
-    closeRepository.mustRunAfter(tasks.withType<PublishToMavenRepository>())
     dependsOn(tasks.withType<PublishToMavenRepository>())
-
-    // Closes the sonatype repository and publishes to maven central
-    val closeAndReleaseRepository: Task by tasks
-    dependsOn(closeAndReleaseRepository)
 
     // Builds all jars for publications
     dependsOn(build)
-    enabled = shouldPublish
+    enabled = true
 
     doLast { // Only runs when shouldPublish = true
         println("Saving version $versionObj to .version")
@@ -488,7 +447,7 @@ tasks.create("release") {
 }
 
 tasks.withType<PublishToMavenRepository> {
-    enabled = shouldPublish
+    enabled = true
 }
 
 // Gradle stop complaining please

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package dev.minn.jda.ktx.interactions.components
+package net.gloryx.kda.interactions.components
 
 import dev.minn.jda.ktx.events.onButton
-import dev.minn.jda.ktx.jdabuilder.scope
+import net.gloryx.kda.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.dv8tion.jda.api.JDA
@@ -64,11 +64,11 @@ object ButtonDefaults {
  * @return[Button] The resulting button instance.
  */
 fun button(
-    id: String,
-    label: String? = ButtonDefaults.LABEL,
-    emoji: Emoji? = ButtonDefaults.EMOJI,
-    style: ButtonStyle = ButtonDefaults.STYLE,
-    disabled: Boolean = ButtonDefaults.DISABLED,
+        id: String,
+        label: String? = ButtonDefaults.LABEL,
+        emoji: Emoji? = ButtonDefaults.EMOJI,
+        style: ButtonStyle = ButtonDefaults.STYLE,
+        disabled: Boolean = ButtonDefaults.DISABLED,
 ) = Button.of(style, id, label, emoji).withDisabled(disabled)
 
 /**
@@ -85,10 +85,10 @@ fun button(
  * @return[Button] The resulting button instance.
  */
 fun primary(
-    id: String,
-    label: String? = ButtonDefaults.LABEL,
-    emoji: Emoji? = ButtonDefaults.EMOJI,
-    disabled: Boolean = ButtonDefaults.DISABLED,
+        id: String,
+        label: String? = ButtonDefaults.LABEL,
+        emoji: Emoji? = ButtonDefaults.EMOJI,
+        disabled: Boolean = ButtonDefaults.DISABLED,
 ) = button(id, label, emoji, ButtonStyle.PRIMARY, disabled)
 
 /**
@@ -105,10 +105,10 @@ fun primary(
  * @return[Button] The resulting button instance.
  */
 fun secondary(
-    id: String,
-    label: String? = ButtonDefaults.LABEL,
-    emoji: Emoji? = ButtonDefaults.EMOJI,
-    disabled: Boolean = ButtonDefaults.DISABLED,
+        id: String,
+        label: String? = ButtonDefaults.LABEL,
+        emoji: Emoji? = ButtonDefaults.EMOJI,
+        disabled: Boolean = ButtonDefaults.DISABLED,
 ) = button(id, label, emoji, ButtonStyle.SECONDARY, disabled)
 
 /**
@@ -125,10 +125,10 @@ fun secondary(
  * @return[Button] The resulting button instance.
  */
 fun success(
-    id: String,
-    label: String? = ButtonDefaults.LABEL,
-    emoji: Emoji? = ButtonDefaults.EMOJI,
-    disabled: Boolean = ButtonDefaults.DISABLED,
+        id: String,
+        label: String? = ButtonDefaults.LABEL,
+        emoji: Emoji? = ButtonDefaults.EMOJI,
+        disabled: Boolean = ButtonDefaults.DISABLED,
 ) = button(id, label, emoji, ButtonStyle.SUCCESS, disabled)
 
 /**
@@ -145,10 +145,10 @@ fun success(
  * @return[Button] The resulting button instance.
  */
 fun danger(
-    id: String,
-    label: String? = ButtonDefaults.LABEL,
-    emoji: Emoji? = ButtonDefaults.EMOJI,
-    disabled: Boolean = ButtonDefaults.DISABLED,
+        id: String,
+        label: String? = ButtonDefaults.LABEL,
+        emoji: Emoji? = ButtonDefaults.EMOJI,
+        disabled: Boolean = ButtonDefaults.DISABLED,
 ) = button(id, label, emoji, ButtonStyle.DANGER, disabled)
 
 /**
@@ -165,10 +165,10 @@ fun danger(
  * @return[Button] The resulting button instance.
  */
 fun link(
-    url: String,
-    label: String? = ButtonDefaults.LABEL,
-    emoji: Emoji? = ButtonDefaults.EMOJI,
-    disabled: Boolean = ButtonDefaults.DISABLED,
+        url: String,
+        label: String? = ButtonDefaults.LABEL,
+        emoji: Emoji? = ButtonDefaults.EMOJI,
+        disabled: Boolean = ButtonDefaults.DISABLED,
 ) = button(url, label, emoji, ButtonStyle.LINK, disabled)
 
 

@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
  * Messages sent in this channel can be crossposted, at which point they will be sent (via webhook) to all subscribed channels.
  *
  * @see Message#getFlags()
- * @see net.dv8tion.jda.api.entities.Message.MessageFlag#CROSSPOSTED
+ * @see Message.MessageFlag#CROSSPOSTED
  */
 public interface NewsChannel extends BaseGuildMessageChannel
 {
@@ -139,13 +139,13 @@ public interface NewsChannel extends BaseGuildMessageChannel
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>The request was attempted after the account lost access to the
-     *         {@link net.dv8tion.jda.api.entities.Guild Guild}
-     *         typically due to being kicked or removed, or after {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
-     *         was revoked in the {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}</li>
+     *         {@link Guild Guild}
+     *         typically due to being kicked or removed, or after {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
+     *         was revoked in the {@link TextChannel TextChannel}</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
      *     <br>The request was attempted after the account lost
-     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in the TextChannel.</li>
+     *         {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in the TextChannel.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_MESSAGE UNKNOWN_MESSAGE}
      *     <br>The provided {@code messageId} is unknown in this MessageChannel, either due to the id being invalid, or
@@ -158,13 +158,13 @@ public interface NewsChannel extends BaseGuildMessageChannel
      * @param  messageId
      *         The messageId to crosspost
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If provided {@code messageId} is {@code null} or empty.
-     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
+     * @throws InsufficientPermissionException
      *         If the currently logged in account does not have
-     *         {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} in this channel.
+     *         {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} in this channel.
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction} - Type: {@link Message}
+     * @return {@link RestAction} - Type: {@link Message}
      *
      * @since  4.2.1
      */
@@ -190,13 +190,13 @@ public interface NewsChannel extends BaseGuildMessageChannel
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>The request was attempted after the account lost access to the
-     *         {@link net.dv8tion.jda.api.entities.Guild Guild}
-     *         typically due to being kicked or removed, or after {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
-     *         was revoked in the {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}</li>
+     *         {@link Guild Guild}
+     *         typically due to being kicked or removed, or after {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
+     *         was revoked in the {@link TextChannel TextChannel}</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
      *     <br>The request was attempted after the account lost
-     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in the TextChannel.</li>
+     *         {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in the TextChannel.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_MESSAGE UNKNOWN_MESSAGE}
      *     <br>The provided {@code messageId} is unknown in this MessageChannel, either due to the id being invalid, or
@@ -209,11 +209,11 @@ public interface NewsChannel extends BaseGuildMessageChannel
      * @param  messageId
      *         The messageId to crosspost
      *
-     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
+     * @throws InsufficientPermissionException
      *         If the currently logged in account does not have
-     *         {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} in this channel.
+     *         {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} in this channel.
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction} - Type: {@link Message}
+     * @return {@link RestAction} - Type: {@link Message}
      *
      * @since  4.2.1
      */

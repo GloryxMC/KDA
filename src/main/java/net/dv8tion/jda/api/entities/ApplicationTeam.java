@@ -35,11 +35,11 @@ public interface ApplicationTeam extends ISnowflake
     String ICON_URL = "https://cdn.discordapp.com/team-icons/%s/%s.png";
 
     /**
-     * Searches for the {@link net.dv8tion.jda.api.entities.TeamMember TeamMember}
+     * Searches for the {@link TeamMember TeamMember}
      * in {@link #getMembers()} that has the same user id as {@link #getOwnerIdLong()}.
      * <br>Its possible although unlikely that the owner of the team is not a member, in that case this will be null.
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.TeamMember TeamMember} who owns the team
+     * @return Possibly-null {@link TeamMember TeamMember} who owns the team
      */
     @Nullable
     default TeamMember getOwner()
@@ -102,7 +102,7 @@ public interface ApplicationTeam extends ISnowflake
     }
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.TeamMember Team Members}.
+     * The {@link TeamMember Team Members}.
      *
      * @return Immutable list of team members
      */
@@ -115,7 +115,7 @@ public interface ApplicationTeam extends ISnowflake
      * @param  user
      *         The user to check
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If provided with null
      *
      * @return True, if the provided user is a member of this team
@@ -126,16 +126,16 @@ public interface ApplicationTeam extends ISnowflake
     }
 
     /**
-     * Retrieves the {@link net.dv8tion.jda.api.entities.TeamMember TeamMember} instance
+     * Retrieves the {@link TeamMember TeamMember} instance
      * for the provided user. If the user is not a member of this team, null is returned.
      *
      * @param  user
      *         The user for the team member
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If provided with null
      *
-     * @return The {@link net.dv8tion.jda.api.entities.TeamMember TeamMember} for the user or null
+     * @return The {@link TeamMember TeamMember} for the user or null
      */
     @Nullable
     default TeamMember getMember(@Nonnull User user)
@@ -145,16 +145,16 @@ public interface ApplicationTeam extends ISnowflake
     }
 
     /**
-     * Retrieves the {@link net.dv8tion.jda.api.entities.TeamMember TeamMember} instance
+     * Retrieves the {@link TeamMember TeamMember} instance
      * for the provided user id. If the user is not a member of this team, null is returned.
      *
      * @param  userId
      *         The user id for the team member
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If provided with null
      *
-     * @return The {@link net.dv8tion.jda.api.entities.TeamMember TeamMember} for the user or null
+     * @return The {@link TeamMember TeamMember} for the user or null
      */
     @Nullable
     default TeamMember getMemberById(@Nonnull String userId)
@@ -163,13 +163,13 @@ public interface ApplicationTeam extends ISnowflake
     }
 
     /**
-     * Retrieves the {@link net.dv8tion.jda.api.entities.TeamMember TeamMember} instance
+     * Retrieves the {@link TeamMember TeamMember} instance
      * for the provided user id. If the user is not a member of this team, null is returned.
      *
      * @param  userId
      *         The user id for the team member
      *
-     * @return The {@link net.dv8tion.jda.api.entities.TeamMember TeamMember} for the user or null
+     * @return The {@link TeamMember TeamMember} for the user or null
      */
     @Nullable
     default TeamMember getMemberById(long userId)

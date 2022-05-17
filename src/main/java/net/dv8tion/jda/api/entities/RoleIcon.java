@@ -44,7 +44,7 @@ public class RoleIcon
     }
 
     /**
-     * The Discord hash-id of the {@link net.dv8tion.jda.api.entities.Role Role} icon image.
+     * The Discord hash-id of the {@link Role Role} icon image.
      * If no icon has been set or an emoji is used in its place, this returns {@code null}.
      * <p>The Role icon can be modified using {@link RoleManager#setIcon(Icon)}.
      *
@@ -59,7 +59,7 @@ public class RoleIcon
     }
 
     /**
-     * The URL of the {@link net.dv8tion.jda.api.entities.Role Role} icon image.
+     * The URL of the {@link Role Role} icon image.
      * If no icon has been set or an emoji is used in its place, this returns {@code null}.
      * <p>The Role icon can be modified using {@link RoleManager#setIcon(Icon)}.
      *
@@ -89,7 +89,7 @@ public class RoleIcon
     }
 
     /**
-     * The Unicode Emoji of this {@link net.dv8tion.jda.api.entities.Role Role} that is used instead of a custom image.
+     * The Unicode Emoji of this {@link Role Role} that is used instead of a custom image.
      * If no emoji has been set, this returns {@code null}.
      * <p>The Role emoji can be modified using {@link RoleManager#setIcon(String)}.
      *

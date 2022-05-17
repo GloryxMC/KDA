@@ -41,47 +41,47 @@ public interface IPermissionContainer extends GuildChannel
     IPermissionContainerManager<?, ?> getManager();
 
     /**
-     * The {@link PermissionOverride} relating to the specified {@link net.dv8tion.jda.api.entities.Member Member} or {@link net.dv8tion.jda.api.entities.Role Role}.
-     * If there is no {@link net.dv8tion.jda.api.entities.PermissionOverride PermissionOverride} for this {@link GuildChannel GuildChannel}
+     * The {@link PermissionOverride} relating to the specified {@link Member Member} or {@link Role Role}.
+     * If there is no {@link PermissionOverride PermissionOverride} for this {@link GuildChannel GuildChannel}
      * relating to the provided Member or Role, then this returns {@code null}.
      *
      * @param  permissionHolder
-     *         The {@link net.dv8tion.jda.api.entities.Member Member} or {@link net.dv8tion.jda.api.entities.Role Role} whose
-     *         {@link net.dv8tion.jda.api.entities.PermissionOverride PermissionOverride} is requested.
+     *         The {@link Member Member} or {@link Role Role} whose
+     *         {@link PermissionOverride PermissionOverride} is requested.
      *
      * @throws IllegalArgumentException
      *         If the provided permission holder is null, or from a different guild
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.PermissionOverride PermissionOverride}
+     * @return Possibly-null {@link PermissionOverride PermissionOverride}
      *         relating to the provided Member or Role.
      */
     @Nullable
     PermissionOverride getPermissionOverride(@Nonnull IPermissionHolder permissionHolder);
 
     /**
-     * Gets all of the {@link net.dv8tion.jda.api.entities.PermissionOverride PermissionOverrides} that are part
+     * Gets all of the {@link PermissionOverride PermissionOverrides} that are part
      * of this {@link GuildChannel GuildChannel}.
-     * <br>This combines {@link net.dv8tion.jda.api.entities.Member Member} and {@link net.dv8tion.jda.api.entities.Role Role} overrides.
-     * If you would like only {@link net.dv8tion.jda.api.entities.Member Member} overrides or only {@link net.dv8tion.jda.api.entities.Role Role}
+     * <br>This combines {@link Member Member} and {@link Role Role} overrides.
+     * If you would like only {@link Member Member} overrides or only {@link Role Role}
      * overrides, use {@link #getMemberPermissionOverrides()} or {@link #getRolePermissionOverrides()} respectively.
      *
      * <p>This requires {@link net.dv8tion.jda.api.utils.cache.CacheFlag#MEMBER_OVERRIDES CacheFlag.MEMBER_OVERRIDES} to be enabled!
      * Without that CacheFlag, this list will only contain overrides for the currently logged in account and roles.
      *
-     * @return Possibly-empty immutable list of all {@link net.dv8tion.jda.api.entities.PermissionOverride PermissionOverrides}
+     * @return Possibly-empty immutable list of all {@link PermissionOverride PermissionOverrides}
      *         for this {@link GuildChannel GuildChannel}.
      */
     @Nonnull
     List<PermissionOverride> getPermissionOverrides();
 
     /**
-     * Gets all of the {@link net.dv8tion.jda.api.entities.Member Member} {@link net.dv8tion.jda.api.entities.PermissionOverride PermissionOverrides}
+     * Gets all of the {@link Member Member} {@link PermissionOverride PermissionOverrides}
      * that are part of this {@link GuildChannel GuildChannel}.
      *
      * <p>This requires {@link net.dv8tion.jda.api.utils.cache.CacheFlag#MEMBER_OVERRIDES CacheFlag.MEMBER_OVERRIDES} to be enabled!
      *
-     * @return Possibly-empty immutable list of all {@link net.dv8tion.jda.api.entities.PermissionOverride PermissionOverrides}
-     *         for {@link net.dv8tion.jda.api.entities.Member Member}
+     * @return Possibly-empty immutable list of all {@link PermissionOverride PermissionOverrides}
+     *         for {@link Member Member}
      *         for this {@link GuildChannel GuildChannel}.
      */
     @Nonnull
@@ -93,11 +93,11 @@ public interface IPermissionContainer extends GuildChannel
     }
 
     /**
-     * Gets all of the {@link net.dv8tion.jda.api.entities.Role Role} {@link net.dv8tion.jda.api.entities.PermissionOverride PermissionOverrides}
+     * Gets all of the {@link Role Role} {@link PermissionOverride PermissionOverrides}
      * that are part of this {@link GuildChannel GuildChannel}.
      *
-     * @return Possibly-empty immutable list of all {@link net.dv8tion.jda.api.entities.PermissionOverride PermissionOverrides}
-     *         for {@link net.dv8tion.jda.api.entities.Role Roles}
+     * @return Possibly-empty immutable list of all {@link PermissionOverride PermissionOverrides}
+     *         for {@link Role Roles}
      *         for this {@link GuildChannel GuildChannel}.
      */
     @Nonnull
@@ -117,10 +117,10 @@ public interface IPermissionContainer extends GuildChannel
      *
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If we don't have the permission to {@link net.dv8tion.jda.api.Permission#MANAGE_PERMISSIONS MANAGE_PERMISSIONS}
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided permission holder is null or not from this guild
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction}
+     * @return {@link PermissionOverrideAction}
      *         <br>With the current settings of an existing override or a fresh override with no permissions set
      *
      * @see    PermissionOverrideAction#clear(long)

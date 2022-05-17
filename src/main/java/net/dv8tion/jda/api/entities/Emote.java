@@ -37,7 +37,7 @@ import java.util.List;
  *
  * @since  2.2
  *
- * @see    net.dv8tion.jda.api.entities.ListedEmote ListedEmote
+ * @see    ListedEmote ListedEmote
  *
  * @see    Guild#getEmoteCache()
  * @see    Guild#getEmoteById(long)
@@ -55,7 +55,7 @@ public interface Emote extends IMentionable
     String ICON_URL = "https://cdn.discordapp.com/emojis/%s.%s";
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.Guild Guild} this emote is attached to.
+     * The {@link Guild Guild} this emote is attached to.
      *
      * <p><b>This is null if the emote is created from a message</b>
      *
@@ -108,11 +108,11 @@ public interface Emote extends IMentionable
 
     /**
      * Whether this emote is available. When an emote becomes unavailable, it cannot be used in messages. An emote becomes
-     * unavailable when the {@link net.dv8tion.jda.api.entities.Guild.BoostTier BoostTier} of the guild drops such that
+     * unavailable when the {@link Guild.BoostTier BoostTier} of the guild drops such that
      * the maximum allowed emotes is lower than the total amount of emotes added to the guild.
      * 
      * <p>If an emote is added to the guild when the boost tier allows for more than 50 normal and 50 animated emotes
-     * (BoostTier is at least {@link net.dv8tion.jda.api.entities.Guild.BoostTier#TIER_1 TIER_1}) and the emote is at least
+     * (BoostTier is at least {@link Guild.BoostTier#TIER_1 TIER_1}) and the emote is at least
      * the 51st one added, then the emote becomes unavailable when the BoostTier drops below a level that allows those emotes
      * to be used.
      * <br>Emotes that where added as part of a lower BoostTier (i.e. the 51st emote on BoostTier 2) will remain available,
@@ -125,7 +125,7 @@ public interface Emote extends IMentionable
     boolean isAvailable();
 
     /**
-     * The {@link net.dv8tion.jda.api.JDA JDA} instance of this Emote
+     * The {@link JDA JDA} instance of this Emote
      *
      * @return The JDA instance of this Emote
      */
@@ -147,12 +147,12 @@ public interface Emote extends IMentionable
      *     <br>If we were removed from the Guild</li>
      * </ul>
      *
-     * @throws java.lang.UnsupportedOperationException
+     * @throws UnsupportedOperationException
      *         If this emote is managed by discord ({@link #isManaged()})
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         if the Permission {@link net.dv8tion.jda.api.Permission#MANAGE_EMOTES_AND_STICKERS MANAGE_EMOTES_AND_STICKERS} is not given
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      *         The RestAction to delete this Emote.
      */
     @Nonnull

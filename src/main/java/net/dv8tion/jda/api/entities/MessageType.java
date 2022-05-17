@@ -18,7 +18,7 @@ package net.dv8tion.jda.api.entities;
 import javax.annotation.Nonnull;
 
 /**
- * Represents the different types of {@link net.dv8tion.jda.api.entities.Message Messages} that can be received from Discord.
+ * Represents the different types of {@link Message Messages} that can be received from Discord.
  * <br>A normal text based message is {@link #DEFAULT}.
  */
 public enum MessageType

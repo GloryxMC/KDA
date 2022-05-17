@@ -13,19 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.dv8tion.jda.utils.data
-
-import javax.annotation.Nonnull
 
 /**
- * Allows custom serialization for JSON payloads of an object.
+ * Utility classes to decode and encode Erlang External Term Format (ETF)
+ *
+ * @see <a href="https://erlang.org/doc/apps/erts/erl_ext_dist.html" target="_blank">Erlang -- External Term Format</a>
+ *
+ * @since  4.2.1
  */
-interface SerializableData {
-    /**
-     * Serialized [DataObject] for this object.
-     *
-     * @return [DataObject]
-     */
-    @Nonnull
-    fun toData(): DataObject
-}
+package net.dv8tion.jda.utils.data.etf;

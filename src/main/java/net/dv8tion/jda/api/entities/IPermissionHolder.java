@@ -53,13 +53,13 @@ public interface IPermissionHolder extends ISnowflake
     /**
      * The Permissions this PermissionHolder holds in the specified {@link GuildChannel GuildChannel}.
      * <br>Permissions returned by this may be different from {@link #getPermissions()}
-     * due to the GuildChannel's {@link net.dv8tion.jda.api.entities.PermissionOverride PermissionOverrides}.
+     * due to the GuildChannel's {@link PermissionOverride PermissionOverrides}.
      * <br><u>Changes to the returned set do not affect this entity directly.</u>
      *
      * @param  channel
      *         The {@link GuildChannel GuildChannel} of which to get Permissions for
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the channel is null
      *
      * @return Set of Permissions granted to this Permission Holder in the specified channel.
@@ -82,13 +82,13 @@ public interface IPermissionHolder extends ISnowflake
      * The explicitly granted permissions for this permission holder in the guild.
      * <br>This disregards owner and administrator privileges.
      * <br>Permissions returned by this may be different from {@link #getPermissionsExplicit()}
-     * due to the GuildChannel's {@link net.dv8tion.jda.api.entities.PermissionOverride PermissionOverrides}.
+     * due to the GuildChannel's {@link PermissionOverride PermissionOverrides}.
      * <br><u>Changes to the returned set do not affect this entity directly.</u>
      *
      * @param  channel
      *         The {@link GuildChannel GuildChannel} of which to get Permissions for
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the channel is null
      *
      * @return EnumSet of the explicitly granted permissions in the specified channel
@@ -97,7 +97,7 @@ public interface IPermissionHolder extends ISnowflake
     EnumSet<Permission> getPermissionsExplicit(@Nonnull GuildChannel channel);
 
     /**
-     * Checks whether or not this PermissionHolder has the given {@link net.dv8tion.jda.api.Permission Permissions} in the Guild.
+     * Checks whether or not this PermissionHolder has the given {@link Permission Permissions} in the Guild.
      *
      * @param  permissions
      *         Permissions to check for.
@@ -110,7 +110,7 @@ public interface IPermissionHolder extends ISnowflake
     boolean hasPermission(@Nonnull Permission... permissions);
 
     /**
-     * Checks whether or not this PermissionHolder has the {@link net.dv8tion.jda.api.Permission Permissions} in the provided
+     * Checks whether or not this PermissionHolder has the {@link Permission Permissions} in the provided
      * {@code Collection<Permission>} in the Guild.
      *
      * @param  permissions
@@ -121,12 +121,12 @@ public interface IPermissionHolder extends ISnowflake
      *
      * @return True, if all of the specified Permissions are granted to this PermissionHolder.
      *
-     * @see    java.util.EnumSet EnumSet
+     * @see    EnumSet EnumSet
      */
     boolean hasPermission(@Nonnull Collection<Permission> permissions);
 
     /**
-     * Checks whether or not this PermissionHolder has the given {@link net.dv8tion.jda.api.Permission Permissions} in the specified GuildChannel.
+     * Checks whether or not this PermissionHolder has the given {@link Permission Permissions} in the specified GuildChannel.
      *
      * @param  channel
      *         The {@link GuildChannel GuildChannel} in which to check.
@@ -138,12 +138,12 @@ public interface IPermissionHolder extends ISnowflake
      *
      * @return True, if all of the specified Permissions are granted to this PermissionHolder in the provided GuildChannel.
      *
-     * @see    java.util.EnumSet EnumSet
+     * @see    EnumSet EnumSet
      */
     boolean hasPermission(@Nonnull GuildChannel channel, @Nonnull Permission... permissions);
 
     /**
-     * Checks whether or not this PermissionHolder has the {@link net.dv8tion.jda.api.Permission Permissions} in the provided
+     * Checks whether or not this PermissionHolder has the {@link Permission Permissions} in the provided
      * {@code Collection<Permission>} in the specified GuildChannel.
      *
      * @param  channel

@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
  *
  * @since 3.8.0
  *
- * @see   net.dv8tion.jda.api.entities.Emote Emote
+ * @see   Emote Emote
  * @see   Guild#retrieveEmote(Emote)
  * @see   Guild#retrieveEmoteById(String)
  * @see   Guild#retrieveEmotes()

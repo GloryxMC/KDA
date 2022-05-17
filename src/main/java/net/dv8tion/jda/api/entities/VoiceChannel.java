@@ -42,8 +42,8 @@ import javax.annotation.Nonnull;
 public interface VoiceChannel extends AudioChannel, ICategorizableChannel, ICopyableChannel, IPermissionContainer, IPositionableChannel, IInviteContainer
 {
     /**
-     * The maximum amount of {@link net.dv8tion.jda.api.entities.Member Members} that can be in this
-     * {@link net.dv8tion.jda.api.entities.VoiceChannel VoiceChannel} at once.
+     * The maximum amount of {@link Member Members} that can be in this
+     * {@link VoiceChannel VoiceChannel} at once.
      * <br>0 - No limit
      *
      * @return The maximum amount of members allowed in this channel at once.

@@ -8,7 +8,7 @@ import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 
 /**
- * Represents a {@link net.dv8tion.jda.api.entities.Guild Guild} channel.
+ * Represents a {@link Guild Guild} channel.
  *
  * @see Guild#getGuildChannelById(long)
  * @see Guild#getGuildChannelById(ChannelType, long)
@@ -19,9 +19,9 @@ import javax.annotation.Nonnull;
 public interface GuildChannel extends Channel, Comparable<GuildChannel>
 {
     /**
-     * Returns the {@link net.dv8tion.jda.api.entities.Guild Guild} that this GuildChannel is part of.
+     * Returns the {@link Guild Guild} that this GuildChannel is part of.
      *
-     * @return Never-null {@link net.dv8tion.jda.api.entities.Guild Guild} that this GuildChannel is part of.
+     * @return Never-null {@link Guild Guild} that this GuildChannel is part of.
      */
     @Nonnull
     Guild getGuild();
@@ -63,7 +63,7 @@ public interface GuildChannel extends Channel, Comparable<GuildChannel>
      *         if the currently logged in account doesn't have {@link net.dv8tion.jda.api.Permission#MANAGE_CHANNEL MANAGE_CHANNEL}
      *         for the channel.
      *
-     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
+     * @return {@link AuditableRestAction AuditableRestAction}
      */
     @Override
     @Nonnull

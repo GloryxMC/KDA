@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import java.util.EnumSet;
 
 /**
- * Enum representing the flags in a {@link net.dv8tion.jda.api.entities.RichPresence RichPresence}
+ * Enum representing the flags in a {@link RichPresence RichPresence}
  */
 public enum ActivityFlag
 {

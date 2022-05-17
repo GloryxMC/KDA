@@ -61,7 +61,7 @@ public interface StageChannel extends GuildChannel, AudioChannel, ICategorizable
      * @param  topic
      *         The topic of this stage instance, must be 1-120 characters long
      *
-     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
+     * @throws InsufficientPermissionException
      *         If the self member is not a stage moderator. (See {@link #isModerator(Member)})
      * @throws IllegalArgumentException
      *         If the topic is null, empty, or longer than 120 characters

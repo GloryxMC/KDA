@@ -13,57 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.dv8tion.jda.utils.data.etf
+
+package net.dv8tion.jda.utils.data.etf;
 
 /**
  * Tags used for encoding and decoding for external terms.
- * <br></br>This list in incomplete as not all tags are used by this library.
+ * <br>This list in incomplete as not all tags are used by this library.
  *
  * @since  4.2.1
  */
-object ExTermTag {
+public class ExTermTag
+{
     // 8 IEEE float
-    const val NEW_FLOAT: Byte = 70
-
+    public static final byte NEW_FLOAT = 70;
     // 4 Uncompressed Size | N ZLIB Compressed Data
-    const val COMPRESSED: Byte = 80
-
+    public static final byte COMPRESSED = 80;
     // 1 byte unsigned int value
-    const val SMALL_INT: Byte = 97
-
+    public static final byte SMALL_INT = 97;
     // 4 byte signed int value
-    const val INT: Byte = 98
-
+    public static final byte INT = 98;
     // 31 bytes string of float value sprintf("%.20e")
-    const val FLOAT: Byte = 99 // deprecated
-
+    public static final byte FLOAT = 99; // deprecated
     // 2 byte length | N bytes latin-1 string
-    const val ATOM: Byte = 100 // deprecated
-
+    public static final byte ATOM = 100; // deprecated
     // 0 bytes empty list
-    const val NIL: Byte = 106
-
+    public static final byte NIL = 106;
     // 2 byte length | N bytes
-    const val STRING: Byte = 107
-
+    public static final byte STRING = 107;
     // 4 byte length | N tags | 1 byte NIL tag
-    const val LIST: Byte = 108
-
+    public static final byte LIST = 108;
     // 4 byte length | N bytes UTF-8 string
-    const val BINARY: Byte = 109
-
+    public static final byte BINARY = 109;
     // 1 byte length | 1 byte sign | N bytes unsigned SE int
-    const val SMALL_BIGINT: Byte = 110
-
+    public static final byte SMALL_BIGINT = 110;
     // 1 byte length | N bytes latin-1 string
-    const val SMALL_ATOM: Byte = 115 // deprecated
-
+    public static final byte SMALL_ATOM = 115; // deprecated
     // 4 byte length | N pairs of KEY,VALUE terms
-    const val MAP: Byte = 116
-
+    public static final byte MAP = 116;
     // 2 byte length | N bytes of UTF-8 string
-    const val ATOM_UTF8: Byte = 118
-
+    public static final byte ATOM_UTF8 = 118;
     // 1 byte length | N bytes of UTF-8 string
-    const val SMALL_ATOM_UTF8: Byte = 119
+    public static final byte SMALL_ATOM_UTF8 = 119;
 }

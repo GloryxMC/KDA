@@ -118,9 +118,9 @@ public interface IGuildChannelContainer
      * @param  id
      *         The ID of the channel
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided ID is null
-     * @throws java.lang.NumberFormatException
+     * @throws NumberFormatException
      *         If the provided ID is not a snowflake
      *
      * @return The GuildChannel or null
@@ -185,7 +185,7 @@ public interface IGuildChannelContainer
      * <br>If this is called on {@link JDA} or {@link ShardManager}, this may return null immediately after building, because the cache isn't initialized yet.
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
-     * <br>This is meant for systems that use a dynamic {@link net.dv8tion.jda.api.entities.ChannelType} and can
+     * <br>This is meant for systems that use a dynamic {@link ChannelType} and can
      * profit from a simple function to get the channel instance.
      *
      * <p>To get more specific channel types you can use one of the following:
@@ -199,13 +199,13 @@ public interface IGuildChannelContainer
      * </ul>
      *
      * @param  type
-     *         The {@link net.dv8tion.jda.api.entities.ChannelType}
+     *         The {@link ChannelType}
      * @param  id
      *         The ID of the channel
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided ID is null
-     * @throws java.lang.NumberFormatException
+     * @throws NumberFormatException
      *         If the provided ID is not a snowflake
      *
      * @return The GuildChannel or null
@@ -226,7 +226,7 @@ public interface IGuildChannelContainer
      * <br>If this is called on {@link JDA} or {@link ShardManager}, this may return null immediately after building, because the cache isn't initialized yet.
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
-     * <br>This is meant for systems that use a dynamic {@link net.dv8tion.jda.api.entities.ChannelType} and can
+     * <br>This is meant for systems that use a dynamic {@link ChannelType} and can
      * profit from a simple function to get the channel instance.
      *
      * <p>To get more specific channel types you can use one of the following:
@@ -240,7 +240,7 @@ public interface IGuildChannelContainer
      * </ul>
      *
      * @param  type
-     *         The {@link net.dv8tion.jda.api.entities.ChannelType}
+     *         The {@link ChannelType}
      * @param  id
      *         The ID of the channel
      *
@@ -275,7 +275,7 @@ public interface IGuildChannelContainer
 
 
     /**
-     * Sorted {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView} of {@link StageChannel}.
+     * Sorted {@link SnowflakeCacheView SnowflakeCacheView} of {@link StageChannel}.
      * <br>In {@link Guild} cache, channels are sorted according to their position and id.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -291,7 +291,7 @@ public interface IGuildChannelContainer
     SnowflakeCacheView<StageChannel> getStageChannelCache();
 
     /**
-     * Gets a list of all {@link net.dv8tion.jda.api.entities.StageChannel StageChannels}
+     * Gets a list of all {@link StageChannel StageChannels}
      * in this Guild that have the same name as the one provided.
      * <br>If there are no channels with the provided name, then this returns an empty list.
      *
@@ -303,7 +303,7 @@ public interface IGuildChannelContainer
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
      * @param  name
-     *         The name used to filter the returned {@link net.dv8tion.jda.api.entities.StageChannel StageChannels}.
+     *         The name used to filter the returned {@link StageChannel StageChannels}.
      * @param  ignoreCase
      *         Determines if the comparison ignores case when comparing. True - case insensitive.
      *
@@ -316,7 +316,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets a {@link net.dv8tion.jda.api.entities.StageChannel StageChannel} that has the same id as the one provided.
+     * Gets a {@link StageChannel StageChannel} that has the same id as the one provided.
      * <br>If there is no channel with an id that matches the provided one, then this returns {@code null}.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -327,12 +327,12 @@ public interface IGuildChannelContainer
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
      * @param  id
-     *         The id of the {@link net.dv8tion.jda.api.entities.StageChannel StageChannel}.
+     *         The id of the {@link StageChannel StageChannel}.
      *
-     * @throws java.lang.NumberFormatException
+     * @throws NumberFormatException
      *         If the provided {@code id} cannot be parsed by {@link Long#parseLong(String)}
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.StageChannel StageChannel} with matching id.
+     * @return Possibly-null {@link StageChannel StageChannel} with matching id.
      */
     @Nullable
     default StageChannel getStageChannelById(@Nonnull String id)
@@ -341,7 +341,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets a {@link net.dv8tion.jda.api.entities.StageChannel StageChannel} that has the same id as the one provided.
+     * Gets a {@link StageChannel StageChannel} that has the same id as the one provided.
      * <br>If there is no channel with an id that matches the provided one, then this returns {@code null}.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -352,9 +352,9 @@ public interface IGuildChannelContainer
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
      * @param  id
-     *         The id of the {@link net.dv8tion.jda.api.entities.StageChannel StageChannel}.
+     *         The id of the {@link StageChannel StageChannel}.
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.StageChannel StageChannel} with matching id.
+     * @return Possibly-null {@link StageChannel StageChannel} with matching id.
      */
     @Nullable
     default StageChannel getStageChannelById(long id)
@@ -363,7 +363,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets all {@link net.dv8tion.jda.api.entities.StageChannel StageChannels} in the cache.
+     * Gets all {@link StageChannel StageChannels} in the cache.
      * <br>In {@link Guild} cache, channels are sorted according to their position and id.
      *
      * <p>This copies the backing store into a list. This means every call
@@ -378,7 +378,7 @@ public interface IGuildChannelContainer
      * <br>If this is called on {@link JDA} or {@link ShardManager}, this may return null immediately after building, because the cache isn't initialized yet.
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
-     * @return An immutable List of {@link net.dv8tion.jda.api.entities.StageChannel StageChannels}.
+     * @return An immutable List of {@link StageChannel StageChannels}.
      */
     @Nonnull
     default List<StageChannel> getStageChannels()
@@ -391,7 +391,7 @@ public interface IGuildChannelContainer
 
 
     /**
-     * {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView} of {@link ThreadChannel}.
+     * {@link SnowflakeCacheView SnowflakeCacheView} of {@link ThreadChannel}.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
      * For {@link Guild}, {@link JDA}, or {@link ShardManager},
@@ -400,13 +400,13 @@ public interface IGuildChannelContainer
      * <br>If this is called on {@link JDA} or {@link ShardManager}, this may return null immediately after building, because the cache isn't initialized yet.
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
-     * @return {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView}
+     * @return {@link SnowflakeCacheView SnowflakeCacheView}
      */
     @Nonnull
     SnowflakeCacheView<ThreadChannel> getThreadChannelCache();
 
     /**
-     * Gets a list of all {@link net.dv8tion.jda.api.entities.ThreadChannel ThreadChannels}
+     * Gets a list of all {@link ThreadChannel ThreadChannels}
      * in this Guild that have the same name as the one provided.
      * <br>If there are no channels with the provided name, then this returns an empty list.
      *
@@ -444,7 +444,7 @@ public interface IGuildChannelContainer
      * @param  id
      *         The id of the {@link ThreadChannel ThreadChannel}.
      *
-     * @throws java.lang.NumberFormatException
+     * @throws NumberFormatException
      *         If the provided {@code id} cannot be parsed by {@link Long#parseLong(String)}
      *
      * @return Possibly-null {@link ThreadChannel ThreadChannel} with matching id.
@@ -456,7 +456,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets a {@link net.dv8tion.jda.api.entities.ThreadChannel ThreadChannel} that has the same id as the one provided.
+     * Gets a {@link ThreadChannel ThreadChannel} that has the same id as the one provided.
      * <br>If there is no channel with an id that matches the provided one, then this returns {@code null}.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -505,7 +505,7 @@ public interface IGuildChannelContainer
 
 
     /**
-     * Sorted {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView} of {@link Category}.
+     * Sorted {@link SnowflakeCacheView SnowflakeCacheView} of {@link Category}.
      * <br>In {@link Guild} cache, channels are sorted according to their position and id.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -521,7 +521,7 @@ public interface IGuildChannelContainer
     SnowflakeCacheView<Category> getCategoryCache();
 
     /**
-     * Gets a list of all {@link net.dv8tion.jda.api.entities.Category Categories}
+     * Gets a list of all {@link Category Categories}
      * in this Guild that have the same name as the one provided.
      * <br>If there are no channels with the provided name, then this returns an empty list.
      *
@@ -537,7 +537,7 @@ public interface IGuildChannelContainer
      * @param  ignoreCase
      *         Whether to ignore case on name checking
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided name is {@code null}
      *
      * @return Immutable list of all categories matching the provided name
@@ -549,7 +549,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets a {@link net.dv8tion.jda.api.entities.Category Category} that has the same id as the one provided.
+     * Gets a {@link Category Category} that has the same id as the one provided.
      * <br>If there is no channel with an id that matches the provided one, then this returns {@code null}.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -562,10 +562,10 @@ public interface IGuildChannelContainer
      * @param  id
      *         The snowflake ID of the wanted Category
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided ID is not a valid {@code long}
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.Category Category} for the provided ID.
+     * @return Possibly-null {@link Category Category} for the provided ID.
      */
     @Nullable
     default Category getCategoryById(@Nonnull String id)
@@ -574,7 +574,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets a {@link net.dv8tion.jda.api.entities.Category Category} that has the same id as the one provided.
+     * Gets a {@link Category Category} that has the same id as the one provided.
      * <br>If there is no channel with an id that matches the provided one, then this returns {@code null}.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -587,7 +587,7 @@ public interface IGuildChannelContainer
      * @param  id
      *         The snowflake ID of the wanted Category
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.Category Category} for the provided ID.
+     * @return Possibly-null {@link Category Category} for the provided ID.
      */
     @Nullable
     default Category getCategoryById(long id)
@@ -596,7 +596,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets all {@link net.dv8tion.jda.api.entities.Category Categories} in the cache.
+     * Gets all {@link Category Categories} in the cache.
      * <br>In {@link Guild} cache, channels are sorted according to their position and id.
      *
      * <p>This copies the backing store into a list. This means every call
@@ -611,7 +611,7 @@ public interface IGuildChannelContainer
      * <br>If this is called on {@link JDA} or {@link ShardManager}, this may return null immediately after building, because the cache isn't initialized yet.
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
-     * @return An immutable list of all {@link net.dv8tion.jda.api.entities.Category Categories} in this Guild.
+     * @return An immutable list of all {@link Category Categories} in this Guild.
      */
     @Nonnull
     default List<Category> getCategories()
@@ -624,7 +624,7 @@ public interface IGuildChannelContainer
 
 
     /**
-     * Sorted {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView} of {@link TextChannel}.
+     * Sorted {@link SnowflakeCacheView SnowflakeCacheView} of {@link TextChannel}.
      * <br>In {@link Guild} cache, channels are sorted according to their position and id.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -640,7 +640,7 @@ public interface IGuildChannelContainer
     SnowflakeCacheView<TextChannel> getTextChannelCache();
 
     /**
-     * Gets a list of all {@link net.dv8tion.jda.api.entities.TextChannel TextChannels}
+     * Gets a list of all {@link TextChannel TextChannels}
      * in this Guild that have the same name as the one provided.
      * <br>If there are no channels with the provided name, then this returns an empty list.
      *
@@ -652,7 +652,7 @@ public interface IGuildChannelContainer
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
      * @param  name
-     *         The name used to filter the returned {@link net.dv8tion.jda.api.entities.TextChannel TextChannels}.
+     *         The name used to filter the returned {@link TextChannel TextChannels}.
      * @param  ignoreCase
      *         Determines if the comparison ignores case when comparing. True - case insensitive.
      *
@@ -665,7 +665,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets a {@link net.dv8tion.jda.api.entities.TextChannel TextChannel} that has the same id as the one provided.
+     * Gets a {@link TextChannel TextChannel} that has the same id as the one provided.
      * <br>If there is no channel with an id that matches the provided one, then this returns {@code null}.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -676,12 +676,12 @@ public interface IGuildChannelContainer
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
      * @param  id
-     *         The id of the {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}.
+     *         The id of the {@link TextChannel TextChannel}.
      *
-     * @throws java.lang.NumberFormatException
+     * @throws NumberFormatException
      *         If the provided {@code id} cannot be parsed by {@link Long#parseLong(String)}
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.TextChannel TextChannel} with matching id.
+     * @return Possibly-null {@link TextChannel TextChannel} with matching id.
      */
     @Nullable
     default TextChannel getTextChannelById(@Nonnull String id)
@@ -690,7 +690,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets a {@link net.dv8tion.jda.api.entities.TextChannel TextChannel} that has the same id as the one provided.
+     * Gets a {@link TextChannel TextChannel} that has the same id as the one provided.
      * <br>If there is no channel with an id that matches the provided one, then this returns {@code null}.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -701,9 +701,9 @@ public interface IGuildChannelContainer
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
      * @param  id
-     *         The id of the {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}.
+     *         The id of the {@link TextChannel TextChannel}.
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.TextChannel TextChannel} with matching id.
+     * @return Possibly-null {@link TextChannel TextChannel} with matching id.
      */
     @Nullable
     default TextChannel getTextChannelById(long id)
@@ -712,7 +712,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets all {@link net.dv8tion.jda.api.entities.TextChannel TextChannels} in the cache.
+     * Gets all {@link TextChannel TextChannels} in the cache.
      * <br>In {@link Guild} cache, channels are sorted according to their position and id.
      *
      * <p>This copies the backing store into a list. This means every call
@@ -727,7 +727,7 @@ public interface IGuildChannelContainer
      * <br>If this is called on {@link JDA} or {@link ShardManager}, this may return null immediately after building, because the cache isn't initialized yet.
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
-     * @return An immutable List of all {@link net.dv8tion.jda.api.entities.TextChannel TextChannels} in this Guild.
+     * @return An immutable List of all {@link TextChannel TextChannels} in this Guild.
      */
     @Nonnull
     default List<TextChannel> getTextChannels()
@@ -740,7 +740,7 @@ public interface IGuildChannelContainer
 
 
     /**
-     * Sorted {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView} of {@link NewsChannel}.
+     * Sorted {@link SnowflakeCacheView SnowflakeCacheView} of {@link NewsChannel}.
      * <br>In {@link Guild} cache, channels are sorted according to their position and id.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -756,7 +756,7 @@ public interface IGuildChannelContainer
     SnowflakeCacheView<NewsChannel> getNewsChannelCache();
 
     /**
-     * Gets a list of all {@link net.dv8tion.jda.api.entities.NewsChannel NewsChannels}
+     * Gets a list of all {@link NewsChannel NewsChannels}
      * in this Guild that have the same name as the one provided.
      * <br>If there are no channels with the provided name, then this returns an empty list.
      *
@@ -768,7 +768,7 @@ public interface IGuildChannelContainer
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
      * @param  name
-     *         The name used to filter the returned {@link net.dv8tion.jda.api.entities.NewsChannel NewsChannels}.
+     *         The name used to filter the returned {@link NewsChannel NewsChannels}.
      * @param  ignoreCase
      *         Determines if the comparison ignores case when comparing. True - case insensitive.
      *
@@ -781,7 +781,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets a {@link net.dv8tion.jda.api.entities.NewsChannel NewsChannel} that has the same id as the one provided.
+     * Gets a {@link NewsChannel NewsChannel} that has the same id as the one provided.
      * <br>If there is no channel with an id that matches the provided one, then this returns {@code null}.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -792,12 +792,12 @@ public interface IGuildChannelContainer
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
      * @param  id
-     *         The id of the {@link net.dv8tion.jda.api.entities.NewsChannel NewsChannel}.
+     *         The id of the {@link NewsChannel NewsChannel}.
      *
-     * @throws java.lang.NumberFormatException
+     * @throws NumberFormatException
      *         If the provided {@code id} cannot be parsed by {@link Long#parseLong(String)}
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.NewsChannel NewsChannel} with matching id.
+     * @return Possibly-null {@link NewsChannel NewsChannel} with matching id.
      */
     @Nullable
     default NewsChannel getNewsChannelById(@Nonnull String id)
@@ -806,7 +806,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets a {@link net.dv8tion.jda.api.entities.NewsChannel NewsChannel} that has the same id as the one provided.
+     * Gets a {@link NewsChannel NewsChannel} that has the same id as the one provided.
      * <br>If there is no channel with an id that matches the provided one, then this returns {@code null}.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -817,9 +817,9 @@ public interface IGuildChannelContainer
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
      * @param  id
-     *         The id of the {@link net.dv8tion.jda.api.entities.NewsChannel NewsChannel}.
+     *         The id of the {@link NewsChannel NewsChannel}.
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.NewsChannel NewsChannel} with matching id.
+     * @return Possibly-null {@link NewsChannel NewsChannel} with matching id.
      */
     @Nullable
     default NewsChannel getNewsChannelById(long id)
@@ -828,7 +828,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets all {@link net.dv8tion.jda.api.entities.NewsChannel NewsChannels} in the cache.
+     * Gets all {@link NewsChannel NewsChannels} in the cache.
      * <br>In {@link Guild} cache, channels are sorted according to their position and id.
      *
      * <p>This copies the backing store into a list. This means every call
@@ -843,7 +843,7 @@ public interface IGuildChannelContainer
      * <br>If this is called on {@link JDA} or {@link ShardManager}, this may return null immediately after building, because the cache isn't initialized yet.
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
-     * @return An immutable List of all {@link net.dv8tion.jda.api.entities.NewsChannel NewsChannels} in this Guild.
+     * @return An immutable List of all {@link NewsChannel NewsChannels} in this Guild.
      */
     @Nonnull
     default List<NewsChannel> getNewsChannels()
@@ -856,7 +856,7 @@ public interface IGuildChannelContainer
 
 
     /**
-     * Sorted {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView} of {@link VoiceChannel}.
+     * Sorted {@link SnowflakeCacheView SnowflakeCacheView} of {@link VoiceChannel}.
      * <br>In {@link Guild} cache, channels are sorted according to their position and id.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -872,7 +872,7 @@ public interface IGuildChannelContainer
     SnowflakeCacheView<VoiceChannel> getVoiceChannelCache();
 
     /**
-     * Gets a list of all {@link net.dv8tion.jda.api.entities.VoiceChannel VoiceChannels}
+     * Gets a list of all {@link VoiceChannel VoiceChannels}
      * in this Guild that have the same name as the one provided.
      * <br>If there are no channels with the provided name, then this returns an empty list.
      *
@@ -884,7 +884,7 @@ public interface IGuildChannelContainer
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
      * @param  name
-     *         The name used to filter the returned {@link net.dv8tion.jda.api.entities.VoiceChannel VoiceChannels}.
+     *         The name used to filter the returned {@link VoiceChannel VoiceChannels}.
      * @param  ignoreCase
      *         Determines if the comparison ignores case when comparing. True - case insensitive.
      *
@@ -897,7 +897,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets a {@link net.dv8tion.jda.api.entities.VoiceChannel VoiceChannel} that has the same id as the one provided.
+     * Gets a {@link VoiceChannel VoiceChannel} that has the same id as the one provided.
      * <br>If there is no channel with an id that matches the provided one, then this returns {@code null}.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -908,12 +908,12 @@ public interface IGuildChannelContainer
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
      * @param  id
-     *         The id of the {@link net.dv8tion.jda.api.entities.VoiceChannel VoiceChannel}.
+     *         The id of the {@link VoiceChannel VoiceChannel}.
      *
-     * @throws java.lang.NumberFormatException
+     * @throws NumberFormatException
      *         If the provided {@code id} cannot be parsed by {@link Long#parseLong(String)}
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.VoiceChannel VoiceChannel} with matching id.
+     * @return Possibly-null {@link VoiceChannel VoiceChannel} with matching id.
      */
     @Nullable
     default VoiceChannel getVoiceChannelById(@Nonnull String id)
@@ -922,7 +922,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets a {@link net.dv8tion.jda.api.entities.VoiceChannel VoiceChannel} that has the same id as the one provided.
+     * Gets a {@link VoiceChannel VoiceChannel} that has the same id as the one provided.
      * <br>If there is no channel with an id that matches the provided one, then this returns {@code null}.
      *
      * <p>This getter exists on any instance of {@link IGuildChannelContainer} and only checks the caches with the relevant scoping.
@@ -933,9 +933,9 @@ public interface IGuildChannelContainer
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
      * @param  id
-     *         The id of the {@link net.dv8tion.jda.api.entities.VoiceChannel VoiceChannel}.
+     *         The id of the {@link VoiceChannel VoiceChannel}.
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.VoiceChannel VoiceChannel} with matching id.
+     * @return Possibly-null {@link VoiceChannel VoiceChannel} with matching id.
      */
     @Nullable
     default VoiceChannel getVoiceChannelById(long id)
@@ -944,7 +944,7 @@ public interface IGuildChannelContainer
     }
 
     /**
-     * Gets all {@link net.dv8tion.jda.api.entities.VoiceChannel VoiceChannels} in the cache.
+     * Gets all {@link VoiceChannel VoiceChannels} in the cache.
      * <br>In {@link Guild} cache, channels are sorted according to their position and id.
      *
      * <p>This copies the backing store into a list. This means every call
@@ -959,7 +959,7 @@ public interface IGuildChannelContainer
      * <br>If this is called on {@link JDA} or {@link ShardManager}, this may return null immediately after building, because the cache isn't initialized yet.
      * To make sure the cache is initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
      *
-     * @return An immutable List of {@link net.dv8tion.jda.api.entities.VoiceChannel VoiceChannels}.
+     * @return An immutable List of {@link VoiceChannel VoiceChannels}.
      */
     @Nonnull
     default List<VoiceChannel> getVoiceChannels()

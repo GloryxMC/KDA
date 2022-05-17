@@ -31,7 +31,7 @@ public interface ICopyableChannel extends GuildChannel
 {
     /**
      * Creates a copy of the specified {@link GuildChannel GuildChannel}
-     * in the specified {@link net.dv8tion.jda.api.entities.Guild Guild}.
+     * in the specified {@link Guild Guild}.
      * <br>If the provided target guild is not the same Guild this channel is in then
      * the parent category and permissions will not be copied due to technical difficulty and ambiguity.
      *
@@ -55,9 +55,9 @@ public interface ICopyableChannel extends GuildChannel
      * </ul>
      *
      * @param  guild
-     *         The {@link net.dv8tion.jda.api.entities.Guild Guild} to create the channel in
+     *         The {@link Guild Guild} to create the channel in
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided guild is {@code null}
      * @throws net.dv8tion.jda.api.exceptions.PermissionException
      *         If the currently logged in account does not have the {@link net.dv8tion.jda.api.Permission#MANAGE_CHANNEL MANAGE_CHANNEL} Permission

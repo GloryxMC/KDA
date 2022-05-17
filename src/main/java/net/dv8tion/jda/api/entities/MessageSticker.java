@@ -104,7 +104,7 @@ public class MessageSticker implements ISnowflake
     /**
      * The url of the sticker image.
      *
-     * @throws java.lang.IllegalStateException
+     * @throws IllegalStateException
      *         If the {@link StickerFormat StickerFormat} of this sticker is {@link StickerFormat#UNKNOWN UNKNOWN}
      *
      * @return The image url of the sticker
@@ -118,7 +118,7 @@ public class MessageSticker implements ISnowflake
     /**
      * Returns an {@link ImageProxy} for this sticker's image.
      *
-     * @throws java.lang.IllegalStateException
+     * @throws IllegalStateException
      *         If the {@link StickerFormat} of this sticker is {@link StickerFormat#UNKNOWN UNKNOWN}
      *
      * @return Never-null {@link ImageProxy} of this sticker's image
@@ -171,7 +171,7 @@ public class MessageSticker implements ISnowflake
          */
         LOTTIE(3, "json"),
         /**
-         * Represents any unknown or unsupported {@link net.dv8tion.jda.api.entities.MessageSticker MessageSticker} format types.
+         * Represents any unknown or unsupported {@link MessageSticker MessageSticker} format types.
          */
         UNKNOWN(-1, null);
 
@@ -187,7 +187,7 @@ public class MessageSticker implements ISnowflake
         /**
          * The file extension used for the sticker asset.
          *
-         * @throws java.lang.IllegalStateException
+         * @throws IllegalStateException
          *         If the {@link StickerFormat StickerFormat} is {@link StickerFormat#UNKNOWN UNKNOWN}
          *
          * @return The file extension for this format
@@ -209,9 +209,9 @@ public class MessageSticker implements ISnowflake
          * @return The representative StickerFormat or UNKNOWN if it can't be resolved
          */
         @Nonnull
-        public static MessageSticker.StickerFormat fromId(int id)
+        public static StickerFormat fromId(int id)
         {
-            for (MessageSticker.StickerFormat stickerFormat : values())
+            for (StickerFormat stickerFormat : values())
             {
                 if (stickerFormat.id == id)
                     return stickerFormat;

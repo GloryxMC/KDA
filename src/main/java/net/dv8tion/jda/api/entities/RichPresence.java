@@ -107,7 +107,7 @@ public interface RichPresence extends Activity
     /**
      * Information on the active party of the player
      *
-     * @return {@link net.dv8tion.jda.api.entities.RichPresence.Party Party} wrapper or {@code null} if unset
+     * @return {@link Party Party} wrapper or {@code null} if unset
      */
     @Nullable
     Party getParty();
@@ -115,7 +115,7 @@ public interface RichPresence extends Activity
     /**
      * Information on the large image displayed in the profile view
      *
-     * @return {@link net.dv8tion.jda.api.entities.RichPresence.Image Image} wrapper or {@code null} if unset
+     * @return {@link Image Image} wrapper or {@code null} if unset
      */
     @Nullable
     Image getLargeImage();
@@ -123,7 +123,7 @@ public interface RichPresence extends Activity
     /**
      * Information on the small corner image displayed in the profile view
      *
-     * @return {@link net.dv8tion.jda.api.entities.RichPresence.Image Image} wrapper or {@code null} if unset
+     * @return {@link Image Image} wrapper or {@code null} if unset
      */
     @Nullable
     Image getSmallImage();

@@ -29,10 +29,10 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
     }
 
     /**
-     * Whether the specified {@link net.dv8tion.jda.api.entities.Member}
+     * Whether the specified {@link Member}
      * can send messages in this channel.
-     * <br>Checks for both {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} and
-     * {@link net.dv8tion.jda.api.Permission#MESSAGE_SEND Permission.MESSAGE_SEND}.
+     * <br>Checks for both {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} and
+     * {@link Permission#MESSAGE_SEND Permission.MESSAGE_SEND}.
      *
      * @param  member
      *         The Member to check
@@ -58,16 +58,16 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>The request was attempted after the account lost access to the
-     *         {@link net.dv8tion.jda.api.entities.Guild Guild}
-     *         typically due to being kicked or removed, or after {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
-     *         was revoked in the {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}
-     *     <br>Also can happen if the account lost the {@link net.dv8tion.jda.api.Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}</li>
+     *         {@link Guild Guild}
+     *         typically due to being kicked or removed, or after {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
+     *         was revoked in the {@link TextChannel TextChannel}
+     *     <br>Also can happen if the account lost the {@link Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}</li>
      *
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
      *     <br>The request was attempted after the account lost
-     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_ADD_REACTION Permission.MESSAGE_ADD_REACTION} in the
-     *         {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}.</li>
+     *         {@link Permission#MESSAGE_ADD_REACTION Permission.MESSAGE_ADD_REACTION} in the
+     *         {@link TextChannel TextChannel}.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_EMOJI}
      *     <br>The provided unicode character does not refer to a known emoji unicode character.
@@ -89,16 +89,16 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * @param  user
      *         The target user of which to remove from
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         <ul>
      *             <li>If provided {@code messageId} is {@code null} or empty.</li>
      *             <li>If provided {@code unicode} is {@code null} or empty.</li>
      *         </ul>
-     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
+     * @throws InsufficientPermissionException
      *         If the currently logged in account does not have
-     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in this channel.
+     *         {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in this channel.
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction}
+     * @return {@link RestAction}
      */
     @Nonnull
     @CheckReturnValue
@@ -121,16 +121,16 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>The request was attempted after the account lost access to the
-     *         {@link net.dv8tion.jda.api.entities.Guild Guild}
-     *         typically due to being kicked or removed, or after {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
-     *         was revoked in the {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}
-     *     <br>Also can happen if the account lost the {@link net.dv8tion.jda.api.Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}</li>
+     *         {@link Guild Guild}
+     *         typically due to being kicked or removed, or after {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
+     *         was revoked in the {@link TextChannel TextChannel}
+     *     <br>Also can happen if the account lost the {@link Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}</li>
      *
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
      *     <br>The request was attempted after the account lost
-     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_ADD_REACTION Permission.MESSAGE_ADD_REACTION} in the
-     *         {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}.</li>
+     *         {@link Permission#MESSAGE_ADD_REACTION Permission.MESSAGE_ADD_REACTION} in the
+     *         {@link TextChannel TextChannel}.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_EMOJI}
      *     <br>The provided unicode character does not refer to a known emoji unicode character.
@@ -152,16 +152,16 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * @param  user
      *         The target user of which to remove from
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         <ul>
      *             <li>If provided {@code messageId} is {@code null} or empty.</li>
      *             <li>If provided {@code unicode} is {@code null} or empty.</li>
      *         </ul>
-     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
+     * @throws InsufficientPermissionException
      *         If the currently logged in account does not have
-     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in this channel.
+     *         {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in this channel.
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction}
+     * @return {@link RestAction}
      */
     @Nonnull
     @CheckReturnValue
@@ -181,16 +181,16 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>The request was attempted after the account lost access to the
-     *         {@link net.dv8tion.jda.api.entities.Guild Guild}
-     *         typically due to being kicked or removed, or after {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
-     *         was revoked in the {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}
-     *     <br>Also can happen if the account lost the {@link net.dv8tion.jda.api.Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}</li>
+     *         {@link Guild Guild}
+     *         typically due to being kicked or removed, or after {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
+     *         was revoked in the {@link TextChannel TextChannel}
+     *     <br>Also can happen if the account lost the {@link Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}</li>
      *
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
      *     <br>The request was attempted after the account lost
-     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_ADD_REACTION Permission.MESSAGE_ADD_REACTION} in the
-     *         {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}.</li>
+     *         {@link Permission#MESSAGE_ADD_REACTION Permission.MESSAGE_ADD_REACTION} in the
+     *         {@link TextChannel TextChannel}.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_EMOJI}
      *     <br>The provided unicode character does not refer to a known emoji unicode character.
@@ -212,16 +212,16 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * @param  user
      *         The target user of which to remove from
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         <ul>
      *             <li>If provided {@code messageId} is {@code null} or empty.</li>
      *             <li>If provided {@code emote} is {@code null}.</li>
      *         </ul>
-     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
+     * @throws InsufficientPermissionException
      *         If the currently logged in account does not have
-     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in this channel.
+     *         {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in this channel.
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction}
+     * @return {@link RestAction}
      */
     @Nonnull
     @CheckReturnValue
@@ -242,16 +242,16 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>The request was attempted after the account lost access to the
-     *         {@link net.dv8tion.jda.api.entities.Guild Guild}
-     *         typically due to being kicked or removed, or after {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
-     *         was revoked in the {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}
-     *     <br>Also can happen if the account lost the {@link net.dv8tion.jda.api.Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}</li>
+     *         {@link Guild Guild}
+     *         typically due to being kicked or removed, or after {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
+     *         was revoked in the {@link TextChannel TextChannel}
+     *     <br>Also can happen if the account lost the {@link Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}</li>
      *
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
      *     <br>The request was attempted after the account lost
-     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_ADD_REACTION Permission.MESSAGE_ADD_REACTION} in the
-     *         {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}.</li>
+     *         {@link Permission#MESSAGE_ADD_REACTION Permission.MESSAGE_ADD_REACTION} in the
+     *         {@link TextChannel TextChannel}.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_EMOJI}
      *     <br>The provided unicode character does not refer to a known emoji unicode character.
@@ -273,16 +273,16 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * @param  user
      *         The target user of which to remove from
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         <ul>
      *             <li>If provided {@code messageId} is {@code null} or empty.</li>
      *             <li>If provided {@code emote} is {@code null}.</li>
      *         </ul>
-     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
+     * @throws InsufficientPermissionException
      *         If the currently logged in account does not have
-     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in this channel.
+     *         {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in this channel.
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction}
+     * @return {@link RestAction}
      */
     @Nonnull
     @CheckReturnValue
@@ -293,13 +293,13 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
 
     /**
      * Bulk deletes a list of messages.
-     * <b>This is not the same as calling {@link net.dv8tion.jda.api.entities.Message#delete()} in a loop.</b>
+     * <b>This is not the same as calling {@link Message#delete()} in a loop.</b>
      * <br>This is much more efficient, but it has a different ratelimit. You may call this once per second per Guild.
      *
      * <p>Must be at least 2 messages and not be more than 100 messages at a time.
      * <br>If you only have 1 message, use the {@link Message#delete()} method instead.
      *
-     * <br><p>You must have the Permission {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE MESSAGE_MANAGE} in this channel to use
+     * <br><p>You must have the Permission {@link Permission#MESSAGE_MANAGE MESSAGE_MANAGE} in this channel to use
      * this function.
      *
      * <p>This method is best used when using {@link MessageHistory MessageHistory} to delete a large amount
@@ -318,7 +318,7 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
      *     <br>The send request was attempted after the account lost
-     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in the channel.</li>
+     *         {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in the channel.</li>
      * </ul>
      *
      * @param  messages
@@ -326,8 +326,8 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @throws IllegalArgumentException
      *         If the size of the list less than 2 or more than 100 messages.
-     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
-     *         If this account does not have {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE}
+     * @throws InsufficientPermissionException
+     *         If this account does not have {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE}
      *
      * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      *
@@ -347,18 +347,18 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
 
     /**
      * Bulk deletes a list of messages.
-     * <b>This is not the same as calling {@link net.dv8tion.jda.api.entities.MessageChannel#deleteMessageById(String)} in a loop.</b>
+     * <b>This is not the same as calling {@link MessageChannel#deleteMessageById(String)} in a loop.</b>
      * <br>This is much more efficient, but it has a different ratelimit. You may call this once per second per Guild.
      *
      * <p>Must be at least 2 messages and not be more than 100 messages at a time.
-     * <br>If you only have 1 message, use the {@link net.dv8tion.jda.api.entities.Message#delete()} method instead.
+     * <br>If you only have 1 message, use the {@link Message#delete()} method instead.
      *
-     * <br><p>You must have {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in this channel to use
+     * <br><p>You must have {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in this channel to use
      * this function.
      *
      * <p>This method is best used when you have a large amount of messages but only their message Ids. If you are using
-     * {@link MessageHistory MessageHistory} or have {@link net.dv8tion.jda.api.entities.Message Message}
-     * objects, it would be easier to use {@link #deleteMessages(java.util.Collection)}.
+     * {@link MessageHistory MessageHistory} or have {@link Message Message}
+     * objects, it would be easier to use {@link #deleteMessages(Collection)}.
      *
      * <p>Possible ErrorResponses include:
      * <ul>
@@ -373,18 +373,18 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
      *     <br>The send request was attempted after the account lost
-     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in the channel.</li>
+     *         {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in the channel.</li>
      * </ul>
      *
      * @param  messageIds
      *         The message ids for the messages to delete.
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the size of the list less than 2 or more than 100 messages.
-     * @throws java.lang.NumberFormatException
+     * @throws NumberFormatException
      *         If any of the provided ids cannot be parsed by {@link Long#parseLong(String)}
-     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
-     *         If this account does not have {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE}
+     * @throws InsufficientPermissionException
+     *         If this account does not have {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE}
      *
      * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      *
@@ -402,14 +402,14 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * <p>The following {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} are possible:
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
-     *     <br>The clear-reactions request was attempted after the account lost access to the {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}
-     *         due to {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} being revoked, or the
-     *         account lost access to the {@link net.dv8tion.jda.api.entities.Guild Guild}
+     *     <br>The clear-reactions request was attempted after the account lost access to the {@link TextChannel TextChannel}
+     *         due to {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} being revoked, or the
+     *         account lost access to the {@link Guild Guild}
      *         typically due to being kicked or removed.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
-     *     <br>The clear-reactions request was attempted after the account lost {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE}
-     *         in the {@link net.dv8tion.jda.api.entities.TextChannel TextChannel} when adding the reaction.</li>
+     *     <br>The clear-reactions request was attempted after the account lost {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE}
+     *         in the {@link TextChannel TextChannel} when adding the reaction.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_MESSAGE UNKNOWN_MESSAGE}
      *         The clear-reactions request was attempted after the Message had been deleted.</li>
@@ -418,10 +418,10 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * @param  messageId
      *         The not-empty valid message id
      *
-     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
+     * @throws InsufficientPermissionException
      *         If the currently logged in account does not have
-     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in this channel.
-     * @throws java.lang.IllegalArgumentException
+     *         {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in this channel.
+     * @throws IllegalArgumentException
      *         If the provided {@code id} is {@code null} or empty.
      *
      * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
@@ -437,14 +437,14 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * <p>The following {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} are possible:
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
-     *     <br>The clear-reactions request was attempted after the account lost access to the {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}
-     *         due to {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} being revoked, or the
-     *         account lost access to the {@link net.dv8tion.jda.api.entities.Guild Guild}
+     *     <br>The clear-reactions request was attempted after the account lost access to the {@link TextChannel TextChannel}
+     *         due to {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} being revoked, or the
+     *         account lost access to the {@link Guild Guild}
      *         typically due to being kicked or removed.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
-     *     <br>The clear-reactions request was attempted after the account lost {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE}
-     *         in the {@link net.dv8tion.jda.api.entities.TextChannel TextChannel} when adding the reaction.</li>
+     *     <br>The clear-reactions request was attempted after the account lost {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE}
+     *         in the {@link TextChannel TextChannel} when adding the reaction.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_MESSAGE UNKNOWN_MESSAGE}
      *         The clear-reactions request was attempted after the Message had been deleted.</li>
@@ -453,9 +453,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * @param  messageId
      *         The message id
      *
-     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
+     * @throws InsufficientPermissionException
      *         If the currently logged in account does not have
-     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in this channel.
+     *         {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in this channel.
      *
      * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      */
@@ -483,7 +483,7 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>The currently logged in account lost access to the channel by either being removed from the guild
-     *         or losing the {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL VIEW_CHANNEL} permission</li>
+     *         or losing the {@link Permission#VIEW_CHANNEL VIEW_CHANNEL} permission</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_EMOJI UNKNOWN_EMOJI}
      *     <br>The provided unicode emoji doesn't exist. Try using one of the example formats.</li>
@@ -517,7 +517,7 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>The currently logged in account lost access to the channel by either being removed from the guild
-     *         or losing the {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL VIEW_CHANNEL} permission</li>
+     *         or losing the {@link Permission#VIEW_CHANNEL VIEW_CHANNEL} permission</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_EMOJI UNKNOWN_EMOJI}
      *     <br>The provided {@link Emote} was deleted or doesn't exist.</li>
@@ -565,7 +565,7 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>The currently logged in account lost access to the channel by either being removed from the guild
-     *         or losing the {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL VIEW_CHANNEL} permission</li>
+     *         or losing the {@link Permission#VIEW_CHANNEL VIEW_CHANNEL} permission</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_EMOJI UNKNOWN_EMOJI}
      *     <br>The provided unicode emoji doesn't exist. Try using one of the example formats.</li>
@@ -602,7 +602,7 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>The currently logged in account lost access to the channel by either being removed from the guild
-     *         or losing the {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL VIEW_CHANNEL} permission</li>
+     *         or losing the {@link Permission#VIEW_CHANNEL VIEW_CHANNEL} permission</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_EMOJI UNKNOWN_EMOJI}
      *     <br>The provided {@link Emote} was deleted or doesn't exist.</li>

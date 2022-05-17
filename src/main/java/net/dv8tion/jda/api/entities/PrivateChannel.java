@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
 public interface PrivateChannel extends MessageChannel
 {
     /**
-     * The {@link net.dv8tion.jda.api.entities.User User} that this {@link net.dv8tion.jda.api.entities.PrivateChannel PrivateChannel} communicates with.
+     * The {@link User User} that this {@link PrivateChannel PrivateChannel} communicates with.
      *
      * <p>This user is only null if this channel is currently uncached, and one the following occur:
      * <ul>
@@ -42,7 +42,7 @@ public interface PrivateChannel extends MessageChannel
      *
      * <br>In order to retrieve a user that is null, use {@link #retrieveUser()}
      *
-     * @return Possibly-null {@link net.dv8tion.jda.api.entities.User User}.
+     * @return Possibly-null {@link User User}.
      *
      * @see #retrieveUser()
      */
@@ -50,7 +50,7 @@ public interface PrivateChannel extends MessageChannel
     User getUser();
 
     /**
-     * Retrieves the {@link User User} that this {@link net.dv8tion.jda.api.entities.PrivateChannel PrivateChannel} communicates with.
+     * Retrieves the {@link User User} that this {@link PrivateChannel PrivateChannel} communicates with.
      *
      * <br>This method fetches the channel from the API and retrieves the User from that.
      *

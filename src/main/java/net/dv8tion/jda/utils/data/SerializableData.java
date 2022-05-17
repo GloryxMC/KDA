@@ -13,19 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.dv8tion.jda.utils.data
 
-import javax.annotation.Nonnull
+package net.dv8tion.jda.utils.data;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Allows custom serialization for JSON payloads of an object.
  */
-interface SerializableArray {
+public interface SerializableData
+{
     /**
-     * Serialized [DataArray] for this object.
+     * Serialized {@link DataObject} for this object.
      *
-     * @return [DataArray]
+     * @return {@link DataObject}
      */
-    @Nonnull
-    fun toDataArray(): DataArray
+    @NotNull
+    DataObject toData();
 }

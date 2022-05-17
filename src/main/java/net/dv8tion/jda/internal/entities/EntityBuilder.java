@@ -1703,8 +1703,7 @@ public class EntityBuilder
         final List<Field> fields = map(content, "fields", (obj) ->
             new Field(obj.getString("name", null),
                       obj.getString("value", null),
-                      obj.getBoolean("inline"),
-                      false)
+                      obj.getBoolean("inline"))
         );
 
         return createMessageEmbed(url, title, description, type, timestamp,

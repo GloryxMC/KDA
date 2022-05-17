@@ -36,15 +36,15 @@ import java.util.List;
 public interface IMemberContainer extends GuildChannel
 {
     /**
-     * A List of all {@link net.dv8tion.jda.api.entities.Member Members} that are in this GuildChannel
-     * <br>For {@link net.dv8tion.jda.api.entities.TextChannel TextChannels},
+     * A List of all {@link Member Members} that are in this GuildChannel
+     * <br>For {@link TextChannel TextChannels},
      * this returns all Members with the {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} Permission.
-     * <br>For {@link net.dv8tion.jda.api.entities.VoiceChannel VoiceChannels},
+     * <br>For {@link VoiceChannel VoiceChannels},
      * this returns all Members that joined that VoiceChannel.
-     * <br>For {@link net.dv8tion.jda.api.entities.Category Categories},
+     * <br>For {@link Category Categories},
      * this returns all Members who are in its child channels.
      *
-     * @return An immutable List of {@link net.dv8tion.jda.api.entities.Member Members} that are in this GuildChannel.
+     * @return An immutable List of {@link Member Members} that are in this GuildChannel.
      */
     @Nonnull
     List<Member> getMembers();

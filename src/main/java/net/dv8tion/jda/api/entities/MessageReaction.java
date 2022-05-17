@@ -56,9 +56,9 @@ public class MessageReaction
      * Creates a new MessageReaction instance
      *
      * @param  channel
-     *         The {@link net.dv8tion.jda.api.entities.MessageChannel} this Reaction was used in
+     *         The {@link MessageChannel} this Reaction was used in
      * @param  emote
-     *         The {@link net.dv8tion.jda.api.entities.MessageReaction.ReactionEmote ReactionEmote} that was used
+     *         The {@link ReactionEmote ReactionEmote} that was used
      * @param  messageId
      *         The message id this reaction is attached to
      * @param  self
@@ -119,9 +119,9 @@ public class MessageReaction
      *
      * <p>This value is not available in events such as {@link net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent MessageReactionAddEvent}
      * and {@link net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent MessageReactionRemoveEvent} in which case an
-     * {@link java.lang.IllegalStateException IllegalStateException} is thrown!
+     * {@link IllegalStateException IllegalStateException} is thrown!
      *
-     * @throws java.lang.IllegalStateException
+     * @throws IllegalStateException
      *         If this MessageReaction is from an event which does not provide a count
      *
      * @return The amount of users that reacted with this Reaction
@@ -134,7 +134,7 @@ public class MessageReaction
     }
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.ChannelType ChannelType}
+     * The {@link ChannelType ChannelType}
      * this Reaction was used in.
      *
      * @return The ChannelType
@@ -146,8 +146,8 @@ public class MessageReaction
     }
 
     /**
-     * Whether this Reaction was used in a {@link net.dv8tion.jda.api.entities.MessageChannel MessageChannel}
-     * of the specified {@link net.dv8tion.jda.api.entities.ChannelType ChannelType}.
+     * Whether this Reaction was used in a {@link MessageChannel MessageChannel}
+     * of the specified {@link ChannelType ChannelType}.
      *
      * @param  type
      *         The ChannelType to compare
@@ -160,10 +160,10 @@ public class MessageReaction
     }
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.Guild Guild} this Reaction was used in.
+     * The {@link Guild Guild} this Reaction was used in.
      * This will return null if the channel this Reaction was used in is not part of a Guild.
      *
-     * @return {@link net.dv8tion.jda.api.entities.Guild Guild} this Reaction was used in, or {@code null}
+     * @return {@link Guild Guild} this Reaction was used in, or {@code null}
      */
     @Nullable
     public Guild getGuild()
@@ -173,10 +173,10 @@ public class MessageReaction
     }
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.TextChannel TextChannel} this Reaction was used in
-     * or {@code null} if this is not from type {@link net.dv8tion.jda.api.entities.ChannelType#TEXT ChannelType.TEXT}!
+     * The {@link TextChannel TextChannel} this Reaction was used in
+     * or {@code null} if this is not from type {@link ChannelType#TEXT ChannelType.TEXT}!
      *
-     * @return The {@link net.dv8tion.jda.api.entities.TextChannel TextChannel} or {@code null}
+     * @return The {@link TextChannel TextChannel} or {@code null}
      */
     @Nullable
     public TextChannel getTextChannel()
@@ -185,10 +185,10 @@ public class MessageReaction
     }
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.PrivateChannel PrivateChannel} this Reaction was used in
-     * or {@code null} if this is not from type {@link net.dv8tion.jda.api.entities.ChannelType#PRIVATE ChannelType.PRIVATE}!
+     * The {@link PrivateChannel PrivateChannel} this Reaction was used in
+     * or {@code null} if this is not from type {@link ChannelType#PRIVATE ChannelType.PRIVATE}!
      *
-     * @return The {@link net.dv8tion.jda.api.entities.PrivateChannel PrivateChannel} or {@code null}
+     * @return The {@link PrivateChannel PrivateChannel} or {@code null}
      */
     @Nullable
     public PrivateChannel getPrivateChannel()
@@ -197,7 +197,7 @@ public class MessageReaction
     }
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.MessageChannel MessageChannel}
+     * The {@link MessageChannel MessageChannel}
      * this Reaction was used in.
      *
      * @return The channel this Reaction was used in
@@ -209,7 +209,7 @@ public class MessageReaction
     }
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.GuildMessageChannel GuildMessageChannel}
+     * The {@link GuildMessageChannel GuildMessageChannel}
      * this Reaction was used in.
      *
      * @return The channel this Reaction was used in or null if it wasn't used in a Guild
@@ -221,7 +221,7 @@ public class MessageReaction
     }
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.MessageReaction.ReactionEmote ReactionEmote}
+     * The {@link ReactionEmote ReactionEmote}
      * of this Reaction
      *
      * @return The final instance of this Reaction's Emote/Emoji
@@ -254,7 +254,7 @@ public class MessageReaction
     }
 
     /**
-     * Retrieves the {@link net.dv8tion.jda.api.entities.User Users} that
+     * Retrieves the {@link User Users} that
      * already reacted with this MessageReaction.
      *
      * <p>Possible ErrorResponses include:
@@ -295,7 +295,7 @@ public class MessageReaction
      *     <br>If we were removed from the channel/guild</li>
      * </ul>
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: Void
+     * @return {@link RestAction RestAction} - Type: Void
      *         Nothing is returned on success
      */
     @Nonnull
@@ -307,7 +307,7 @@ public class MessageReaction
 
     /**
      * Removes this Reaction from the Message.
-     * <br>This will remove the reaction of the {@link net.dv8tion.jda.api.entities.User User}
+     * <br>This will remove the reaction of the {@link User User}
      * provided.
      *
      * <p>If the provided User did not react with this Reaction this does nothing.
@@ -327,16 +327,16 @@ public class MessageReaction
      * @param  user
      *         The User of which to remove the reaction
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided {@code user} is null.
-     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
+     * @throws InsufficientPermissionException
      *         If the provided User is not us and we do not have permission to
-     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE manage messages}
+     *         {@link Permission#MESSAGE_MANAGE manage messages}
      *         in the channel this reaction was used in
-     * @throws net.dv8tion.jda.api.exceptions.PermissionException
-     *         If the message is from another user in a {@link net.dv8tion.jda.api.entities.PrivateChannel PrivateChannel}
+     * @throws PermissionException
+     *         If the message is from another user in a {@link PrivateChannel PrivateChannel}
      *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction}
+     * @return {@link RestAction RestAction}
      *         Nothing is returned on success
      */
     @Nonnull
@@ -371,7 +371,7 @@ public class MessageReaction
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>The currently logged in account lost access to the channel by either being removed from the guild
-     *         or losing the {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL VIEW_CHANNEL} permission</li>
+     *         or losing the {@link Permission#VIEW_CHANNEL VIEW_CHANNEL} permission</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_EMOJI UNKNOWN_EMOJI}
      *     <br>The provided unicode emoji doesn't exist. Try using one of the example formats.</li>
@@ -466,8 +466,8 @@ public class MessageReaction
         }
 
         /**
-         * Whether this is an {@link net.dv8tion.jda.api.entities.Emote Emote} wrapper.
-         * <br>This means {@link #getEmoji()} will throw {@link java.lang.IllegalStateException}.
+         * Whether this is an {@link Emote Emote} wrapper.
+         * <br>This means {@link #getEmoji()} will throw {@link IllegalStateException}.
          *
          * @return True, if {@link #getEmote()} can be used
          *
@@ -511,7 +511,7 @@ public class MessageReaction
         /**
          * Converts the unicode name into codepoint notation like {@code U+1F602}.
          *
-         * @throws java.lang.IllegalStateException
+         * @throws IllegalStateException
          *         If this is not an emoji reaction, see {@link #isEmoji()}
          *
          * @return String containing the codepoint representation of the reaction emoji
@@ -550,7 +550,7 @@ public class MessageReaction
         /**
          * The unicode representing the emoji used for reacting.
          *
-         * @throws java.lang.IllegalStateException
+         * @throws IllegalStateException
          *         If this is not an emoji reaction, see {@link #isEmoji()}
          *
          * @return The unicode for the emoji
@@ -564,10 +564,10 @@ public class MessageReaction
         }
 
         /**
-         * The instance of {@link net.dv8tion.jda.api.entities.Emote Emote}
+         * The instance of {@link Emote Emote}
          * for the Reaction instance.
          *
-         * @throws java.lang.IllegalStateException
+         * @throws IllegalStateException
          *         If this is not a custom emote reaction, see {@link #isEmote()}
          *
          * @return The Emote for the Reaction instance

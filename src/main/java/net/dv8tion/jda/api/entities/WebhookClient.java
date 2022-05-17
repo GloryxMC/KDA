@@ -200,11 +200,11 @@ public interface WebhookClient<T>
      *         The InputStream data to upload to the webhook.
      * @param  name
      *         The file name that should be sent to discord
-     *         <br>Refer to the documentation for {@link #sendFile(java.io.File, String, AttachmentOption...)} for information about this parameter.
+     *         <br>Refer to the documentation for {@link #sendFile(File, String, AttachmentOption...)} for information about this parameter.
      * @param  options
      *         Possible options to apply to this attachment, such as marking it as spoiler image
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided file or filename is {@code null} or {@code empty}.
      *
      * @return {@link WebhookMessageAction}
@@ -218,7 +218,7 @@ public interface WebhookClient<T>
      *
      * <p>If this is an {@link net.dv8tion.jda.api.interactions.InteractionHook InteractionHook} this method will be delayed until the interaction is acknowledged.
      *
-     * <p>This is a shortcut to {@link #sendFile(java.io.File, String, AttachmentOption...)} by way of using {@link java.io.File#getName()}.
+     * <p>This is a shortcut to {@link #sendFile(File, String, AttachmentOption...)} by way of using {@link File#getName()}.
      * <pre>sendFile(file, file.getName())</pre>
      *
      * <p><b>Uploading images with Embeds</b>
@@ -247,7 +247,7 @@ public interface WebhookClient<T>
      * @param  options
      *         Possible options to apply to this attachment, such as marking it as spoiler image
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided file is {@code null}.
      *
      * @return {@link WebhookMessageAction}
@@ -267,7 +267,7 @@ public interface WebhookClient<T>
      *
      * <p>The {@code name} parameter is used to inform Discord about what the file should be called. This is 2 fold:
      * <ol>
-     *     <li>The file name provided is the name that is found in {@link net.dv8tion.jda.api.entities.Message.Attachment#getFileName()}
+     *     <li>The file name provided is the name that is found in {@link Message.Attachment#getFileName()}
      *          after upload and it is the name that will show up in the client when the upload is displayed.
      *     <br>Note: The fileName does not show up on the Desktop client for images. It does on mobile however.</li>
      *     <li>The extension of the provided fileName also determines how Discord will treat the file. Discord currently only
@@ -305,7 +305,7 @@ public interface WebhookClient<T>
      * @param  options
      *         Possible options to apply to this attachment, such as marking it as spoiler image
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided file or filename is {@code null} or {@code empty}.
      *
      * @return {@link WebhookMessageAction}
@@ -359,11 +359,11 @@ public interface WebhookClient<T>
      *         The {@code byte[]} data to upload to the webhook.
      * @param  name
      *         The file name that should be sent to discord
-     *         <br>Refer to the documentation for {@link #sendFile(java.io.File, String, AttachmentOption...)} for information about this parameter.
+     *         <br>Refer to the documentation for {@link #sendFile(File, String, AttachmentOption...)} for information about this parameter.
      * @param  options
      *         Possible options to apply to this attachment, such as marking it as spoiler image
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided file or filename is {@code null} or {@code empty}.
      *
      * @return {@link WebhookMessageAction}
@@ -826,11 +826,11 @@ public interface WebhookClient<T>
      *         The InputStream data to upload to the webhook.
      * @param  name
      *         The file name that should be sent to discord
-     *         <br>Refer to the documentation for {@link #sendFile(java.io.File, String, AttachmentOption...)} for information about this parameter.
+     *         <br>Refer to the documentation for {@link #sendFile(File, String, AttachmentOption...)} for information about this parameter.
      * @param  options
      *         Possible options to apply to this attachment, such as marking it as spoiler image
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided message id, data, or filename is {@code null}.
      *
      * @return {@link WebhookMessageUpdateAction}
@@ -845,7 +845,7 @@ public interface WebhookClient<T>
      *
      * <p>If this is an {@link net.dv8tion.jda.api.interactions.InteractionHook InteractionHook} this method will be delayed until the interaction is acknowledged.
      *
-     * <p>This is a shortcut to {@link #editMessageById(java.lang.String, java.io.File, String, AttachmentOption...)} by way of using {@link java.io.File#getName()}.
+     * <p>This is a shortcut to {@link #editMessageById(String, File, String, AttachmentOption...)} by way of using {@link File#getName()}.
      * <pre>editMessageById(messageId, file, file.getName())</pre>
      *
      * <p><b>Uploading images with Embeds</b>
@@ -876,7 +876,7 @@ public interface WebhookClient<T>
      * @param  options
      *         Possible options to apply to this attachment, such as marking it as spoiler image
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided message id or file is {@code null}.
      *
      * @return {@link WebhookMessageUpdateAction}
@@ -922,11 +922,11 @@ public interface WebhookClient<T>
      *         The {@link File} data to upload to the webhook.
      * @param  name
      *         The file name that should be sent to discord
-     *         <br>Refer to the documentation for {@link #sendFile(java.io.File, String, AttachmentOption...)} for information about this parameter.
+     *         <br>Refer to the documentation for {@link #sendFile(File, String, AttachmentOption...)} for information about this parameter.
      * @param  options
      *         Possible options to apply to this attachment, such as marking it as spoiler image
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided file, message id, or filename is {@code null}.
      *
      * @return {@link WebhookMessageUpdateAction}
@@ -983,11 +983,11 @@ public interface WebhookClient<T>
      *         The InputStream data to upload to the webhook.
      * @param  name
      *         The file name that should be sent to discord
-     *         <br>Refer to the documentation for {@link #sendFile(java.io.File, String, AttachmentOption...)} for information about this parameter.
+     *         <br>Refer to the documentation for {@link #sendFile(File, String, AttachmentOption...)} for information about this parameter.
      * @param  options
      *         Possible options to apply to this attachment, such as marking it as spoiler image
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided message id, data, or filename is {@code null}.
      *
      * @return {@link WebhookMessageUpdateAction}
@@ -1035,11 +1035,11 @@ public interface WebhookClient<T>
      *         The InputStream data to upload to the webhook.
      * @param  name
      *         The file name that should be sent to discord
-     *         <br>Refer to the documentation for {@link #sendFile(java.io.File, String, AttachmentOption...)} for information about this parameter.
+     *         <br>Refer to the documentation for {@link #sendFile(File, String, AttachmentOption...)} for information about this parameter.
      * @param  options
      *         Possible options to apply to this attachment, such as marking it as spoiler image
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided data or filename is {@code null}.
      *
      * @return {@link WebhookMessageUpdateAction}
@@ -1057,7 +1057,7 @@ public interface WebhookClient<T>
      *
      * <p>If this is an {@link net.dv8tion.jda.api.interactions.InteractionHook InteractionHook} this method will be delayed until the interaction is acknowledged.
      *
-     * <p>This is a shortcut to {@link #sendFile(java.io.File, String, AttachmentOption...)} by way of using {@link java.io.File#getName()}.
+     * <p>This is a shortcut to {@link #sendFile(File, String, AttachmentOption...)} by way of using {@link File#getName()}.
      * <pre>sendFile(file, file.getName())</pre>
      *
      * <p><b>Uploading images with Embeds</b>
@@ -1088,7 +1088,7 @@ public interface WebhookClient<T>
      * @param  options
      *         Possible options to apply to this attachment, such as marking it as spoiler image
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided file is {@code null}.
      *
      * @return {@link WebhookMessageUpdateAction}
@@ -1133,11 +1133,11 @@ public interface WebhookClient<T>
      *         The {@link File} data to upload to the webhook.
      * @param  name
      *         The file name that should be sent to discord
-     *         <br>Refer to the documentation for {@link #sendFile(java.io.File, String, AttachmentOption...)} for information about this parameter.
+     *         <br>Refer to the documentation for {@link #sendFile(File, String, AttachmentOption...)} for information about this parameter.
      * @param  options
      *         Possible options to apply to this attachment, such as marking it as spoiler image
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided file or filename is {@code null}.
      *
      * @return {@link WebhookMessageUpdateAction}
@@ -1182,11 +1182,11 @@ public interface WebhookClient<T>
      *         The InputStream data to upload to the webhook.
      * @param  name
      *         The file name that should be sent to discord
-     *         <br>Refer to the documentation for {@link #sendFile(java.io.File, String, AttachmentOption...)} for information about this parameter.
+     *         <br>Refer to the documentation for {@link #sendFile(File, String, AttachmentOption...)} for information about this parameter.
      * @param  options
      *         Possible options to apply to this attachment, such as marking it as spoiler image
      *
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException
      *         If the provided data or filename is {@code null}.
      *
      * @return {@link WebhookMessageUpdateAction}

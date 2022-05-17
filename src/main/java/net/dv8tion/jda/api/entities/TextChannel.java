@@ -51,7 +51,7 @@ public interface TextChannel extends BaseGuildMessageChannel
 
     /**
      * The slowmode set for this TextChannel.
-     * <br>If slowmode is set this returns an {@code int} between 1 and {@link net.dv8tion.jda.api.entities.TextChannel#MAX_SLOWMODE TextChannel.MAX_SLOWMODE}.
+     * <br>If slowmode is set this returns an {@code int} between 1 and {@link TextChannel#MAX_SLOWMODE TextChannel.MAX_SLOWMODE}.
      * <br>If not set this returns {@code 0}.
      *
      * <p>Note bots are unaffected by this.
@@ -59,7 +59,7 @@ public interface TextChannel extends BaseGuildMessageChannel
      * {@link net.dv8tion.jda.api.Permission#MANAGE_CHANNEL MANAGE_CHANNEL} permission also
      * grants immunity to slowmode.
      *
-     * @return The slowmode for this TextChannel, between 1 and {@link net.dv8tion.jda.api.entities.TextChannel#MAX_SLOWMODE TextChannel.MAX_SLOWMODE}, or {@code 0} if no slowmode is set.
+     * @return The slowmode for this TextChannel, between 1 and {@link TextChannel#MAX_SLOWMODE TextChannel.MAX_SLOWMODE}, or {@code 0} if no slowmode is set.
      */
     int getSlowmode();
 
