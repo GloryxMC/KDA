@@ -155,24 +155,22 @@ class MessageEmbed(
     private val mutex = Any()
 
     @Volatile
-    var length: Int = -1
-        get() {
-            if (field > -1) return field
-            synchronized(mutex) {
-                if (length > -1) return length
-                length = 0
-                if (title != null) length += Helpers.codePointLength(title)
-                if (description != null) length += Helpers.codePointLength(description.trim { it <= ' ' })
-                if (author != null) length += Helpers.codePointLength(author.name)
-                if (footer != null) length += Helpers.codePointLength(footer.text)
-                for (f in fields) length += Helpers.codePointLength(
-                        f.name
-                ) + Helpers.codePointLength(f.value)
-                return length
-            }
+    private var length: Int = -1
+    fun getLength(): Int {
+        if (length > -1) return length
+        synchronized(mutex) {
+            if (length > -1) return length
+            length = 0
+            if (title != null) length += Helpers.codePointLength(title)
+            if (description != null) length += Helpers.codePointLength(description.trim { it <= ' ' })
+            if (author != null) length += Helpers.codePointLength(author.name)
+            if (footer != null) length += Helpers.codePointLength(footer.text)
+            for (f in fields) length += Helpers.codePointLength(
+                    f.name
+            ) + Helpers.codePointLength(f.value)
+            return length
         }
-        private set
-
+    }
     @Volatile
     @Transient
     private var json: DataObject? = null

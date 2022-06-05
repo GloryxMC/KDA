@@ -1,8 +1,10 @@
 package net.gloryx.kda
 
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.suspendCancellableCoroutine
+import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.requests.RestAction
 import net.dv8tion.jda.api.requests.restaction.pagination.PaginationAction
 import net.dv8tion.jda.api.utils.concurrent.Task
@@ -10,6 +12,7 @@ import java.util.*
 import java.util.concurrent.CompletableFuture
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 /**
  * Awaits the result of this CompletableFuture
@@ -40,7 +43,7 @@ suspend fun <T> RestAction<T>.await(): T = submit().await()
  */
 suspend fun <T> Task<T>.await() = suspendCancellableCoroutine<T> {
     it.invokeOnCancellation { cancel() }
-    onSuccess { r -> it.resume(r)  }
+    onSuccess { r -> it.resume(r) }
     onError { e -> it.resumeWithException(e) }
 }
 
@@ -56,7 +59,7 @@ suspend fun <T> Task<T>.await() = suspendCancellableCoroutine<T> {
  *
  * @return[Flow] instance
  */
-fun <T, M: PaginationAction<T, M>> M.asFlow(): Flow<T> = flow {
+fun <T, M : PaginationAction<T, M>> M.asFlow(): Flow<T> = flow {
     cache(false)
     val queue = LinkedList<T>(await())
     while (queue.isNotEmpty()) {
@@ -65,4 +68,11 @@ fun <T, M: PaginationAction<T, M>> M.asFlow(): Flow<T> = flow {
         }
         queue.addAll(await())
     }
+}
+
+suspend fun JDA.awaitStatus(status: JDA.Status = JDA.Status.CONNECTED): JDA {
+    while (this.status != status) {
+        delay(50)
+    }
+    return this
 }

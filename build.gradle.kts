@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Austin Keener, Michael Ritter, Florian Spieß, and the JDA contributors
+ * Copyright 2015 Austin Keener, Michael Ritter, Florian Spieß, Ilya Borodinov, and the JDA contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ plugins {
 }
 
 val javaVersion = JavaVersion.current()
-val versionObj = Version(major = "5", minor = "0", revision = "11")
+val versionObj = Version(major = "5", minor = "0", revision = "12")
 val isCI = System.getProperty("BUILD_NUMBER") != null // jenkins
         || System.getenv("BUILD_NUMBER") != null
         || System.getProperty("GIT_COMMIT") != null // jitpack
@@ -68,7 +68,7 @@ project.version = "$versionObj" + if (isNewVersion) "" else "_$commitHash"
 
 project.group = "net.gloryx"
 
-val archivesBaseName = "JDA"
+val archivesBaseName = "KDA"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -121,6 +121,8 @@ dependencies {
     // Match the minor version of lavaplayers jackson dependency
     implementation("com.fasterxml.jackson.core:jackson-core:2.13.2")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2.2")
+    api("org.reflections:reflections:0.10.2") // Reflections
+    implementation(kotlin("reflect")) // Reflections too
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
 
     //Sets the dependencies for the examples
@@ -212,6 +214,7 @@ val sourcesJar = task<Jar>("sourcesJar") {
     from("src/main/java") {
         exclude("**/JDAInfo.java")
     }
+    from("src/main/kotlin")
     from(sourcesForRelease.destinationDir)
 
     dependsOn(sourcesForRelease)

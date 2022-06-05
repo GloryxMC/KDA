@@ -1,2 +1,2 @@
-rootProject.name = "JDA"
+rootProject.name = "KDA"
 

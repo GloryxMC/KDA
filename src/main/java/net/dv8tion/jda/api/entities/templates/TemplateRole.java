@@ -18,6 +18,7 @@ package net.dv8tion.jda.api.entities.templates;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ISnowflake;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -67,7 +68,7 @@ public class TemplateRole implements ISnowflake
      *         The date of creation cannot be calculated.
      */
     @Override
-    public OffsetDateTime getTimeCreated()
+    public @NotNull OffsetDateTime getTimeCreated()
     {
         throw new UnsupportedOperationException("The date of creation cannot be calculated");
     }

@@ -1,5 +1,6 @@
 package net.gloryx.kda
 
+import me.devoxin.flight.api.Context
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageChannel
 import net.dv8tion.jda.api.entities.MessageEmbed

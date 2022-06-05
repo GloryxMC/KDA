@@ -20,6 +20,7 @@ import net.dv8tion.jda.api.managers.channel.concrete.ThreadChannelManager;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.utils.MiscUtil;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
@@ -522,6 +523,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @return The timestamp when this thread was created
      */
     @Nonnull
+    @NotNull
     OffsetDateTime getTimeCreated();
 
     /**

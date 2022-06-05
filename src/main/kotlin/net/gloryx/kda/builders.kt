@@ -290,6 +290,10 @@ class IntentAccumulator(private val builder: JDABuilder) {
         builder.enableIntents(intents)
     }
 
+    operator fun plusAssign(intents: Int) {
+        builder.enableIntents(GatewayIntent.getIntents(intents))
+    }
+
     operator fun plusAssign(intent: GatewayIntent) {
         builder.enableIntents(intent)
     }
