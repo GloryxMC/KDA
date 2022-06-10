@@ -18,7 +18,7 @@ package net.dv8tion.jda.internal.interactions.command;
 
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
-import net.dv8tion.jda.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
 
 import org.jetbrains.annotations.NotNull;

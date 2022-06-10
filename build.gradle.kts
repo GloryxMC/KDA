@@ -29,14 +29,14 @@ plugins {
     `java-library`
     `maven-publish`
 
-    kotlin("jvm") version "1.6.20"
+    kotlin("jvm") version "1.7.0"
     kotlin("plugin.serialization") version "1.6.20"
 
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 val javaVersion = JavaVersion.current()
-val versionObj = Version(major = "5", minor = "0", revision = "132")
+val versionObj = Version(major = "5", minor = "0", revision = "20")
 val isCI = System.getProperty("BUILD_NUMBER") != null // jenkins
         || System.getenv("BUILD_NUMBER") != null
         || System.getProperty("GIT_COMMIT") != null // jitpack

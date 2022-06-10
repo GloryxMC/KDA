@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
+package net.dv8tion.jda.api.entities.sticker;
+
 /**
- * Serialization features used for communication with Discord.
+ * Stickers used primarily for message objects.
+ *
+ * <p>These types contain the minimal required information to display the sticker in the discord client.
  */
-package net.dv8tion.jda.utils.data;
+public interface StickerItem extends Sticker
+{
+}

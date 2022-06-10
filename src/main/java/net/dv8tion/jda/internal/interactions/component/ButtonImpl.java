@@ -19,7 +19,7 @@ package net.dv8tion.jda.internal.interactions.component;
 import net.dv8tion.jda.api.entities.Emoji;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.interactions.components.buttons.ButtonStyle;
-import net.dv8tion.jda.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import org.jetbrains.annotations.NotNull;
 
 import org.jetbrains.annotations.Nullable;

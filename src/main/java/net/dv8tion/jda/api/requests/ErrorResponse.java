@@ -17,7 +17,7 @@
 package net.dv8tion.jda.api.requests;
 
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
-import net.dv8tion.jda.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.utils.Checks;
 import org.jetbrains.annotations.NotNull;
 

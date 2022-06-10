@@ -20,7 +20,7 @@ import net.dv8tion.jda.api.entities.StageChannel;
 import net.dv8tion.jda.api.entities.StageInstance;
 import net.dv8tion.jda.api.events.stage.update.StageInstanceUpdatePrivacyLevelEvent;
 import net.dv8tion.jda.api.events.stage.update.StageInstanceUpdateTopicEvent;
-import net.dv8tion.jda.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
 import net.dv8tion.jda.internal.entities.GuildImpl;
 

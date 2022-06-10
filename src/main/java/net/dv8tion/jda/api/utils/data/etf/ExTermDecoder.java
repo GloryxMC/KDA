@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.dv8tion.jda.utils.data.etf;
+package net.dv8tion.jda.api.utils.data.etf;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.zip.InflaterOutputStream;
 
-import static net.dv8tion.jda.utils.data.etf.ExTermTag.*;
+import static net.dv8tion.jda.api.utils.data.etf.ExTermTag.*;
 
 /**
  * Decodes an ETF encoded payload to a java object representation.

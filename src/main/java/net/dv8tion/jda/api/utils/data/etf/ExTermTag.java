@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.dv8tion.jda.utils.data.etf;
+package net.dv8tion.jda.api.utils.data.etf;
 
 /**
  * Tags used for encoding and decoding for external terms.

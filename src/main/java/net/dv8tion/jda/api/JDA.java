@@ -42,10 +42,10 @@ import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.Helpers;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
@@ -1532,41 +1532,6 @@ public interface JDA extends IGuildChannelContainer
     {
         return getEmoteCache().getElementsByName(name, ignoreCase);
     }
-
-    /**
-     * Attempts to retrieve a {@link Sticker} object based on the provided snowflake reference.
-     * <br>This works for both {@link StandardSticker} and {@link GuildSticker}, and you can resolve them using the provided {@link StickerUnion}.
-     *
-     * <p>If the sticker is not one of the supported {@link Sticker.Type Types}, the request fails with {@link IllegalArgumentException}.
-     *
-     * <p>The returned {@link net.dv8tion.jda.api.requests.RestAction RestAction} can encounter the following Discord errors:
-     * <ul>
-     *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_STICKER UNKNOWN_STICKER}
-     *     <br>Occurs when the provided id does not refer to a sticker known by Discord.</li>
-     * </ul>
-     *
-     * @param  sticker
-     *         The reference of the requested {@link Sticker}.
-     *         <br>Can be {@link RichSticker}, {@link StickerItem}, or {@link Sticker#fromId(long)}.
-     *
-     * @throws IllegalArgumentException
-     *         If the provided sticker is null
-     *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: {@link StickerUnion}
-     *         <br>On request, gets the sticker with id matching provided id from Discord.
-     */
-    @Nonnull
-    @CheckReturnValue
-    RestAction<StickerUnion> retrieveSticker(@Nonnull StickerSnowflake sticker);
-
-    /**
-     * Retrieves a list of all the public {@link StickerPack StickerPacks} used for nitro.
-     *
-     * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: List of {@link StickerPack}
-     */
-    @Nonnull
-    @CheckReturnValue
-    RestAction<List<StickerPack>> retrieveNitroStickerPacks();
 
     /**
      * Attempts to retrieve a {@link Sticker} object based on the provided snowflake reference.

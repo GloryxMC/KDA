@@ -17,8 +17,8 @@
 package net.dv8tion.jda.internal.requests.restaction;
 
 import net.dv8tion.jda.api.entities.PermissionOverride;
-import net.dv8tion.jda.utils.data.DataObject;
-import net.dv8tion.jda.utils.data.SerializableData;
+import net.dv8tion.jda.api.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.SerializableData;
 import org.jetbrains.annotations.NotNull;
 
 public class PermOverrideData implements SerializableData

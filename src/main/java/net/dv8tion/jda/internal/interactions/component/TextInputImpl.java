@@ -18,7 +18,7 @@ package net.dv8tion.jda.internal.interactions.component;
 
 import net.dv8tion.jda.api.interactions.components.text.TextInput;
 import net.dv8tion.jda.api.interactions.components.text.TextInputStyle;
-import net.dv8tion.jda.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import org.jetbrains.annotations.NotNull;
 
 import org.jetbrains.annotations.Nullable;

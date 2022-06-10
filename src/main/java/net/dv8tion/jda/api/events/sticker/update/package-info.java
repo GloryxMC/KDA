@@ -15,10 +15,13 @@
  */
 
 /**
- * Utility classes to decode and encode Erlang External Term Format (ETF)
+ * Events that track updates for existing {@link net.dv8tion.jda.api.entities.sticker.GuildSticker GuildStickers}.
  *
- * @see <a href="https://erlang.org/doc/apps/erts/erl_ext_dist.html" target="_blank">Erlang -- External Term Format</a>
+ * <h2>Requirements</h2>
  *
- * @since  4.2.1
+ * <p>These events require the {@link net.dv8tion.jda.api.utils.cache.CacheFlag#STICKER STICKER} CacheFlag to be enabled, which requires
+ * the {@link net.dv8tion.jda.api.requests.GatewayIntent#GUILD_EMOJIS_AND_STICKERS GUILD_EMOJIS_AND_STICKERS} intent.
+ *
+ * <br>{@link net.dv8tion.jda.api.JDABuilder#createLight(String) createLight(String)} disables that CacheFlag by default!
  */
-package net.dv8tion.jda.utils.data.etf;
+package net.dv8tion.jda.api.events.sticker.update;

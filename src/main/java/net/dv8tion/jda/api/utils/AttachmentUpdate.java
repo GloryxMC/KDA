@@ -18,7 +18,7 @@ package net.dv8tion.jda.api.utils;
 
 import net.dv8tion.jda.api.entities.ISnowflake;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.utils.Checks;
 import okhttp3.MultipartBody;
 import org.jetbrains.annotations.NotNull;

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package net.dv8tion.jda.utils.data.etf;
+package net.dv8tion.jda.api.utils.data.etf;
 
-import net.dv8tion.jda.utils.data.DataArray;
-import net.dv8tion.jda.utils.data.SerializableData;
+import net.dv8tion.jda.api.utils.data.DataArray;
+import net.dv8tion.jda.api.utils.data.SerializableData;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
-import static net.dv8tion.jda.utils.data.etf.ExTermTag.*;
+import static net.dv8tion.jda.api.utils.data.etf.ExTermTag.*;
 
 /**
  * Encodes an object into a binary ETF representation.

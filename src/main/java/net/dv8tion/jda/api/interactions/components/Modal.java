@@ -18,7 +18,7 @@ package net.dv8tion.jda.api.interactions.components;
 
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.interactions.ModalInteraction;
-import net.dv8tion.jda.utils.data.SerializableData;
+import net.dv8tion.jda.api.utils.data.SerializableData;
 import net.dv8tion.jda.internal.interactions.component.ModalImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 import org.jetbrains.annotations.NotNull;

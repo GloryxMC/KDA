@@ -15,23 +15,16 @@
  */
 package net.dv8tion.jda.api.entities
 
-import kotlinx.serialization.KSerializer
+import kotlinx.serialization.*
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.utils.AttachmentProxy
 import net.dv8tion.jda.api.utils.ImageProxy
 import net.dv8tion.jda.internal.utils.Helpers
-import net.dv8tion.jda.utils.data.DataArray
-import net.dv8tion.jda.utils.data.DataObject
-import net.dv8tion.jda.utils.data.SerializableData
+import net.dv8tion.jda.api.utils.data.DataArray
+import net.dv8tion.jda.api.utils.data.DataObject
+import net.dv8tion.jda.api.utils.data.SerializableData
+import net.gloryx.kda.HexSerializer
 import java.awt.Color
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.Serializer
-import kotlinx.serialization.Transient
-import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.descriptors.buildClassSerialDescriptor
-import kotlinx.serialization.descriptors.element
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.decodeStructure
 import net.gloryx.kda.ODTSer
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
@@ -47,16 +40,17 @@ import java.time.format.DateTimeFormatter
  * @see Message.getEmbeds
  */
 @Serializable
-class MessageEmbed(
+data class MessageEmbed(
         /**
          * The url that was originally placed into chat that spawned this embed.
          * <br></br>**This will return the [title url][.getTitle] if the [type][.getType] of this embed is [RICH][EmbedType.RICH].**
          *
          * @return Possibly-null String containing the link that spawned this embed or the title url
          */
+        @Transient
         val url: String? = null,
         /**
-         * The title of the embed. Typically this will be the html title of the webpage that is being embedded.<br></br>
+         * The title of the embed. Typically, this will be the html title of the webpage that is being embedded.<br></br>
          * If no title could be found, like the case of [EmbedType] = [IMAGE][EmbedType.IMAGE],
          * this method will return null.
          *
@@ -76,7 +70,7 @@ class MessageEmbed(
          *
          * @return The [EmbedType] of this embed.
          */
-        val type: EmbedType,
+        val type: EmbedType = EmbedType.RICH,
         /**
          * The timestamp of the embed.
          *
@@ -90,6 +84,7 @@ class MessageEmbed(
          *
          * @return The raw RGB color value or default
          */
+        @Transient
         val colorRaw: Int = Role.DEFAULT_COLOR_RAW,
         /**
          * The information about the [Thumbnail][net.dv8tion.jda.api.entities.MessageEmbed.Thumbnail] image to be displayed with the embed.
@@ -106,6 +101,7 @@ class MessageEmbed(
          * @return Possibly-null [Provider][net.dv8tion.jda.api.entities.MessageEmbed.Provider]
          * containing site information.
          */
+        @Transient
         val siteProvider: Provider? = null,
         /**
          * The information on the creator of the embedded content.
@@ -124,6 +120,7 @@ class MessageEmbed(
          * @return Possibly-null [VideoInfo][net.dv8tion.jda.api.entities.MessageEmbed.VideoInfo]
          * containing the information about the video which should be embedded.
          */
+        @SerialName("video")
         val videoInfo: VideoInfo? = null,
         /**
          * The footer (bottom) of the embedded content.
@@ -146,15 +143,19 @@ class MessageEmbed(
          * to determine if it will fall in-line with other fields. If the embed contains no
          * fields, an empty list will be returned.
          *
-         * @return Never-null (but possibly empty) immutable  List of [Field][net.dv8tion.jda.api.entities.MessageEmbed.Field] objects
+         * @return Never-null (but possibly empty) immutable [List] of [Field][net.dv8tion.jda.api.entities.MessageEmbed.Field] objects
          * containing field information.
          */
         val fields: List<Field> = listOf()
 ) : SerializableData {
+    @Serializable(with = HexSerializer::class)
+    val color = Color(colorRaw)
+
     @Transient
     private val mutex = Any()
 
     @Volatile
+    @Transient
     private var length: Int = -1
     fun getLength(): Int {
         if (length > -1) return length
@@ -171,19 +172,10 @@ class MessageEmbed(
             return length
         }
     }
+
     @Volatile
     @Transient
     private var json: DataObject? = null
-
-    /**
-     * The color of the stripe on the side of the embed.
-     * <br></br>If the color is 0 (no color), this will return null.
-     *
-     * @return Possibly-null Color.
-     */
-    fun getColor(): Color? {
-        return if (colorRaw != Role.DEFAULT_COLOR_RAW) Color(colorRaw) else null
-    }
 
     /**
      * Whether this embed is empty.
@@ -304,7 +296,7 @@ class MessageEmbed(
      * displayed with an embed message.
      */
     @Serializable
-    class Thumbnail(
+    data class Thumbnail(
             /**
              * The web url of this thumbnail image.
              *
@@ -317,19 +309,20 @@ class MessageEmbed(
              *
              * @return Possibly-null String containing the proxied url of this image.
              */
+            @Transient
             val proxyUrl: String? = null,
             /**
              * The width of the thumbnail image.
              *
              * @return Never-negative, Never-zero int containing the width of the image.
              */
-            val width: Int,
+            val width: Int = 1920,
             /**
              * The height of the thumbnail image.
              *
              * @return Never-negative, Never-zero int containing the height of the image.
              */
-            val height: Int
+            val height: Int = 1080
     ) {
         /**
          * Returns an [AttachmentProxy] for this embed thumbnail.
@@ -342,12 +335,6 @@ class MessageEmbed(
             get() {
                 return proxyUrl?.let { AttachmentProxy(it) }
             }
-
-        override fun equals(obj: Any?): Boolean {
-            if (obj !is Thumbnail) return false
-            val thumbnail = obj
-            return thumbnail === this || thumbnail.url == url && thumbnail.proxyUrl == proxyUrl && thumbnail.width == width && thumbnail.height == height
-        }
     }
 
     /**
@@ -355,7 +342,7 @@ class MessageEmbed(
      * whether directly through creation or indirectly through hosting.
      */
     @Serializable
-    class Provider(
+    data class Provider(
             /**
              * The name of the provider.
              * <br></br>If this is an author, most likely the author's username.
@@ -369,15 +356,8 @@ class MessageEmbed(
              *
              * @return Possibly-null String containing the url of the provider.
              */
-            val url: String?
-    ) {
-
-
-        override fun equals(other: Any?): Boolean {
-            if (other !is Provider) return false
-            return (other === this || other.name == name && other.url == url)
-        }
-    }
+            val url: String? = null
+    )
 
     /**
      * Represents the information provided to embed a video.
@@ -385,7 +365,7 @@ class MessageEmbed(
      * site which the url belongs to.
      */
     @Serializable
-    class VideoInfo(
+    data class VideoInfo(
             /**
              * The url of the video.
              *
@@ -415,10 +395,16 @@ class MessageEmbed(
             val height: Int
     ) {
 
-        override fun equals(obj: Any?): Boolean {
-            if (obj !is VideoInfo) return false
-            val video = obj
-            return video === this || video.url == url && video.width == width && video.height == height
+        override fun equals(other: Any?): Boolean {
+            if (other !is VideoInfo) return false
+            return other === this || other.url == url && other.width == width && other.height == height
+        }
+
+        override fun hashCode(): Int {
+            var result = url?.hashCode() ?: 0
+            result = 31 * result + width.hashCode()
+            result = 31 * result + height.hashCode()
+            return result
         }
     }
 
@@ -426,7 +412,7 @@ class MessageEmbed(
      * Represents the information provided to embed an image.
      */
     @Serializable
-    class ImageInfo(
+    data class ImageInfo(
             /**
              * The url of the image.
              *
@@ -439,6 +425,7 @@ class MessageEmbed(
              *
              * @return Possibly-null String containing the proxied image url.
              */
+            @Transient
             val proxyUrl: String? = null,
             /**
              * The width of the image.
@@ -469,6 +456,13 @@ class MessageEmbed(
             if (other !is ImageInfo) return false
             return (other === this || other.url == url && other.proxyUrl == proxyUrl && other.width == width && other.height == height)
         }
+
+        override fun hashCode(): Int {
+            var result = url?.hashCode() ?: 0
+            result = 31 * result + width.hashCode()
+            result = 31 * result + height.hashCode()
+            return result
+        }
     }
 
     /**
@@ -476,7 +470,7 @@ class MessageEmbed(
      * that Discord proxies.
      */
     @Serializable
-    class AuthorInfo(
+    data class AuthorInfo(
             /**
              * The name of the Author.
              * <br></br>This is most likely the name of the account associated with the embed
@@ -502,7 +496,8 @@ class MessageEmbed(
              *
              * @return Possibly-null String containing the proxied icon url.
              */
-            val proxyIconUrl: String?
+            @Transient
+            val proxyIconUrl: String? = null
     ) {
         /**
          * Returns an [ImageProxy] for this proxied author's icon.
@@ -518,13 +513,20 @@ class MessageEmbed(
             if (other !is AuthorInfo) return false
             return other === this || other.name == name && other.url == url && other.iconUrl == iconUrl && other.proxyIconUrl == proxyIconUrl
         }
+
+        override fun hashCode(): Int {
+            var result = name?.hashCode() ?: 0
+            result = 31 * result + (url?.hashCode() ?: 0)
+            result = 31 * result + (iconUrl?.hashCode() ?: 0)
+            return result
+        }
     }
 
     /**
      * Class that represents a footer at the bottom of an embed
      */
     @Serializable
-    class Footer(
+    data class Footer(
             /**
              * The text in the footer
              *
@@ -543,7 +545,8 @@ class MessageEmbed(
              *
              * @return Possibly-null String containing the proxied icon url.
              */
-            val proxyIconUrl: String?
+            @Transient
+            val proxyIconUrl: String? = null
     ) {
         /**
          * Returns an [ImageProxy] for this proxied footer's icon.
@@ -553,11 +556,17 @@ class MessageEmbed(
          * @see .getProxyIconUrl
          */
         val proxyIcon: ImageProxy?
-            get() = proxyIconUrl?.let { ImageProxy(it) }
+            get() = proxyIconUrl?.let(::ImageProxy)
 
-        override fun equals(obj: Any?): Boolean {
-            if (obj !is Footer) return false
-            return (obj === this || obj.text == text && obj.iconUrl == iconUrl && obj.proxyIconUrl == proxyIconUrl)
+        override fun equals(other: Any?): Boolean {
+            if (other !is Footer) return false
+            return (other === this || other.text == text && other.iconUrl == iconUrl && other.proxyIconUrl == proxyIconUrl)
+        }
+
+        override fun hashCode(): Int {
+            var result = text?.hashCode() ?: 0
+            result = 31 * result + (iconUrl?.hashCode() ?: 0)
+            return result
         }
     }
 
@@ -570,32 +579,33 @@ class MessageEmbed(
      * @since  3.0
      * @author nothen
      */
-    @Serializable(FieldSer::class)
-    class Field constructor(
+    @Serializable
+    data class Field constructor(
             /**
              * The name of the field
              *
              * @return Possibly-null String containing the name of the field.
              */
-            val name: String,
+            val name: String? = null,
             /**
              * The value of the field
              *
              * @return Possibly-null String containing the value (contents) of the field.
              */
-            val value: String,
+            val value: String? = null,
             /**
              * If the field is in line.
              *
              * @return true if the field can be in line with other fields, false otherwise.
              */
-            val isInline: Boolean
+            @SerialName("inline")
+            val isInline: Boolean? = null
     ) {
 
         init {
-                require(name.length <= TITLE_MAX_LENGTH) { "Name cannot be longer than $TITLE_MAX_LENGTH characters." }
-                //if (name.isEmpty()) this.name = EmbedBuilder.ZERO_WIDTH_SPACE else this.name = name.trim { it <= ' ' }
-                //if (value.isEmpty()) this.value = EmbedBuilder.ZERO_WIDTH_SPACE else this.value = value.trim { it <= ' ' }
+            require(name?.length?.let { it <= TITLE_MAX_LENGTH } == true) { "Name cannot be longer than $TITLE_MAX_LENGTH characters." }
+            //if (name.isEmpty()) this.name = EmbedBuilder.ZERO_WIDTH_SPACE else this.name = name.trim { it <= ' ' }
+            //if (value.isEmpty()) this.value = EmbedBuilder.ZERO_WIDTH_SPACE else this.value = value.trim { it <= ' ' }
         }
 
         override fun equals(other: Any?): Boolean {
@@ -611,19 +621,6 @@ class MessageEmbed(
         }
 
 
-    }
-
-    @Serializer(Field::class)
-    object FieldSer : KSerializer<Field> {
-        override val descriptor: SerialDescriptor = buildClassSerialDescriptor("Field") {
-            element<String>("name")
-            element<String>("value")
-            element<Boolean>("inline")
-        }
-
-        override fun deserialize(decoder: Decoder): Field = decoder.decodeStructure(descriptor) {
-            Field(decodeStringElement(descriptor, 0), decodeStringElement(descriptor, 1), decodeBooleanElement(descriptor, 2))
-        }
     }
 
     companion object {

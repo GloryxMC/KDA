@@ -368,25 +368,6 @@ public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
         return Long.toUnsignedString(lastId);
     }
 
-    // Introduced for paginating archived threads, because two endpoints require a different request parameter value format.
-    // May become more useful if discord introduces more pagination endpoints not using ids.
-    // Check ThreadChannelPaginationActionImpl
-    // Background of #getPaginationLastEvaluatedKey:
-    //     Archived thread channel pagination (example: TextChannel#retrieveArchivedPublicThreadChannels) would throw an exception,
-    //     where Discord complained about receiving a snowflake instead of an ISO8601 date.
-    //     The snowflake originated from this class (creating initial & subsequent requests),
-    //     while the correct value was set in ThreadChannelPaginationActionImpl for the initial request
-    //     and appended as a second value for subsequent requests.
-    //     However, withQueryParams is a simple string append and Discord only reads the first parameter.
-    //     If you debugged, you would see some duplicated fields on the compiled route.
-    //     The fix here is to let the implementor supply the "last" string value, which could be anything,
-    //     while the default implementation still would provide snowflakes
-    @Nonnull
-    protected String getPaginationLastEvaluatedKey(long lastId, T last)
-    {
-        return Long.toUnsignedString(lastId);
-    }
-
     @Override
     protected Route.CompiledRoute finalizeRoute()
     {

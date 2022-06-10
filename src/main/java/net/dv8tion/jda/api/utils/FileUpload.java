@@ -16,13 +16,16 @@
 
 package net.dv8tion.jda.api.utils;
 
-import net.dv8tion.jda.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.requests.Requester;
+import net.dv8tion.jda.internal.utils.BufferedRequestBody;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.IOUtil;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import org.jetbrains.annotations.NotNull;
+import okhttp3.RequestBody;
 
+import javax.annotation.Nonnull;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
@@ -39,7 +42,7 @@ public class FileUpload implements Closeable, AttachedFile
 {
     private final InputStream resource;
     private final String name;
-    private boolean claimed = false;
+    private BufferedRequestBody body;
 
     protected FileUpload(InputStream resource, String name)
     {
@@ -66,8 +69,8 @@ public class FileUpload implements Closeable, AttachedFile
      *
      * @see    java.io.FileInputStream FileInputStream
      */
-    @NotNull
-    public static FileUpload fromData(@NotNull InputStream data, @NotNull String name)
+    @Nonnull
+    public static FileUpload fromData(@Nonnull InputStream data, @Nonnull String name)
     {
         Checks.notNull(data, "Data");
         Checks.notBlank(name, "Name");
@@ -88,8 +91,8 @@ public class FileUpload implements Closeable, AttachedFile
      *
      * @return {@link FileUpload}
      */
-    @NotNull
-    public static FileUpload fromData(@NotNull byte[] data, @NotNull String name)
+    @Nonnull
+    public static FileUpload fromData(@Nonnull byte[] data, @Nonnull String name)
     {
         Checks.notNull(data, "Data");
         Checks.notNull(name, "Name");
@@ -117,8 +120,8 @@ public class FileUpload implements Closeable, AttachedFile
      *
      * @see    java.io.FileInputStream FileInputStream
      */
-    @NotNull
-    public static FileUpload fromData(@NotNull File file, @NotNull String name)
+    @Nonnull
+    public static FileUpload fromData(@Nonnull File file, @Nonnull String name)
     {
         Checks.notNull(file, "File");
         try
@@ -151,8 +154,8 @@ public class FileUpload implements Closeable, AttachedFile
      * @see    java.io.FileInputStream FileInputStream
      * @see    #fromData(File, String)
      */
-    @NotNull
-    public static FileUpload fromData(@NotNull File file)
+    @Nonnull
+    public static FileUpload fromData(@Nonnull File file)
     {
         Checks.notNull(file, "File");
         try
@@ -186,8 +189,8 @@ public class FileUpload implements Closeable, AttachedFile
      *
      * @return {@link FileUpload}
      */
-    @NotNull
-    public static FileUpload fromData(@NotNull Path path, @NotNull String name, @NotNull OpenOption... options)
+    @Nonnull
+    public static FileUpload fromData(@Nonnull Path path, @Nonnull String name, @Nonnull OpenOption... options)
     {
         Checks.notNull(path, "Path");
         Checks.noneNull(options, "Options");
@@ -222,8 +225,8 @@ public class FileUpload implements Closeable, AttachedFile
      *
      * @return {@link FileUpload}
      */
-    @NotNull
-    public static FileUpload fromData(@NotNull Path path, @NotNull OpenOption... options)
+    @Nonnull
+    public static FileUpload fromData(@Nonnull Path path, @Nonnull OpenOption... options)
     {
         Checks.notNull(path, "Path");
         Path fileName = path.getFileName();
@@ -236,7 +239,7 @@ public class FileUpload implements Closeable, AttachedFile
      *
      * @return The filename
      */
-    @NotNull
+    @Nonnull
     public String getName()
     {
         return name;
@@ -247,33 +250,43 @@ public class FileUpload implements Closeable, AttachedFile
      *
      * @return The {@link InputStream}
      */
-    @NotNull
+    @Nonnull
     public InputStream getData()
     {
         return resource;
     }
 
-    @Override
-    public synchronized void claim()
+    /**
+     * Creates a re-usable instance of {@link RequestBody} with the specified content-type.
+     *
+     * <p>This body will automatically close the {@link #getData() resource} when the request is done.
+     * However, since the body buffers the data, it can be used multiple times regardless.
+     *
+     * @param  type
+     *         The content-type to use for the body (e.g. {@code "application/octet-stream"})
+     *
+     * @throws IllegalArgumentException
+     *         If the content-type is null
+     *
+     * @return {@link RequestBody}
+     */
+    @Nonnull
+    public synchronized RequestBody getRequestBody(@Nonnull MediaType type)
     {
-        if (claimed)
-            throw new IllegalStateException("Instances of FileUpload can only be used once. Create a new instance with a new data source for each use.");
-        claimed = true;
+        Checks.notNull(type, "Type");
+        if (body != null) // This allows FileUpload to be used more than once!
+            return body.withType(type);
+        return body = IOUtil.createRequestBody(type, resource);
     }
 
     @Override
-    public synchronized boolean isClaimed()
+    @SuppressWarnings("ConstantConditions")
+    public synchronized void addPart(@Nonnull MultipartBody.Builder builder, int index)
     {
-        return claimed;
+        builder.addFormDataPart("files[" + index + "]", name, getRequestBody(Requester.MEDIA_TYPE_OCTET));
     }
 
-    @Override
-    public void addPart(@NotNull MultipartBody.Builder builder, int index)
-    {
-        builder.addFormDataPart("files[" + index + "]", name, IOUtil.createRequestBody(Requester.MEDIA_TYPE_OCTET, resource));
-    }
-
-    @NotNull
+    @Nonnull
     @Override
     public DataObject toAttachmentData(int index)
     {

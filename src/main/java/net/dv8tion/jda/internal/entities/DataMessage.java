@@ -26,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -129,12 +130,6 @@ public class DataMessage extends AbstractMessage
     }
 
     @NotNull
-    public Collection<? extends StickerSnowflake> getStickerSnowflakes()
-    {
-        return stickers;
-    }
-
-    @Nonnull
     public Collection<? extends StickerSnowflake> getStickerSnowflakes()
     {
         return stickers;

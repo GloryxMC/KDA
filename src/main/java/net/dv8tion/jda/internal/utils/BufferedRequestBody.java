@@ -26,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 
 public class BufferedRequestBody extends RequestBody
@@ -42,19 +43,6 @@ public class BufferedRequestBody extends RequestBody
 
     @NotNull
     public BufferedRequestBody withType(@NotNull MediaType type)
-    {
-        if (type.equals(this.type))
-            return this;
-        synchronized (source)
-        {
-            BufferedRequestBody copy = new BufferedRequestBody(source, type);
-            copy.data = data;
-            return copy;
-        }
-    }
-
-    @Nonnull
-    public BufferedRequestBody withType(@Nonnull MediaType type)
     {
         if (type.equals(this.type))
             return this;

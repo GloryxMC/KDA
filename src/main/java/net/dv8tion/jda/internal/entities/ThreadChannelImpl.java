@@ -22,8 +22,8 @@ import net.dv8tion.jda.api.managers.channel.concrete.ThreadChannelManager;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.utils.TimeUtil;
 import net.dv8tion.jda.api.utils.cache.CacheView;
-import net.dv8tion.jda.utils.data.DataArray;
-import net.dv8tion.jda.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.DataArray;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
 import net.dv8tion.jda.internal.entities.mixin.channel.middleman.GuildMessageChannelMixin;
 import net.dv8tion.jda.internal.managers.channel.concrete.ThreadChannelManagerImpl;
@@ -220,7 +220,7 @@ public class ThreadChannelImpl extends AbstractGuildChannelImpl<ThreadChannelImp
 
     @NotNull
     @Override
-    public @NotNull OffsetDateTime getTimeCreated()
+    public OffsetDateTime getTimeCreated()
     {
         return creationTimestamp == 0 ? TimeUtil.getTimeCreated(getIdLong()) : Helpers.toOffset(creationTimestamp);
     }

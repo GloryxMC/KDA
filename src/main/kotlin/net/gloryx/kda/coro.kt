@@ -1,40 +1,42 @@
 package net.gloryx.kda
 
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.suspendCancellableCoroutine
-import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.requests.RestAction
 import net.dv8tion.jda.api.requests.restaction.pagination.PaginationAction
 import net.dv8tion.jda.api.utils.concurrent.Task
 import java.util.*
-import java.util.concurrent.CompletableFuture
+import java.util.concurrent.CompletionStage
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 
 /**
  * Awaits the result of this CompletableFuture
  *
  * @return Result
  */
-suspend fun <T> CompletableFuture<T>.await() = suspendCancellableCoroutine<T> {
-    it.invokeOnCancellation { cancel(true) }
-    whenComplete { r, e ->
-        when {
-            e != null -> it.resumeWithException(e)
-            else -> it.resume(r)
+suspend fun <T> CompletionStage<T>.await() = toCompletableFuture().run {
+    suspendCancellableCoroutine<T> {
+        it.invokeOnCancellation { cancel(true) }
+        whenComplete { r, e ->
+            when {
+                e != null -> it.resumeWithException(e)
+                else -> it.resume(r)
+            }
         }
     }
 }
-
 /**
  * Awaits the result of this RestAction
  *
  * @return Result
  */
 suspend fun <T> RestAction<T>.await(): T = submit().await()
+
+fun <T> RestAction<T>.async(): Deferred<T> = jda.scope.async { await() }
 
 /**
  * Awaits the result of this Task
@@ -68,11 +70,4 @@ fun <T, M : PaginationAction<T, M>> M.asFlow(): Flow<T> = flow {
         }
         queue.addAll(await())
     }
-}
-
-suspend fun JDA.awaitStatus(status: JDA.Status = JDA.Status.CONNECTED): JDA {
-    while (this.status != status) {
-        delay(50)
-    }
-    return this
 }

@@ -16,8 +16,8 @@
 
 package net.dv8tion.jda.api.interactions.components;
 
-import net.dv8tion.jda.utils.data.DataArray;
-import net.dv8tion.jda.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.DataArray;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.interactions.component.ButtonImpl;
 import net.dv8tion.jda.internal.interactions.component.SelectMenuImpl;
 import net.dv8tion.jda.internal.interactions.component.TextInputImpl;

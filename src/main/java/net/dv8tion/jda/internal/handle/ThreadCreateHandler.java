@@ -18,7 +18,7 @@ package net.dv8tion.jda.internal.handle;
 
 import net.dv8tion.jda.api.entities.ThreadChannel;
 import net.dv8tion.jda.api.events.channel.ChannelCreateEvent;
-import net.dv8tion.jda.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
 
 public class ThreadCreateHandler extends SocketHandler

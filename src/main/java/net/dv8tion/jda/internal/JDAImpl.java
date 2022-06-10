@@ -26,10 +26,14 @@ import net.dv8tion.jda.api.audio.factory.DefaultSendFactory;
 import net.dv8tion.jda.api.audio.factory.IAudioSendFactory;
 import net.dv8tion.jda.api.audio.hooks.ConnectionStatus;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.sticker.StickerPack;
+import net.dv8tion.jda.api.entities.sticker.StickerSnowflake;
+import net.dv8tion.jda.api.entities.sticker.StickerUnion;
 import net.dv8tion.jda.api.events.GatewayPingEvent;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.StatusChangeEvent;
 import net.dv8tion.jda.api.exceptions.AccountTypeException;
+import net.dv8tion.jda.api.exceptions.ParsingException;
 import net.dv8tion.jda.api.exceptions.RateLimitedException;
 import net.dv8tion.jda.api.hooks.IEventManager;
 import net.dv8tion.jda.api.hooks.InterfacedEventManager;
@@ -50,8 +54,8 @@ import net.dv8tion.jda.api.utils.*;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.dv8tion.jda.api.utils.cache.CacheView;
 import net.dv8tion.jda.api.utils.cache.SnowflakeCacheView;
-import net.dv8tion.jda.utils.data.DataArray;
-import net.dv8tion.jda.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.DataArray;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.entities.EntityBuilder;
 import net.dv8tion.jda.internal.entities.UserImpl;
 import net.dv8tion.jda.internal.handle.EventCache;
@@ -488,8 +492,6 @@ public class JDAImpl implements JDA
         return this;
     }
 
-
-
     @Override
     public int cancelRequests()
     {
@@ -624,6 +626,44 @@ public class JDAImpl implements JDA
 
     @NotNull
     @Override
+    public RestAction<StickerUnion> retrieveSticker(@NotNull StickerSnowflake sticker)
+    {
+        Checks.notNull(sticker, "Sticker");
+        Route.CompiledRoute route = Route.Stickers.GET_STICKER.compile(sticker.getId());
+        return new RestActionImpl<>(this, route,
+                (response, request) -> entityBuilder.createRichSticker(response.getObject())
+        );
+    }
+
+    @NotNull
+    @Override
+    public RestAction<List<StickerPack>> retrieveNitroStickerPacks()
+    {
+        Route.CompiledRoute route = Route.Stickers.LIST_PACKS.compile();
+        return new RestActionImpl<>(this, route, (response, request) ->
+        {
+            DataArray array = response.getObject().getArray("sticker_packs");
+            List<StickerPack> packs = new ArrayList<>(array.length());
+            for (int i = 0; i < array.length(); i++)
+            {
+                DataObject object = null;
+                try
+                {
+                    object = array.getObject(i);
+                    StickerPack pack = entityBuilder.createStickerPack(object);
+                    packs.add(pack);
+                }
+                catch (ParsingException ex)
+                {
+                    EntityBuilder.LOG.error("Failed to parse sticker pack. JSON: {}", object);
+                }
+            }
+            return Collections.unmodifiableList(packs);
+        });
+    }
+
+    @NotNull
+    @Override
     public SnowflakeCacheView<Category> getCategoryCache()
     {
         return categories;
@@ -701,7 +741,7 @@ public class JDAImpl implements JDA
             Route.CompiledRoute route = Route.Self.CREATE_PRIVATE_CHANNEL.compile();
             DataObject body = DataObject.empty().put("recipient_id", userId);
             return new RestActionImpl<>(this, route, body,
-                (response, request) -> getEntityBuilder().createPrivateChannel(response.getObject()));
+                    (response, request) -> getEntityBuilder().createPrivateChannel(response.getObject()));
         });
     }
 
@@ -786,9 +826,9 @@ public class JDAImpl implements JDA
     private void closeAudioConnections()
     {
         getAudioManagerCache()
-            .stream()
-            .map(AudioManagerImpl.class::cast)
-            .forEach(m -> m.closeAudioConnection(ConnectionStatus.SHUTTING_DOWN));
+                .stream()
+                .map(AudioManagerImpl.class::cast)
+                .forEach(m -> m.closeAudioConnection(ConnectionStatus.SHUTTING_DOWN));
     }
 
     @Override
@@ -868,11 +908,11 @@ public class JDAImpl implements JDA
     {
         Route.CompiledRoute route = Route.Interactions.GET_COMMANDS.compile(getSelfUser().getApplicationId());
         return new RestActionImpl<>(this, route,
-            (response, request) ->
-                response.getArray()
-                        .stream(DataArray::getObject)
-                        .map(json -> new CommandImpl(this, null, json))
-                        .collect(Collectors.toList()));
+                (response, request) ->
+                        response.getArray()
+                                .stream(DataArray::getObject)
+                                .map(json -> new CommandImpl(this, null, json))
+                                .collect(Collectors.toList()));
     }
 
     @NotNull

@@ -27,6 +27,8 @@ import net.dv8tion.jda.internal.utils.Helpers;
 import org.jetbrains.annotations.NotNull;
 
 import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -280,59 +282,6 @@ public class MessageBuilder implements Appendable
      * @see    Sticker#fromId(long)
      */
     @NotNull
-    public MessageBuilder setStickers(@Nullable StickerSnowflake... stickers)
-    {
-        if (stickers != null)
-            Checks.noneNull(stickers, "Stickers");
-        return setStickers(stickers == null ? null : Arrays.asList(stickers));
-    }
-
-    /**
-     * Set the stickers to send alongside this message.
-     * <br>This is not supported for message edits.
-     *
-     * @param  stickers
-     *         The stickers to send, or null to not send any stickers
-     *
-     * @throws IllegalArgumentException
-     *         If more than {@value Message#MAX_STICKER_COUNT} stickers or null stickers are provided
-     *
-     * @return The MessageBuilder instance. Useful for chaining.
-     *
-     * @see    Sticker#fromId(long)
-     */
-    @Nonnull
-    public MessageBuilder setStickers(@Nullable Collection<? extends StickerSnowflake> stickers)
-    {
-        this.stickers.clear();
-        if (stickers == null || stickers.isEmpty())
-            return this;
-        Checks.noneNull(stickers, "Stickers");
-        Checks.check(stickers.size() <= Message.MAX_STICKER_COUNT,
-                "Cannot send more than %d stickers in a message!", Message.MAX_STICKER_COUNT);
-
-        stickers.stream()
-                .map(StickerSnowflake::getId)
-                .map(StickerSnowflake::fromId)
-                .forEach(this.stickers::add);
-        return this;
-    }
-
-    /**
-     * Set the stickers to send alongside this message.
-     * <br>This is not supported for message edits.
-     *
-     * @param  stickers
-     *         The stickers to send, or null to not send any stickers
-     *
-     * @throws IllegalArgumentException
-     *         If more than {@value Message#MAX_STICKER_COUNT} stickers or null stickers are provided
-     *
-     * @return The MessageBuilder instance. Useful for chaining.
-     *
-     * @see    Sticker#fromId(long)
-     */
-    @Nonnull
     public MessageBuilder setStickers(@Nullable StickerSnowflake... stickers)
     {
         if (stickers != null)

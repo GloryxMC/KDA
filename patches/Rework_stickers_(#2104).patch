@@ -1,517 +1,3 @@
-Index: src/main/java/net/dv8tion/jda/api/utils/FileProxy.java
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/src/main/java/net/dv8tion/jda/api/utils/FileProxy.java b/src/main/java/net/dv8tion/jda/api/utils/FileProxy.java
---- a/src/main/java/net/dv8tion/jda/api/utils/FileProxy.java	(revision 1e25ede9568d3fea946a879b77cd7c626834065b)
-+++ b/src/main/java/net/dv8tion/jda/api/utils/FileProxy.java	(revision 555adcbd76a9baf46ee19b30b1a0dc25fe7312a5)
-@@ -199,7 +199,7 @@
-     protected CompletableFuture<Path> downloadToPath(String url, Path path)
-     {
-         //Check if the parent path, the folder, exists
--        Checks.check(Files.notExists(path.getParent()), "Parent folder of the file '" + path.toAbsolutePath() + "' does not exist.");
-+        Checks.check(Files.exists(path.getParent()), "Parent folder of the file '" + path.toAbsolutePath() + "' does not exist.");
- 
-         final DownloadTask downloadTask = downloadInternal(url);
- 
-Index: src/main/java/net/dv8tion/jda/internal/entities/EntityBuilder.java
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/src/main/java/net/dv8tion/jda/internal/entities/EntityBuilder.java b/src/main/java/net/dv8tion/jda/internal/entities/EntityBuilder.java
---- a/src/main/java/net/dv8tion/jda/internal/entities/EntityBuilder.java	(revision 555adcbd76a9baf46ee19b30b1a0dc25fe7312a5)
-+++ b/src/main/java/net/dv8tion/jda/internal/entities/EntityBuilder.java	(revision 3f4f8c5f13ab35fcc3f843f09d66eb26cb5b0091)
-@@ -29,6 +29,7 @@
- import net.dv8tion.jda.api.entities.Guild.Timeout;
- import net.dv8tion.jda.api.entities.Guild.VerificationLevel;
- import net.dv8tion.jda.api.entities.MessageEmbed.*;
-+import net.dv8tion.jda.api.entities.sticker.*;
- import net.dv8tion.jda.api.entities.templates.Template;
- import net.dv8tion.jda.api.entities.templates.TemplateChannel;
- import net.dv8tion.jda.api.entities.templates.TemplateGuild;
-@@ -40,6 +41,7 @@
- import net.dv8tion.jda.api.events.user.update.UserUpdateDiscriminatorEvent;
- import net.dv8tion.jda.api.events.user.update.UserUpdateFlagsEvent;
- import net.dv8tion.jda.api.events.user.update.UserUpdateNameEvent;
-+import net.dv8tion.jda.api.exceptions.ParsingException;
- import net.dv8tion.jda.api.interactions.components.ActionRow;
- import net.dv8tion.jda.api.utils.cache.CacheFlag;
- import net.dv8tion.jda.api.utils.cache.CacheView;
-@@ -48,6 +50,7 @@
- import net.dv8tion.jda.internal.JDAImpl;
- import net.dv8tion.jda.internal.entities.mixin.channel.attribute.IPermissionContainerMixin;
- import net.dv8tion.jda.internal.entities.mixin.channel.middleman.AudioChannelMixin;
-+import net.dv8tion.jda.internal.entities.sticker.*;
- import net.dv8tion.jda.internal.handle.EventCache;
- import net.dv8tion.jda.internal.utils.Helpers;
- import net.dv8tion.jda.internal.utils.JDALogger;
-@@ -161,16 +164,34 @@
-         }
-     }
- 
--    public TLongObjectMap<DataObject> convertToUserMap(ToLongFunction<DataObject> getId, DataArray array)
-+    private void createGuildStickerPass(GuildImpl guildObj, DataArray array)
-     {
--        TLongObjectMap<DataObject> map = new TLongObjectHashMap<>();
--        for (int i = 0; i < array.length(); i++)
--        {
--            DataObject obj = array.getObject(i);
--            long userId = getId.applyAsLong(obj);
--            map.put(userId, obj);
-+        if (!getJDA().isCacheFlagSet(CacheFlag.STICKER))
-+            return;
-+        SnowflakeCacheViewImpl<GuildSticker> stickerView = guildObj.getStickersView();
-+        try (UnlockHook hook = stickerView.writeLock())
-+        {
-+            TLongObjectMap<GuildSticker> stickerMap = stickerView.getMap();
-+            for (int i = 0; i < array.length(); i++)
-+            {
-+                DataObject object = array.getObject(i);
-+                if (object.isNull("id"))
-+                {
-+                    LOG.error("Received GUILD_CREATE with a sticker with a null ID. GuildId: {} JSON: {}",
-+                              guildObj.getId(), object);
-+                    continue;
-+                }
-+                if (object.getInt("type", -1) != Sticker.Type.GUILD.getId())
-+                {
-+                    LOG.error("Received GUILD_CREATE with sticker that had an unexpected type. GuildId: {} Type: {} JSON: {}",
-+                              guildObj.getId(), object.getInt("type", -1), object);
-+                    continue;
-+                }
-+
-+                RichSticker sticker = createRichSticker(object);
-+                stickerMap.put(sticker.getIdLong(), (GuildSticker) sticker);
-+            }
-         }
--        return map;
-     }
- 
-     public GuildImpl createGuild(long guildId, DataObject guildJson, TLongObjectMap<DataObject> members, int memberCount)
-@@ -187,6 +208,7 @@
-         final DataArray channelArray = guildJson.getArray("channels");
-         final DataArray threadArray = guildJson.getArray("threads");
-         final DataArray emotesArray = guildJson.getArray("emojis");
-+        final DataArray stickersArray = guildJson.getArray("stickers");
-         final DataArray voiceStateArray = guildJson.getArray("voice_states");
-         final Optional<DataArray> featuresArray = guildJson.optArray("features");
-         final Optional<DataArray> presencesArray = guildJson.optArray("presences");
-@@ -260,8 +282,8 @@
-             createGuildChannel(guildObj, channelJson);
-         }
- 
--        TLongObjectMap<DataObject> voiceStates = convertToUserMap((o) -> o.getUnsignedLong("user_id", 0L), voiceStateArray);
--        TLongObjectMap<DataObject> presences = presencesArray.map(o1 -> convertToUserMap(o2 -> o2.getObject("user").getUnsignedLong("id"), o1)).orElseGet(TLongObjectHashMap::new);
-+        TLongObjectMap<DataObject> voiceStates = Helpers.convertToMap((o) -> o.getUnsignedLong("user_id", 0L), voiceStateArray);
-+        TLongObjectMap<DataObject> presences = presencesArray.map(o1 -> Helpers.convertToMap(o2 -> o2.getObject("user").getUnsignedLong("id"), o1)).orElseGet(TLongObjectHashMap::new);
-         try (UnlockHook h1 = guildObj.getMembersView().writeLock();
-              UnlockHook h2 = getJDA().getUsersView().writeLock())
-         {
-@@ -298,6 +320,7 @@
-         }
- 
-         createGuildEmotePass(guildObj, emotesArray);
-+        createGuildStickerPass(guildObj, stickersArray);
-         guildJson.optArray("stage_instances")
-                 .map(arr -> arr.stream(DataArray::getObject))
-                 .ifPresent(list -> list.forEach(it -> createStageInstance(guildObj, it)));
-@@ -1424,7 +1447,7 @@
-         final List<Message.Attachment> attachments = map(jsonObject, "attachments",   this::createMessageAttachment);
-         final List<MessageEmbed>       embeds      = map(jsonObject, "embeds",        this::createMessageEmbed);
-         final List<MessageReaction>    reactions   = map(jsonObject, "reactions",     (obj) -> createMessageReaction(tmpChannel, id, obj));
--        final List<MessageSticker>     stickers    = map(jsonObject, "sticker_items", this::createSticker);
-+        final List<StickerItem>        stickers    = map(jsonObject, "sticker_items", this::createStickerItem);
- 
-         // Message activity (for game invites/spotify)
-         MessageActivity activity = null;
-@@ -1719,25 +1742,72 @@
-             color, thumbnail, siteProvider, author, videoInfo, footer, image, fields);
-     }
- 
--    public MessageSticker createSticker(DataObject content)
-+    public StickerItem createStickerItem(DataObject content)
-     {
--        final long id = content.getLong("id");
--        final String name = content.getString("name");
--        final String description = content.getString("description", "");
--        final long packId = content.getLong("pack_id", content.getLong("guild_id", 0L));
--        final MessageSticker.StickerFormat format = MessageSticker.StickerFormat.fromId(content.getInt("format_type"));
--        final Set<String> tags;
--        if (content.isNull("tags"))
-+        long id = content.getLong("id");
-+        String name = content.getString("name");
-+        Sticker.StickerFormat format = Sticker.StickerFormat.fromId(content.getInt("format_type"));
-+        return new StickerItemImpl(id, format, name);
-+    }
-+
-+    public RichStickerImpl createRichSticker(DataObject content)
-+    {
-+        long id = content.getLong("id");
-+        String name = content.getString("name");
-+        Sticker.StickerFormat format = Sticker.StickerFormat.fromId(content.getInt("format_type"));
-+        Sticker.Type type = Sticker.Type.fromId(content.getInt("type", -1));
-+
-+        String description = content.getString("description", "");
-+        Set<String> tags = Collections.emptySet();
-+        if (!content.isNull("tags"))
-         {
--            tags = Collections.emptySet();
--        }
--        else
--        {
--            final String[] split = content.getString("tags").split(", ");
--            final Set<String> tmp = new HashSet<>(Arrays.asList(split));
--            tags = Collections.unmodifiableSet(tmp);
-+            String[] array = content.getString("tags").split(",\\s*");
-+            tags = Helpers.setOf(array);
-+        }
-+
-+        switch (type)
-+        {
-+        case GUILD:
-+            boolean available = content.getBoolean("available");
-+            long guildId = content.getUnsignedLong("guild_id", 0L);
-+            User owner = content.isNull("user") ? null : createUser(content.getObject("user"));
-+            return new GuildStickerImpl(id, format, name, tags, description, available, guildId, api, owner);
-+        case STANDARD:
-+            long packId = content.getUnsignedLong("pack_id", 0L);
-+            int sortValue = content.getInt("sort_value", -1);
-+            return new StandardStickerImpl(id, format, name, tags, description, packId, sortValue);
-+        default:
-+            throw new IllegalArgumentException("Unknown sticker type. Type: " + type  +" JSON: " + content);
-+        }
-+    }
-+
-+    public StickerPack createStickerPack(DataObject content)
-+    {
-+        long id = content.getUnsignedLong("id");
-+        String name = content.getString("name");
-+        String description = content.getString("description", "");
-+        long skuId = content.getUnsignedLong("sku_id", 0);
-+        long coverId = content.getUnsignedLong("cover_sticker_id", 0);
-+        long bannerId = content.getUnsignedLong("banner_asset_id", 0);
-+
-+        DataArray stickerArr = content.getArray("stickers");
-+        List<StandardSticker> stickers = new ArrayList<>(stickerArr.length());
-+        for (int i = 0; i < stickerArr.length(); i++)
-+        {
-+            DataObject object = null;
-+            try
-+            {
-+                object = stickerArr.getObject(i);
-+                StandardSticker sticker = (StandardSticker) createRichSticker(object);
-+                stickers.add(sticker);
-+            }
-+            catch (ParsingException | ClassCastException ex)
-+            {
-+                LOG.error("Sticker contained in pack {} ({}) could not be parsed. JSON: {}", name, id, object);
-+            }
-         }
--        return new MessageSticker(id, name, description, packId, format, tags);
-+
-+        return new StickerPackImpl(id, stickers, name, description, coverId, bannerId, skuId);
-     }
- 
-     public Message.Interaction createMessageInteraction(GuildImpl guildImpl, DataObject content)
-Index: src/main/java/net/dv8tion/jda/internal/handle/GuildMembersChunkHandler.java
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/src/main/java/net/dv8tion/jda/internal/handle/GuildMembersChunkHandler.java b/src/main/java/net/dv8tion/jda/internal/handle/GuildMembersChunkHandler.java
---- a/src/main/java/net/dv8tion/jda/internal/handle/GuildMembersChunkHandler.java	(revision 555adcbd76a9baf46ee19b30b1a0dc25fe7312a5)
-+++ b/src/main/java/net/dv8tion/jda/internal/handle/GuildMembersChunkHandler.java	(revision 0b342740124fdca8173a18509fa7b11afbc6fde4)
-@@ -25,6 +25,7 @@
- import net.dv8tion.jda.internal.entities.GuildImpl;
- import net.dv8tion.jda.internal.entities.MemberImpl;
- import net.dv8tion.jda.internal.requests.WebSocketClient;
-+import net.dv8tion.jda.internal.utils.Helpers;
- 
- public class GuildMembersChunkHandler extends SocketHandler
- {
-@@ -48,7 +49,7 @@
-             // Chunk handling
-             EntityBuilder builder = getJDA().getEntityBuilder();
-             TLongObjectMap<DataObject> presences = content.optArray("presences").map(it ->
--                builder.convertToUserMap(o -> o.getObject("user").getUnsignedLong("id"), it)
-+                Helpers.convertToMap(o -> o.getObject("user").getUnsignedLong("id"), it)
-             ).orElseGet(TLongObjectHashMap::new);
-             for (int i = 0; i < members.length(); i++)
-             {
-Index: src/main/java/net/dv8tion/jda/internal/requests/MemberChunkManager.java
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/src/main/java/net/dv8tion/jda/internal/requests/MemberChunkManager.java b/src/main/java/net/dv8tion/jda/internal/requests/MemberChunkManager.java
---- a/src/main/java/net/dv8tion/jda/internal/requests/MemberChunkManager.java	(revision 555adcbd76a9baf46ee19b30b1a0dc25fe7312a5)
-+++ b/src/main/java/net/dv8tion/jda/internal/requests/MemberChunkManager.java	(revision 0b342740124fdca8173a18509fa7b11afbc6fde4)
-@@ -25,6 +25,7 @@
- import net.dv8tion.jda.internal.entities.EntityBuilder;
- import net.dv8tion.jda.internal.entities.GuildImpl;
- import net.dv8tion.jda.internal.entities.MemberImpl;
-+import net.dv8tion.jda.internal.utils.Helpers;
- 
- import java.util.ArrayList;
- import java.util.List;
-@@ -193,7 +194,7 @@
-             EntityBuilder builder = guild.getJDA().getEntityBuilder();
-             DataArray memberArray = chunk.getArray("members");
-             TLongObjectMap<DataObject> presences = chunk.optArray("presences").map(it ->
--                builder.convertToUserMap(o -> o.getObject("user").getUnsignedLong("id"), it)
-+                Helpers.convertToMap(o -> o.getObject("user").getUnsignedLong("id"), it)
-             ).orElseGet(TLongObjectHashMap::new);
-             List<Member> collect = new ArrayList<>(memberArray.length());
-             for (int i = 0; i < memberArray.length(); i++)
-Index: src/main/java/net/dv8tion/jda/internal/requests/restaction/pagination/PaginationActionImpl.java
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/src/main/java/net/dv8tion/jda/internal/requests/restaction/pagination/PaginationActionImpl.java b/src/main/java/net/dv8tion/jda/internal/requests/restaction/pagination/PaginationActionImpl.java
---- a/src/main/java/net/dv8tion/jda/internal/requests/restaction/pagination/PaginationActionImpl.java	(revision 555adcbd76a9baf46ee19b30b1a0dc25fe7312a5)
-+++ b/src/main/java/net/dv8tion/jda/internal/requests/restaction/pagination/PaginationActionImpl.java	(revision 0b342740124fdca8173a18509fa7b11afbc6fde4)
-@@ -34,8 +34,8 @@
- import java.util.function.Consumer;
- 
- public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
--    extends RestActionImpl<List<T>>
--    implements PaginationAction<T, M>
-+        extends RestActionImpl<List<T>>
-+        implements PaginationAction<T, M>
- {
-     protected final List<T> cached = new CopyOnWriteArrayList<>();
-     protected final int maxLimit;
-@@ -245,7 +245,8 @@
-     @Override
-     public CompletableFuture<List<T>> takeAsync(int amount)
-     {
--        return takeAsync0(amount, (task, list) -> forEachAsync(val -> {
-+        return takeAsync0(amount, (task, list) -> forEachAsync(val ->
-+        {
-             list.add(val);
-             return list.size() < amount;
-         }, task::completeExceptionally));
-@@ -255,7 +256,8 @@
-     @Override
-     public CompletableFuture<List<T>> takeRemainingAsync(int amount)
-     {
--        return takeAsync0(amount, (task, list) -> forEachRemainingAsync(val -> {
-+        return takeAsync0(amount, (task, list) -> forEachRemainingAsync(val ->
-+        {
-             list.add(val);
-             return list.size() < amount;
-         }, task::completeExceptionally));
-@@ -347,20 +349,39 @@
-         }
-     }
- 
-+    // Introduced for paginating archived threads, because two endpoints require a different request parameter value format.
-+    // May become more useful if discord introduces more pagination endpoints not using ids.
-+    // Check ThreadChannelPaginationActionImpl
-+    // Background of #getPaginationLastEvaluatedKey:
-+    //     Archived thread channel pagination (example: TextChannel#retrieveArchivedPublicThreadChannels) would throw an exception,
-+    //     where Discord complained about receiving a snowflake instead of an ISO8601 date.
-+    //     The snowflake originated from this class (creating initial & subsequent requests),
-+    //     while the correct value was set in ThreadChannelPaginationActionImpl for the initial request
-+    //     and appended as a second value for subsequent requests.
-+    //     However, withQueryParams is a simple string append and Discord only reads the first parameter.
-+    //     If you debugged, you would see some duplicated fields on the compiled route.
-+    //     The fix here is to let the implementor supply the "last" string value, which could be anything,
-+    //     while the default implementation still would provide snowflakes
-+    @Nonnull
-+    protected String getPaginationLastEvaluatedKey(long lastId, T last)
-+    {
-+        return Long.toUnsignedString(lastId);
-+    }
-+
-     @Override
-     protected Route.CompiledRoute finalizeRoute()
-     {
-         Route.CompiledRoute route = super.finalizeRoute();
- 
-         final String limit = String.valueOf(this.getLimit());
--        final long last = this.lastKey;
-+        final long localLastKey = this.lastKey;
- 
-         route = route.withQueryParams("limit", limit);
- 
--        if (last != 0)
--            route = route.withQueryParams(order.getKey(), Long.toUnsignedString(last));
-+        if (localLastKey != 0)
-+            route = route.withQueryParams(order.getKey(), getPaginationLastEvaluatedKey(localLastKey, this.last));
-         else if (order == PaginationOrder.FORWARD)
--            route = route.withQueryParams("after", "0");
-+            route = route.withQueryParams("after", getPaginationLastEvaluatedKey(0, this.last));
- 
-         return route;
-     }
-Index: src/main/java/net/dv8tion/jda/internal/requests/restaction/pagination/ThreadChannelPaginationActionImpl.java
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/src/main/java/net/dv8tion/jda/internal/requests/restaction/pagination/ThreadChannelPaginationActionImpl.java b/src/main/java/net/dv8tion/jda/internal/requests/restaction/pagination/ThreadChannelPaginationActionImpl.java
---- a/src/main/java/net/dv8tion/jda/internal/requests/restaction/pagination/ThreadChannelPaginationActionImpl.java	(revision 555adcbd76a9baf46ee19b30b1a0dc25fe7312a5)
-+++ b/src/main/java/net/dv8tion/jda/internal/requests/restaction/pagination/ThreadChannelPaginationActionImpl.java	(revision 0b342740124fdca8173a18509fa7b11afbc6fde4)
-@@ -9,13 +9,16 @@
- import net.dv8tion.jda.api.requests.Request;
- import net.dv8tion.jda.api.requests.Response;
- import net.dv8tion.jda.api.requests.restaction.pagination.ThreadChannelPaginationAction;
--import net.dv8tion.jda.api.utils.TimeUtil;
- import net.dv8tion.jda.api.utils.data.DataArray;
- import net.dv8tion.jda.api.utils.data.DataObject;
- import net.dv8tion.jda.internal.entities.EntityBuilder;
- import net.dv8tion.jda.internal.requests.Route;
-+import net.dv8tion.jda.internal.utils.Helpers;
- 
- import javax.annotation.Nonnull;
-+import java.time.OffsetDateTime;
-+import java.time.ZoneId;
-+import java.time.ZoneOffset;
- import java.util.ArrayList;
- import java.util.EnumSet;
- import java.util.List;
-@@ -23,6 +26,9 @@
- public class ThreadChannelPaginationActionImpl extends PaginationActionImpl<ThreadChannel, ThreadChannelPaginationAction> implements ThreadChannelPaginationAction
- {
-     protected final IThreadContainer channel;
-+
-+    // Whether IDs or ISO8601 timestamps shall be provided for all pagination requests.
-+    // Some thread pagination endpoints require this odd and singular behavior throughout the discord api.
-     protected final boolean useID;
- 
-     public ThreadChannelPaginationActionImpl(JDA api, Route.CompiledRoute route, IThreadContainer channel, boolean useID)
-@@ -46,23 +52,27 @@
-         return EnumSet.of(PaginationOrder.BACKWARD);
-     }
- 
-+    //Thread pagination supplies ISO8601 timestamps for some cases, see constructor
-+    @Nonnull
-     @Override
--    protected Route.CompiledRoute finalizeRoute()
-+    protected String getPaginationLastEvaluatedKey(long lastId, ThreadChannel last)
-     {
--        Route.CompiledRoute route = super.finalizeRoute();
--
--        final String limit = String.valueOf(this.limit.get());
--        final long last = this.lastKey;
--
--        route = route.withQueryParams("limit", limit);
--
--        if (last == 0)
--            return route;
--
-         if (useID)
--            return route.withQueryParams("before", Long.toUnsignedString(last));
-+            return Long.toUnsignedString(lastId);
-+
-+        if (order == PaginationOrder.FORWARD && lastId == 0)
-+        {
-+            // first second of 2015 aka discords epoch, hard coding something older makes no sense to me
-+            return "2015-01-01T00:00:00.000";
-+        }
-+
-+        // this should be redundant, due to calling this with PaginationAction#getLast() as last param,
-+        // but let's have this here.
-+        if (last == null)
-+            return OffsetDateTime.now(ZoneOffset.UTC).toString();
-+
-         // OffsetDateTime#toString() is defined to be ISO8601, needs no helper method.
--        return route.withQueryParams("before", TimeUtil.getTimeCreated(last).toString());
-+        return last.getTimeArchiveInfoLastModified().toString();
-     }
- 
-     @Override
-@@ -75,14 +85,7 @@
-         List<ThreadChannel> list = new ArrayList<>(threads.length());
-         EntityBuilder builder = api.getEntityBuilder();
- 
--        TLongObjectMap<DataObject> selfThreadMemberMap = new TLongObjectHashMap<>();
--        for (int i = 0; i < selfThreadMembers.length(); i++)
--        {
--            DataObject selfThreadMember = selfThreadMembers.getObject(i);
--
--            //Store the thread member based on the "id" which is the _thread's_ id, not the member's id (which would be our id)
--            selfThreadMemberMap.put(selfThreadMember.getLong("id"), selfThreadMember);
--        }
-+        TLongObjectMap<DataObject> selfThreadMemberMap = Helpers.convertToMap((o) -> o.getUnsignedLong("id"), selfThreadMembers);
- 
-         for (int i = 0; i < threads.length(); i++)
-         {
-Index: src/main/java/net/dv8tion/jda/internal/utils/Helpers.java
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/src/main/java/net/dv8tion/jda/internal/utils/Helpers.java b/src/main/java/net/dv8tion/jda/internal/utils/Helpers.java
---- a/src/main/java/net/dv8tion/jda/internal/utils/Helpers.java	(revision 555adcbd76a9baf46ee19b30b1a0dc25fe7312a5)
-+++ b/src/main/java/net/dv8tion/jda/internal/utils/Helpers.java	(revision 3f4f8c5f13ab35fcc3f843f09d66eb26cb5b0091)
-@@ -16,12 +16,18 @@
- 
- package net.dv8tion.jda.internal.utils;
- 
-+import gnu.trove.map.TLongObjectMap;
-+import gnu.trove.map.hash.TLongObjectHashMap;
-+import net.dv8tion.jda.api.utils.data.DataArray;
-+import net.dv8tion.jda.api.utils.data.DataObject;
-+
- import javax.annotation.Nullable;
- import java.time.*;
- import java.time.format.DateTimeFormatter;
- import java.time.temporal.TemporalAccessor;
- import java.util.*;
- import java.util.function.Consumer;
-+import java.util.function.ToLongFunction;
- 
- /**
-  * This class has major inspiration from <a href="https://commons.apache.org/proper/commons-lang/" target="_blank">Lang 3</a>
-@@ -225,6 +231,26 @@
-         return col == null || col.isEmpty() ? EnumSet.noneOf(clazz) : EnumSet.copyOf(col);
-     }
- 
-+    @SafeVarargs
-+    public static <T> Set<T> setOf(T... elements)
-+    {
-+        Set<T> set = new HashSet<>(elements.length);
-+        Collections.addAll(set, elements);
-+        return set;
-+    }
-+
-+    public static TLongObjectMap<DataObject> convertToMap(ToLongFunction<DataObject> getId, DataArray array)
-+    {
-+        TLongObjectMap<DataObject> map = new TLongObjectHashMap<>();
-+        for (int i = 0; i < array.length(); i++)
-+        {
-+            DataObject obj = array.getObject(i);
-+            long objId = getId.applyAsLong(obj);
-+            map.put(objId, obj);
-+        }
-+        return map;
-+    }
-+
-     // ## ExceptionUtils ##
- 
-     public static <T extends Throwable> T appendCause(T throwable, Throwable cause)
-Index: build.gradle.kts
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/build.gradle.kts b/build.gradle.kts
---- a/build.gradle.kts	(revision 0b342740124fdca8173a18509fa7b11afbc6fde4)
-+++ b/build.gradle.kts	(revision edbc42350a1abf6c2240e82f51ee7a5c6e2b5996)
-@@ -40,7 +40,7 @@
- }
- 
- val javaVersion = JavaVersion.current()
--val versionObj = Version(major = "5", minor = "0", revision = "0", classifier = "alpha.11")
-+val versionObj = Version(major = "5", minor = "0", revision = "0", classifier = "alpha.12")
- val isCI = System.getProperty("BUILD_NUMBER") != null // jenkins
-         || System.getenv("BUILD_NUMBER") != null
-         || System.getProperty("GIT_COMMIT") != null // jitpack
 Index: src/main/java/net/dv8tion/jda/api/JDA.java
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
@@ -1120,7 +606,7 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 ===================================================================
 diff --git a/src/main/java/net/dv8tion/jda/api/entities/Message.java b/src/main/java/net/dv8tion/jda/api/entities/Message.java
 --- a/src/main/java/net/dv8tion/jda/api/entities/Message.java	(revision edbc42350a1abf6c2240e82f51ee7a5c6e2b5996)
-+++ b/src/main/java/net/dv8tion/jda/api/entities/Message.java	(revision 1dbc26250fde6a568afd675109c437735aaf59bc)
++++ b/src/main/java/net/dv8tion/jda/api/entities/Message.java	(revision 3f4f8c5f13ab35fcc3f843f09d66eb26cb5b0091)
 @@ -20,8 +20,13 @@
  import net.dv8tion.jda.api.JDA;
  import net.dv8tion.jda.api.MessageBuilder;
@@ -1258,15 +744,235 @@ diff --git a/src/main/java/net/dv8tion/jda/api/entities/Message.java b/src/main/
      /**
       * Replies and references this message.
       * <br>This is identical to {@code message.getChannel().sendMessage(content).reference(message)}.
-@@ -2616,7 +2709,7 @@
-         @Nonnull
-         public AttachmentProxy getProxy()
-         {
--            return new AttachmentProxy(getProxyUrl());
-+            return new AttachmentProxy(width > 0 && height > 0 ? proxyUrl : url);
-         }
- 
-         /**
+Index: src/main/java/net/dv8tion/jda/api/entities/MessageSticker.java
+===================================================================
+diff --git a/src/main/java/net/dv8tion/jda/api/entities/MessageSticker.java b/src/main/java/net/dv8tion/jda/api/entities/MessageSticker.java
+deleted file mode 100644
+--- a/src/main/java/net/dv8tion/jda/api/entities/MessageSticker.java	(revision edbc42350a1abf6c2240e82f51ee7a5c6e2b5996)
++++ /dev/null	(revision edbc42350a1abf6c2240e82f51ee7a5c6e2b5996)
+@@ -1,222 +0,0 @@
+-/*
+- * Copyright 2015 Austin Keener, Michael Ritter, Florian Spieß, and the JDA contributors
+- *
+- * Licensed under the Apache License, Version 2.0 (the "License");
+- * you may not use this file except in compliance with the License.
+- * You may obtain a copy of the License at
+- *
+- *    http://www.apache.org/licenses/LICENSE-2.0
+- *
+- * Unless required by applicable law or agreed to in writing, software
+- * distributed under the License is distributed on an "AS IS" BASIS,
+- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- * See the License for the specific language governing permissions and
+- * limitations under the License.
+- */
+-package net.dv8tion.jda.api.entities;
+-
+-import net.dv8tion.jda.api.utils.ImageProxy;
+-import net.dv8tion.jda.internal.utils.Helpers;
+-
+-import javax.annotation.Nonnull;
+-import java.util.Set;
+-
+-/**
+- * An object representing a sticker in a Discord message.
+- *
+- * @see Message#getStickers()
+- */
+-public class MessageSticker implements ISnowflake
+-{
+-    private final long id;
+-    private final String name;
+-    private final String description;
+-    private final long packId;
+-    private final StickerFormat formatType;
+-    private final Set<String> tags;
+-
+-    /** Template for {@link #getIconUrl()} */
+-    public static final String ICON_URL = "https://cdn.discordapp.com/stickers/%s.%s";
+-
+-    public MessageSticker(final long id, final String name, final String description, final long packId, final StickerFormat formatType, final Set<String> tags)
+-    {
+-        this.id = id;
+-        this.name = name;
+-        this.description = description;
+-        this.packId = packId;
+-        this.formatType = formatType;
+-        this.tags = tags;
+-    }
+-
+-    @Override
+-    public long getIdLong()
+-    {
+-        return id;
+-    }
+-
+-    /**
+-     * The name of the sticker.
+-     *
+-     * @return the name of the sticker
+-     */
+-    @Nonnull
+-    public String getName()
+-    {
+-        return name;
+-    }
+-
+-    /**
+-     * The description of the sticker or empty String if the sticker doesn't have one.
+-     *
+-     * @return Possibly-empty String containing the description of the sticker
+-     */
+-    @Nonnull
+-    public String getDescription()
+-    {
+-        return description;
+-    }
+-
+-    /**
+-     * The ID of the pack the sticker is from.
+-     *
+-     * <p>If this sticker is from a guild, this will be the guild id instead.
+-     *
+-     * @return the ID of the pack the sticker is from
+-     */
+-    @Nonnull
+-    public String getPackId()
+-    {
+-        return Long.toUnsignedString(getPackIdLong());
+-    }
+-
+-    /**
+-     * The ID of the pack the sticker is from.
+-     *
+-     * <p>If this sticker is from a guild, this will be the guild id instead.
+-     *
+-     * @return the ID of the pack the sticker is from
+-     */
+-    public long getPackIdLong()
+-    {
+-        return packId;
+-    }
+-
+-    /**
+-     * The url of the sticker image.
+-     *
+-     * @throws java.lang.IllegalStateException
+-     *         If the {@link StickerFormat StickerFormat} of this sticker is {@link StickerFormat#UNKNOWN UNKNOWN}
+-     *
+-     * @return The image url of the sticker
+-     */
+-    @Nonnull
+-    public String getIconUrl()
+-    {
+-        return Helpers.format(ICON_URL, getId(), formatType.getExtension());
+-    }
+-
+-    /**
+-     * Returns an {@link ImageProxy} for this sticker's image.
+-     *
+-     * @throws java.lang.IllegalStateException
+-     *         If the {@link StickerFormat} of this sticker is {@link StickerFormat#UNKNOWN UNKNOWN}
+-     *
+-     * @return Never-null {@link ImageProxy} of this sticker's image
+-     *
+-     * @see    #getIconUrl()
+-     */
+-    @Nonnull
+-    public ImageProxy getIcon()
+-    {
+-        return new ImageProxy(getIconUrl());
+-    }
+-
+-    /**
+-     * The {@link StickerFormat Format} of the sticker.
+-     *
+-     * @return the format of the sticker
+-     */
+-    @Nonnull
+-    public StickerFormat getFormatType()
+-    {
+-        return formatType;
+-    }
+-
+-    /**
+-     * Set of tags of the sticker. Tags can be used instead of the name of the sticker as aliases.
+-     *
+-     * @return Possibly-empty unmodifiable Set of tags of the sticker
+-     */
+-    @Nonnull
+-    public Set<String> getTags()
+-    {
+-        return tags;
+-    }
+-
+-    public enum StickerFormat
+-    {
+-        /**
+-         * The PNG format.
+-         */
+-        PNG(1, "png"),
+-        /**
+-         * The APNG format.
+-         */
+-        APNG(2, "apng"),
+-        /**
+-         * The LOTTIE format.
+-         * <br>Lottie isn't a standard renderable image. It is a JSON with data that can be rendered using the lottie library.
+-         *
+-         * @see <a href="https://airbnb.io/lottie/">Lottie website</a>
+-         */
+-        LOTTIE(3, "json"),
+-        /**
+-         * Represents any unknown or unsupported {@link net.dv8tion.jda.api.entities.MessageSticker MessageSticker} format types.
+-         */
+-        UNKNOWN(-1, null);
+-
+-        private final int id;
+-        private final String extension;
+-
+-        StickerFormat(final int id, final String extension)
+-        {
+-            this.id = id;
+-            this.extension = extension;
+-        }
+-
+-        /**
+-         * The file extension used for the sticker asset.
+-         *
+-         * @throws java.lang.IllegalStateException
+-         *         If the {@link StickerFormat StickerFormat} is {@link StickerFormat#UNKNOWN UNKNOWN}
+-         *
+-         * @return The file extension for this format
+-         */
+-        @Nonnull
+-        public String getExtension()
+-        {
+-            if (this == UNKNOWN)
+-                throw new IllegalStateException("Can only get extension of a known format");
+-            return extension;
+-        }
+-
+-        /**
+-         * Resolves the specified format identifier to the StickerFormat enum constant.
+-         *
+-         * @param  id
+-         *         The id for this format
+-         *
+-         * @return The representative StickerFormat or UNKNOWN if it can't be resolved
+-         */
+-        @Nonnull
+-        public static MessageSticker.StickerFormat fromId(int id)
+-        {
+-            for (MessageSticker.StickerFormat stickerFormat : values())
+-            {
+-                if (stickerFormat.id == id)
+-                    return stickerFormat;
+-            }
+-            return UNKNOWN;
+-        }
+-    }
+-}
 Index: src/main/java/net/dv8tion/jda/api/entities/sticker/GuildSticker.java
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
@@ -3482,7 +3188,7 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 ===================================================================
 diff --git a/src/main/java/net/dv8tion/jda/api/utils/FileUpload.java b/src/main/java/net/dv8tion/jda/api/utils/FileUpload.java
 --- a/src/main/java/net/dv8tion/jda/api/utils/FileUpload.java	(revision edbc42350a1abf6c2240e82f51ee7a5c6e2b5996)
-+++ b/src/main/java/net/dv8tion/jda/api/utils/FileUpload.java	(revision 4f7b413a9c7b96a541eaf269dea95290f529f503)
++++ b/src/main/java/net/dv8tion/jda/api/utils/FileUpload.java	(revision 3f4f8c5f13ab35fcc3f843f09d66eb26cb5b0091)
 @@ -18,9 +18,12 @@
  
  import net.dv8tion.jda.api.utils.data.DataObject;
@@ -3553,16 +3259,6 @@ diff --git a/src/main/java/net/dv8tion/jda/api/utils/FileUpload.java b/src/main/
      }
  
      @Nonnull
-@@ -293,7 +306,8 @@
-     @SuppressWarnings("deprecation")
-     protected void finalize()
-     {
--        IOUtil.silentClose(resource);
-+        if (body == null) // Only close if the resource was never used
-+            IOUtil.silentClose(resource);
-     }
- 
-     @Override
 Index: src/main/java/net/dv8tion/jda/api/utils/cache/CacheFlag.java
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
@@ -3596,7 +3292,7 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 ===================================================================
 diff --git a/src/main/java/net/dv8tion/jda/internal/JDAImpl.java b/src/main/java/net/dv8tion/jda/internal/JDAImpl.java
 --- a/src/main/java/net/dv8tion/jda/internal/JDAImpl.java	(revision edbc42350a1abf6c2240e82f51ee7a5c6e2b5996)
-+++ b/src/main/java/net/dv8tion/jda/internal/JDAImpl.java	(revision 215d275d1de3bc35c40c5949c239f30decf155b9)
++++ b/src/main/java/net/dv8tion/jda/internal/JDAImpl.java	(revision 3f4f8c5f13ab35fcc3f843f09d66eb26cb5b0091)
 @@ -26,10 +26,14 @@
  import net.dv8tion.jda.api.audio.factory.IAudioSendFactory;
  import net.dv8tion.jda.api.audio.hooks.ConnectionStatus;
@@ -3612,17 +3308,7 @@ diff --git a/src/main/java/net/dv8tion/jda/internal/JDAImpl.java b/src/main/java
  import net.dv8tion.jda.api.exceptions.RateLimitedException;
  import net.dv8tion.jda.api.hooks.IEventManager;
  import net.dv8tion.jda.api.hooks.InterfacedEventManager;
-@@ -218,8 +222,7 @@
-         try
-         {
-             return member.getUser().equals(getSelfUser()) // always cache self
--                    || chunkGuild(member.getGuild().getIdLong())  // always cache if chunking
--                    || memberCachePolicy.cacheMember(member); // ask policy, should we cache?
-+                || memberCachePolicy.cacheMember(member); // ask policy, should we cache?
-         }
-         catch (Exception e)
-         {
-@@ -620,6 +623,44 @@
+@@ -620,6 +624,44 @@
          return CacheView.allSnowflakes(() -> guildCache.stream().map(Guild::getEmoteCache));
      }
  
@@ -3748,6 +3434,189 @@ diff --git a/src/main/java/net/dv8tion/jda/internal/entities/DataMessage.java b/
      // UNSUPPORTED OPERATIONS ON MESSAGE BUILDER OUTPUT
  
      @Override
+Index: src/main/java/net/dv8tion/jda/internal/entities/EntityBuilder.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/net/dv8tion/jda/internal/entities/EntityBuilder.java b/src/main/java/net/dv8tion/jda/internal/entities/EntityBuilder.java
+--- a/src/main/java/net/dv8tion/jda/internal/entities/EntityBuilder.java	(revision edbc42350a1abf6c2240e82f51ee7a5c6e2b5996)
++++ b/src/main/java/net/dv8tion/jda/internal/entities/EntityBuilder.java	(revision 3f4f8c5f13ab35fcc3f843f09d66eb26cb5b0091)
+@@ -29,6 +29,7 @@
+ import net.dv8tion.jda.api.entities.Guild.Timeout;
+ import net.dv8tion.jda.api.entities.Guild.VerificationLevel;
+ import net.dv8tion.jda.api.entities.MessageEmbed.*;
++import net.dv8tion.jda.api.entities.sticker.*;
+ import net.dv8tion.jda.api.entities.templates.Template;
+ import net.dv8tion.jda.api.entities.templates.TemplateChannel;
+ import net.dv8tion.jda.api.entities.templates.TemplateGuild;
+@@ -40,6 +41,7 @@
+ import net.dv8tion.jda.api.events.user.update.UserUpdateDiscriminatorEvent;
+ import net.dv8tion.jda.api.events.user.update.UserUpdateFlagsEvent;
+ import net.dv8tion.jda.api.events.user.update.UserUpdateNameEvent;
++import net.dv8tion.jda.api.exceptions.ParsingException;
+ import net.dv8tion.jda.api.interactions.components.ActionRow;
+ import net.dv8tion.jda.api.utils.cache.CacheFlag;
+ import net.dv8tion.jda.api.utils.cache.CacheView;
+@@ -48,6 +50,7 @@
+ import net.dv8tion.jda.internal.JDAImpl;
+ import net.dv8tion.jda.internal.entities.mixin.channel.attribute.IPermissionContainerMixin;
+ import net.dv8tion.jda.internal.entities.mixin.channel.middleman.AudioChannelMixin;
++import net.dv8tion.jda.internal.entities.sticker.*;
+ import net.dv8tion.jda.internal.handle.EventCache;
+ import net.dv8tion.jda.internal.utils.Helpers;
+ import net.dv8tion.jda.internal.utils.JDALogger;
+@@ -161,6 +164,36 @@
+         }
+     }
+ 
++    private void createGuildStickerPass(GuildImpl guildObj, DataArray array)
++    {
++        if (!getJDA().isCacheFlagSet(CacheFlag.STICKER))
++            return;
++        SnowflakeCacheViewImpl<GuildSticker> stickerView = guildObj.getStickersView();
++        try (UnlockHook hook = stickerView.writeLock())
++        {
++            TLongObjectMap<GuildSticker> stickerMap = stickerView.getMap();
++            for (int i = 0; i < array.length(); i++)
++            {
++                DataObject object = array.getObject(i);
++                if (object.isNull("id"))
++                {
++                    LOG.error("Received GUILD_CREATE with a sticker with a null ID. GuildId: {} JSON: {}",
++                              guildObj.getId(), object);
++                    continue;
++                }
++                if (object.getInt("type", -1) != Sticker.Type.GUILD.getId())
++                {
++                    LOG.error("Received GUILD_CREATE with sticker that had an unexpected type. GuildId: {} Type: {} JSON: {}",
++                              guildObj.getId(), object.getInt("type", -1), object);
++                    continue;
++                }
++
++                RichSticker sticker = createRichSticker(object);
++                stickerMap.put(sticker.getIdLong(), (GuildSticker) sticker);
++            }
++        }
++    }
++
+     public GuildImpl createGuild(long guildId, DataObject guildJson, TLongObjectMap<DataObject> members, int memberCount)
+     {
+         final GuildImpl guildObj = new GuildImpl(getJDA(), guildId);
+@@ -175,6 +208,7 @@
+         final DataArray channelArray = guildJson.getArray("channels");
+         final DataArray threadArray = guildJson.getArray("threads");
+         final DataArray emotesArray = guildJson.getArray("emojis");
++        final DataArray stickersArray = guildJson.getArray("stickers");
+         final DataArray voiceStateArray = guildJson.getArray("voice_states");
+         final Optional<DataArray> featuresArray = guildJson.optArray("features");
+         final Optional<DataArray> presencesArray = guildJson.optArray("presences");
+@@ -286,6 +320,7 @@
+         }
+ 
+         createGuildEmotePass(guildObj, emotesArray);
++        createGuildStickerPass(guildObj, stickersArray);
+         guildJson.optArray("stage_instances")
+                 .map(arr -> arr.stream(DataArray::getObject))
+                 .ifPresent(list -> list.forEach(it -> createStageInstance(guildObj, it)));
+@@ -1412,7 +1447,7 @@
+         final List<Message.Attachment> attachments = map(jsonObject, "attachments",   this::createMessageAttachment);
+         final List<MessageEmbed>       embeds      = map(jsonObject, "embeds",        this::createMessageEmbed);
+         final List<MessageReaction>    reactions   = map(jsonObject, "reactions",     (obj) -> createMessageReaction(tmpChannel, id, obj));
+-        final List<MessageSticker>     stickers    = map(jsonObject, "sticker_items", this::createSticker);
++        final List<StickerItem>        stickers    = map(jsonObject, "sticker_items", this::createStickerItem);
+ 
+         // Message activity (for game invites/spotify)
+         MessageActivity activity = null;
+@@ -1707,25 +1742,72 @@
+             color, thumbnail, siteProvider, author, videoInfo, footer, image, fields);
+     }
+ 
+-    public MessageSticker createSticker(DataObject content)
++    public StickerItem createStickerItem(DataObject content)
+     {
+-        final long id = content.getLong("id");
+-        final String name = content.getString("name");
+-        final String description = content.getString("description", "");
+-        final long packId = content.getLong("pack_id", content.getLong("guild_id", 0L));
+-        final MessageSticker.StickerFormat format = MessageSticker.StickerFormat.fromId(content.getInt("format_type"));
+-        final Set<String> tags;
+-        if (content.isNull("tags"))
++        long id = content.getLong("id");
++        String name = content.getString("name");
++        Sticker.StickerFormat format = Sticker.StickerFormat.fromId(content.getInt("format_type"));
++        return new StickerItemImpl(id, format, name);
++    }
++
++    public RichStickerImpl createRichSticker(DataObject content)
++    {
++        long id = content.getLong("id");
++        String name = content.getString("name");
++        Sticker.StickerFormat format = Sticker.StickerFormat.fromId(content.getInt("format_type"));
++        Sticker.Type type = Sticker.Type.fromId(content.getInt("type", -1));
++
++        String description = content.getString("description", "");
++        Set<String> tags = Collections.emptySet();
++        if (!content.isNull("tags"))
+         {
+-            tags = Collections.emptySet();
+-        }
+-        else
+-        {
+-            final String[] split = content.getString("tags").split(", ");
+-            final Set<String> tmp = new HashSet<>(Arrays.asList(split));
+-            tags = Collections.unmodifiableSet(tmp);
++            String[] array = content.getString("tags").split(",\\s*");
++            tags = Helpers.setOf(array);
++        }
++
++        switch (type)
++        {
++        case GUILD:
++            boolean available = content.getBoolean("available");
++            long guildId = content.getUnsignedLong("guild_id", 0L);
++            User owner = content.isNull("user") ? null : createUser(content.getObject("user"));
++            return new GuildStickerImpl(id, format, name, tags, description, available, guildId, api, owner);
++        case STANDARD:
++            long packId = content.getUnsignedLong("pack_id", 0L);
++            int sortValue = content.getInt("sort_value", -1);
++            return new StandardStickerImpl(id, format, name, tags, description, packId, sortValue);
++        default:
++            throw new IllegalArgumentException("Unknown sticker type. Type: " + type  +" JSON: " + content);
++        }
++    }
++
++    public StickerPack createStickerPack(DataObject content)
++    {
++        long id = content.getUnsignedLong("id");
++        String name = content.getString("name");
++        String description = content.getString("description", "");
++        long skuId = content.getUnsignedLong("sku_id", 0);
++        long coverId = content.getUnsignedLong("cover_sticker_id", 0);
++        long bannerId = content.getUnsignedLong("banner_asset_id", 0);
++
++        DataArray stickerArr = content.getArray("stickers");
++        List<StandardSticker> stickers = new ArrayList<>(stickerArr.length());
++        for (int i = 0; i < stickerArr.length(); i++)
++        {
++            DataObject object = null;
++            try
++            {
++                object = stickerArr.getObject(i);
++                StandardSticker sticker = (StandardSticker) createRichSticker(object);
++                stickers.add(sticker);
++            }
++            catch (ParsingException | ClassCastException ex)
++            {
++                LOG.error("Sticker contained in pack {} ({}) could not be parsed. JSON: {}", name, id, object);
++            }
+         }
+-        return new MessageSticker(id, name, description, packId, format, tags);
++
++        return new StickerPackImpl(id, stickers, name, description, coverId, bannerId, skuId);
+     }
+ 
+     public Message.Interaction createMessageInteraction(GuildImpl guildImpl, DataObject content)
 Index: src/main/java/net/dv8tion/jda/internal/entities/GuildImpl.java
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
@@ -3755,7 +3624,7 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 ===================================================================
 diff --git a/src/main/java/net/dv8tion/jda/internal/entities/GuildImpl.java b/src/main/java/net/dv8tion/jda/internal/entities/GuildImpl.java
 --- a/src/main/java/net/dv8tion/jda/internal/entities/GuildImpl.java	(revision edbc42350a1abf6c2240e82f51ee7a5c6e2b5996)
-+++ b/src/main/java/net/dv8tion/jda/internal/entities/GuildImpl.java	(revision f54e392d1b3e189e28e9af1173b270bd62c729df)
++++ b/src/main/java/net/dv8tion/jda/internal/entities/GuildImpl.java	(revision 3f4f8c5f13ab35fcc3f843f09d66eb26cb5b0091)
 @@ -23,15 +23,20 @@
  import net.dv8tion.jda.api.Region;
  import net.dv8tion.jda.api.audio.hooks.ConnectionStatus;
@@ -3824,15 +3693,6 @@ diff --git a/src/main/java/net/dv8tion/jda/internal/entities/GuildImpl.java b/sr
      @Nonnull
      @Override
      public List<GuildChannel> getChannels(boolean includeHidden)
-@@ -702,7 +719,7 @@
-         Predicate<GuildChannel> filterHidden = it -> {
-             //TODO-v5: Do we need to if-protected cast here? If the channel _isnt_ a IPermissionContainer, then would we even be using this filter on it?
-             if (it instanceof IPermissionContainer) {
--                self.hasPermission((IPermissionContainer) it, Permission.VIEW_CHANNEL);
-+                return self.hasPermission((IPermissionContainer) it, Permission.VIEW_CHANNEL);
-             }
-             return false;
-         };
 @@ -817,6 +834,58 @@
          });
      }
@@ -3954,7 +3814,7 @@ diff --git a/src/main/java/net/dv8tion/jda/internal/entities/GuildImpl.java b/sr
 +    public AuditableRestAction<Void> deleteSticker(@Nonnull StickerSnowflake id)
 +    {
 +        Checks.notNull(id, "Sticker");
-+        Route.CompiledRoute route = Route.Stickers.DELETE_GUILD_STICKER.compile(getId(), id.getId());
++        Route.CompiledRoute route = Route.Stickers.DELETE_GUILD_STICKER.compile(id.getId());
 +        return new AuditableRestActionImpl<>(api, route);
 +    }
 +
@@ -5247,7 +5107,7 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 ===================================================================
 diff --git a/src/main/java/net/dv8tion/jda/internal/requests/restaction/MessageActionImpl.java b/src/main/java/net/dv8tion/jda/internal/requests/restaction/MessageActionImpl.java
 --- a/src/main/java/net/dv8tion/jda/internal/requests/restaction/MessageActionImpl.java	(revision edbc42350a1abf6c2240e82f51ee7a5c6e2b5996)
-+++ b/src/main/java/net/dv8tion/jda/internal/requests/restaction/MessageActionImpl.java	(revision 2fecf6c1277483eb03fcb645e896270b40864396)
++++ b/src/main/java/net/dv8tion/jda/internal/requests/restaction/MessageActionImpl.java	(revision 3f4f8c5f13ab35fcc3f843f09d66eb26cb5b0091)
 @@ -19,6 +19,8 @@
  import net.dv8tion.jda.api.JDA;
  import net.dv8tion.jda.api.Permission;
@@ -5283,22 +5143,19 @@ diff --git a/src/main/java/net/dv8tion/jda/internal/requests/restaction/MessageA
      }
  
      @Override
-@@ -175,6 +180,14 @@
+@@ -175,6 +180,11 @@
              setEmbeds(embeds.stream().filter(e -> e != null && e.getType() == EmbedType.RICH).collect(Collectors.toList()));
          files.clear();
  
-+        if (!isEdit())
-+        {
-+            if (message instanceof DataMessage)
-+                setStickers(((DataMessage) message).getStickerSnowflakes());
-+            else
-+                setStickers(message.getStickers());
-+        }
++        if (message instanceof DataMessage)
++            setStickers(((DataMessage) message).getStickerSnowflakes());
++        else
++            setStickers(message.getStickers());
 +
          components = new ArrayList<>();
          components.addAll(message.getActionRows());
          allowedMentions.applyMessage(message);
-@@ -401,6 +414,42 @@
+@@ -401,6 +411,42 @@
          return this;
      }
  
@@ -5341,7 +5198,7 @@ diff --git a/src/main/java/net/dv8tion/jda/internal/requests/restaction/MessageA
      @Nonnull
      @Override
      @CheckReturnValue
-@@ -531,6 +580,8 @@
+@@ -531,6 +577,8 @@
                  obj.put("nonce", nonce);
              if (components != null)
                  obj.put("components", DataArray.fromCollection(components));
@@ -5407,6 +5264,29 @@ diff --git a/src/main/java/net/dv8tion/jda/internal/utils/BufferedRequestBody.ja
          }
      }
  }
+Index: src/main/java/net/dv8tion/jda/internal/utils/Helpers.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/net/dv8tion/jda/internal/utils/Helpers.java b/src/main/java/net/dv8tion/jda/internal/utils/Helpers.java
+--- a/src/main/java/net/dv8tion/jda/internal/utils/Helpers.java	(revision edbc42350a1abf6c2240e82f51ee7a5c6e2b5996)
++++ b/src/main/java/net/dv8tion/jda/internal/utils/Helpers.java	(revision 3f4f8c5f13ab35fcc3f843f09d66eb26cb5b0091)
+@@ -231,6 +231,14 @@
+         return col == null || col.isEmpty() ? EnumSet.noneOf(clazz) : EnumSet.copyOf(col);
+     }
+ 
++    @SafeVarargs
++    public static <T> Set<T> setOf(T... elements)
++    {
++        Set<T> set = new HashSet<>(elements.length);
++        Collections.addAll(set, elements);
++        return set;
++    }
++
+     public static TLongObjectMap<DataObject> convertToMap(ToLongFunction<DataObject> getId, DataArray array)
+     {
+         TLongObjectMap<DataObject> map = new TLongObjectHashMap<>();
 Index: src/main/java/net/dv8tion/jda/internal/utils/IOUtil.java
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
@@ -5436,346 +5316,3 @@ diff --git a/src/main/java/net/dv8tion/jda/internal/utils/IOUtil.java b/src/main
      {
          return new BufferedRequestBody(Okio.source(stream), contentType);
      }
-Index: src/main/java/net/dv8tion/jda/api/entities/MessageChannel.java
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/src/main/java/net/dv8tion/jda/api/entities/MessageChannel.java b/src/main/java/net/dv8tion/jda/api/entities/MessageChannel.java
---- a/src/main/java/net/dv8tion/jda/api/entities/MessageChannel.java	(revision 2fecf6c1277483eb03fcb645e896270b40864396)
-+++ b/src/main/java/net/dv8tion/jda/api/entities/MessageChannel.java	(revision bb41349838ce1cece13535868a090cce3b646781)
-@@ -91,7 +91,7 @@
-      * and <u><b>the value might point to an already deleted message since the ID is not cleared when the message is deleted,
-      * so calling {@link #retrieveMessageById(long)} with this id can result in an {@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_MESSAGE UNKNOWN_MESSAGE} error</b></u>
-      *
--     * @return The most recent message's id
-+     * @return The most recent message's id or "0" if no messages are present
-      */
-     @Nonnull
-     default String getLatestMessageId()
-@@ -107,7 +107,7 @@
-      * and <u><b>the value might point to an already deleted message since the value is not cleared when the message is deleted,
-      * so calling {@link #retrieveMessageById(long)} with this id can result in an {@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_MESSAGE UNKNOWN_MESSAGE} error</b></u>
-      *
--     * @return The most recent message's id
-+     * @return The most recent message's id or 0 if no messages are present
-      */
-     long getLatestMessageIdLong();
- 
-Index: src/main/java/net/dv8tion/jda/api/EmbedBuilder.java
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/src/main/java/net/dv8tion/jda/api/EmbedBuilder.java b/src/main/java/net/dv8tion/jda/api/EmbedBuilder.java
---- a/src/main/java/net/dv8tion/jda/api/EmbedBuilder.java	(revision bb41349838ce1cece13535868a090cce3b646781)
-+++ b/src/main/java/net/dv8tion/jda/api/EmbedBuilder.java	(revision 51aba0b9372af4e24708258f60b56bccb2debd69)
-@@ -740,7 +740,7 @@
-      *
-      * @throws java.lang.IllegalArgumentException
-      *         <ul>
--     *             <li>If only {@code name} or {@code value} is set. Both must be set.</li>
-+     *             <li>If {@code null} is provided</li>
-      *             <li>If the character limit for {@code name}, defined by {@link net.dv8tion.jda.api.entities.MessageEmbed#TITLE_MAX_LENGTH} as {@value net.dv8tion.jda.api.entities.MessageEmbed#TITLE_MAX_LENGTH},
-      *             is exceeded.</li>
-      *             <li>If the character limit for {@code value}, defined by {@link net.dv8tion.jda.api.entities.MessageEmbed#VALUE_MAX_LENGTH} as {@value net.dv8tion.jda.api.entities.MessageEmbed#VALUE_MAX_LENGTH},
-@@ -750,10 +750,10 @@
-      * @return the builder after the field has been added
-      */
-     @Nonnull
--    public EmbedBuilder addField(@Nullable String name, @Nullable String value, boolean inline)
-+    public EmbedBuilder addField(@Nonnull String name, @Nonnull String value, boolean inline)
-     {
--        if (name == null && value == null)
--            return this;
-+        Checks.notNull(name, "Name");
-+        Checks.notNull(value, "Value");
-         this.fields.add(new MessageEmbed.Field(name, value, inline));
-         return this;
-     }
-Index: src/main/java/net/dv8tion/jda/api/JDABuilder.java
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/src/main/java/net/dv8tion/jda/api/JDABuilder.java b/src/main/java/net/dv8tion/jda/api/JDABuilder.java
---- a/src/main/java/net/dv8tion/jda/api/JDABuilder.java	(revision 51aba0b9372af4e24708258f60b56bccb2debd69)
-+++ b/src/main/java/net/dv8tion/jda/api/JDABuilder.java	(revision 215d275d1de3bc35c40c5949c239f30decf155b9)
-@@ -55,7 +55,6 @@
-  */
- public class JDABuilder
- {
--    public static final int GUILD_SUBSCRIPTIONS = GatewayIntent.getRaw(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_MESSAGE_TYPING);
-     protected final List<Object> listeners = new LinkedList<>();
-     protected final EnumSet<CacheFlag> automaticallyDisabled = EnumSet.noneOf(CacheFlag.class);
- 
-@@ -1410,7 +1409,7 @@
-     /**
-      * The {@link ChunkingFilter} to filter which guilds should use member chunking.
-      *
--     * <p>If a guild is configured for chunking the {@link #setMemberCachePolicy(MemberCachePolicy)} will be ignored.
-+     * <p>Use {@link #setMemberCachePolicy(MemberCachePolicy)} to configure which members to keep in cache from chunking.
-      *
-      * @param  filter
-      *         The filter to apply
-Index: src/main/java/net/dv8tion/jda/api/sharding/DefaultShardManagerBuilder.java
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/src/main/java/net/dv8tion/jda/api/sharding/DefaultShardManagerBuilder.java b/src/main/java/net/dv8tion/jda/api/sharding/DefaultShardManagerBuilder.java
---- a/src/main/java/net/dv8tion/jda/api/sharding/DefaultShardManagerBuilder.java	(revision 51aba0b9372af4e24708258f60b56bccb2debd69)
-+++ b/src/main/java/net/dv8tion/jda/api/sharding/DefaultShardManagerBuilder.java	(revision 215d275d1de3bc35c40c5949c239f30decf155b9)
-@@ -89,10 +89,10 @@
-     protected WebSocketFactory wsFactory = null;
-     protected IAudioSendFactory audioSendFactory = null;
-     protected ThreadFactory threadFactory = null;
--    protected ChunkingFilter chunkingFilter;
-+    protected ChunkingFilter chunkingFilter = ChunkingFilter.ALL;
-     protected MemberCachePolicy memberCachePolicy = MemberCachePolicy.ALL;
- 
--    private DefaultShardManagerBuilder(@Nullable String token, int intents)
-+    protected DefaultShardManagerBuilder(@Nullable String token, int intents)
-     {
-         this.token = token;
-         this.intents = 1 | intents;
-@@ -1812,9 +1812,8 @@
- 
-     /**
-      * The {@link ChunkingFilter} to filter which guilds should use member chunking.
--     * <br>By default this uses {@link ChunkingFilter#ALL}.
-      *
--     * <p>If a guild is configured for chunking the {@link #setMemberCachePolicy(MemberCachePolicy)} will be ignored.
-+     * <p>Use {@link #setMemberCachePolicy(MemberCachePolicy)} to configure which members to keep in cache from chunking.
-      *
-      * @param  filter
-      *         The filter to apply
-Index: src/main/java/net/dv8tion/jda/api/entities/MessageSticker.java
-===================================================================
-diff --git a/src/main/java/net/dv8tion/jda/api/entities/MessageSticker.java b/src/main/java/net/dv8tion/jda/api/entities/MessageSticker.java
-deleted file mode 100644
---- a/src/main/java/net/dv8tion/jda/api/entities/MessageSticker.java	(revision edbc42350a1abf6c2240e82f51ee7a5c6e2b5996)
-+++ /dev/null	(revision edbc42350a1abf6c2240e82f51ee7a5c6e2b5996)
-@@ -1,222 +0,0 @@
--/*
-- * Copyright 2015 Austin Keener, Michael Ritter, Florian Spieß, and the JDA contributors
-- *
-- * Licensed under the Apache License, Version 2.0 (the "License");
-- * you may not use this file except in compliance with the License.
-- * You may obtain a copy of the License at
-- *
-- *    http://www.apache.org/licenses/LICENSE-2.0
-- *
-- * Unless required by applicable law or agreed to in writing, software
-- * distributed under the License is distributed on an "AS IS" BASIS,
-- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-- * See the License for the specific language governing permissions and
-- * limitations under the License.
-- */
--package net.dv8tion.jda.api.entities;
--
--import net.dv8tion.jda.api.utils.ImageProxy;
--import net.dv8tion.jda.internal.utils.Helpers;
--
--import javax.annotation.Nonnull;
--import java.util.Set;
--
--/**
-- * An object representing a sticker in a Discord message.
-- *
-- * @see Message#getStickers()
-- */
--public class MessageSticker implements ISnowflake
--{
--    private final long id;
--    private final String name;
--    private final String description;
--    private final long packId;
--    private final StickerFormat formatType;
--    private final Set<String> tags;
--
--    /** Template for {@link #getIconUrl()} */
--    public static final String ICON_URL = "https://cdn.discordapp.com/stickers/%s.%s";
--
--    public MessageSticker(final long id, final String name, final String description, final long packId, final StickerFormat formatType, final Set<String> tags)
--    {
--        this.id = id;
--        this.name = name;
--        this.description = description;
--        this.packId = packId;
--        this.formatType = formatType;
--        this.tags = tags;
--    }
--
--    @Override
--    public long getIdLong()
--    {
--        return id;
--    }
--
--    /**
--     * The name of the sticker.
--     *
--     * @return the name of the sticker
--     */
--    @Nonnull
--    public String getName()
--    {
--        return name;
--    }
--
--    /**
--     * The description of the sticker or empty String if the sticker doesn't have one.
--     *
--     * @return Possibly-empty String containing the description of the sticker
--     */
--    @Nonnull
--    public String getDescription()
--    {
--        return description;
--    }
--
--    /**
--     * The ID of the pack the sticker is from.
--     *
--     * <p>If this sticker is from a guild, this will be the guild id instead.
--     *
--     * @return the ID of the pack the sticker is from
--     */
--    @Nonnull
--    public String getPackId()
--    {
--        return Long.toUnsignedString(getPackIdLong());
--    }
--
--    /**
--     * The ID of the pack the sticker is from.
--     *
--     * <p>If this sticker is from a guild, this will be the guild id instead.
--     *
--     * @return the ID of the pack the sticker is from
--     */
--    public long getPackIdLong()
--    {
--        return packId;
--    }
--
--    /**
--     * The url of the sticker image.
--     *
--     * @throws java.lang.IllegalStateException
--     *         If the {@link StickerFormat StickerFormat} of this sticker is {@link StickerFormat#UNKNOWN UNKNOWN}
--     *
--     * @return The image url of the sticker
--     */
--    @Nonnull
--    public String getIconUrl()
--    {
--        return Helpers.format(ICON_URL, getId(), formatType.getExtension());
--    }
--
--    /**
--     * Returns an {@link ImageProxy} for this sticker's image.
--     *
--     * @throws java.lang.IllegalStateException
--     *         If the {@link StickerFormat} of this sticker is {@link StickerFormat#UNKNOWN UNKNOWN}
--     *
--     * @return Never-null {@link ImageProxy} of this sticker's image
--     *
--     * @see    #getIconUrl()
--     */
--    @Nonnull
--    public ImageProxy getIcon()
--    {
--        return new ImageProxy(getIconUrl());
--    }
--
--    /**
--     * The {@link StickerFormat Format} of the sticker.
--     *
--     * @return the format of the sticker
--     */
--    @Nonnull
--    public StickerFormat getFormatType()
--    {
--        return formatType;
--    }
--
--    /**
--     * Set of tags of the sticker. Tags can be used instead of the name of the sticker as aliases.
--     *
--     * @return Possibly-empty unmodifiable Set of tags of the sticker
--     */
--    @Nonnull
--    public Set<String> getTags()
--    {
--        return tags;
--    }
--
--    public enum StickerFormat
--    {
--        /**
--         * The PNG format.
--         */
--        PNG(1, "png"),
--        /**
--         * The APNG format.
--         */
--        APNG(2, "apng"),
--        /**
--         * The LOTTIE format.
--         * <br>Lottie isn't a standard renderable image. It is a JSON with data that can be rendered using the lottie library.
--         *
--         * @see <a href="https://airbnb.io/lottie/">Lottie website</a>
--         */
--        LOTTIE(3, "json"),
--        /**
--         * Represents any unknown or unsupported {@link net.dv8tion.jda.api.entities.MessageSticker MessageSticker} format types.
--         */
--        UNKNOWN(-1, null);
--
--        private final int id;
--        private final String extension;
--
--        StickerFormat(final int id, final String extension)
--        {
--            this.id = id;
--            this.extension = extension;
--        }
--
--        /**
--         * The file extension used for the sticker asset.
--         *
--         * @throws java.lang.IllegalStateException
--         *         If the {@link StickerFormat StickerFormat} is {@link StickerFormat#UNKNOWN UNKNOWN}
--         *
--         * @return The file extension for this format
--         */
--        @Nonnull
--        public String getExtension()
--        {
--            if (this == UNKNOWN)
--                throw new IllegalStateException("Can only get extension of a known format");
--            return extension;
--        }
--
--        /**
--         * Resolves the specified format identifier to the StickerFormat enum constant.
--         *
--         * @param  id
--         *         The id for this format
--         *
--         * @return The representative StickerFormat or UNKNOWN if it can't be resolved
--         */
--        @Nonnull
--        public static MessageSticker.StickerFormat fromId(int id)
--        {
--            for (MessageSticker.StickerFormat stickerFormat : values())
--            {
--                if (stickerFormat.id == id)
--                    return stickerFormat;
--            }
--            return UNKNOWN;
--        }
--    }
--}

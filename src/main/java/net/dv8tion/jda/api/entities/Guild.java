@@ -54,6 +54,7 @@ import net.dv8tion.jda.internal.utils.concurrent.task.GatewayTask;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
+import javax.annotation.Nonnull;
 
 import org.jetbrains.annotations.Nullable;
 import java.time.Duration;
@@ -1962,7 +1963,7 @@ public interface Guild extends IGuildChannelContainer, ISnowflake
      *
      * @return {@link RestAction} - Type: List of {@link GuildSticker}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RestAction<List<GuildSticker>> retrieveStickers();
 

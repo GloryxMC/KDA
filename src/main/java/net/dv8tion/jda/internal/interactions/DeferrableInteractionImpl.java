@@ -19,7 +19,7 @@ package net.dv8tion.jda.internal.interactions;
 import net.dv8tion.jda.api.exceptions.InteractionFailureException;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.callbacks.IDeferrableCallback;
-import net.dv8tion.jda.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
 
 import org.jetbrains.annotations.NotNull;

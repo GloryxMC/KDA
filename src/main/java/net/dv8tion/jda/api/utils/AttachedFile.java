@@ -17,12 +17,12 @@
 package net.dv8tion.jda.api.utils;
 
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.utils.data.DataArray;
-import net.dv8tion.jda.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.DataArray;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import okhttp3.MultipartBody;
-import org.jetbrains.annotations.NotNull;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
@@ -53,8 +53,8 @@ public interface AttachedFile extends Closeable
      *
      * @see    java.io.FileInputStream FileInputStream
      */
-    @NotNull
-    static FileUpload fromData(@NotNull InputStream data, @NotNull String name)
+    @Nonnull
+    static FileUpload fromData(@Nonnull InputStream data, @Nonnull String name)
     {
         return FileUpload.fromData(data, name);
     }
@@ -73,8 +73,8 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link FileUpload}
      */
-    @NotNull
-    static FileUpload fromData(@NotNull byte[] data, @NotNull String name)
+    @Nonnull
+    static FileUpload fromData(@Nonnull byte[] data, @Nonnull String name)
     {
         return FileUpload.fromData(data, name);
     }
@@ -100,8 +100,8 @@ public interface AttachedFile extends Closeable
      *
      * @see    java.io.FileInputStream FileInputStream
      */
-    @NotNull
-    static FileUpload fromData(@NotNull File file, @NotNull String name)
+    @Nonnull
+    static FileUpload fromData(@Nonnull File file, @Nonnull String name)
     {
         return FileUpload.fromData(file, name);
     }
@@ -126,8 +126,8 @@ public interface AttachedFile extends Closeable
      * @see    java.io.FileInputStream FileInputStream
      * @see    #fromData(File, String)
      */
-    @NotNull
-    static FileUpload fromData(@NotNull File file)
+    @Nonnull
+    static FileUpload fromData(@Nonnull File file)
     {
         return FileUpload.fromData(file);
     }
@@ -153,8 +153,8 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link FileUpload}
      */
-    @NotNull
-    static FileUpload fromData(@NotNull Path path, @NotNull String name, @NotNull OpenOption... options)
+    @Nonnull
+    static FileUpload fromData(@Nonnull Path path, @Nonnull String name, @Nonnull OpenOption... options)
     {
         return FileUpload.fromData(path, name, options);
     }
@@ -179,8 +179,8 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link FileUpload}
      */
-    @NotNull
-    static FileUpload fromData(@NotNull Path path, @NotNull OpenOption... options)
+    @Nonnull
+    static FileUpload fromData(@Nonnull Path path, @Nonnull OpenOption... options)
     {
         return FileUpload.fromData(path, options);
     }
@@ -194,7 +194,7 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link AttachmentUpdate}
      */
-    @NotNull
+    @Nonnull
     static AttachmentUpdate fromAttachment(long id)
     {
         return AttachmentUpdate.fromAttachment(id);
@@ -212,8 +212,8 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link AttachmentUpdate}
      */
-    @NotNull
-    static AttachmentUpdate fromAttachment(@NotNull String id)
+    @Nonnull
+    static AttachmentUpdate fromAttachment(@Nonnull String id)
     {
         return AttachmentUpdate.fromAttachment(id);
     }
@@ -228,8 +228,8 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link AttachmentUpdate}
      */
-    @NotNull
-    static AttachmentUpdate fromAttachment(@NotNull Message.Attachment attachment)
+    @Nonnull
+    static AttachmentUpdate fromAttachment(@Nonnull Message.Attachment attachment)
     {
         return AttachmentUpdate.fromAttachment(attachment);
     }
@@ -244,7 +244,7 @@ public interface AttachedFile extends Closeable
      * @param index
      *        The index of the attachment, ignored for {@link AttachmentUpdate}
      */
-    void addPart(@NotNull MultipartBody.Builder builder, int index);
+    void addPart(@Nonnull MultipartBody.Builder builder, int index);
 
     /**
      * Used internally to build attachment descriptions for requests.
@@ -255,7 +255,7 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link DataObject} for the attachment
      */
-    @NotNull
+    @Nonnull
     DataObject toAttachmentData(int index);
 
     /**
@@ -272,8 +272,8 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link MultipartBody.Builder}
      */
-    @NotNull
-    static MultipartBody.Builder createMultipartBody(@NotNull List<? extends AttachedFile> files, @Nullable DataObject payloadJson)
+    @Nonnull
+    static MultipartBody.Builder createMultipartBody(@Nonnull List<? extends AttachedFile> files, @Nullable DataObject payloadJson)
     {
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         DataArray descriptors = DataArray.empty();
