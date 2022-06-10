@@ -18,10 +18,11 @@ package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.requests.RestAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import java.time.OffsetDateTime;
 
 /**
@@ -37,7 +38,7 @@ public interface GuildVoiceState extends ISnowflake
      *
      * @return The corresponding JDA instance
      */
-    @Nonnull
+    @NotNull
     JDA getJDA();
 
     /**
@@ -129,7 +130,7 @@ public interface GuildVoiceState extends ISnowflake
      *
      * @return the Member's Guild
      */
-    @Nonnull
+    @NotNull
     Guild getGuild();
 
     /**
@@ -138,7 +139,7 @@ public interface GuildVoiceState extends ISnowflake
      *
      * @return the Member that holds this GuildVoiceState
      */
-    @Nonnull
+    @NotNull
     Member getMember();
 
     /**
@@ -181,7 +182,7 @@ public interface GuildVoiceState extends ISnowflake
      *
      * @return {@link RestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RestAction<Void> approveSpeaker();
 
@@ -199,7 +200,7 @@ public interface GuildVoiceState extends ISnowflake
      *
      * @return {@link RestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RestAction<Void> declineSpeaker();
 
@@ -214,7 +215,7 @@ public interface GuildVoiceState extends ISnowflake
      *
      * @return {@link RestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RestAction<Void> inviteSpeaker();
 }

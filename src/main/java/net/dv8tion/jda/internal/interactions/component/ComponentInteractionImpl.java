@@ -29,8 +29,7 @@ import net.dv8tion.jda.internal.requests.restaction.interactions.MessageEditCall
 import net.dv8tion.jda.internal.requests.restaction.interactions.ModalCallbackActionImpl;
 import net.dv8tion.jda.internal.requests.restaction.interactions.ReplyCallbackActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class ComponentInteractionImpl extends DeferrableInteractionImpl implements ComponentInteraction
 {
@@ -51,7 +50,7 @@ public abstract class ComponentInteractionImpl extends DeferrableInteractionImpl
                 : jda.getEntityBuilder().createMessageWithChannel(messageJson, getMessageChannel(), false);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("ConstantConditions")
     public MessageChannel getChannel()
@@ -59,14 +58,14 @@ public abstract class ComponentInteractionImpl extends DeferrableInteractionImpl
         return (MessageChannel) super.getChannel();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getComponentId()
     {
         return customId;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Message getMessage()
     {
@@ -79,23 +78,23 @@ public abstract class ComponentInteractionImpl extends DeferrableInteractionImpl
         return messageId;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageEditCallbackActionImpl deferEdit()
     {
         return new MessageEditCallbackActionImpl(this.hook);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ReplyCallbackAction deferReply()
     {
         return new ReplyCallbackActionImpl(this.hook);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ModalCallbackAction replyModal(@Nonnull Modal modal)
+    public ModalCallbackAction replyModal(@NotNull Modal modal)
     {
         Checks.notNull(modal, "Modal");
 

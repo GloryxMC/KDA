@@ -25,13 +25,13 @@ import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.requests.restaction.AuditableRestActionImpl;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public interface GuildChannelMixin<T extends GuildChannelMixin<T>> extends GuildChannel, ChannelMixin<T>
 {
     // ---- Default implementations of interface ----
     @Override
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default AuditableRestAction<Void> delete()
     {

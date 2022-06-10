@@ -19,9 +19,9 @@ package net.dv8tion.jda.api.managers.channel.middleman;
 import net.dv8tion.jda.api.Region;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.managers.channel.ChannelManager;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 
 //todo-v5: Docs
 public interface AudioChannelManager<T extends AudioChannel, M extends AudioChannelManager<T, M>> extends ChannelManager<T, M>
@@ -45,7 +45,7 @@ public interface AudioChannelManager<T extends AudioChannel, M extends AudioChan
      *
      * @see    Guild#getFeatures()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     M setBitrate(int bitrate);
 
@@ -80,7 +80,7 @@ public interface AudioChannelManager<T extends AudioChannel, M extends AudioChan
      *         If the provided Region is not in the list of usable values
      * @return ChannelManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     M setRegion(Region region);
 }

@@ -20,8 +20,8 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Indicates that a {@link PermissionOverride} for a {@link GuildChannel GuildChannel} was created, deleted, or updated.
@@ -34,7 +34,7 @@ public class GenericPermissionOverrideEvent extends GenericGuildEvent
     protected final GuildChannel channel;
     protected final PermissionOverride override;
 
-    public GenericPermissionOverrideEvent(@Nonnull JDA api, long responseNumber, @Nonnull GuildChannel channel, @Nonnull PermissionOverride override)
+    public GenericPermissionOverrideEvent(@NotNull JDA api, long responseNumber, @NotNull GuildChannel channel, @NotNull PermissionOverride override)
     {
         super(api, responseNumber, channel.getGuild());
         this.channel = channel;
@@ -46,7 +46,7 @@ public class GenericPermissionOverrideEvent extends GenericGuildEvent
      *
      * @return The {@link ChannelType}
      */
-    @Nonnull
+    @NotNull
     public ChannelType getChannelType()
     {
         return channel.getType();
@@ -57,7 +57,7 @@ public class GenericPermissionOverrideEvent extends GenericGuildEvent
      *
      * @return The {@link GuildChannel}
      */
-    @Nonnull
+    @NotNull
     //TODO-v5: Make this IPermissionContainer?
     public GuildChannel getChannel()
     {
@@ -75,7 +75,7 @@ public class GenericPermissionOverrideEvent extends GenericGuildEvent
      * @see    #getChannel()
      * @see    #getChannelType()
      */
-    @Nonnull
+    @NotNull
     public TextChannel getTextChannel()
     {
         if (channel instanceof TextChannel)
@@ -94,7 +94,7 @@ public class GenericPermissionOverrideEvent extends GenericGuildEvent
      * @see    #getChannel()
      * @see    #getChannelType()
      */
-    @Nonnull
+    @NotNull
     public NewsChannel getNewsChannel()
     {
         if (channel instanceof NewsChannel)
@@ -113,7 +113,7 @@ public class GenericPermissionOverrideEvent extends GenericGuildEvent
      * @see    #getChannel()
      * @see    #getChannelType()
      */
-    @Nonnull
+    @NotNull
     public VoiceChannel getVoiceChannel()
     {
         if (channel instanceof VoiceChannel)
@@ -133,7 +133,7 @@ public class GenericPermissionOverrideEvent extends GenericGuildEvent
      * @see    #getChannel()
      * @see    #getChannelType()
      */
-    @Nonnull
+    @NotNull
     public Category getCategory()
     {
         if (channel instanceof Category)
@@ -146,7 +146,7 @@ public class GenericPermissionOverrideEvent extends GenericGuildEvent
      *
      * @return The override
      */
-    @Nonnull
+    @NotNull
     public PermissionOverride getPermissionOverride()
     {
         return override;

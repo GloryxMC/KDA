@@ -29,9 +29,10 @@ import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.managers.channel.concrete.NewsChannelManagerImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,7 +52,7 @@ public class NewsChannelImpl extends AbstractGuildChannelImpl<NewsChannelImpl> i
         super(id, guild);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ChannelType getType()
     {
@@ -77,7 +78,7 @@ public class NewsChannelImpl extends AbstractGuildChannelImpl<NewsChannelImpl> i
         return parentCategoryId;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<Member> getMembers()
     {
@@ -98,9 +99,9 @@ public class NewsChannelImpl extends AbstractGuildChannelImpl<NewsChannelImpl> i
         return latestMessageId;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public RestAction<Webhook.WebhookReference> follow(@Nonnull String targetChannelId)
+    public RestAction<Webhook.WebhookReference> follow(@NotNull String targetChannelId)
     {
         Checks.notNull(targetChannelId, "Target Channel ID");
 
@@ -112,9 +113,9 @@ public class NewsChannelImpl extends AbstractGuildChannelImpl<NewsChannelImpl> i
         });
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ChannelAction<NewsChannel> createCopy(@Nonnull Guild guild)
+    public ChannelAction<NewsChannel> createCopy(@NotNull Guild guild)
     {
         Checks.notNull(guild, "Guild");
         ChannelAction<NewsChannel> action = guild.createNewsChannel(name).setNSFW(nsfw).setTopic(topic);
@@ -134,7 +135,7 @@ public class NewsChannelImpl extends AbstractGuildChannelImpl<NewsChannelImpl> i
         return action;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public NewsChannelManager getManager()
     {

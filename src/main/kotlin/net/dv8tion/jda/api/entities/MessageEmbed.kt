@@ -54,7 +54,7 @@ class MessageEmbed(
          *
          * @return Possibly-null String containing the link that spawned this embed or the title url
          */
-        val url: String?,
+        val url: String? = null,
         /**
          * The title of the embed. Typically this will be the html title of the webpage that is being embedded.<br></br>
          * If no title could be found, like the case of [EmbedType] = [IMAGE][EmbedType.IMAGE],
@@ -62,7 +62,7 @@ class MessageEmbed(
          *
          * @return Possibly-null String containing the title of the embedded resource.
          */
-        val title: String?,
+        val title: String? = null,
         /**
          * The description of the embedded resource.
          * <br></br>This is provided only if Discord could find a description for the embedded resource using the provided url.
@@ -70,7 +70,7 @@ class MessageEmbed(
          *
          * @return Possibly-null String containing a description of the embedded resource.
          */
-        val description: String?,
+        val description: String? = null,
         /**
          * The [EmbedType] of this embed.
          *
@@ -83,14 +83,14 @@ class MessageEmbed(
          * @return Possibly-null OffsetDateTime object representing the timestamp.
          */
         @Serializable(ODTSer::class)
-        val timestamp: OffsetDateTime?,
+        val timestamp: OffsetDateTime? = null,
         /**
          * The raw RGB color value for this embed
          * <br></br>Defaults to [Role.DEFAULT_COLOR_RAW] if no color is set
          *
          * @return The raw RGB color value or default
          */
-        val colorRaw: Int,
+        val colorRaw: Int = Role.DEFAULT_COLOR_RAW,
         /**
          * The information about the [Thumbnail][net.dv8tion.jda.api.entities.MessageEmbed.Thumbnail] image to be displayed with the embed.
          * <br></br>If a [Thumbnail][net.dv8tion.jda.api.entities.MessageEmbed.Thumbnail] was not part of this embed, this returns null.
@@ -98,7 +98,7 @@ class MessageEmbed(
          * @return Possibly-null [Thumbnail][net.dv8tion.jda.api.entities.MessageEmbed.Thumbnail] instance
          * containing general information on the displayable thumbnail.
          */
-        val thumbnail: Thumbnail?,
+        val thumbnail: Thumbnail? = null,
         /**
          * The information on site from which the embed was generated from.
          * <br></br>If Discord did not generate any deliverable information about the site, this returns null.
@@ -106,7 +106,7 @@ class MessageEmbed(
          * @return Possibly-null [Provider][net.dv8tion.jda.api.entities.MessageEmbed.Provider]
          * containing site information.
          */
-        val siteProvider: Provider?,
+        val siteProvider: Provider? = null,
         /**
          * The information on the creator of the embedded content.
          * <br></br>This is typically used to represent the account on the providing site.
@@ -114,7 +114,7 @@ class MessageEmbed(
          * @return Possibly-null [AuthorInfo][net.dv8tion.jda.api.entities.MessageEmbed.AuthorInfo]
          * containing author information.
          */
-        val author: AuthorInfo?,
+        val author: AuthorInfo? = null,
         /**
          * The information about the video which should be displayed as an embed.
          * <br></br>This is used when sites with HTML5 players are linked and embedded. Most commonly Youtube.
@@ -124,7 +124,7 @@ class MessageEmbed(
          * @return Possibly-null [VideoInfo][net.dv8tion.jda.api.entities.MessageEmbed.VideoInfo]
          * containing the information about the video which should be embedded.
          */
-        val videoInfo: VideoInfo?,
+        val videoInfo: VideoInfo? = null,
         /**
          * The footer (bottom) of the embedded content.
          * <br></br>This is typically used for timestamps or site icons.
@@ -132,14 +132,14 @@ class MessageEmbed(
          * @return Possibly-null [Footer][net.dv8tion.jda.api.entities.MessageEmbed.Footer]
          * containing the embed footer content.
          */
-        val footer: Footer?,
+        val footer: Footer? = null,
         /**
          * The information about the image in the message embed
          *
          * @return Possibly-null [ImageInfo][net.dv8tion.jda.api.entities.MessageEmbed.ImageInfo]
          * containing image information.
          */
-        val image: ImageInfo?,
+        val image: ImageInfo? = null,
         /**
          * The fields in a message embed.
          * <br></br>Message embeds can contain multiple fields, each with a name, value, and a boolean
@@ -149,7 +149,7 @@ class MessageEmbed(
          * @return Never-null (but possibly empty) immutable  List of [Field][net.dv8tion.jda.api.entities.MessageEmbed.Field] objects
          * containing field information.
          */
-        val fields: List<Field>
+        val fields: List<Field> = listOf()
 ) : SerializableData {
     @Transient
     private val mutex = Any()
@@ -210,7 +210,7 @@ class MessageEmbed(
      *
      * @return True, if this MessageEmbed can be used to send messages
      *
-     * @see .getLength
+     * @see getLength
      */
     val isSendable: Boolean
         get() {
@@ -310,14 +310,14 @@ class MessageEmbed(
              *
              * @return Possibly-null String containing the url of the displayed image.
              */
-            val url: String?,
+            val url: String? = null,
             /**
              * The Discord proxied url of the thumbnail image.
              * <br></br>This url is used to access the image through Discord instead of directly to prevent ip scraping.
              *
              * @return Possibly-null String containing the proxied url of this image.
              */
-            val proxyUrl: String?,
+            val proxyUrl: String? = null,
             /**
              * The width of the thumbnail image.
              *
@@ -363,7 +363,7 @@ class MessageEmbed(
              *
              * @return Possibly-null String containing the name of the provider.
              */
-            val name: String?,
+            val name: String? = null,
             /**
              * The url of the provider.
              *
@@ -391,7 +391,7 @@ class MessageEmbed(
              *
              * @return Possibly-null String containing the video url.
              */
-            val url: String?,
+            val url: String? = null,
             /**
              * The width of the video.
              * <br></br>This usually isn't the actual video width, but instead the starting embed window size.
@@ -432,14 +432,14 @@ class MessageEmbed(
              *
              * @return Possibly-null String containing the image url.
              */
-            val url: String?,
+            val url: String? = null,
             /**
              * The url of the image, proxied by Discord
              * <br></br>This url is used to access the image through Discord instead of directly to prevent ip scraping.
              *
              * @return Possibly-null String containing the proxied image url.
              */
-            val proxyUrl: String?,
+            val proxyUrl: String? = null,
             /**
              * The width of the image.
              *
@@ -483,19 +483,19 @@ class MessageEmbed(
              *
              * @return Possibly-null String containing the name of the author.
              */
-            val name: String?,
+            val name: String? = null,
             /**
              * The url of the author.
              *
              * @return Possibly-null String containing the url of the author.
              */
-            val url: String?,
+            val url: String? = null,
             /**
              * The url of the author's icon.
              *
              * @return Possibly-null String containing the author's icon url.
              */
-            val iconUrl: String?,
+            val iconUrl: String? = null,
             /**
              * The url of the author's icon, proxied by Discord
              * <br></br>This url is used to access the image through Discord instead of directly to prevent ip scraping.
@@ -530,13 +530,13 @@ class MessageEmbed(
              *
              * @return Possibly-null String containing the text in the footer.
              */
-            val text: String?,
+            val text: String? = null,
             /**
              * The url of the footer's icon.
              *
              * @return Possibly-null String containing the footer's icon url.
              */
-            val iconUrl: String?,
+            val iconUrl: String? = null,
             /**
              * The url of the footer's icon, proxied by Discord
              * <br></br>This url is used to access the image through Discord instead of directly to prevent ip scraping.

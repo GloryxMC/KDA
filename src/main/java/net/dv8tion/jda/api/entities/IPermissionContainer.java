@@ -18,10 +18,12 @@ package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.managers.channel.attribute.IPermissionContainerManager;
 import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +39,7 @@ public interface IPermissionContainer extends GuildChannel
 {
     //TODO-v5: Docs
     @Override
-    @Nonnull
+    @NotNull
     IPermissionContainerManager<?, ?> getManager();
 
     /**
@@ -56,7 +58,7 @@ public interface IPermissionContainer extends GuildChannel
      *         relating to the provided Member or Role.
      */
     @Nullable
-    PermissionOverride getPermissionOverride(@Nonnull IPermissionHolder permissionHolder);
+    PermissionOverride getPermissionOverride(@NotNull IPermissionHolder permissionHolder);
 
     /**
      * Gets all of the {@link PermissionOverride PermissionOverrides} that are part
@@ -71,7 +73,7 @@ public interface IPermissionContainer extends GuildChannel
      * @return Possibly-empty immutable list of all {@link PermissionOverride PermissionOverrides}
      *         for this {@link GuildChannel GuildChannel}.
      */
-    @Nonnull
+    @NotNull
     List<PermissionOverride> getPermissionOverrides();
 
     /**
@@ -84,7 +86,7 @@ public interface IPermissionContainer extends GuildChannel
      *         for {@link Member Member}
      *         for this {@link GuildChannel GuildChannel}.
      */
-    @Nonnull
+    @NotNull
     default List<PermissionOverride> getMemberPermissionOverrides()
     {
         return Collections.unmodifiableList(getPermissionOverrides().stream()
@@ -100,7 +102,7 @@ public interface IPermissionContainer extends GuildChannel
      *         for {@link Role Roles}
      *         for this {@link GuildChannel GuildChannel}.
      */
-    @Nonnull
+    @NotNull
     default List<PermissionOverride> getRolePermissionOverrides()
     {
         return Collections.unmodifiableList(getPermissionOverrides().stream()
@@ -127,7 +129,7 @@ public interface IPermissionContainer extends GuildChannel
      * @see    PermissionOverrideAction#grant(long)
      * @see    PermissionOverrideAction#deny(long)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    PermissionOverrideAction upsertPermissionOverride(@Nonnull IPermissionHolder permissionHolder);
+    PermissionOverrideAction upsertPermissionOverride(@NotNull IPermissionHolder permissionHolder);
 }

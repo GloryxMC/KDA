@@ -17,9 +17,9 @@
 package net.dv8tion.jda.api.requests.restaction.interactions;
 
 import net.dv8tion.jda.api.requests.RestAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 
 /**
  * A callback action is used to <b>acknowledge</b> an {@link net.dv8tion.jda.api.interactions.Interaction Interaction}.
@@ -33,7 +33,7 @@ public interface InteractionCallbackAction<T> extends RestAction<T>
      *
      * @return This instance for chaining.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     InteractionCallbackAction<T> closeResources();
 

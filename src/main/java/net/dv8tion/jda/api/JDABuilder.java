@@ -37,8 +37,8 @@ import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import javax.security.auth.login.LoginException;
 import java.util.*;
 import java.util.concurrent.*;
@@ -56,7 +56,6 @@ import java.util.stream.Collectors;
  */
 public class JDABuilder
 {
-    public static final int GUILD_SUBSCRIPTIONS = GatewayIntent.getRaw(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_MESSAGE_TYPING);
     protected final List<Object> listeners = new LinkedList<>();
     protected final EnumSet<CacheFlag> automaticallyDisabled = EnumSet.noneOf(CacheFlag.class);
 
@@ -1411,7 +1410,7 @@ public class JDABuilder
     /**
      * The {@link ChunkingFilter} to filter which guilds should use member chunking.
      *
-     * <p>If a guild is configured for chunking the {@link #setMemberCachePolicy(MemberCachePolicy)} will be ignored.
+     * <p>Use {@link #setMemberCachePolicy(MemberCachePolicy)} to configure which members to keep in cache from chunking.
      *
      * @param  filter
      *         The filter to apply

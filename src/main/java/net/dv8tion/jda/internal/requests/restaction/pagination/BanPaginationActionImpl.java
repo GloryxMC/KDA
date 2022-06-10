@@ -23,8 +23,8 @@ import net.dv8tion.jda.utils.data.DataArray;
 import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.entities.EntityBuilder;
 import net.dv8tion.jda.internal.requests.Route;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -42,7 +42,7 @@ public class BanPaginationActionImpl
     }
 
     @Override
-    @Nonnull
+    @NotNull
     public Guild getGuild()
     {
         return guild;

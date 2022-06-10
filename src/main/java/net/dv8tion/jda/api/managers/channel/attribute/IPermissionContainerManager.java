@@ -21,10 +21,12 @@ import net.dv8tion.jda.api.entities.IPermissionContainer;
 import net.dv8tion.jda.api.entities.IPermissionHolder;
 import net.dv8tion.jda.api.entities.PermissionOverride;
 import net.dv8tion.jda.api.managers.channel.ChannelManager;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Collection;
 
 public interface IPermissionContainerManager<T extends IPermissionContainer, M extends IPermissionContainerManager<T, M>> extends ChannelManager<T, M>
@@ -35,7 +37,7 @@ public interface IPermissionContainerManager<T extends IPermissionContainer, M e
      *
      * @return ChannelManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     M clearOverridesAdded();
 
@@ -44,7 +46,7 @@ public interface IPermissionContainerManager<T extends IPermissionContainer, M e
      *
      * @return ChannelManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     M clearOverridesRemoved();
 
@@ -71,9 +73,9 @@ public interface IPermissionContainerManager<T extends IPermissionContainer, M e
      * @see    #putPermissionOverride(IPermissionHolder, Collection, Collection)
      * @see    Permission#getRaw(Permission...) Permission.getRaw(Permission...)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    M putPermissionOverride(@Nonnull IPermissionHolder permHolder, long allow, long deny);
+    M putPermissionOverride(@NotNull IPermissionHolder permHolder, long allow, long deny);
 
     /**
      * Adds an override for the specified {@link IPermissionHolder IPermissionHolder}
@@ -99,9 +101,9 @@ public interface IPermissionContainerManager<T extends IPermissionContainer, M e
      * @see    #putPermissionOverride(IPermissionHolder, long, long)
      * @see    java.util.EnumSet EnumSet
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default M putPermissionOverride(@Nonnull IPermissionHolder permHolder, @Nullable Collection<Permission> allow, @Nullable Collection<Permission> deny)
+    default M putPermissionOverride(@NotNull IPermissionHolder permHolder, @Nullable Collection<Permission> allow, @Nullable Collection<Permission> deny)
     {
         long allowRaw = allow == null ? 0 : Permission.getRaw(allow);
         long denyRaw  = deny  == null ? 0 : Permission.getRaw(deny);
@@ -128,7 +130,7 @@ public interface IPermissionContainerManager<T extends IPermissionContainer, M e
      * @see    #putRolePermissionOverride(long, Collection, Collection)
      * @see    Permission#getRaw(Permission...) Permission.getRaw(Permission...)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     M putRolePermissionOverride(long roleId, long allow, long deny);
 
@@ -152,7 +154,7 @@ public interface IPermissionContainerManager<T extends IPermissionContainer, M e
      * @see    #putRolePermissionOverride(long, long, long)
      * @see    java.util.EnumSet EnumSet
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default M putRolePermissionOverride(long roleId, @Nullable Collection<Permission> allow, @Nullable Collection<Permission> deny)
     {
@@ -181,7 +183,7 @@ public interface IPermissionContainerManager<T extends IPermissionContainer, M e
      * @see    #putMemberPermissionOverride(long, Collection, Collection)
      * @see    Permission#getRaw(Permission...) Permission.getRaw(Permission...)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     M putMemberPermissionOverride(long memberId, long allow, long deny);
 
@@ -205,7 +207,7 @@ public interface IPermissionContainerManager<T extends IPermissionContainer, M e
      * @see    #putMemberPermissionOverride(long, long, long)
      * @see    java.util.EnumSet EnumSet
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default M putMemberPermissionOverride(long memberId, @Nullable Collection<Permission> allow, @Nullable Collection<Permission> deny)
     {
@@ -230,9 +232,9 @@ public interface IPermissionContainerManager<T extends IPermissionContainer, M e
      *
      * @return ChannelManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    M removePermissionOverride(@Nonnull IPermissionHolder permHolder);
+    M removePermissionOverride(@NotNull IPermissionHolder permHolder);
 
     /**
      * Removes the {@link PermissionOverride PermissionOverride} for the specified
@@ -247,7 +249,7 @@ public interface IPermissionContainerManager<T extends IPermissionContainer, M e
      *
      * @return ChannelManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     M removePermissionOverride(long id);
 }

@@ -24,8 +24,8 @@ import net.dv8tion.jda.api.utils.ImageProxy;
 import net.dv8tion.jda.internal.entities.InviteImpl;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Set;
@@ -63,8 +63,8 @@ public interface Invite
      * @return {@link RestAction RestAction} - Type: {@link Invite Invite}
      *         <br>The Invite object
      */
-    @Nonnull
-    static RestAction<Invite> resolve(@Nonnull final JDA api, @Nonnull final String code)
+    @NotNull
+    static RestAction<Invite> resolve(@NotNull final JDA api, @NotNull final String code)
     {
         return resolve(api, code, false);
     }
@@ -89,8 +89,8 @@ public interface Invite
      * @return {@link RestAction RestAction} - Type: {@link Invite Invite}
      *         <br>The Invite object
      */
-    @Nonnull
-    static RestAction<Invite> resolve(@Nonnull final JDA api, @Nonnull final String code, final boolean withCounts)
+    @NotNull
+    static RestAction<Invite> resolve(@NotNull final JDA api, @NotNull final String code, final boolean withCounts)
     {
         return InviteImpl.resolve(api, code, withCounts);
     }
@@ -105,7 +105,7 @@ public interface Invite
      *
      * @return {@link AuditableRestAction AuditableRestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     AuditableRestAction<Void> delete();
 
@@ -129,7 +129,7 @@ public interface Invite
      * @see    #getType()
      * @see    #isExpanded()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RestAction<Invite> expand();
 
@@ -138,7 +138,7 @@ public interface Invite
      *
      * @return The invite's type
      */
-    @Nonnull
+    @NotNull
     InviteType getType();
 
     /**
@@ -148,7 +148,7 @@ public interface Invite
      *
      * @see    TargetType
      */
-    @Nonnull
+    @NotNull
     TargetType getTargetType();
 
     /**
@@ -190,7 +190,7 @@ public interface Invite
      *
      * @return the invite code
      */
-    @Nonnull
+    @NotNull
     String getCode();
 
     /**
@@ -199,7 +199,7 @@ public interface Invite
      *
      * @return Invite URL for this Invite
      */
-    @Nonnull
+    @NotNull
     default String getUrl()
     {
         return "https://discord.gg/" + getCode();
@@ -229,7 +229,7 @@ public interface Invite
      *
      * @return the corresponding JDA instance
      */
-    @Nonnull
+    @NotNull
     JDA getJDA();
 
     /**
@@ -275,7 +275,7 @@ public interface Invite
      * @see    #expand()
      * @see    #isExpanded()
      */
-    @Nonnull
+    @NotNull
     OffsetDateTime getTimeCreated();
 
     /**
@@ -335,7 +335,7 @@ public interface Invite
          *
          * @return The channel's name
          */
-        @Nonnull
+        @NotNull
         String getName();
 
         /**
@@ -344,7 +344,7 @@ public interface Invite
          *
          * @return The channel's type
          */
-        @Nonnull
+        @NotNull
         ChannelType getType();
     }
 
@@ -394,7 +394,7 @@ public interface Invite
          *
          * @return The guild's name
          */
-        @Nonnull
+        @NotNull
         String getName();
 
         /**
@@ -436,7 +436,7 @@ public interface Invite
          * 
          * @return the verification level of the guild
          */
-        @Nonnull
+        @NotNull
         VerificationLevel getVerificationLevel();
         
         /**
@@ -473,7 +473,7 @@ public interface Invite
          *
          * @return Never-null, unmodifiable Set containing all of the Guild's features.
          */
-        @Nonnull
+        @NotNull
         Set<String> getFeatures();
     }
 
@@ -551,7 +551,7 @@ public interface Invite
          *
          * @return The type of this invite target
          */
-        @Nonnull
+        @NotNull
         TargetType getType();
 
         /**
@@ -562,7 +562,7 @@ public interface Invite
          *
          * @return The id of the target entity
          */
-        @Nonnull
+        @NotNull
         String getId();
 
         /**
@@ -608,7 +608,7 @@ public interface Invite
          *
          * @return The name of this application.
          */
-        @Nonnull
+        @NotNull
         String getName();
 
         /**
@@ -616,7 +616,7 @@ public interface Invite
          *
          * @return The description of this application.
          */
-        @Nonnull
+        @NotNull
         String getDescription();
 
         /**
@@ -743,7 +743,7 @@ public interface Invite
          *
          * @return The TargetType that is referred to by the provided key. If the id key is unknown, {@link #UNKNOWN} is returned.
          */
-        @Nonnull
+        @NotNull
         public static TargetType fromId(int id)
         {
             for (TargetType type : values())

@@ -15,15 +15,15 @@
  */
 package net.dv8tion.jda.internal.utils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 public class FutureUtil
 {
-    @Nonnull
-    public static <T, U> CompletableFuture<U> thenApplyCancellable(@Nonnull CompletableFuture<T> future, @Nonnull Function<T, U> applyFunction, @Nullable Runnable onCancel)
+    @NotNull
+    public static <T, U> CompletableFuture<U> thenApplyCancellable(@NotNull CompletableFuture<T> future, @NotNull Function<T, U> applyFunction, @Nullable Runnable onCancel)
     {
         final CompletableFuture<U> cf = new CompletableFuture<>();
 
@@ -47,8 +47,8 @@ public class FutureUtil
         return cf;
     }
 
-    @Nonnull
-    public static <T, U> CompletableFuture<U> thenApplyCancellable(@Nonnull CompletableFuture<T> future, @Nonnull Function<T, U> applyFunction)
+    @NotNull
+    public static <T, U> CompletableFuture<U> thenApplyCancellable(@NotNull CompletableFuture<T> future, @NotNull Function<T, U> applyFunction)
     {
         return thenApplyCancellable(future, applyFunction, null);
     }

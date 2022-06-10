@@ -20,7 +20,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Indicates that a slash command was used in a {@link MessageChannel}.
@@ -35,20 +35,20 @@ public class SlashCommandInteractionEvent extends GenericCommandInteractionEvent
 {
     private final SlashCommandInteraction interaction;
 
-    public SlashCommandInteractionEvent(@Nonnull JDA api, long responseNumber, @Nonnull SlashCommandInteraction interaction)
+    public SlashCommandInteractionEvent(@NotNull JDA api, long responseNumber, @NotNull SlashCommandInteraction interaction)
     {
         super(api, responseNumber, interaction);
         this.interaction = interaction;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public SlashCommandInteraction getInteraction()
     {
         return interaction;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageChannel getChannel()
     {

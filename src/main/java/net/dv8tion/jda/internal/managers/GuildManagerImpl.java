@@ -28,10 +28,11 @@ import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
 import okhttp3.RequestBody;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 
 public class GuildManagerImpl extends ManagerBase<GuildManager> implements GuildManager
 {
@@ -57,7 +58,7 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
             checkPermissions();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Guild getGuild()
     {
@@ -67,7 +68,7 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return guild;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public GuildManagerImpl reset(long fields)
@@ -94,7 +95,7 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public GuildManagerImpl reset(long... fields)
@@ -103,7 +104,7 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public GuildManagerImpl reset()
@@ -119,10 +120,10 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    public GuildManagerImpl setName(@Nonnull String name)
+    public GuildManagerImpl setName(@NotNull String name)
     {
         Checks.notEmpty(name, "Name");
         Checks.notLonger(name, 100, "Name");
@@ -131,7 +132,7 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public GuildManagerImpl setIcon(Icon icon)
@@ -141,7 +142,7 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public GuildManagerImpl setSplash(Icon splash)
@@ -152,7 +153,7 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public GuildManagerImpl setAfkChannel(VoiceChannel afkChannel)
@@ -163,7 +164,7 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public GuildManagerImpl setSystemChannel(TextChannel systemChannel)
@@ -174,7 +175,7 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public GuildManagerImpl setRulesChannel(TextChannel rulesChannel)
@@ -185,7 +186,7 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public GuildManagerImpl setCommunityUpdatesChannel(TextChannel communityUpdatesChannel)
@@ -196,10 +197,10 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    public GuildManagerImpl setAfkTimeout(@Nonnull Guild.Timeout timeout)
+    public GuildManagerImpl setAfkTimeout(@NotNull Guild.Timeout timeout)
     {
         Checks.notNull(timeout, "Timeout");
         this.afkTimeout = timeout.getSeconds();
@@ -207,10 +208,10 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    public GuildManagerImpl setVerificationLevel(@Nonnull Guild.VerificationLevel level)
+    public GuildManagerImpl setVerificationLevel(@NotNull Guild.VerificationLevel level)
     {
         Checks.notNull(level, "Level");
         Checks.check(level != Guild.VerificationLevel.UNKNOWN, "Level must not be UNKNOWN");
@@ -219,10 +220,10 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    public GuildManagerImpl setDefaultNotificationLevel(@Nonnull Guild.NotificationLevel level)
+    public GuildManagerImpl setDefaultNotificationLevel(@NotNull Guild.NotificationLevel level)
     {
         Checks.notNull(level, "Level");
         Checks.check(level != Guild.NotificationLevel.UNKNOWN, "Level must not be UNKNOWN");
@@ -231,10 +232,10 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    public GuildManagerImpl setRequiredMFALevel(@Nonnull Guild.MFALevel level)
+    public GuildManagerImpl setRequiredMFALevel(@NotNull Guild.MFALevel level)
     {
         Checks.notNull(level, "Level");
         Checks.check(level != Guild.MFALevel.UNKNOWN, "Level must not be UNKNOWN");
@@ -243,10 +244,10 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    public GuildManagerImpl setExplicitContentLevel(@Nonnull Guild.ExplicitContentLevel level)
+    public GuildManagerImpl setExplicitContentLevel(@NotNull Guild.ExplicitContentLevel level)
     {
         Checks.notNull(level, "Level");
         Checks.check(level != Guild.ExplicitContentLevel.UNKNOWN, "Level must not be UNKNOWN");
@@ -255,7 +256,7 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public GuildManager setBanner(@Nullable Icon banner)
     {
@@ -265,7 +266,7 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public GuildManager setDescription(@Nullable String description)
     {
@@ -275,7 +276,7 @@ public class GuildManagerImpl extends ManagerBase<GuildManager> implements Guild
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public GuildManager setBoostProgressBarEnabled(boolean enabled)
     {

@@ -24,9 +24,9 @@ import net.dv8tion.jda.internal.JDAImpl;
 import net.dv8tion.jda.internal.requests.CompletedRestAction;
 import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * An object representing a reference in a Discord message.
@@ -94,7 +94,7 @@ public class MessageReference
      *
      * @return {@link RestAction RestAction} - Type: {@link Message}
      */
-    @Nonnull
+    @NotNull
     public RestAction<Message> resolve()
     {
         return resolve(true);
@@ -137,7 +137,7 @@ public class MessageReference
      *
      * @return {@link RestAction RestAction} - Type: {@link Message}
      */
-    @Nonnull
+    @NotNull
     public RestAction<Message> resolve(boolean update)
     {
         checkPermission(Permission.VIEW_CHANNEL);
@@ -242,7 +242,7 @@ public class MessageReference
      *
      * @return The message id, or 0.
      */
-    @Nonnull
+    @NotNull
     public String getMessageId()
     {
         return Long.toUnsignedString(getMessageIdLong());
@@ -253,7 +253,7 @@ public class MessageReference
      *
      * @return The channel id, or 0.
      */
-    @Nonnull
+    @NotNull
     public String getChannelId()
     {
         return Long.toUnsignedString(getChannelIdLong());
@@ -264,7 +264,7 @@ public class MessageReference
      *
      * @return The guild id, or 0.
      */
-    @Nonnull
+    @NotNull
     public String getGuildId()
     {
         return Long.toUnsignedString(getGuildIdLong());
@@ -275,7 +275,7 @@ public class MessageReference
      *
      * @return The corresponding JDA instance
      */
-    @Nonnull
+    @NotNull
     public JDA getJDA()
     {
         return api;

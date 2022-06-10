@@ -20,12 +20,12 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.ThreadChannel;
 import net.dv8tion.jda.api.entities.ThreadMember;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 //TODO-v5: Docs
 public class ThreadMemberLeaveEvent extends GenericThreadMemberEvent
 {
-    public ThreadMemberLeaveEvent(@Nonnull JDA api, long responseNumber, ThreadChannel thread, long threadMemberId, ThreadMember threadMember)
+    public ThreadMemberLeaveEvent(@NotNull JDA api, long responseNumber, ThreadChannel thread, long threadMemberId, ThreadMember threadMember)
     {
         super(api, responseNumber, thread, threadMemberId, threadMember);
     }

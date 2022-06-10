@@ -25,11 +25,10 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.components.Modal;
 import net.dv8tion.jda.api.requests.restaction.interactions.ModalCallbackAction;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
-import net.dv8tion.jda.internal.requests.restaction.interactions.ModalCallbackActionImpl;
-import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 /**
@@ -41,26 +40,26 @@ import java.util.List;
  */
 public class GenericCommandInteractionEvent extends GenericInteractionCreateEvent implements CommandInteraction
 {
-    public GenericCommandInteractionEvent(@Nonnull JDA api, long responseNumber, @Nonnull CommandInteraction interaction)
+    public GenericCommandInteractionEvent(@NotNull JDA api, long responseNumber, @NotNull CommandInteraction interaction)
     {
         super(api, responseNumber, interaction);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CommandInteraction getInteraction()
     {
         return (CommandInteraction) super.getInteraction();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Command.Type getCommandType()
     {
         return getInteraction().getCommandType();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getName()
     {
@@ -93,30 +92,30 @@ public class GenericCommandInteractionEvent extends GenericInteractionCreateEven
         return getInteraction().isGuildCommand();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<OptionMapping> getOptions()
     {
         return getInteraction().getOptions();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public InteractionHook getHook()
     {
         return getInteraction().getHook();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ReplyCallbackAction deferReply()
     {
         return getInteraction().deferReply();
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ModalCallbackAction replyModal(@Nonnull Modal modal)
+    public ModalCallbackAction replyModal(@NotNull Modal modal)
     {
         return getInteraction().replyModal(modal);
     }

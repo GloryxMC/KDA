@@ -19,9 +19,9 @@ package net.dv8tion.jda.api.utils;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.regex.Pattern;
 
 /**
@@ -116,8 +116,8 @@ public class MarkdownSanitizer
      *
      * @return The sanitized string
      */
-    @Nonnull
-    public static String sanitize(@Nonnull String sequence)
+    @NotNull
+    public static String sanitize(@NotNull String sequence)
     {
         return sanitize(sequence, SanitizationStrategy.REMOVE);
     }
@@ -138,8 +138,8 @@ public class MarkdownSanitizer
      * @see    MarkdownSanitizer#MarkdownSanitizer()
      * @see    #withIgnored(int)
      */
-    @Nonnull
-    public static String sanitize(@Nonnull String sequence, @Nonnull SanitizationStrategy strategy)
+    @NotNull
+    public static String sanitize(@NotNull String sequence, @NotNull SanitizationStrategy strategy)
     {
         Checks.notNull(sequence, "String");
         Checks.notNull(strategy, "Strategy");
@@ -159,8 +159,8 @@ public class MarkdownSanitizer
      *
      * @see    #escape(String, int)
      */
-    @Nonnull
-    public static String escape(@Nonnull String sequence)
+    @NotNull
+    public static String escape(@NotNull String sequence)
     {
         return escape(sequence, NORMAL);
     }
@@ -179,8 +179,8 @@ public class MarkdownSanitizer
      *
      * @return The string with escaped markdown
      */
-    @Nonnull
-    public static String escape(@Nonnull String sequence, int ignored)
+    @NotNull
+    public static String escape(@NotNull String sequence, int ignored)
     {
         return new MarkdownSanitizer()
                 .withIgnored(ignored)
@@ -202,8 +202,8 @@ public class MarkdownSanitizer
      *
      * @return The string with escaped markdown
      */
-    @Nonnull
-    public static String escape(@Nonnull String sequence, boolean single)
+    @NotNull
+    public static String escape(@NotNull String sequence, boolean single)
     {
         Checks.notNull(sequence, "Input");
         if(!single) return escape(sequence);
@@ -288,8 +288,8 @@ public class MarkdownSanitizer
      *
      * @return The current sanitizer instance with the new strategy
      */
-    @Nonnull
-    public MarkdownSanitizer withStrategy(@Nonnull SanitizationStrategy strategy)
+    @NotNull
+    public MarkdownSanitizer withStrategy(@NotNull SanitizationStrategy strategy)
     {
         Checks.notNull(strategy, "Strategy");
         this.strategy = strategy;
@@ -305,14 +305,14 @@ public class MarkdownSanitizer
      *
      * @return The current sanitizer instance with the new ignored regions
      */
-    @Nonnull
+    @NotNull
     public MarkdownSanitizer withIgnored(int ignored)
     {
         this.ignored |= ignored;
         return this;
     }
 
-    private int getRegion(int index, @Nonnull String sequence)
+    private int getRegion(int index, @NotNull String sequence)
     {
         if (sequence.length() - index >= 3)
         {
@@ -355,14 +355,14 @@ public class MarkdownSanitizer
         return NORMAL;
     }
 
-    private boolean hasCollision(int index, @Nonnull String sequence, char c)
+    private boolean hasCollision(int index, @NotNull String sequence, char c)
     {
         if (index < 0)
             return false;
         return index < sequence.length() - 1 && sequence.charAt(index + 1) == c;
     }
 
-    private int findEndIndex(int afterIndex, int region, @Nonnull String sequence)
+    private int findEndIndex(int afterIndex, int region, @NotNull String sequence)
     {
         if (isEscape(region))
             return -1;
@@ -442,8 +442,8 @@ public class MarkdownSanitizer
         return -1;
     }
 
-    @Nonnull
-    private String handleRegion(int start, int end, @Nonnull String sequence, int region)
+    @NotNull
+    private String handleRegion(int start, int end, @NotNull String sequence, int region)
     {
         String resolved = sequence.substring(start, end);
         switch (region)
@@ -490,7 +490,7 @@ public class MarkdownSanitizer
         }
     }
 
-    private void applyStrategy(int region, @Nonnull String seq, @Nonnull StringBuilder builder)
+    private void applyStrategy(int region, @NotNull String seq, @NotNull StringBuilder builder)
     {
         if (strategy == SanitizationStrategy.REMOVE)
         {
@@ -514,7 +514,7 @@ public class MarkdownSanitizer
                .append("\\").append(token);
     }
 
-    private boolean doesEscape(int index, @Nonnull String seq)
+    private boolean doesEscape(int index, @NotNull String seq)
     {
         int backslashes = 0;
         for (int i = index - 1; i > -1; i--)
@@ -549,8 +549,8 @@ public class MarkdownSanitizer
      *
      * @return The resulting string after applying the computation
      */
-    @Nonnull
-    public String compute(@Nonnull String sequence)
+    @NotNull
+    public String compute(@NotNull String sequence)
     {
         Checks.notNull(sequence, "Input");
         StringBuilder builder = new StringBuilder();
@@ -588,7 +588,7 @@ public class MarkdownSanitizer
         return builder.toString();
     }
 
-    private String handleQuote(@Nonnull String sequence, boolean newline)
+    private String handleQuote(@NotNull String sequence, boolean newline)
     {
         // Special handling for quote
         if (!isIgnored(QUOTE) && quote.matcher(sequence).matches())

@@ -19,8 +19,8 @@ package net.dv8tion.jda.api.managers;
 import net.dv8tion.jda.api.entities.StageInstance;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Manager providing functionality to update one or more fields for a {@link net.dv8tion.jda.api.entities.StageInstance StageInstance}.
@@ -61,7 +61,7 @@ public interface StageInstanceManager extends Manager<StageInstanceManager>
      *
      * @return StageInstanceManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @Override
     StageInstanceManager reset(long fields);
 
@@ -80,7 +80,7 @@ public interface StageInstanceManager extends Manager<StageInstanceManager>
      *
      * @return StageInstanceManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @Override
     StageInstanceManager reset(long... fields);
 
@@ -89,7 +89,7 @@ public interface StageInstanceManager extends Manager<StageInstanceManager>
      *
      * @return The {@link StageInstance}
      */
-    @Nonnull
+    @NotNull
     StageInstance getStageInstance();
 
     /**
@@ -104,7 +104,7 @@ public interface StageInstanceManager extends Manager<StageInstanceManager>
      *
      * @return StageInstanceManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     StageInstanceManager setTopic(@Nullable String topic);
 
@@ -121,8 +121,8 @@ public interface StageInstanceManager extends Manager<StageInstanceManager>
      *
      * @return StageInstanceManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     @SuppressWarnings("deprecation")
-    StageInstanceManager setPrivacyLevel(@Nonnull StageInstance.PrivacyLevel level);
+    StageInstanceManager setPrivacyLevel(@NotNull StageInstance.PrivacyLevel level);
 }

@@ -20,9 +20,9 @@ import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.utils.Procedure;
 import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
@@ -121,7 +121,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      * @see    java.util.concurrent.TimeUnit
      * @see    net.dv8tion.jda.api.utils.TimeUtil
      */
-    @Nonnull
+    @NotNull
     M skipTo(long id);
 
     /**
@@ -134,15 +134,15 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      */
     long getLastKey();
 
-    @Nonnull
+    @NotNull
     @Override
     M setCheck(@Nullable BooleanSupplier checks);
 
-    @Nonnull
+    @NotNull
     @Override
-    M timeout(long timeout, @Nonnull TimeUnit unit);
+    M timeout(long timeout, @NotNull TimeUnit unit);
 
-    @Nonnull
+    @NotNull
     @Override
     M deadline(long timestamp);
 
@@ -154,7 +154,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @return {@link EnumSet} of {@link PaginationOrder} (Modifying this set does not affect this class)
      */
-    @Nonnull
+    @NotNull
     default EnumSet<PaginationOrder> getSupportedOrders()
     {
         return EnumSet.allOf(PaginationOrder.class);
@@ -168,7 +168,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @see    #order(PaginationOrder)
      */
-    @Nonnull
+    @NotNull
     PaginationOrder getOrder();
 
     /**
@@ -189,8 +189,8 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      * @see    #getSupportedOrders()
      * @see    #reverse()
      */
-    @Nonnull
-    M order(@Nonnull PaginationOrder order);
+    @NotNull
+    M order(@NotNull PaginationOrder order);
 
     /**
      * Flips the {@link #order(PaginationOrder)} of this pagination action.
@@ -200,7 +200,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @return The current PaginationAction implementation instance
      */
-    @Nonnull
+    @NotNull
     default M reverse()
     {
         if (getOrder() == PaginationOrder.BACKWARD)
@@ -233,7 +233,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @return Immutable {@link java.util.List List} containing all currently cached entities for this PaginationAction
      */
-    @Nonnull
+    @NotNull
     List<T> getCached();
 
     /**
@@ -244,7 +244,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @return The most recent cached entity
      */
-    @Nonnull
+    @NotNull
     T getLast();
 
     /**
@@ -255,7 +255,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @return The very first cached entity
      */
-    @Nonnull
+    @NotNull
     T getFirst();
 
     /**
@@ -280,7 +280,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @return The current PaginationAction implementation instance
      */
-    @Nonnull
+    @NotNull
     M limit(final int limit);
 
     /**
@@ -297,7 +297,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @return The current PaginationAction implementation instance
      */
-    @Nonnull
+    @NotNull
     M cache(final boolean enableCache);
 
     /**
@@ -360,8 +360,8 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      * @see    #takeWhileAsync(int, Predicate)
      * @see    #takeUntilAsync(Predicate)
      */
-    @Nonnull
-    default CompletableFuture<List<T>> takeWhileAsync(@Nonnull final Predicate<? super T> rule)
+    @NotNull
+    default CompletableFuture<List<T>> takeWhileAsync(@NotNull final Predicate<? super T> rule)
     {
         Checks.notNull(rule, "Rule");
         return takeUntilAsync(rule.negate());
@@ -385,8 +385,8 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      * @see    #takeWhileAsync(Predicate)
      * @see    #takeUntilAsync(int, Predicate)
      */
-    @Nonnull
-    default CompletableFuture<List<T>> takeWhileAsync(int limit, @Nonnull final Predicate<? super T> rule)
+    @NotNull
+    default CompletableFuture<List<T>> takeWhileAsync(int limit, @NotNull final Predicate<? super T> rule)
     {
         Checks.notNull(rule, "Rule");
         return takeUntilAsync(limit, rule.negate());
@@ -408,8 +408,8 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      * @see    #takeWhileAsync(Predicate)
      * @see    #takeUntilAsync(int, Predicate)
      */
-    @Nonnull
-    default CompletableFuture<List<T>> takeUntilAsync(@Nonnull final Predicate<? super T> rule)
+    @NotNull
+    default CompletableFuture<List<T>> takeUntilAsync(@NotNull final Predicate<? super T> rule)
     {
         return takeUntilAsync(0, rule);
     }
@@ -432,8 +432,8 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      * @see    #takeWhileAsync(Predicate)
      * @see    #takeUntilAsync(int, Predicate)
      */
-    @Nonnull
-    default CompletableFuture<List<T>> takeUntilAsync(int limit, @Nonnull final Predicate<? super T> rule)
+    @NotNull
+    default CompletableFuture<List<T>> takeUntilAsync(int limit, @NotNull final Predicate<? super T> rule)
     {
         Checks.notNull(rule, "Rule");
         Checks.notNegative(limit, "Limit");
@@ -465,7 +465,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @see    #forEachAsync(Procedure)
      */
-    @Nonnull
+    @NotNull
     CompletableFuture<List<T>> takeAsync(int amount);
 
     /**
@@ -479,7 +479,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @see    #forEachRemainingAsync(Procedure)
      */
-    @Nonnull
+    @NotNull
     CompletableFuture<List<T>> takeRemainingAsync(int amount);
 
     /**
@@ -516,8 +516,8 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @return {@link java.util.concurrent.Future Future} that can be cancelled to stop iteration from outside!
      */
-    @Nonnull
-    default CompletableFuture<?> forEachAsync(@Nonnull final Procedure<? super T> action)
+    @NotNull
+    default CompletableFuture<?> forEachAsync(@NotNull final Procedure<? super T> action)
     {
         return forEachAsync(action, RestActionImpl.getDefaultFailure());
     }
@@ -559,8 +559,8 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @return {@link java.util.concurrent.Future Future} that can be cancelled to stop iteration from outside!
      */
-    @Nonnull
-    CompletableFuture<?> forEachAsync(@Nonnull final Procedure<? super T> action, @Nonnull final Consumer<? super Throwable> failure);
+    @NotNull
+    CompletableFuture<?> forEachAsync(@NotNull final Procedure<? super T> action, @NotNull final Consumer<? super Throwable> failure);
 
     /**
      * Iterates over all remaining entities until the provided action returns {@code false}!
@@ -597,8 +597,8 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @return {@link java.util.concurrent.Future Future} that can be cancelled to stop iteration from outside!
      */
-    @Nonnull
-    default CompletableFuture<?> forEachRemainingAsync(@Nonnull final Procedure<? super T> action)
+    @NotNull
+    default CompletableFuture<?> forEachRemainingAsync(@NotNull final Procedure<? super T> action)
     {
         return forEachRemainingAsync(action, RestActionImpl.getDefaultFailure());
     }
@@ -640,8 +640,8 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @return {@link java.util.concurrent.Future Future} that can be cancelled to stop iteration from outside!
      */
-    @Nonnull
-    CompletableFuture<?> forEachRemainingAsync(@Nonnull final Procedure<? super T> action, @Nonnull final Consumer<? super Throwable> failure);
+    @NotNull
+    CompletableFuture<?> forEachRemainingAsync(@NotNull final Procedure<? super T> action, @NotNull final Consumer<? super Throwable> failure);
 
     /**
      * Iterates over all remaining entities until the provided action returns {@code false}!
@@ -653,7 +653,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *         The {@link net.dv8tion.jda.api.utils.Procedure Procedure}
      *         which should return {@code true} to continue iterating
      */
-    void forEachRemaining(@Nonnull final Procedure<? super T> action);
+    void forEachRemaining(@NotNull final Procedure<? super T> action);
 
     @Override
     default Spliterator<T> spliterator()
@@ -666,7 +666,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @return a sequential {@code Stream} over the elements in this PaginationAction
      */
-    @Nonnull
+    @NotNull
     default Stream<T> stream()
     {
         return StreamSupport.stream(spliterator(), false);
@@ -678,7 +678,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @return a sequential {@code Stream} over the elements in this PaginationAction
      */
-    @Nonnull
+    @NotNull
     default Stream<T> parallelStream()
     {
         return StreamSupport.stream(spliterator(), true);
@@ -690,7 +690,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
      *
      * @return new PaginationIterator
      */
-    @Nonnull
+    @NotNull
     @Override
     PaginationIterator<T> iterator();
 
@@ -720,7 +720,7 @@ public interface PaginationAction<T, M extends PaginationAction<T, M>> extends R
          *
          * @return The query key
          */
-        @Nonnull
+        @NotNull
         public String getKey()
         {
             return key;

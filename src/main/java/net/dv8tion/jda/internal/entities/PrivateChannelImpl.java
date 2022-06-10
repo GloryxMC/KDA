@@ -26,9 +26,9 @@ import net.dv8tion.jda.internal.entities.mixin.channel.middleman.MessageChannelM
 import net.dv8tion.jda.internal.requests.CompletedRestAction;
 import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class PrivateChannelImpl extends AbstractChannelImpl<PrivateChannelImpl> implements PrivateChannel, MessageChannelMixin<PrivateChannelImpl>
 {
@@ -41,7 +41,7 @@ public class PrivateChannelImpl extends AbstractChannelImpl<PrivateChannelImpl> 
         this.user = user;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ChannelType getType()
     {
@@ -56,7 +56,7 @@ public class PrivateChannelImpl extends AbstractChannelImpl<PrivateChannelImpl> 
         return user;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RestAction<User> retrieveUser()
     {
@@ -68,7 +68,7 @@ public class PrivateChannelImpl extends AbstractChannelImpl<PrivateChannelImpl> 
                 .map(PrivateChannel::getUser);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getName()
     {
@@ -81,14 +81,14 @@ public class PrivateChannelImpl extends AbstractChannelImpl<PrivateChannelImpl> 
         return user.getName();
     }
 
-    @Nonnull
+    @NotNull
     private RestAction<PrivateChannel> retrievePrivateChannel()
     {
         Route.CompiledRoute route = Route.Channels.GET_CHANNEL.compile(getId());
         return new RestActionImpl<>(getJDA(), route, (response, request) -> ((JDAImpl) getJDA()).getEntityBuilder().createPrivateChannel(response.getObject()));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RestAction<Void> delete()
     {

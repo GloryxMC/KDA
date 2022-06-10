@@ -18,7 +18,7 @@ package net.dv8tion.jda.api.events;
 
 import net.dv8tion.jda.api.JDA;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public interface GenericEvent
 {
@@ -27,7 +27,7 @@ public interface GenericEvent
      *
      * @return The corresponding JDA instance
      */
-    @Nonnull
+    @NotNull
     JDA getJDA();
 
     /**

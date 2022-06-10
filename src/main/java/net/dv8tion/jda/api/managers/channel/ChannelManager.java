@@ -19,9 +19,9 @@ package net.dv8tion.jda.api.managers.channel;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.managers.Manager;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 
 /**
  * Manager providing functionality to update one or more fields for a {@link GuildChannel GuildChannel}.
@@ -100,7 +100,7 @@ public interface ChannelManager<T extends GuildChannel, M extends ChannelManager
      *
      * @return ChannelManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @Override
     M reset(long fields);
 
@@ -127,7 +127,7 @@ public interface ChannelManager<T extends GuildChannel, M extends ChannelManager
      *
      * @return ChannelManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @Override
     M reset(long... fields);
 
@@ -137,7 +137,7 @@ public interface ChannelManager<T extends GuildChannel, M extends ChannelManager
      *
      * @return The {@link GuildChannel GuildChannel}
      */
-    @Nonnull
+    @NotNull
     T getChannel();
 
     /**
@@ -147,7 +147,7 @@ public interface ChannelManager<T extends GuildChannel, M extends ChannelManager
      *
      * @return The parent {@link Guild Guild}
      */
-    @Nonnull
+    @NotNull
     default Guild getGuild()
     {
         return getChannel().getGuild();
@@ -170,7 +170,7 @@ public interface ChannelManager<T extends GuildChannel, M extends ChannelManager
      *
      * @return ChannelManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    M setName(@Nonnull String name);
+    M setName(@NotNull String name);
 }

@@ -28,8 +28,8 @@ import net.dv8tion.jda.utils.data.DataArray;
 import net.dv8tion.jda.internal.entities.EntityBuilder;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.EncodingUtil;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -76,7 +76,7 @@ public class ReactionPaginationActionImpl
             : EncodingUtil.encodeUTF8(emote.getName());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageReaction getReaction()
     {
@@ -85,7 +85,7 @@ public class ReactionPaginationActionImpl
         return reaction;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public EnumSet<PaginationOrder> getSupportedOrders()
     {

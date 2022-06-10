@@ -19,9 +19,9 @@ package net.dv8tion.jda.api.requests;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -153,6 +153,7 @@ public enum ErrorResponse
     CANNOT_SELF_REDEEM_GIFT(                  50054, "Cannot self-redeem this gift"),
     PAYMENT_SOURCE_REQUIRED(                  50070, "Payment source required to redeem gift"),
     CANNOT_DELETE_CHANNEL_COMMUNITY(          50074, "Cannot delete a channel required for Community guilds"),
+    CANNOT_EDIT_STICKER_MESSAGE(              50080, "Cannot edit a message with stickers"),
     INVALID_STICKER_SENT(                     50081, "Invalid Sticker Sent"),
     ILLEGAL_OPERATION_ARCHIVED_THREAD(        50083, "Tried to perform an operation on an archived thread, such as editing a message or adding a user to the thread"),
     INVALID_THREAD_NOTIFICATION_SETTINGS(     50084, "Invalid thread notification settings"),
@@ -195,7 +196,7 @@ public enum ErrorResponse
         return code;
     }
 
-    @Nonnull
+    @NotNull
     public String getMeaning()
     {
         return meaning;
@@ -224,8 +225,8 @@ public enum ErrorResponse
      *
      * @return {@link Predicate} which returns true, if the error response is equal to this
      */
-    @Nonnull
-    public static Predicate<Throwable> test(@Nonnull ErrorResponse... responses)
+    @NotNull
+    public static Predicate<Throwable> test(@NotNull ErrorResponse... responses)
     {
         Checks.noneNull(responses, "ErrorResponse");
         EnumSet<ErrorResponse> set = EnumSet.noneOf(ErrorResponse.class);
@@ -242,20 +243,20 @@ public enum ErrorResponse
      *
      * @return {@link Predicate} which returns true, if the error response is equal to this
      */
-    @Nonnull
-    public static Predicate<Throwable> test(@Nonnull Collection<ErrorResponse> responses)
+    @NotNull
+    public static Predicate<Throwable> test(@NotNull Collection<ErrorResponse> responses)
     {
         Checks.noneNull(responses, "ErrorResponse");
         EnumSet<ErrorResponse> set = EnumSet.copyOf(responses);
         return test(set);
     }
 
-    private static Predicate<Throwable> test(@Nonnull EnumSet<ErrorResponse> responses)
+    private static Predicate<Throwable> test(@NotNull EnumSet<ErrorResponse> responses)
     {
         return error -> error instanceof ErrorResponseException && responses.contains(((ErrorResponseException) error).getErrorResponse());
     }
 
-    @Nonnull
+    @NotNull
     public static ErrorResponse fromCode(int code)
     {
         for (ErrorResponse error : values())
@@ -266,7 +267,7 @@ public enum ErrorResponse
         return SERVER_ERROR;
     }
 
-    @Nonnull
+    @NotNull
     public static ErrorResponse fromJSON(@Nullable DataObject obj)
     {
         if (obj == null || obj.isNull("code"))

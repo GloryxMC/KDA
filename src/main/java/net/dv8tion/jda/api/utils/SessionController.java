@@ -18,7 +18,7 @@ package net.dv8tion.jda.api.utils;
 
 import net.dv8tion.jda.api.JDA;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Controls states and behaviour of one or multiple {@link net.dv8tion.jda.api.JDA JDA} instances.
@@ -110,7 +110,7 @@ public interface SessionController
      * @param  node
      *         The {@link net.dv8tion.jda.api.utils.SessionController.SessionConnectNode SessionConnectNode}
      */
-    void appendSession(@Nonnull SessionConnectNode node);
+    void appendSession(@NotNull SessionConnectNode node);
 
     /**
      * Called by a JDA session when a shutdown has been requested.
@@ -120,7 +120,7 @@ public interface SessionController
      * @param node
      *        The {@link net.dv8tion.jda.api.utils.SessionController.SessionConnectNode SessionConnectNode} to remove from the queue.
      */
-    void removeSession(@Nonnull SessionConnectNode node);
+    void removeSession(@NotNull SessionConnectNode node);
 
     /**
      * Provides the cross-session global REST ratelimit it received through {@link #setGlobalRatelimit(long)}.
@@ -144,7 +144,7 @@ public interface SessionController
      *
      * @return The gateway endpoint
      */
-    @Nonnull
+    @NotNull
     default String getGateway()
     {
         return "wss://gateway.discord.gg/";
@@ -162,8 +162,8 @@ public interface SessionController
      *
      * @see    #getGateway()
      */
-    @Nonnull
-    ShardedGateway getShardedGateway(@Nonnull JDA api);
+    @NotNull
+    ShardedGateway getShardedGateway(@NotNull JDA api);
 
     /**
      * POJO containing the gateway endpoint and recommended shard total for a shard manager.
@@ -249,7 +249,7 @@ public interface SessionController
          *
          * @return The JDA instance
          */
-        @Nonnull
+        @NotNull
         JDA getJDA();
 
         /**
@@ -258,7 +258,7 @@ public interface SessionController
          *
          * @return The ShardInfo
          */
-        @Nonnull
+        @NotNull
         JDA.ShardInfo getShardInfo();
 
         /**

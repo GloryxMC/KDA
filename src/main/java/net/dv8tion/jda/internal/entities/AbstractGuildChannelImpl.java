@@ -20,8 +20,7 @@ import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.IPositionableChannel;
 import net.dv8tion.jda.internal.entities.mixin.channel.middleman.GuildChannelMixin;
 import net.dv8tion.jda.internal.utils.Checks;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractGuildChannelImpl<T extends AbstractGuildChannelImpl<T>> extends AbstractChannelImpl<T> implements GuildChannelMixin<T>
 {
@@ -33,7 +32,7 @@ public abstract class AbstractGuildChannelImpl<T extends AbstractGuildChannelImp
         this.guild = guild;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public GuildImpl getGuild()
     {
@@ -41,7 +40,7 @@ public abstract class AbstractGuildChannelImpl<T extends AbstractGuildChannelImp
     }
 
     @Override
-    public int compareTo(@Nonnull GuildChannel o)
+    public int compareTo(@NotNull GuildChannel o)
     {
         Checks.notNull(o, "Channel");
 

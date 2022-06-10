@@ -33,9 +33,9 @@ import net.dv8tion.jda.internal.requests.restaction.PermOverrideData;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.PermissionUtil;
 import okhttp3.RequestBody;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.EnumSet;
 
@@ -82,7 +82,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         this.overridesRem = new TLongHashSet();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public T getChannel()
     {
@@ -92,7 +92,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return channel;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public M reset(long fields)
@@ -119,7 +119,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public M reset(long... fields)
@@ -128,7 +128,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public M reset()
@@ -147,7 +147,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public M clearOverridesAdded()
     {
@@ -160,7 +160,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public M clearOverridesRemoved()
     {
@@ -173,9 +173,9 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    public M putPermissionOverride(@Nonnull IPermissionHolder permHolder, long allow, long deny)
+    public M putPermissionOverride(@NotNull IPermissionHolder permHolder, long allow, long deny)
     {
         if (!(channel instanceof IPermissionContainer))
         {
@@ -190,7 +190,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public M putMemberPermissionOverride(long memberId, long allow, long deny)
     {
@@ -198,7 +198,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public M putRolePermissionOverride(long roleId, long allow, long deny)
     {
@@ -231,7 +231,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         }
     }
 
-    private void putPermissionOverride(@Nonnull final PermOverrideData overrideData)
+    private void putPermissionOverride(@NotNull final PermOverrideData overrideData)
     {
         checkCanPutPermissions(overrideData.allow, overrideData.deny);
         withLock(lock, (lock) ->
@@ -242,9 +242,9 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         });
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    public M removePermissionOverride(@Nonnull IPermissionHolder permHolder)
+    public M removePermissionOverride(@NotNull IPermissionHolder permHolder)
     {
         if (!(channel instanceof IPermissionContainer))
         {
@@ -256,7 +256,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) removePermissionOverride(permHolder.getIdLong());
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public M removePermissionOverride(final long id)
     {
@@ -271,9 +271,9 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    public M sync(@Nonnull IPermissionContainer syncSource)
+    public M sync(@NotNull IPermissionContainer syncSource)
     {
         if (!(channel instanceof IPermissionContainer))
             throw new IllegalStateException("Can only set permissions on Channels that implement IPermissionContainer");
@@ -324,10 +324,10 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    public M setName(@Nonnull String name)
+    public M setName(@NotNull String name)
     {
         Checks.notBlank(name, "Name");
         name = name.trim();
@@ -338,9 +338,9 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    public M setType(@Nonnull ChannelType type)
+    public M setType(@NotNull ChannelType type)
     {
         Checks.check(type == ChannelType.TEXT || type == ChannelType.NEWS, "Can only change ChannelType to TEXT or NEWS");
 
@@ -365,9 +365,9 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    public M setRegion(@Nonnull Region region)
+    public M setRegion(@NotNull Region region)
     {
         Checks.notNull(region, "Region");
         if (!type.isAudio())
@@ -377,7 +377,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public M setParent(Category category)
     {
@@ -391,7 +391,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public M setPosition(int position)
     {
@@ -400,7 +400,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public M setTopic(String topic)
     {
@@ -413,7 +413,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public M setNSFW(boolean nsfw)
     {
@@ -424,7 +424,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public M setSlowmode(int slowmode)
     {
@@ -436,7 +436,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public M setUserLimit(int userLimit)
     {
@@ -449,7 +449,7 @@ public class ChannelManagerImpl<T extends GuildChannel, M extends ChannelManager
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public M setBitrate(int bitrate)
     {

@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.managers.channel.ChannelManager;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents a {@link Guild Guild} channel.
@@ -23,7 +23,7 @@ public interface GuildChannel extends Channel, Comparable<GuildChannel>
      *
      * @return Never-null {@link Guild Guild} that this GuildChannel is part of.
      */
-    @Nonnull
+    @NotNull
     Guild getGuild();
 
     /**
@@ -39,7 +39,7 @@ public interface GuildChannel extends Channel, Comparable<GuildChannel>
      *
      * @return The ChannelManager of this GuildChannel
      */
-    @Nonnull
+    @NotNull
     ChannelManager<?, ?> getManager();
 
     /**
@@ -66,7 +66,7 @@ public interface GuildChannel extends Channel, Comparable<GuildChannel>
      * @return {@link AuditableRestAction AuditableRestAction}
      */
     @Override
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     AuditableRestAction<Void> delete();
 

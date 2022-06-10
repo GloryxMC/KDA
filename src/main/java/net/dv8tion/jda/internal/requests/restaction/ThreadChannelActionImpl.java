@@ -27,9 +27,9 @@ import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
 import okhttp3.RequestBody;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
 
@@ -63,45 +63,45 @@ public class ThreadChannelActionImpl extends AuditableRestActionImpl<ThreadChann
         this.name = name;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ThreadChannelActionImpl setCheck(BooleanSupplier checks)
     {
         return (ThreadChannelActionImpl) super.setCheck(checks);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ThreadChannelActionImpl timeout(long timeout, @Nonnull TimeUnit unit)
+    public ThreadChannelActionImpl timeout(long timeout, @NotNull TimeUnit unit)
     {
         return (ThreadChannelActionImpl) super.timeout(timeout, unit);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ThreadChannelActionImpl deadline(long timestamp)
     {
         return (ThreadChannelActionImpl) super.deadline(timestamp);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Guild getGuild()
     {
         return guild;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ChannelType getType()
     {
         return type;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    public ThreadChannelActionImpl setName(@Nonnull String name)
+    public ThreadChannelActionImpl setName(@NotNull String name)
     {
         Checks.notEmpty(name, "Name");
         Checks.notLonger(name, 100, "Name");
@@ -109,16 +109,16 @@ public class ThreadChannelActionImpl extends AuditableRestActionImpl<ThreadChann
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ThreadChannelAction setAutoArchiveDuration(@Nonnull ThreadChannel.AutoArchiveDuration autoArchiveDuration)
+    public ThreadChannelAction setAutoArchiveDuration(@NotNull ThreadChannel.AutoArchiveDuration autoArchiveDuration)
     {
         Checks.notNull(autoArchiveDuration, "autoArchiveDuration");
         this.autoArchiveDuration = autoArchiveDuration;
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ThreadChannelAction setInvitable(boolean invitable)
     {

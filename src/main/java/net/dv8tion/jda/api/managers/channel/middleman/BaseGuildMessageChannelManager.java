@@ -22,8 +22,8 @@ import net.dv8tion.jda.api.managers.channel.attribute.IPermissionContainerManage
 import net.dv8tion.jda.api.managers.channel.attribute.IPositionableChannelManager;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Manager providing functionality common for all {@link BaseGuildMessageChannel BaseGuildMessageChannels}.
@@ -64,7 +64,7 @@ public interface BaseGuildMessageChannelManager<T extends BaseGuildMessageChanne
      *
      * @return ChannelManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     M setTopic(@Nullable String topic);
 
@@ -79,7 +79,7 @@ public interface BaseGuildMessageChannelManager<T extends BaseGuildMessageChanne
      *
      * @return ChannelManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     M setNSFW(boolean nsfw);
 }

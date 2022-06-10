@@ -16,7 +16,7 @@
 
 package net.dv8tion.jda.api.entities;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents the embedded resource type.
@@ -48,7 +48,7 @@ public enum EmbedType
      * @return The {@link EmbedType EmbedType} matching the provided key,
      *         or {@link EmbedType#UNKNOWN UNKNOWN}.
      */
-    @Nonnull
+    @NotNull
     public static EmbedType fromKey(String key)
     {
         for (EmbedType type : values())

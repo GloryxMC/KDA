@@ -23,7 +23,7 @@ import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.restaction.interactions.AutoCompleteCallbackAction;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 
 /**
@@ -38,21 +38,21 @@ import java.util.Collection;
  */
 public class GenericAutoCompleteInteractionEvent extends GenericInteractionCreateEvent implements IAutoCompleteCallback
 {
-    public GenericAutoCompleteInteractionEvent(@Nonnull JDA api, long responseNumber, @Nonnull Interaction interaction)
+    public GenericAutoCompleteInteractionEvent(@NotNull JDA api, long responseNumber, @NotNull Interaction interaction)
     {
         super(api, responseNumber, interaction);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public IAutoCompleteCallback getInteraction()
     {
         return (IAutoCompleteCallback) super.getInteraction();
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public AutoCompleteCallbackAction replyChoices(@Nonnull Collection<Command.Choice> choices)
+    public AutoCompleteCallbackAction replyChoices(@NotNull Collection<Command.Choice> choices)
     {
         return getInteraction().replyChoices(choices);
     }

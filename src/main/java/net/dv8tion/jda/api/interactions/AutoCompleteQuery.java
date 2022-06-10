@@ -19,8 +19,8 @@ package net.dv8tion.jda.api.interactions;
 import net.dv8tion.jda.api.interactions.commands.CommandAutoCompleteInteraction;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Objects;
 
 /**
@@ -35,7 +35,7 @@ public class AutoCompleteQuery
     private final String value;
     private final OptionType type;
 
-    public AutoCompleteQuery(@Nonnull OptionMapping option)
+    public AutoCompleteQuery(@NotNull OptionMapping option)
     {
         this.name = option.getName();
         this.value = option.getAsString();
@@ -47,7 +47,7 @@ public class AutoCompleteQuery
      *
      * @return The option name
      */
-    @Nonnull
+    @NotNull
     public String getName()
     {
         return name;
@@ -61,7 +61,7 @@ public class AutoCompleteQuery
      *
      * @return The current auto-completable query value
      */
-    @Nonnull
+    @NotNull
     public String getValue()
     {
         return value;
@@ -72,7 +72,7 @@ public class AutoCompleteQuery
      *
      * @return The option type expected from this auto-complete response
      */
-    @Nonnull
+    @NotNull
     public OptionType getType()
     {
         return type;

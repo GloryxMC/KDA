@@ -16,9 +16,9 @@
 package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.utils.ImageProxy;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a {@link Message} activity.
@@ -43,7 +43,7 @@ public class MessageActivity
      *
      * @return the type of the activity, or {@link ActivityType#UNKNOWN UNKNOWN}
      */
-    @Nonnull
+    @NotNull
     public ActivityType getType()
     {
         return type;
@@ -96,7 +96,7 @@ public class MessageActivity
          *
          * @return the applications name
          */
-        @Nonnull
+        @NotNull
         public String getName()
         {
             return name;
@@ -107,7 +107,7 @@ public class MessageActivity
          *
          * @return the applications description
          */
-        @Nonnull
+        @NotNull
         public String getDescription()
         {
             return description;
@@ -235,7 +235,7 @@ public class MessageActivity
             return id;
         }
 
-        @Nonnull
+        @NotNull
         public static ActivityType fromId(int id)
         {
             for (ActivityType activityType : values())

@@ -22,10 +22,12 @@ import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.ComponentInteraction;
 import net.dv8tion.jda.api.interactions.components.LayoutComponent;
 import net.dv8tion.jda.api.requests.RestAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -37,7 +39,7 @@ import java.util.List;
  */
 public interface ButtonInteraction extends ComponentInteraction
 {
-    @Nonnull
+    @NotNull
     @Override
     default Button getComponent()
     {
@@ -51,7 +53,7 @@ public interface ButtonInteraction extends ComponentInteraction
      *
      * @see    #getComponentId()
      */
-    @Nonnull
+    @NotNull
     Button getButton();
 
     /**
@@ -65,7 +67,7 @@ public interface ButtonInteraction extends ComponentInteraction
      *
      * @return {@link RestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default RestAction<Void> editButton(@Nullable Button newButton)
     {

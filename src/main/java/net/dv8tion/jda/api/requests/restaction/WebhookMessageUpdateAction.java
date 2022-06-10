@@ -25,10 +25,11 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.utils.AttachmentOption;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Collection;
@@ -57,7 +58,7 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     WebhookMessageUpdateAction<T> setContent(@Nullable String content);
 
@@ -72,9 +73,9 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    WebhookMessageUpdateAction<T> setEmbeds(@Nonnull Collection<? extends MessageEmbed> embeds); // Doesn't work on ephemeral messages!
+    WebhookMessageUpdateAction<T> setEmbeds(@NotNull Collection<? extends MessageEmbed> embeds); // Doesn't work on ephemeral messages!
 
     /**
      * Set the {@link MessageEmbed MessageEmbeds} for the message
@@ -87,9 +88,9 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<T> setEmbeds(@Nonnull MessageEmbed... embeds)
+    default WebhookMessageUpdateAction<T> setEmbeds(@NotNull MessageEmbed... embeds)
     {
         Checks.noneNull(embeds, "MessageEmbeds");
         return setEmbeds(Arrays.asList(embeds));
@@ -107,9 +108,9 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<T> setActionRow(@Nonnull ItemComponent... components)
+    default WebhookMessageUpdateAction<T> setActionRow(@NotNull ItemComponent... components)
     {
         return setActionRows(ActionRow.of(components));
     }
@@ -126,9 +127,9 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<T> setActionRow(@Nonnull Collection<? extends ItemComponent> components)
+    default WebhookMessageUpdateAction<T> setActionRow(@NotNull Collection<? extends ItemComponent> components)
     {
         return setActionRows(ActionRow.of(components));
     }
@@ -145,9 +146,9 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<T> setActionRows(@Nonnull Collection<? extends ActionRow> rows)
+    default WebhookMessageUpdateAction<T> setActionRows(@NotNull Collection<? extends ActionRow> rows)
     {
         Checks.noneNull(rows, "ActionRows");
         return setActionRows(rows.toArray(new ActionRow[0]));
@@ -165,9 +166,9 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    WebhookMessageUpdateAction<T> setActionRows(@Nonnull ActionRow... rows);
+    WebhookMessageUpdateAction<T> setActionRows(@NotNull ActionRow... rows);
 
     /**
      * Applies the {@link Message} to overwrite the existing message.
@@ -180,9 +181,9 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    WebhookMessageUpdateAction<T> applyMessage(@Nonnull Message message);
+    WebhookMessageUpdateAction<T> applyMessage(@NotNull Message message);
 
     /**
      * Adds the provided {@link java.io.InputStream InputStream} as file data.
@@ -202,9 +203,9 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    WebhookMessageUpdateAction<T> addFile(@Nonnull InputStream data, @Nonnull String name, @Nonnull AttachmentOption... options);
+    WebhookMessageUpdateAction<T> addFile(@NotNull InputStream data, @NotNull String name, @NotNull AttachmentOption... options);
 
     /**
      * Adds the provided {@code byte[]} as file data.
@@ -224,9 +225,9 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<T> addFile(@Nonnull byte[] data, @Nonnull String name, @Nonnull AttachmentOption... options)
+    default WebhookMessageUpdateAction<T> addFile(@NotNull byte[] data, @NotNull String name, @NotNull AttachmentOption... options)
     {
         Checks.notNull(name, "Name");
         Checks.notNull(data, "Data");
@@ -262,9 +263,9 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<T> addFile(@Nonnull File file, @Nonnull String name, @Nonnull AttachmentOption... options)
+    default WebhookMessageUpdateAction<T> addFile(@NotNull File file, @NotNull String name, @NotNull AttachmentOption... options)
     {
         Checks.notEmpty(name, "Name");
         Checks.notNull(file, "File");
@@ -293,9 +294,9 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<T> addFile(@Nonnull File file, @Nonnull AttachmentOption... options)
+    default WebhookMessageUpdateAction<T> addFile(@NotNull File file, @NotNull AttachmentOption... options)
     {
         Checks.notNull(file, "File");
         return addFile(file, file.getName(), options);
@@ -315,9 +316,9 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    WebhookMessageUpdateAction<T> retainFilesById(@Nonnull Collection<String> ids);
+    WebhookMessageUpdateAction<T> retainFilesById(@NotNull Collection<String> ids);
 
     /**
      * Removes all attachments that are currently attached to the existing message except for the ones provided.
@@ -333,9 +334,9 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<T> retainFilesById(@Nonnull String... ids)
+    default WebhookMessageUpdateAction<T> retainFilesById(@NotNull String... ids)
     {
         Checks.notNull(ids, "IDs");
         return retainFilesById(Arrays.asList(ids));
@@ -355,7 +356,7 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default WebhookMessageUpdateAction<T> retainFilesById(long... ids)
     {
@@ -381,9 +382,9 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<T> retainFiles(@Nonnull Collection<? extends Message.Attachment> attachments)
+    default WebhookMessageUpdateAction<T> retainFiles(@NotNull Collection<? extends Message.Attachment> attachments)
     {
         Checks.noneNull(attachments, "Attachments");
         return retainFilesById(attachments

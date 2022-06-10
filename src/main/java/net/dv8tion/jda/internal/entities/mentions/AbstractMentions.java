@@ -28,8 +28,8 @@ import net.dv8tion.jda.internal.utils.Checks;
 import org.apache.commons.collections4.Bag;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.bag.HashBag;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Matcher;
@@ -56,7 +56,7 @@ public abstract class AbstractMentions implements Mentions
         this.mentionsEveryone = mentionsEveryone;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JDA getJDA()
     {
@@ -69,7 +69,7 @@ public abstract class AbstractMentions implements Mentions
         return mentionsEveryone;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public synchronized List<User> getUsers()
     {
@@ -78,14 +78,14 @@ public abstract class AbstractMentions implements Mentions
         return mentionedUsers = Collections.unmodifiableList(processMentions(Message.MentionType.USER, new ArrayList<>(), true, this::matchUser));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Bag<User> getUsersBag()
     {
         return processMentions(Message.MentionType.USER, new HashBag<>(), false, this::matchUser);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public synchronized List<GuildChannel> getChannels()
     {
@@ -94,16 +94,16 @@ public abstract class AbstractMentions implements Mentions
         return mentionedChannels = Collections.unmodifiableList(processMentions(Message.MentionType.CHANNEL, new ArrayList<>(), true, this::matchChannel));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Bag<GuildChannel> getChannelsBag()
     {
         return processMentions(Message.MentionType.CHANNEL, new HashBag<>(), false, this::matchChannel);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public <T extends GuildChannel> List<T> getChannels(@Nonnull Class<T> clazz)
+    public <T extends GuildChannel> List<T> getChannels(@NotNull Class<T> clazz)
     {
         Checks.notNull(clazz, "clazz");
         return getChannels().stream()
@@ -112,9 +112,9 @@ public abstract class AbstractMentions implements Mentions
                 .collect(Collectors.toList());
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public <T extends GuildChannel> Bag<T> getChannelsBag(@Nonnull Class<T> clazz)
+    public <T extends GuildChannel> Bag<T> getChannelsBag(@NotNull Class<T> clazz)
     {
         Checks.notNull(clazz, "clazz");
         Function<Matcher, T> matchTypedChannel = matcher -> {
@@ -125,7 +125,7 @@ public abstract class AbstractMentions implements Mentions
         return processMentions(Message.MentionType.CHANNEL, new HashBag<>(), false, matchTypedChannel);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public synchronized List<Role> getRoles()
     {
@@ -136,7 +136,7 @@ public abstract class AbstractMentions implements Mentions
         return mentionedRoles = Collections.unmodifiableList(processMentions(Message.MentionType.ROLE, new ArrayList<>(), true, this::matchRole));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Bag<Role> getRolesBag()
     {
@@ -145,7 +145,7 @@ public abstract class AbstractMentions implements Mentions
         return processMentions(Message.MentionType.ROLE, new HashBag<>(), false, this::matchRole);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public synchronized List<Emote> getEmotes()
     {
@@ -154,14 +154,14 @@ public abstract class AbstractMentions implements Mentions
         return mentionedEmotes = Collections.unmodifiableList(processMentions(Message.MentionType.EMOTE, new ArrayList<>(), true, this::matchEmote));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Bag<Emote> getEmotesBag()
     {
         return processMentions(Message.MentionType.EMOTE, new HashBag<>(), false, this::matchEmote);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public synchronized List<Member> getMembers()
     {
@@ -172,7 +172,7 @@ public abstract class AbstractMentions implements Mentions
         return mentionedMembers = Collections.unmodifiableList(processMentions(Message.MentionType.USER, new ArrayList<>(), true, this::matchMember));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Bag<Member> getMembersBag()
     {
@@ -181,10 +181,10 @@ public abstract class AbstractMentions implements Mentions
         return processMentions(Message.MentionType.USER, new HashBag<>(), false, this::matchMember);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("ConstantConditions")
-    public List<IMentionable> getMentions(@Nonnull Message.MentionType... types)
+    public List<IMentionable> getMentions(@NotNull Message.MentionType... types)
     {
         if (types == null || types.length == 0)
             return getMentions(Message.MentionType.values());
@@ -223,7 +223,7 @@ public abstract class AbstractMentions implements Mentions
     }
 
     @Override
-    public boolean isMentioned(@Nonnull IMentionable mentionable, @Nonnull Message.MentionType... types)
+    public boolean isMentioned(@NotNull IMentionable mentionable, @NotNull Message.MentionType... types)
     {
         Checks.notNull(types, "Mention Types");
         if (types.length == 0)

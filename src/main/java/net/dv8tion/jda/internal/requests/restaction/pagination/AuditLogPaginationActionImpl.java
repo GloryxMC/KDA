@@ -33,8 +33,8 @@ import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.entities.EntityBuilder;
 import net.dv8tion.jda.internal.entities.GuildImpl;
 import net.dv8tion.jda.internal.requests.Route;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -57,7 +57,7 @@ public class AuditLogPaginationActionImpl
         super.order(PaginationOrder.BACKWARD);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public AuditLogPaginationActionImpl type(ActionType type)
     {
@@ -65,7 +65,7 @@ public class AuditLogPaginationActionImpl
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public AuditLogPaginationActionImpl user(UserSnowflake user)
     {
@@ -73,14 +73,14 @@ public class AuditLogPaginationActionImpl
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Guild getGuild()
     {
         return guild;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public EnumSet<PaginationOrder> getSupportedOrders()
     {

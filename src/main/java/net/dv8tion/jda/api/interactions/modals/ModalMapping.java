@@ -19,8 +19,8 @@ package net.dv8tion.jda.api.interactions.modals;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.Component;
 import net.dv8tion.jda.utils.data.DataObject;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Objects;
 
 /**
@@ -47,7 +47,7 @@ public class ModalMapping
      *
      * @return The custom id of this component
      */
-    @Nonnull
+    @NotNull
     public String getId()
     {
         return id;
@@ -58,7 +58,7 @@ public class ModalMapping
      *
      * @return Type of this component
      */
-    @Nonnull
+    @NotNull
     public Component.Type getType()
     {
         return type;
@@ -71,7 +71,7 @@ public class ModalMapping
      *
      * @return The String representation of this component.
      */
-    @Nonnull
+    @NotNull
     public String getAsString()
     {
         return value;

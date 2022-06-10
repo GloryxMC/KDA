@@ -19,8 +19,7 @@ package net.dv8tion.jda.api.events.guild.voice;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.Member;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Indicates that a {@link net.dv8tion.jda.api.entities.Member Member} disconnected from a {@link net.dv8tion.jda.api.entities.AudioChannel AudioChannel}.
@@ -45,19 +44,19 @@ import javax.annotation.Nonnull;
  */
 public class GuildVoiceLeaveEvent extends GenericGuildVoiceUpdateEvent
 {
-    public GuildVoiceLeaveEvent(@Nonnull JDA api, long responseNumber, @Nonnull Member member, @Nonnull AudioChannel channelLeft)
+    public GuildVoiceLeaveEvent(@NotNull JDA api, long responseNumber, @NotNull Member member, @NotNull AudioChannel channelLeft)
     {
         super(api, responseNumber, member, channelLeft, null);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public AudioChannel getChannelLeft()
     {
         return super.getChannelLeft();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public AudioChannel getOldValue()
     {

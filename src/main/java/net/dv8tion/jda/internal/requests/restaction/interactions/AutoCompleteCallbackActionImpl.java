@@ -25,8 +25,8 @@ import net.dv8tion.jda.utils.data.DataArray;
 import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.interactions.InteractionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -42,16 +42,16 @@ public class AutoCompleteCallbackActionImpl extends InteractionCallbackImpl<Void
         this.type = type;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public OptionType getOptionType()
     {
         return type;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public AutoCompleteCallbackAction addChoices(@Nonnull Collection<Command.Choice> choices)
+    public AutoCompleteCallbackAction addChoices(@NotNull Collection<Command.Choice> choices)
     {
         Checks.noneNull(choices, "Choices");
         Checks.check(choices.size() + this.choices.size() <= OptionData.MAX_CHOICES,

@@ -23,9 +23,9 @@ import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
 import net.dv8tion.jda.api.utils.AttachmentOption;
 import net.dv8tion.jda.internal.requests.restaction.interactions.ReplyCallbackActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Collection;
@@ -61,7 +61,7 @@ public interface IReplyCallback extends IDeferrableCallback
      *
      * @return {@link ReplyCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     ReplyCallbackAction deferReply();
 
@@ -91,7 +91,7 @@ public interface IReplyCallback extends IDeferrableCallback
      *
      * @return {@link ReplyCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default ReplyCallbackAction deferReply(boolean ephemeral)
     {
@@ -116,9 +116,9 @@ public interface IReplyCallback extends IDeferrableCallback
      *
      * @return {@link ReplyCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction reply(@Nonnull Message message)
+    default ReplyCallbackAction reply(@NotNull Message message)
     {
         Checks.notNull(message, "Message");
         ReplyCallbackActionImpl action = (ReplyCallbackActionImpl) deferReply();
@@ -143,9 +143,9 @@ public interface IReplyCallback extends IDeferrableCallback
      *
      * @return {@link ReplyCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction reply(@Nonnull String content)
+    default ReplyCallbackAction reply(@NotNull String content)
     {
         Checks.notNull(content, "Content");
         return deferReply().setContent(content);
@@ -169,9 +169,9 @@ public interface IReplyCallback extends IDeferrableCallback
      *
      * @return {@link ReplyCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction replyEmbeds(@Nonnull Collection<? extends MessageEmbed> embeds)
+    default ReplyCallbackAction replyEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
     {
         return deferReply().addEmbeds(embeds);
     }
@@ -196,9 +196,9 @@ public interface IReplyCallback extends IDeferrableCallback
      *
      * @return {@link ReplyCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction replyEmbeds(@Nonnull MessageEmbed embed, @Nonnull MessageEmbed... embeds)
+    default ReplyCallbackAction replyEmbeds(@NotNull MessageEmbed embed, @NotNull MessageEmbed... embeds)
     {
         Checks.notNull(embed, "MessageEmbed");
         Checks.noneNull(embeds, "MessageEmbed");
@@ -285,9 +285,9 @@ public interface IReplyCallback extends IDeferrableCallback
      *
      * @return {@link ReplyCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction replyFormat(@Nonnull String format, @Nonnull Object... args)
+    default ReplyCallbackAction replyFormat(@NotNull String format, @NotNull Object... args)
     {
         Checks.notNull(format, "Format String");
         return reply(String.format(format, args));
@@ -322,9 +322,9 @@ public interface IReplyCallback extends IDeferrableCallback
      *
      * @return {@link ReplyCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction replyFile(@Nonnull InputStream data, @Nonnull String name, @Nonnull AttachmentOption... options)
+    default ReplyCallbackAction replyFile(@NotNull InputStream data, @NotNull String name, @NotNull AttachmentOption... options)
     {
         return deferReply().addFile(data, name, options);
     }
@@ -358,9 +358,9 @@ public interface IReplyCallback extends IDeferrableCallback
      *
      * @return {@link ReplyCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction replyFile(@Nonnull File file, @Nonnull AttachmentOption... options)
+    default ReplyCallbackAction replyFile(@NotNull File file, @NotNull AttachmentOption... options)
     {
         return deferReply().addFile(file, options);
     }
@@ -405,9 +405,9 @@ public interface IReplyCallback extends IDeferrableCallback
      *
      * @return {@link ReplyCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction replyFile(@Nonnull File file, @Nonnull String name, @Nonnull AttachmentOption... options)
+    default ReplyCallbackAction replyFile(@NotNull File file, @NotNull String name, @NotNull AttachmentOption... options)
     {
         return deferReply().addFile(file, name, options);
     }
@@ -441,9 +441,9 @@ public interface IReplyCallback extends IDeferrableCallback
      *
      * @return {@link ReplyCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction replyFile(@Nonnull byte[] data, @Nonnull String name, @Nonnull AttachmentOption... options)
+    default ReplyCallbackAction replyFile(@NotNull byte[] data, @NotNull String name, @NotNull AttachmentOption... options)
     {
         return deferReply().addFile(data, name, options);
     }

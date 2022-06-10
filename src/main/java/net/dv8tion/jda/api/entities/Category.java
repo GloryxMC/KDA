@@ -24,7 +24,7 @@ import net.dv8tion.jda.api.requests.restaction.order.ChannelOrderAction;
 import net.dv8tion.jda.api.requests.restaction.order.OrderAction;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -56,7 +56,7 @@ public interface Category extends GuildChannel, ICopyableChannel, IPositionableC
      *
      * @return Immutable list of all child channels
      */
-    @Nonnull
+    @NotNull
     default List<GuildChannel> getChannels()
     {
         List<GuildChannel> channels = new ArrayList<>();
@@ -75,7 +75,7 @@ public interface Category extends GuildChannel, ICopyableChannel, IPositionableC
      *
      * @return Immutable list of all child TextChannels
      */
-    @Nonnull
+    @NotNull
     default List<TextChannel> getTextChannels()
     {
         return Collections.unmodifiableList(getGuild().getTextChannelCache().stream()
@@ -89,7 +89,7 @@ public interface Category extends GuildChannel, ICopyableChannel, IPositionableC
      *
      * @return Immutable list of all child NewsChannels
      */
-    @Nonnull
+    @NotNull
     default List<NewsChannel> getNewsChannels()
     {
         return Collections.unmodifiableList(getGuild().getNewsChannelCache().stream()
@@ -103,7 +103,7 @@ public interface Category extends GuildChannel, ICopyableChannel, IPositionableC
      *
      * @return Immutable list of all child VoiceChannels
      */
-    @Nonnull
+    @NotNull
     default List<VoiceChannel> getVoiceChannels()
     {
         return Collections.unmodifiableList(getGuild().getVoiceChannelCache().stream()
@@ -117,7 +117,7 @@ public interface Category extends GuildChannel, ICopyableChannel, IPositionableC
      *
      * @return Immutable list of all child StageChannel
      */
-    @Nonnull
+    @NotNull
     default List<StageChannel> getStageChannels()
     {
         return Collections.unmodifiableList(getGuild().getStageChannelCache().stream()
@@ -158,9 +158,9 @@ public interface Category extends GuildChannel, ICopyableChannel, IPositionableC
      * @return A specific {@link ChannelAction ChannelAction}
      *         <br>This action allows to set fields for the new TextChannel before creating it
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    ChannelAction<TextChannel> createTextChannel(@Nonnull String name);
+    ChannelAction<TextChannel> createTextChannel(@NotNull String name);
 
     /**
      * Creates a new {@link VoiceChannel VoiceChannel} with this Category as parent.
@@ -195,9 +195,9 @@ public interface Category extends GuildChannel, ICopyableChannel, IPositionableC
      * @return A specific {@link ChannelAction ChannelAction}
      *         <br>This action allows to set fields for the new VoiceChannel before creating it
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    ChannelAction<VoiceChannel> createVoiceChannel(@Nonnull String name);
+    ChannelAction<VoiceChannel> createVoiceChannel(@NotNull String name);
 
     /**
      * Creates a new {@link StageChannel StageChannel} with this Category as parent.
@@ -232,9 +232,9 @@ public interface Category extends GuildChannel, ICopyableChannel, IPositionableC
      * @return A specific {@link ChannelAction ChannelAction}
      *         <br>This action allows to set fields for the new StageChannel before creating it
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    ChannelAction<StageChannel> createStageChannel(@Nonnull String name);
+    ChannelAction<StageChannel> createStageChannel(@NotNull String name);
 
     /**
      * Modifies the positional order of this Category's nested {@link #getTextChannels() TextChannels} and {@link #getNewsChannels() NewsChannels}.
@@ -260,7 +260,7 @@ public interface Category extends GuildChannel, ICopyableChannel, IPositionableC
      *         ordering the Category's {@link TextChannel TextChannels}
      *         and {@link NewsChannel NewsChannels}.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     CategoryOrderAction modifyTextChannelPositions();
 
@@ -288,11 +288,11 @@ public interface Category extends GuildChannel, ICopyableChannel, IPositionableC
      *         ordering the Category's {@link VoiceChannel VoiceChannels}
      *         and {@link StageChannel StageChannels}.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     CategoryOrderAction modifyVoiceChannelPositions();
 
-    @Nonnull
+    @NotNull
     @Override
     default List<Member> getMembers()
     {
@@ -305,15 +305,15 @@ public interface Category extends GuildChannel, ICopyableChannel, IPositionableC
             .collect(Collectors.toList()));
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    ChannelAction<Category> createCopy(@Nonnull Guild guild);
+    ChannelAction<Category> createCopy(@NotNull Guild guild);
 
-    @Nonnull
+    @NotNull
     @Override
     ChannelAction<Category> createCopy();
 
-    @Nonnull
+    @NotNull
     @Override
     CategoryManager getManager();
 }

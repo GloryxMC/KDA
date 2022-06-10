@@ -18,8 +18,7 @@ package net.dv8tion.jda.api.events.interaction.command;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.interactions.commands.context.ContextInteraction;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Indicates that a {@link ContextInteraction} was used.
@@ -30,12 +29,12 @@ import javax.annotation.Nonnull;
  */
 public class GenericContextInteractionEvent<T> extends GenericCommandInteractionEvent implements ContextInteraction<T>
 {
-    public GenericContextInteractionEvent(@Nonnull JDA api, long responseNumber, @Nonnull ContextInteraction<T> interaction)
+    public GenericContextInteractionEvent(@NotNull JDA api, long responseNumber, @NotNull ContextInteraction<T> interaction)
     {
         super(api, responseNumber, interaction);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("unchecked")
     public ContextInteraction<T> getInteraction()
@@ -43,14 +42,14 @@ public class GenericContextInteractionEvent<T> extends GenericCommandInteraction
         return (ContextInteraction<T>) super.getInteraction();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ContextTarget getTargetType()
     {
         return getInteraction().getTargetType();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public T getTarget()
     {

@@ -21,9 +21,9 @@ import net.dv8tion.jda.api.interactions.ModalInteraction;
 import net.dv8tion.jda.utils.data.SerializableData;
 import net.dv8tion.jda.internal.interactions.component.ModalImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -87,7 +87,7 @@ public interface Modal extends SerializableData
      *
      * @see    ModalInteraction#getModalId()
      */
-    @Nonnull
+    @NotNull
     String getId();
 
     /**
@@ -95,7 +95,7 @@ public interface Modal extends SerializableData
      *
      * @return The title of this modal
      */
-    @Nonnull
+    @NotNull
     String getTitle();
 
     /**
@@ -103,7 +103,7 @@ public interface Modal extends SerializableData
      *
      * @return List of ActionRows
      */
-    @Nonnull
+    @NotNull
     List<ActionRow> getActionRows();
 
     /**
@@ -112,7 +112,7 @@ public interface Modal extends SerializableData
      *
      * @return The {@link Modal.Builder} used to create the modal
      */
-    @Nonnull
+    @NotNull
     default Modal.Builder createCopy()
     {
         return new Builder(getId(), getTitle())
@@ -136,9 +136,9 @@ public interface Modal extends SerializableData
      *
      * @return {@link Builder Builder} instance to customize this modal further
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    static Modal.Builder create(@Nonnull String customId, @Nonnull String title)
+    static Modal.Builder create(@NotNull String customId, @NotNull String title)
     {
         return new Modal.Builder(customId, title);
     }
@@ -152,7 +152,7 @@ public interface Modal extends SerializableData
         private String id;
         private String title;
 
-        protected Builder(@Nonnull String customId, @Nonnull String title)
+        protected Builder(@NotNull String customId, @NotNull String title)
         {
             setId(customId);
             setTitle(title);
@@ -169,8 +169,8 @@ public interface Modal extends SerializableData
          *
          * @return The same builder instance for chaining
          */
-        @Nonnull
-        public Builder setId(@Nonnull String customId)
+        @NotNull
+        public Builder setId(@NotNull String customId)
         {
             Checks.notBlank(customId, "ID");
             Checks.notLonger(customId, MAX_ID_LENGTH, "ID");
@@ -189,8 +189,8 @@ public interface Modal extends SerializableData
          *
          * @return The same builder instance for chaining
          */
-        @Nonnull
-        public Builder setTitle(@Nonnull String title)
+        @NotNull
+        public Builder setTitle(@NotNull String title)
         {
             Checks.notBlank(title, "Title");
             Checks.notLonger(title, MAX_TITLE_LENGTH, "Title");
@@ -214,8 +214,8 @@ public interface Modal extends SerializableData
          *
          * @see    ActionRow#isModalCompatible()
          */
-        @Nonnull
-        public Builder addActionRows(@Nonnull ActionRow... actionRows)
+        @NotNull
+        public Builder addActionRows(@NotNull ActionRow... actionRows)
         {
             Checks.noneNull(actionRows, "Action Rows");
             return addActionRows(Arrays.asList(actionRows));
@@ -237,8 +237,8 @@ public interface Modal extends SerializableData
          *
          * @see    ActionRow#isModalCompatible()
          */
-        @Nonnull
-        public Builder addActionRows(@Nonnull Collection<? extends ActionRow> actionRows)
+        @NotNull
+        public Builder addActionRows(@NotNull Collection<? extends ActionRow> actionRows)
         {
             Checks.noneNull(actionRows, "Components");
 
@@ -266,8 +266,8 @@ public interface Modal extends SerializableData
          *
          * @see    ItemComponent#isModalCompatible()
          */
-        @Nonnull
-        public Builder addActionRow(@Nonnull Collection<? extends ItemComponent> components)
+        @NotNull
+        public Builder addActionRow(@NotNull Collection<? extends ItemComponent> components)
         {
             return addActionRows(ActionRow.of(components));
         }
@@ -288,8 +288,8 @@ public interface Modal extends SerializableData
          *
          * @see    ItemComponent#isModalCompatible()
          */
-        @Nonnull
-        public Builder addActionRow(@Nonnull ItemComponent... components)
+        @NotNull
+        public Builder addActionRow(@NotNull ItemComponent... components)
         {
             return addActionRows(ActionRow.of(components));
         }
@@ -299,7 +299,7 @@ public interface Modal extends SerializableData
          *
          * @return A modifiable list of all components
          */
-        @Nonnull
+        @NotNull
         public List<ActionRow> getActionRows()
         {
             return components;
@@ -310,7 +310,7 @@ public interface Modal extends SerializableData
          *
          * @return the title
          */
-        @Nonnull
+        @NotNull
         public String getTitle()
         {
             return title;
@@ -321,7 +321,7 @@ public interface Modal extends SerializableData
          *
          * @return the id
          */
-        @Nonnull
+        @NotNull
         public String getId()
         {
             return id;
@@ -338,7 +338,7 @@ public interface Modal extends SerializableData
          *
          * @return A Modal
          */
-        @Nonnull
+        @NotNull
         public Modal build()
         {
             Checks.check(!components.isEmpty(), "Cannot make a modal without components!");

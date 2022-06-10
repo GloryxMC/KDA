@@ -22,9 +22,9 @@ import net.dv8tion.jda.api.interactions.commands.CommandAutoCompleteInteraction;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -43,7 +43,7 @@ public interface AutoCompleteCallbackAction extends InteractionCallbackAction<Vo
      *
      * @return The option type
      */
-    @Nonnull
+    @NotNull
     OptionType getOptionType();
 
     /**
@@ -66,9 +66,9 @@ public interface AutoCompleteCallbackAction extends InteractionCallbackAction<Vo
      *
      * @return The same callback action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    AutoCompleteCallbackAction addChoices(@Nonnull Collection<Command.Choice> choices);
+    AutoCompleteCallbackAction addChoices(@NotNull Collection<Command.Choice> choices);
 
     /**
      * Add up to {@value OptionData#MAX_CHOICES} choices which can be picked from by the user.
@@ -90,9 +90,9 @@ public interface AutoCompleteCallbackAction extends InteractionCallbackAction<Vo
      *
      * @return The same callback action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction addChoices(@Nonnull Command.Choice... choices)
+    default AutoCompleteCallbackAction addChoices(@NotNull Command.Choice... choices)
     {
         Checks.noneNull(choices, "Choices");
         return addChoices(Arrays.asList(choices));
@@ -119,9 +119,9 @@ public interface AutoCompleteCallbackAction extends InteractionCallbackAction<Vo
      *
      * @return The same callback action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction addChoice(@Nonnull String name, @Nonnull String value)
+    default AutoCompleteCallbackAction addChoice(@NotNull String name, @NotNull String value)
     {
         return addChoices(new Command.Choice(name, value));
     }
@@ -147,9 +147,9 @@ public interface AutoCompleteCallbackAction extends InteractionCallbackAction<Vo
      *
      * @return The same callback action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction addChoice(@Nonnull String name, long value)
+    default AutoCompleteCallbackAction addChoice(@NotNull String name, long value)
     {
         return addChoices(new Command.Choice(name, value));
     }
@@ -175,9 +175,9 @@ public interface AutoCompleteCallbackAction extends InteractionCallbackAction<Vo
      *
      * @return The same callback action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction addChoice(@Nonnull String name, double value)
+    default AutoCompleteCallbackAction addChoice(@NotNull String name, double value)
     {
         return addChoices(new Command.Choice(name, value));
     }
@@ -202,9 +202,9 @@ public interface AutoCompleteCallbackAction extends InteractionCallbackAction<Vo
      *
      * @return The same callback action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction addChoiceStrings(@Nonnull String... choices)
+    default AutoCompleteCallbackAction addChoiceStrings(@NotNull String... choices)
     {
         return addChoices(Arrays.stream(choices)
                 .map(it -> new Command.Choice(it, it))
@@ -231,9 +231,9 @@ public interface AutoCompleteCallbackAction extends InteractionCallbackAction<Vo
      *
      * @return The same callback action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction addChoiceStrings(@Nonnull Collection<String> choices)
+    default AutoCompleteCallbackAction addChoiceStrings(@NotNull Collection<String> choices)
     {
         return addChoices(choices.stream()
                 .map(it -> new Command.Choice(it, it))
@@ -260,9 +260,9 @@ public interface AutoCompleteCallbackAction extends InteractionCallbackAction<Vo
      *
      * @return The same callback action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction addChoiceLongs(@Nonnull long... choices)
+    default AutoCompleteCallbackAction addChoiceLongs(@NotNull long... choices)
     {
         return addChoices(Arrays.stream(choices)
                 .mapToObj(it -> new Command.Choice(String.valueOf(it), it))
@@ -289,9 +289,9 @@ public interface AutoCompleteCallbackAction extends InteractionCallbackAction<Vo
      *
      * @return The same callback action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction addChoiceLongs(@Nonnull Collection<Long> choices)
+    default AutoCompleteCallbackAction addChoiceLongs(@NotNull Collection<Long> choices)
     {
         return addChoices(choices.stream()
                 .map(it -> new Command.Choice(String.valueOf(it), it))
@@ -318,9 +318,9 @@ public interface AutoCompleteCallbackAction extends InteractionCallbackAction<Vo
      *
      * @return The same callback action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction addChoiceDoubles(@Nonnull double... choices)
+    default AutoCompleteCallbackAction addChoiceDoubles(@NotNull double... choices)
     {
         return addChoices(Arrays.stream(choices)
                 .mapToObj(it -> new Command.Choice(String.valueOf(it), it))
@@ -347,9 +347,9 @@ public interface AutoCompleteCallbackAction extends InteractionCallbackAction<Vo
      *
      * @return The same callback action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction addChoiceDoubles(@Nonnull Collection<Double> choices)
+    default AutoCompleteCallbackAction addChoiceDoubles(@NotNull Collection<Double> choices)
     {
         return addChoices(choices.stream()
                 .map(it -> new Command.Choice(String.valueOf(it), it))

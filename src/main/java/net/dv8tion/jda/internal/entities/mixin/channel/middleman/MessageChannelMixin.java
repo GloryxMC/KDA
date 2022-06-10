@@ -30,9 +30,9 @@ import net.dv8tion.jda.api.utils.TimeUtil;
 import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -40,8 +40,8 @@ import java.util.concurrent.CompletableFuture;
 public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends MessageChannel
 {
     // ---- Default implementations of interface ----
-    @Nonnull
-    default List<CompletableFuture<Void>> purgeMessages(@Nonnull List<? extends Message> messages)
+    @NotNull
+    default List<CompletableFuture<Void>> purgeMessages(@NotNull List<? extends Message> messages)
     {
         if (messages == null || messages.isEmpty())
             return Collections.emptyList();
@@ -63,8 +63,8 @@ public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends M
         return MessageChannel.super.purgeMessages(messages);
     }
 
-    @Nonnull
-    default List<CompletableFuture<Void>> purgeMessagesById(@Nonnull long... messageIds)
+    @NotNull
+    default List<CompletableFuture<Void>> purgeMessagesById(@NotNull long... messageIds)
     {
         if (messageIds == null || messageIds.length == 0)
             return Collections.emptyList();
@@ -114,18 +114,18 @@ public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends M
         return list;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageAction sendMessage(@Nonnull CharSequence text)
+    default MessageAction sendMessage(@NotNull CharSequence text)
     {
         checkCanAccessChannel();
         checkCanSendMessage();
         return MessageChannel.super.sendMessage(text);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageAction sendMessageEmbeds(@Nonnull MessageEmbed embed, @Nonnull MessageEmbed... other)
+    default MessageAction sendMessageEmbeds(@NotNull MessageEmbed embed, @NotNull MessageEmbed... other)
     {
         checkCanAccessChannel();
         checkCanSendMessage();
@@ -133,9 +133,9 @@ public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends M
         return MessageChannel.super.sendMessageEmbeds(embed, other);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageAction sendMessageEmbeds(@Nonnull Collection<? extends MessageEmbed> embeds)
+    default MessageAction sendMessageEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
     {
         checkCanAccessChannel();
         checkCanSendMessage();
@@ -143,18 +143,18 @@ public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends M
         return MessageChannel.super.sendMessageEmbeds(embeds);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageAction sendMessage(@Nonnull Message msg)
+    default MessageAction sendMessage(@NotNull Message msg)
     {
         checkCanAccessChannel();
         checkCanSendMessage();
         return MessageChannel.super.sendMessage(msg);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageAction sendFile(@Nonnull InputStream data, @Nonnull String fileName, @Nonnull AttachmentOption... options)
+    default MessageAction sendFile(@NotNull InputStream data, @NotNull String fileName, @NotNull AttachmentOption... options)
     {
         checkCanAccessChannel();
         checkCanSendMessage();
@@ -162,25 +162,25 @@ public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends M
         return MessageChannel.super.sendFile(data, fileName, options);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Message> retrieveMessageById(@Nonnull String messageId)
+    default RestAction<Message> retrieveMessageById(@NotNull String messageId)
     {
         checkCanAccessChannel();
         checkCanViewHistory();
         return MessageChannel.super.retrieveMessageById(messageId);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AuditableRestAction<Void> deleteMessageById(@Nonnull String messageId)
+    default AuditableRestAction<Void> deleteMessageById(@NotNull String messageId)
     {
        checkCanAccessChannel();
        //We don't know if this is a Message sent by us or another user, so we can't run checks for Permission.MESSAGE_MANAGE
        return MessageChannel.super.deleteMessageById(messageId);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     default MessageHistory getHistory()
     {
@@ -189,7 +189,7 @@ public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends M
         return MessageChannel.super.getHistory();
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default MessagePaginationAction getIterableHistory()
     {
@@ -198,34 +198,34 @@ public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends M
         return MessageChannel.super.getIterableHistory();
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageHistory.MessageRetrieveAction getHistoryAround(@Nonnull String messageId, int limit)
+    default MessageHistory.MessageRetrieveAction getHistoryAround(@NotNull String messageId, int limit)
     {
         checkCanAccessChannel();
         checkCanViewHistory();
         return MessageChannel.super.getHistoryAround(messageId, limit);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageHistory.MessageRetrieveAction getHistoryAfter(@Nonnull String messageId, int limit)
+    default MessageHistory.MessageRetrieveAction getHistoryAfter(@NotNull String messageId, int limit)
     {
         checkCanAccessChannel();
         checkCanViewHistory();
         return MessageChannel.super.getHistoryAfter(messageId, limit);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageHistory.MessageRetrieveAction getHistoryBefore(@Nonnull String messageId, int limit)
+    default MessageHistory.MessageRetrieveAction getHistoryBefore(@NotNull String messageId, int limit)
     {
         checkCanAccessChannel();
         checkCanViewHistory();
         return MessageChannel.super.getHistoryBefore(messageId, limit);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default MessageHistory.MessageRetrieveAction getHistoryFromBeginning(int limit)
     {
@@ -234,7 +234,7 @@ public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends M
         return MessageHistory.getHistoryFromBeginning(this).limit(limit);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default RestAction<Void> sendTyping()
     {
@@ -242,52 +242,52 @@ public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends M
         return MessageChannel.super.sendTyping();
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> addReactionById(@Nonnull String messageId, @Nonnull String unicode)
+    default RestAction<Void> addReactionById(@NotNull String messageId, @NotNull String unicode)
     {
         checkCanAccessChannel();
         checkCanAddReactions();
         return MessageChannel.super.addReactionById(messageId, unicode);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> removeReactionById(@Nonnull String messageId, @Nonnull String unicode)
+    default RestAction<Void> removeReactionById(@NotNull String messageId, @NotNull String unicode)
     {
         checkCanAccessChannel();
         checkCanRemoveReactions();
         return MessageChannel.super.removeReactionById(messageId, unicode);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReactionPaginationAction retrieveReactionUsersById(@Nonnull String messageId, @Nonnull String unicode)
+    default ReactionPaginationAction retrieveReactionUsersById(@NotNull String messageId, @NotNull String unicode)
     {
         checkCanAccessChannel();
         checkCanRemoveReactions();
         return MessageChannel.super.retrieveReactionUsersById(messageId, unicode);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> pinMessageById(@Nonnull String messageId)
+    default RestAction<Void> pinMessageById(@NotNull String messageId)
     {
         checkCanAccessChannel();
         checkCanControlMessagePins();
         return MessageChannel.super.pinMessageById(messageId);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> unpinMessageById(@Nonnull String messageId)
+    default RestAction<Void> unpinMessageById(@NotNull String messageId)
     {
         checkCanAccessChannel();
         checkCanControlMessagePins();
         return MessageChannel.super.unpinMessageById(messageId);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default RestAction<List<Message>> retrievePinnedMessages()
     {
@@ -295,18 +295,18 @@ public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends M
         return MessageChannel.super.retrievePinnedMessages();
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageAction editMessageById(@Nonnull String messageId, @Nonnull CharSequence newContent)
+    default MessageAction editMessageById(@NotNull String messageId, @NotNull CharSequence newContent)
     {
         checkCanAccessChannel();
         checkCanSendMessage();
         return MessageChannel.super.editMessageById(messageId, newContent);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageAction editMessageById(@Nonnull String messageId, @Nonnull Message newContent)
+    default MessageAction editMessageById(@NotNull String messageId, @NotNull Message newContent)
     {
        checkCanAccessChannel();
        checkCanSendMessage();
@@ -314,9 +314,9 @@ public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends M
     }
 
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageAction editMessageEmbedsById(@Nonnull String messageId, @Nonnull Collection<? extends MessageEmbed> newEmbeds)
+    default MessageAction editMessageEmbedsById(@NotNull String messageId, @NotNull Collection<? extends MessageEmbed> newEmbeds)
     {
         checkCanAccessChannel();
         checkCanSendMessage();
@@ -324,9 +324,9 @@ public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends M
         return MessageChannel.super.editMessageEmbedsById(messageId, newEmbeds);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageAction editMessageComponentsById(@Nonnull String messageId, @Nonnull Collection<? extends LayoutComponent> components)
+    default MessageAction editMessageComponentsById(@NotNull String messageId, @NotNull Collection<? extends LayoutComponent> components)
     {
         checkCanAccessChannel();
         checkCanSendMessage();

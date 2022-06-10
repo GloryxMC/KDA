@@ -24,10 +24,12 @@ import net.dv8tion.jda.api.interactions.components.ItemComponent;
 import net.dv8tion.jda.api.utils.AllowedMentions;
 import net.dv8tion.jda.api.utils.AttachmentOption;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.Collection;
@@ -40,19 +42,19 @@ import java.util.function.BooleanSupplier;
  */
 public interface ReplyCallbackAction extends InteractionCallbackAction<InteractionHook>, AllowedMentions<ReplyCallbackAction>
 {
-    @Nonnull
+    @NotNull
     @Override
     ReplyCallbackAction setCheck(@Nullable BooleanSupplier checks);
 
-    @Nonnull
+    @NotNull
     @Override
-    ReplyCallbackAction timeout(long timeout, @Nonnull TimeUnit unit);
+    ReplyCallbackAction timeout(long timeout, @NotNull TimeUnit unit);
 
-    @Nonnull
+    @NotNull
     @Override
     ReplyCallbackAction deadline(long timestamp);
 
-    @Nonnull
+    @NotNull
     @Override
     ReplyCallbackAction closeResources();
 
@@ -67,9 +69,9 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      *
      * @return The same reply action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction addEmbeds(@Nonnull MessageEmbed... embeds)
+    default ReplyCallbackAction addEmbeds(@NotNull MessageEmbed... embeds)
     {
         Checks.noneNull(embeds, "MessageEmbed");
         return addEmbeds(Arrays.asList(embeds));
@@ -86,9 +88,9 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      *
      * @return The same reply action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    ReplyCallbackAction addEmbeds(@Nonnull Collection<? extends MessageEmbed> embeds);
+    ReplyCallbackAction addEmbeds(@NotNull Collection<? extends MessageEmbed> embeds);
 
     /**
      * Add a single {@link ActionRow} to the message.
@@ -108,9 +110,9 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      * @see    ActionRow#of(ItemComponent...)
      * @see    ItemComponent#isMessageCompatible()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction addActionRow(@Nonnull ItemComponent... components)
+    default ReplyCallbackAction addActionRow(@NotNull ItemComponent... components)
     {
         return addActionRows(ActionRow.of(components));
     }
@@ -133,9 +135,9 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      * @see    ActionRow#of(Collection)
      * @see    ItemComponent#isMessageCompatible()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction addActionRow(@Nonnull Collection<? extends ItemComponent> components)
+    default ReplyCallbackAction addActionRow(@NotNull Collection<? extends ItemComponent> components)
     {
         return addActionRows(ActionRow.of(components));
     }
@@ -157,9 +159,9 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      *
      * @see    ActionRow#isMessageCompatible()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction addActionRows(@Nonnull Collection<? extends ActionRow> rows)
+    default ReplyCallbackAction addActionRows(@NotNull Collection<? extends ActionRow> rows)
     {
         Checks.noneNull(rows, "ActionRows");
         return addActionRows(rows.toArray(new ActionRow[0]));
@@ -182,9 +184,9 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      *
      * @see    ActionRow#isMessageCompatible()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    ReplyCallbackAction addActionRows(@Nonnull ActionRow... rows);
+    ReplyCallbackAction addActionRows(@NotNull ActionRow... rows);
 
     /**
      * Set the content for this message.
@@ -197,7 +199,7 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      *
      * @return The same reply action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     ReplyCallbackAction setContent(@Nullable final String content);
 
     /**
@@ -208,7 +210,7 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      *
      * @return The same reply action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     ReplyCallbackAction setTTS(final boolean isTTS);
 
     /**
@@ -229,7 +231,7 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      *
      * @return The same reply action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     ReplyCallbackAction setEphemeral(boolean ephemeral);
 
@@ -249,9 +251,9 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      *
      * @return The same reply action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction addFile(@Nonnull File file, @Nonnull AttachmentOption... options)
+    default ReplyCallbackAction addFile(@NotNull File file, @NotNull AttachmentOption... options)
     {
         Checks.notNull(file, "File");
         return addFile(file, file.getName(), options);
@@ -286,9 +288,9 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      *
      * @return The same reply action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction addFile(@Nonnull File file, @Nonnull String name, @Nonnull AttachmentOption... options)
+    default ReplyCallbackAction addFile(@NotNull File file, @NotNull String name, @NotNull AttachmentOption... options)
     {
         try
         {
@@ -320,9 +322,9 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      *
      * @return The same reply action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction addFile(@Nonnull byte[] data, @Nonnull String name, @Nonnull AttachmentOption... options)
+    default ReplyCallbackAction addFile(@NotNull byte[] data, @NotNull String name, @NotNull AttachmentOption... options)
     {
         Checks.notNull(data, "Data");
         return addFile(new ByteArrayInputStream(data), name, options);
@@ -346,7 +348,7 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      *
      * @return The same reply action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    ReplyCallbackAction addFile(@Nonnull InputStream data, @Nonnull String name, @Nonnull AttachmentOption... options);
+    ReplyCallbackAction addFile(@NotNull InputStream data, @NotNull String name, @NotNull AttachmentOption... options);
 }

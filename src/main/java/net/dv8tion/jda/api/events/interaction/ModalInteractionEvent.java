@@ -23,8 +23,8 @@ import net.dv8tion.jda.api.interactions.components.Modal;
 import net.dv8tion.jda.api.interactions.modals.ModalMapping;
 import net.dv8tion.jda.api.requests.restaction.interactions.MessageEditCallbackAction;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -40,48 +40,48 @@ public class ModalInteractionEvent extends GenericInteractionCreateEvent impleme
 {
     private final ModalInteraction interaction;
 
-    public ModalInteractionEvent(@Nonnull JDA api, long responseNumber, @Nonnull ModalInteraction interaction)
+    public ModalInteractionEvent(@NotNull JDA api, long responseNumber, @NotNull ModalInteraction interaction)
     {
         super(api, responseNumber, interaction);
         this.interaction = interaction;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ModalInteraction getInteraction()
     {
         return interaction;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getModalId()
     {
         return interaction.getModalId();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<ModalMapping> getValues()
     {
         return interaction.getValues();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ReplyCallbackAction deferReply()
     {
         return interaction.deferReply();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public InteractionHook getHook()
     {
         return interaction.getHook();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageEditCallbackAction deferEdit()
     {

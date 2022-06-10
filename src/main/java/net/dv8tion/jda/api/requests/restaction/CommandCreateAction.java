@@ -23,10 +23,11 @@ import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData;
 import net.dv8tion.jda.api.requests.RestAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
@@ -40,97 +41,97 @@ import java.util.function.BooleanSupplier;
  */
 public interface CommandCreateAction extends RestAction<Command>, SlashCommandData
 {
-    @Nonnull
+    @NotNull
     @Override
     CommandCreateAction setCheck(@Nullable BooleanSupplier checks);
 
-    @Nonnull
+    @NotNull
     @Override
-    CommandCreateAction addCheck(@Nonnull BooleanSupplier checks);
+    CommandCreateAction addCheck(@NotNull BooleanSupplier checks);
 
-    @Nonnull
+    @NotNull
     @Override
-    CommandCreateAction timeout(long timeout, @Nonnull TimeUnit unit);
+    CommandCreateAction timeout(long timeout, @NotNull TimeUnit unit);
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     CommandCreateAction deadline(long timestamp);
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     CommandCreateAction setDefaultEnabled(boolean enabled);
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    CommandCreateAction setName(@Nonnull String name);
+    CommandCreateAction setName(@NotNull String name);
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    CommandCreateAction setDescription(@Nonnull String description);
+    CommandCreateAction setDescription(@NotNull String description);
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    CommandCreateAction addOptions(@Nonnull OptionData... options);
+    CommandCreateAction addOptions(@NotNull OptionData... options);
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    default CommandCreateAction addOptions(@Nonnull Collection<? extends OptionData> options)
+    default CommandCreateAction addOptions(@NotNull Collection<? extends OptionData> options)
     {
         return (CommandCreateAction) SlashCommandData.super.addOptions(options);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    default CommandCreateAction addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description, boolean required, boolean autoComplete)
+    default CommandCreateAction addOption(@NotNull OptionType type, @NotNull String name, @NotNull String description, boolean required, boolean autoComplete)
     {
         return (CommandCreateAction) SlashCommandData.super.addOption(type, name, description, required, autoComplete);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    default CommandCreateAction addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description, boolean required)
+    default CommandCreateAction addOption(@NotNull OptionType type, @NotNull String name, @NotNull String description, boolean required)
     {
         return (CommandCreateAction) SlashCommandData.super.addOption(type, name, description, required);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    default CommandCreateAction addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description)
+    default CommandCreateAction addOption(@NotNull OptionType type, @NotNull String name, @NotNull String description)
     {
         return (CommandCreateAction) SlashCommandData.super.addOption(type, name, description, false);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    CommandCreateAction addSubcommands(@Nonnull SubcommandData... subcommands);
+    CommandCreateAction addSubcommands(@NotNull SubcommandData... subcommands);
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    default CommandCreateAction addSubcommands(@Nonnull Collection<? extends SubcommandData> subcommands)
+    default CommandCreateAction addSubcommands(@NotNull Collection<? extends SubcommandData> subcommands)
     {
         return (CommandCreateAction) SlashCommandData.super.addSubcommands(subcommands);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    CommandCreateAction addSubcommandGroups(@Nonnull SubcommandGroupData... groups);
+    CommandCreateAction addSubcommandGroups(@NotNull SubcommandGroupData... groups);
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    default CommandCreateAction addSubcommandGroups(@Nonnull Collection<? extends SubcommandGroupData> groups)
+    default CommandCreateAction addSubcommandGroups(@NotNull Collection<? extends SubcommandGroupData> groups)
     {
         return (CommandCreateAction) SlashCommandData.super.addSubcommandGroups(groups);
     }

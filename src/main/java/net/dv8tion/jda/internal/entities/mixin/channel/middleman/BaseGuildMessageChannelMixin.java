@@ -32,8 +32,8 @@ import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.requests.restaction.AuditableRestActionImpl;
 import net.dv8tion.jda.internal.requests.restaction.WebhookActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,7 +50,7 @@ public interface BaseGuildMessageChannelMixin<T extends BaseGuildMessageChannelM
 {
     // ---- Default implementations of interface ----
     @Override
-    default boolean canTalk(@Nonnull Member member)
+    default boolean canTalk(@NotNull Member member)
     {
         if (!getGuild().equals(member.getGuild()))
             throw new IllegalArgumentException("Provided Member is not from the Guild that this NewsChannel is part of.");
@@ -58,7 +58,7 @@ public interface BaseGuildMessageChannelMixin<T extends BaseGuildMessageChannelM
         return member.hasPermission(this, Permission.VIEW_CHANNEL, Permission.MESSAGE_SEND);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     default RestAction<List<Webhook>> retrieveWebhooks()
     {
@@ -88,9 +88,9 @@ public interface BaseGuildMessageChannelMixin<T extends BaseGuildMessageChannelM
         });
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    default WebhookAction createWebhook(@Nonnull String name)
+    default WebhookAction createWebhook(@NotNull String name)
     {
         Checks.notBlank(name, "Webhook name");
         name = name.trim();
@@ -102,9 +102,9 @@ public interface BaseGuildMessageChannelMixin<T extends BaseGuildMessageChannelM
         return new WebhookActionImpl(getJDA(), this, name);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    default AuditableRestAction<Void> deleteWebhookById(@Nonnull String id)
+    default AuditableRestAction<Void> deleteWebhookById(@NotNull String id)
     {
         Checks.isSnowflake(id, "Webhook ID");
 

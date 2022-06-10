@@ -21,9 +21,9 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.utils.Checks;
 import okhttp3.MultipartBody;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents existing message attachment.
@@ -49,7 +49,7 @@ public class AttachmentUpdate implements AttachedFile, ISnowflake
      *
      * @return {@link AttachmentUpdate}
      */
-    @Nonnull
+    @NotNull
     public static AttachmentUpdate fromAttachment(long id)
     {
         return new AttachmentUpdate(id, null);
@@ -67,8 +67,8 @@ public class AttachmentUpdate implements AttachedFile, ISnowflake
      *
      * @return {@link AttachmentUpdate}
      */
-    @Nonnull
-    public static AttachmentUpdate fromAttachment(@Nonnull String id)
+    @NotNull
+    public static AttachmentUpdate fromAttachment(@NotNull String id)
     {
         return fromAttachment(MiscUtil.parseSnowflake(id));
     }
@@ -82,8 +82,8 @@ public class AttachmentUpdate implements AttachedFile, ISnowflake
      *
      * @return {@link AttachmentUpdate}
      */
-    @Nonnull
-    public static AttachmentUpdate fromAttachment(@Nonnull Message.Attachment attachment)
+    @NotNull
+    public static AttachmentUpdate fromAttachment(@NotNull Message.Attachment attachment)
     {
         Checks.notNull(attachment, "Attachment");
         return new AttachmentUpdate(attachment.getIdLong(), attachment.getFileName());
@@ -107,18 +107,9 @@ public class AttachmentUpdate implements AttachedFile, ISnowflake
     }
 
     @Override
-    public void claim() {}
+    public void addPart(@NotNull MultipartBody.Builder builder, int index) {}
 
-    @Override
-    public boolean isClaimed()
-    {
-        return false;
-    }
-
-    @Override
-    public void addPart(@Nonnull MultipartBody.Builder builder, int index) {}
-
-    @Nonnull
+    @NotNull
     @Override
     public DataObject toAttachmentData(int index)
     {

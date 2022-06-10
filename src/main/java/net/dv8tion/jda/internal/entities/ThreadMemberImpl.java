@@ -19,8 +19,8 @@ package net.dv8tion.jda.internal.entities;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.internal.utils.Helpers;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.time.OffsetDateTime;
 
 public class ThreadMemberImpl implements ThreadMember
@@ -39,14 +39,14 @@ public class ThreadMemberImpl implements ThreadMember
         this.thread = thread;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JDA getJDA()
     {
         return api;
     }
     
-    @Nonnull
+    @NotNull
     @Override
     public Guild getGuild()
     {
@@ -54,28 +54,28 @@ public class ThreadMemberImpl implements ThreadMember
         return thread.getGuild();
     }
     
-    @Nonnull
+    @NotNull
     @Override
     public ThreadChannel getThread()
     {
         return this.thread;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public User getUser()
     {
         return member.getUser();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Member getMember()
     {
         return member;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public OffsetDateTime getTimeJoined()
     {
@@ -88,7 +88,7 @@ public class ThreadMemberImpl implements ThreadMember
         return flags;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getAsMention()
     {

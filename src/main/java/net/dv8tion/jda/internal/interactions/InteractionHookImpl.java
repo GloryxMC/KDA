@@ -30,8 +30,8 @@ import net.dv8tion.jda.internal.requests.restaction.WebhookMessageActionImpl;
 import net.dv8tion.jda.internal.requests.restaction.WebhookMessageUpdateActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.JDALogger;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Future;
@@ -51,7 +51,7 @@ public class InteractionHookImpl extends AbstractWebhookClient<Message> implemen
     private boolean isReady;
     private boolean ephemeral;
 
-    public InteractionHookImpl(@Nonnull DeferrableInteractionImpl interaction, @Nonnull JDA api)
+    public InteractionHookImpl(@NotNull DeferrableInteractionImpl interaction, @NotNull JDA api)
     {
         super(api.getSelfUser().getApplicationIdLong(), interaction.getToken(), api);
         this.interaction = interaction;
@@ -107,14 +107,14 @@ public class InteractionHookImpl extends AbstractWebhookClient<Message> implemen
         });
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public InteractionImpl getInteraction()
     {
         return interaction;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public InteractionHook setEphemeral(boolean ephemeral)
     {
@@ -122,14 +122,14 @@ public class InteractionHookImpl extends AbstractWebhookClient<Message> implemen
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JDA getJDA()
     {
         return api;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RestAction<Message> retrieveOriginal()
     {
@@ -139,7 +139,7 @@ public class InteractionHookImpl extends AbstractWebhookClient<Message> implemen
                 jda.getEntityBuilder().createMessageWithChannel(response.getObject(), getInteraction().getMessageChannel(), false)));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public WebhookMessageActionImpl<Message> sendRequest()
     {
@@ -149,7 +149,7 @@ public class InteractionHookImpl extends AbstractWebhookClient<Message> implemen
         return onReady(new WebhookMessageActionImpl<>(getJDA(), interaction.getMessageChannel(), route, transform)).setEphemeral(ephemeral);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public WebhookMessageUpdateActionImpl<Message> editRequest(String messageId)
     {
@@ -161,9 +161,9 @@ public class InteractionHookImpl extends AbstractWebhookClient<Message> implemen
         return onReady(new WebhookMessageUpdateActionImpl<>(getJDA(), route, transform));
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public RestAction<Void> deleteMessageById(@Nonnull String messageId)
+    public RestAction<Void> deleteMessageById(@NotNull String messageId)
     {
         if (!"@original".equals(messageId))
             Checks.isSnowflake(messageId);

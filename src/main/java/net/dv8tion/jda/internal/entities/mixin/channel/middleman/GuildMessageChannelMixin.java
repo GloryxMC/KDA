@@ -19,24 +19,27 @@ package net.dv8tion.jda.internal.entities.mixin.channel.middleman;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.GuildMessageChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.sticker.StickerSnowflake;
 import net.dv8tion.jda.api.requests.RestAction;
+import net.dv8tion.jda.api.requests.restaction.MessageAction;
 import net.dv8tion.jda.api.utils.MiscUtil;
 import net.dv8tion.jda.api.utils.TimeUtil;
 import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
+import net.dv8tion.jda.internal.requests.restaction.MessageActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.EncodingUtil;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.Collection;
 
 public interface GuildMessageChannelMixin<T extends GuildMessageChannelMixin<T>> extends GuildMessageChannel, GuildChannelMixin<T>, MessageChannelMixin<T>
 {
     // ---- Default implementations of interface ----
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> deleteMessagesByIds(@Nonnull Collection<String> messageIds)
+    default RestAction<Void> deleteMessagesByIds(@NotNull Collection<String> messageIds)
     {
         checkPermission(Permission.MESSAGE_MANAGE, "Must have MESSAGE_MANAGE in order to bulk delete messages in this channel regardless of author.");
 
@@ -50,9 +53,9 @@ public interface GuildMessageChannelMixin<T extends GuildMessageChannelMixin<T>>
         return bulkDeleteMessages(messageIds);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> removeReactionById(@Nonnull String messageId, @Nonnull String unicode, @Nonnull User user)
+    default RestAction<Void> removeReactionById(@NotNull String messageId, @NotNull String unicode, @NotNull User user)
     {
         Checks.isSnowflake(messageId, "Message ID");
         Checks.notNull(unicode, "Provided Unicode");
@@ -75,9 +78,9 @@ public interface GuildMessageChannelMixin<T extends GuildMessageChannelMixin<T>>
         return new RestActionImpl<>(getJDA(), route);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    default RestAction<Void> clearReactionsById(@Nonnull String messageId)
+    default RestAction<Void> clearReactionsById(@NotNull String messageId)
     {
         Checks.isSnowflake(messageId, "Message ID");
 
@@ -87,9 +90,9 @@ public interface GuildMessageChannelMixin<T extends GuildMessageChannelMixin<T>>
         return new RestActionImpl<>(getJDA(), route);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    default RestAction<Void> clearReactionsById(@Nonnull String messageId, @Nonnull String unicode)
+    default RestAction<Void> clearReactionsById(@NotNull String messageId, @NotNull String unicode)
     {
         Checks.notNull(messageId, "Message ID");
         Checks.notNull(unicode, "Emote Name");
@@ -100,7 +103,16 @@ public interface GuildMessageChannelMixin<T extends GuildMessageChannelMixin<T>>
         Route.CompiledRoute route = Route.Messages.CLEAR_EMOTE_REACTIONS.compile(getId(), messageId, code);
         return new RestActionImpl<>(getJDA(), route);
     }
-    
+
+    @NotNull
+    @Override
+    default MessageAction sendStickers(@NotNull Collection<? extends StickerSnowflake> stickers)
+    {
+        checkCanAccessChannel();
+        checkCanSendMessage();
+        return new MessageActionImpl(getJDA(), null, this).setStickers(stickers);
+    }
+
     // ---- Default implementation of parent mixins hooks ----
     default void checkCanAccessChannel()
     {

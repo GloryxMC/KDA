@@ -17,10 +17,12 @@
 package net.dv8tion.jda.api.requests.restaction;
 
 import net.dv8tion.jda.api.entities.*;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
+
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
 
@@ -37,15 +39,15 @@ import java.util.function.BooleanSupplier;
  */
 public interface ThreadChannelAction extends AuditableRestAction<ThreadChannel>
 {
-    @Nonnull
+    @NotNull
     @Override
     ThreadChannelAction setCheck(@Nullable BooleanSupplier checks);
 
-    @Nonnull
+    @NotNull
     @Override
-    ThreadChannelAction timeout(long timeout, @Nonnull TimeUnit unit);
+    ThreadChannelAction timeout(long timeout, @NotNull TimeUnit unit);
 
-    @Nonnull
+    @NotNull
     @Override
     ThreadChannelAction deadline(long timestamp);
 
@@ -54,7 +56,7 @@ public interface ThreadChannelAction extends AuditableRestAction<ThreadChannel>
      *
      * @return The guild
      */
-    @Nonnull
+    @NotNull
     Guild getGuild();
 
     /**
@@ -62,7 +64,7 @@ public interface ThreadChannelAction extends AuditableRestAction<ThreadChannel>
      *
      * @return The channel type
      */
-    @Nonnull
+    @NotNull
     ChannelType getType();
 
     /**
@@ -76,17 +78,17 @@ public interface ThreadChannelAction extends AuditableRestAction<ThreadChannel>
      *
      * @return The current ChannelAction, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    ThreadChannelAction setName(@Nonnull String name);
+    ThreadChannelAction setName(@NotNull String name);
 
     //TODO-v5: Docs
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    ThreadChannelAction setAutoArchiveDuration(@Nonnull ThreadChannel.AutoArchiveDuration autoArchiveDuration);
+    ThreadChannelAction setAutoArchiveDuration(@NotNull ThreadChannel.AutoArchiveDuration autoArchiveDuration);
 
     //TODO-v5: Docs
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     ThreadChannelAction setInvitable(boolean isInvitable);
 }

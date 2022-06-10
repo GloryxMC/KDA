@@ -25,9 +25,9 @@ import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.utils.data.DataType;
 import net.dv8tion.jda.utils.data.SerializableData;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -100,7 +100,7 @@ public class OptionData implements SerializableData
      *             <li>{@code description} is between 1 and {@value #MAX_DESCRIPTION_LENGTH} characters long</li>
      *         </ul>
      */
-    public OptionData(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description)
+    public OptionData(@NotNull OptionType type, @NotNull String name, @NotNull String description)
     {
         this(type, name, description, false);
     }
@@ -127,7 +127,7 @@ public class OptionData implements SerializableData
      *             <li>{@code description} is between 1 and {@value #MAX_DESCRIPTION_LENGTH} characters long</li>
      *         </ul>
      */
-    public OptionData(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description, boolean isRequired)
+    public OptionData(@NotNull OptionType type, @NotNull String name, @NotNull String description, boolean isRequired)
     {
         this(type, name, description, isRequired, false);
     }
@@ -157,7 +157,7 @@ public class OptionData implements SerializableData
      *             <li>{@link OptionType#canSupportChoices()} is false then {@code isAutoComplete} is also false</li>
      *         </ul>
      */
-    public OptionData(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description, boolean isRequired, boolean isAutoComplete)
+    public OptionData(@NotNull OptionType type, @NotNull String name, @NotNull String description, boolean isRequired, boolean isAutoComplete)
     {
         Checks.notNull(type, "Type");
         Checks.check(type != OptionType.UNKNOWN, "Cannot make option of unknown type!");
@@ -176,7 +176,7 @@ public class OptionData implements SerializableData
      *
      * @return The {@link OptionType}
      */
-    @Nonnull
+    @NotNull
     public OptionType getType()
     {
         return type;
@@ -187,7 +187,7 @@ public class OptionData implements SerializableData
      *
      * @return The name
      */
-    @Nonnull
+    @NotNull
     public String getName()
     {
         return name;
@@ -198,7 +198,7 @@ public class OptionData implements SerializableData
      *
      * @return The description
      */
-    @Nonnull
+    @NotNull
     public String getDescription()
     {
         return description;
@@ -234,7 +234,7 @@ public class OptionData implements SerializableData
      *
      * @return {@link EnumSet} of {@link ChannelType}
      */
-    @Nonnull
+    @NotNull
     public EnumSet<ChannelType> getChannelTypes()
     {
         return channelTypes;
@@ -275,7 +275,7 @@ public class OptionData implements SerializableData
      * @see #addChoice(String, long)
      * @see #addChoice(String, String)
      */
-    @Nonnull
+    @NotNull
     public List<Command.Choice> getChoices()
     {
         if (choices == null || choices.isEmpty())
@@ -304,8 +304,8 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
-    public OptionData setName(@Nonnull String name)
+    @NotNull
+    public OptionData setName(@NotNull String name)
     {
         Checks.notEmpty(name, "Name");
         Checks.notLonger(name, MAX_NAME_LENGTH, "Name");
@@ -326,8 +326,8 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
-    public OptionData setDescription(@Nonnull String description)
+    @NotNull
+    public OptionData setDescription(@NotNull String description)
     {
         Checks.notEmpty(description, "Description");
         Checks.notLonger(description, MAX_DESCRIPTION_LENGTH, "Description");
@@ -344,7 +344,7 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
+    @NotNull
     public OptionData setRequired(boolean required)
     {
         this.isRequired = required;
@@ -365,7 +365,7 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
+    @NotNull
     public OptionData setAutoComplete(boolean autoComplete)
     {
         if (autoComplete)
@@ -398,8 +398,8 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
-    public OptionData setChannelTypes(@Nonnull ChannelType... channelTypes)
+    @NotNull
+    public OptionData setChannelTypes(@NotNull ChannelType... channelTypes)
     {
         Checks.noneNull(channelTypes, "ChannelTypes");
         return setChannelTypes(Arrays.asList(channelTypes));
@@ -424,8 +424,8 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
-    public OptionData setChannelTypes(@Nonnull Collection<ChannelType> channelTypes)
+    @NotNull
+    public OptionData setChannelTypes(@NotNull Collection<ChannelType> channelTypes)
     {
         if (type != OptionType.CHANNEL)
             throw new IllegalArgumentException("Can only apply channel type restriction to options of type CHANNEL");
@@ -456,7 +456,7 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
+    @NotNull
     public OptionData setMinValue(long value)
     {
         if (type != OptionType.INTEGER && type != OptionType.NUMBER)
@@ -480,7 +480,7 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
+    @NotNull
     public OptionData setMinValue(double value)
     {
         if (type != OptionType.NUMBER)
@@ -504,7 +504,7 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
+    @NotNull
     public OptionData setMaxValue(long value)
     {
         if (type != OptionType.INTEGER && type != OptionType.NUMBER)
@@ -528,7 +528,7 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
+    @NotNull
     public OptionData setMaxValue(double value)
     {
         if (type != OptionType.NUMBER)
@@ -555,7 +555,7 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
+    @NotNull
     public OptionData setRequiredRange(long minValue, long maxValue)
     {
         if (type != OptionType.INTEGER && type != OptionType.NUMBER)
@@ -584,7 +584,7 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
+    @NotNull
     public OptionData setRequiredRange(double minValue, double maxValue)
     {
         if (type != OptionType.NUMBER)
@@ -618,8 +618,8 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
-    public OptionData addChoice(@Nonnull String name, double value)
+    @NotNull
+    public OptionData addChoice(@NotNull String name, double value)
     {
         Checks.notEmpty(name, "Name");
         Checks.notLonger(name, MAX_CHOICE_NAME_LENGTH, "Name");
@@ -655,8 +655,8 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
-    public OptionData addChoice(@Nonnull String name, long value)
+    @NotNull
+    public OptionData addChoice(@NotNull String name, long value)
     {
         Checks.notEmpty(name, "Name");
         Checks.notLonger(name, MAX_CHOICE_NAME_LENGTH, "Name");
@@ -692,8 +692,8 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
-    public OptionData addChoice(@Nonnull String name, @Nonnull String value)
+    @NotNull
+    public OptionData addChoice(@NotNull String name, @NotNull String value)
     {
         Checks.notEmpty(name, "Name");
         Checks.notEmpty(value, "Value");
@@ -727,8 +727,8 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
-    public OptionData addChoices(@Nonnull Command.Choice... choices)
+    @NotNull
+    public OptionData addChoices(@NotNull Command.Choice... choices)
     {
         if (choices.length == 0)
             return this;
@@ -771,14 +771,14 @@ public class OptionData implements SerializableData
      *
      * @return The OptionData instance, for chaining
      */
-    @Nonnull
-    public OptionData addChoices(@Nonnull Collection<? extends Command.Choice> choices)
+    @NotNull
+    public OptionData addChoices(@NotNull Collection<? extends Command.Choice> choices)
     {
         Checks.noneNull(choices, "Choices");
         return addChoices(choices.toArray(new Command.Choice[0]));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public DataObject toData()
     {
@@ -824,8 +824,8 @@ public class OptionData implements SerializableData
      *
      * @return The parsed OptionData instance, which can be further configured through setters
      */
-    @Nonnull
-    public static OptionData fromData(@Nonnull DataObject json)
+    @NotNull
+    public static OptionData fromData(@NotNull DataObject json)
     {
         String name = json.getString("name");
         String description = json.getString("description");
@@ -881,8 +881,8 @@ public class OptionData implements SerializableData
      *
      * @return An instance of OptionData
      */
-    @Nonnull
-    public static OptionData fromOption(@Nonnull Command.Option option)
+    @NotNull
+    public static OptionData fromOption(@NotNull Command.Option option)
     {
         Checks.notNull(option, "Option");
         OptionData data = new OptionData(option.getType(), option.getName(), option.getDescription());

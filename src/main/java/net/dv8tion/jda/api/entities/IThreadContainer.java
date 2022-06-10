@@ -20,9 +20,9 @@ import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.requests.restaction.ThreadChannelAction;
 import net.dv8tion.jda.api.requests.restaction.pagination.ThreadChannelPaginationAction;
 import net.dv8tion.jda.api.utils.MiscUtil;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -74,7 +74,7 @@ public interface IThreadContainer extends GuildChannel, IPermissionContainer
      *
      * @return A specific {@link ThreadChannelAction} that may be used to configure the new ThreadChannel before its creation.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default ThreadChannelAction createThreadChannel(String name)
     {
@@ -119,7 +119,7 @@ public interface IThreadContainer extends GuildChannel, IPermissionContainer
      *
      * @return A specific {@link ThreadChannelAction} that may be used to configure the new ThreadChannel before its creation.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     ThreadChannelAction createThreadChannel(String name, boolean isPrivate);
 
@@ -159,7 +159,7 @@ public interface IThreadContainer extends GuildChannel, IPermissionContainer
      *
      * @return A specific {@link ThreadChannelAction} that may be used to configure the new ThreadChannel before its creation.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     ThreadChannelAction createThreadChannel(String name, long messageId);
 
@@ -199,7 +199,7 @@ public interface IThreadContainer extends GuildChannel, IPermissionContainer
      *
      * @return A specific {@link ThreadChannelAction} that may be used to configure the new ThreadChannel before its creation.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default ThreadChannelAction createThreadChannel(String name, String messageId)
     {
@@ -207,17 +207,17 @@ public interface IThreadContainer extends GuildChannel, IPermissionContainer
     }
 
     //TODO-v5: Docs
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     ThreadChannelPaginationAction retrieveArchivedPublicThreadChannels();
 
     //TODO-v5: Docs
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     ThreadChannelPaginationAction retrieveArchivedPrivateThreadChannels();
 
     //TODO-v5: Docs
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     ThreadChannelPaginationAction retrieveArchivedPrivateJoinedThreadChannels();
 }

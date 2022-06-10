@@ -19,8 +19,8 @@ package net.dv8tion.jda.api.events.interaction.component;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 import net.dv8tion.jda.api.interactions.components.selections.SelectMenuInteraction;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -36,27 +36,27 @@ public class SelectMenuInteractionEvent extends GenericComponentInteractionCreat
 {
     private final SelectMenuInteraction menuInteraction;
 
-    public SelectMenuInteractionEvent(@Nonnull JDA api, long responseNumber, @Nonnull SelectMenuInteraction interaction)
+    public SelectMenuInteractionEvent(@NotNull JDA api, long responseNumber, @NotNull SelectMenuInteraction interaction)
     {
         super(api, responseNumber, interaction);
         this.menuInteraction = interaction;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public SelectMenuInteraction getInteraction()
     {
         return menuInteraction;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public SelectMenu getComponent()
     {
         return menuInteraction.getComponent();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<String> getValues()
     {

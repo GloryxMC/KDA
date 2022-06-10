@@ -20,8 +20,8 @@ import net.dv8tion.jda.api.interactions.commands.CommandInteractionPayload;
 import net.dv8tion.jda.api.interactions.commands.context.ContextInteraction;
 import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.function.Function;
 
 public abstract class ContextInteractionImpl<T> extends CommandInteractionImpl implements ContextInteraction<T>, CommandInteractionPayloadMixin
@@ -42,7 +42,7 @@ public abstract class ContextInteractionImpl<T> extends CommandInteractionImpl i
         return payload;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public T getTarget()
     {

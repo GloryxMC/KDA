@@ -16,8 +16,9 @@
 
 package net.dv8tion.jda.api.interactions;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 
 /**
  * Enum for interaction types.
@@ -46,7 +47,7 @@ public enum InteractionType
         return key;
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public static InteractionType fromKey(int key)
     {

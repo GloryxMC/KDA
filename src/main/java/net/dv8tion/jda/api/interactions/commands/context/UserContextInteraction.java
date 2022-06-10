@@ -19,15 +19,15 @@ package net.dv8tion.jda.api.interactions.commands.context;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Interaction with a user context menu command
  */
 public interface UserContextInteraction extends ContextInteraction<User>
 {
-    @Nonnull
+    @NotNull
     @Override
     default ContextTarget getTargetType()
     {

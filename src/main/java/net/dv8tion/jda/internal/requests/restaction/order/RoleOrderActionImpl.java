@@ -28,7 +28,7 @@ import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
 import okhttp3.RequestBody;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -78,7 +78,7 @@ public class RoleOrderActionImpl
 
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Guild getGuild()
     {

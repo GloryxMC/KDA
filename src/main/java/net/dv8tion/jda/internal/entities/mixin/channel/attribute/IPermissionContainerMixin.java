@@ -26,7 +26,7 @@ import net.dv8tion.jda.internal.entities.mixin.channel.middleman.GuildChannelMix
 import net.dv8tion.jda.internal.requests.restaction.PermissionOverrideActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,7 +34,7 @@ public interface IPermissionContainerMixin<T extends IPermissionContainerMixin<T
 {
     // ---- Default implementations of interface ----
     @Override
-    default PermissionOverride getPermissionOverride(@Nonnull IPermissionHolder permissionHolder)
+    default PermissionOverride getPermissionOverride(@NotNull IPermissionHolder permissionHolder)
     {
         Checks.notNull(permissionHolder, "Permission Holder");
         Checks.check(permissionHolder.getGuild().equals(getGuild()), "Provided permission holder is not from the same guild as this channel!");
@@ -43,7 +43,7 @@ public interface IPermissionContainerMixin<T extends IPermissionContainerMixin<T
         return overrides.get(permissionHolder.getIdLong());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     default List<PermissionOverride> getPermissionOverrides()
     {
@@ -51,9 +51,9 @@ public interface IPermissionContainerMixin<T extends IPermissionContainerMixin<T
         return Arrays.asList(overrides.values(new PermissionOverride[overrides.size()]));
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    default PermissionOverrideAction upsertPermissionOverride(@Nonnull IPermissionHolder permissionHolder)
+    default PermissionOverrideAction upsertPermissionOverride(@NotNull IPermissionHolder permissionHolder)
     {
         checkPermission(Permission.MANAGE_PERMISSIONS);
         Checks.notNull(permissionHolder, "PermissionHolder");
@@ -68,7 +68,7 @@ public interface IPermissionContainerMixin<T extends IPermissionContainerMixin<T
 
     // --- Default implementation of parent mixins hooks ----
     @Override
-    @Nonnull
+    @NotNull
     default IPermissionContainer getPermissionContainer()
     {
         return this;

@@ -21,10 +21,11 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.*;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
@@ -34,22 +35,22 @@ import java.util.function.BooleanSupplier;
  */
 public interface CommandEditAction extends RestAction<Command>
 {
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     CommandEditAction setCheck(@Nullable BooleanSupplier checks);
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    CommandEditAction addCheck(@Nonnull BooleanSupplier checks);
+    CommandEditAction addCheck(@NotNull BooleanSupplier checks);
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    CommandEditAction timeout(long timeout, @Nonnull TimeUnit unit);
+    CommandEditAction timeout(long timeout, @NotNull TimeUnit unit);
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     CommandEditAction deadline(long timestamp);
@@ -68,9 +69,9 @@ public interface CommandEditAction extends RestAction<Command>
      * @see    Commands
      * @see    CommandCreateAction
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    CommandEditAction apply(@Nonnull CommandData commandData);
+    CommandEditAction apply(@NotNull CommandData commandData);
 
     /**
      * Whether this command is available to everyone by default.
@@ -81,7 +82,7 @@ public interface CommandEditAction extends RestAction<Command>
      *
      * @return The CommandEditAction instance, for chaining
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     CommandEditAction setDefaultEnabled(boolean enabled);
 
@@ -96,7 +97,7 @@ public interface CommandEditAction extends RestAction<Command>
      *
      * @return The CommandEditAction instance, for chaining
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     CommandEditAction setName(@Nullable String name);
 
@@ -111,7 +112,7 @@ public interface CommandEditAction extends RestAction<Command>
      *
      * @return The CommandEditAction instance, for chaining
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     CommandEditAction setDescription(@Nullable String description);
 
@@ -120,7 +121,7 @@ public interface CommandEditAction extends RestAction<Command>
      *
      * @return The CommandEditAction instance, for chaining
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     CommandEditAction clearOptions();
 
@@ -144,9 +145,9 @@ public interface CommandEditAction extends RestAction<Command>
      *
      * @return The CommandEditAction instance, for chaining
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    CommandEditAction addOptions(@Nonnull OptionData... options);
+    CommandEditAction addOptions(@NotNull OptionData... options);
 
     /**
      * Adds up to 25 options to this command.
@@ -168,9 +169,9 @@ public interface CommandEditAction extends RestAction<Command>
      *
      * @return The CommandEditAction instance, for chaining
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default CommandEditAction addOptions(@Nonnull Collection<? extends OptionData> options)
+    default CommandEditAction addOptions(@NotNull Collection<? extends OptionData> options)
     {
         Checks.noneNull(options, "Options");
         return addOptions(options.toArray(new OptionData[0]));
@@ -202,9 +203,9 @@ public interface CommandEditAction extends RestAction<Command>
      *
      * @return The CommandEditAction instance, for chaining
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default CommandEditAction addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description, boolean required)
+    default CommandEditAction addOption(@NotNull OptionType type, @NotNull String name, @NotNull String description, boolean required)
     {
         return addOptions(new OptionData(type, name, description).setRequired(required));
     }
@@ -233,9 +234,9 @@ public interface CommandEditAction extends RestAction<Command>
      *
      * @return The CommandEditAction instance, for chaining
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default CommandEditAction addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description)
+    default CommandEditAction addOption(@NotNull OptionType type, @NotNull String name, @NotNull String description)
     {
         return addOption(type, name, description, false);
     }
@@ -253,9 +254,9 @@ public interface CommandEditAction extends RestAction<Command>
      *
      * @return The CommandEditAction instance, for chaining
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    CommandEditAction addSubcommands(@Nonnull SubcommandData... subcommands);
+    CommandEditAction addSubcommands(@NotNull SubcommandData... subcommands);
 
     /**
      * Add up to 25 {@link SubcommandData Subcommands} to this command.
@@ -270,9 +271,9 @@ public interface CommandEditAction extends RestAction<Command>
      *
      * @return The CommandEditAction instance, for chaining
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default CommandEditAction addSubcommands(@Nonnull Collection<? extends SubcommandData> subcommands)
+    default CommandEditAction addSubcommands(@NotNull Collection<? extends SubcommandData> subcommands)
     {
         Checks.noneNull(subcommands, "Subcommands");
         return addSubcommands(subcommands.toArray(new SubcommandData[0]));
@@ -291,9 +292,9 @@ public interface CommandEditAction extends RestAction<Command>
      *
      * @return The CommandEditAction instance, for chaining
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    CommandEditAction addSubcommandGroups(@Nonnull SubcommandGroupData... groups);
+    CommandEditAction addSubcommandGroups(@NotNull SubcommandGroupData... groups);
 
     /**
      * Add up to 25 {@link SubcommandGroupData Subcommand-Groups} to this command.
@@ -308,9 +309,9 @@ public interface CommandEditAction extends RestAction<Command>
      *
      * @return The CommandEditAction instance, for chaining
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default CommandEditAction addSubcommandGroups(@Nonnull Collection<? extends SubcommandGroupData> groups)
+    default CommandEditAction addSubcommandGroups(@NotNull Collection<? extends SubcommandGroupData> groups)
     {
         Checks.noneNull(groups, "SubcommandGroups");
         return addSubcommandGroups(groups.toArray(new SubcommandGroupData[0]));

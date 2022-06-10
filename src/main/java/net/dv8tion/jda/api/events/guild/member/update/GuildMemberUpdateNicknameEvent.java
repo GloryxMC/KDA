@@ -18,9 +18,9 @@ package net.dv8tion.jda.api.events.guild.member.update;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Member;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Indicates that a {@link net.dv8tion.jda.api.entities.Member Member} updated their {@link net.dv8tion.jda.api.entities.Guild Guild} nickname.
@@ -44,7 +44,7 @@ public class GuildMemberUpdateNicknameEvent extends GenericGuildMemberUpdateEven
 {
     public static final String IDENTIFIER = "nick";
 
-    public GuildMemberUpdateNicknameEvent(@Nonnull JDA api, long responseNumber, @Nonnull Member member, @Nullable String oldNick)
+    public GuildMemberUpdateNicknameEvent(@NotNull JDA api, long responseNumber, @NotNull Member member, @Nullable String oldNick)
     {
         super(api, responseNumber, member, oldNick, member.getNickname(), IDENTIFIER);
     }

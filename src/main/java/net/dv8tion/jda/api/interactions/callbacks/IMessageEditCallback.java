@@ -24,9 +24,9 @@ import net.dv8tion.jda.api.interactions.components.LayoutComponent;
 import net.dv8tion.jda.api.requests.restaction.interactions.MessageEditCallbackAction;
 import net.dv8tion.jda.internal.requests.restaction.interactions.MessageEditCallbackActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -62,7 +62,7 @@ public interface IMessageEditCallback extends IDeferrableCallback
      *
      * @see    #editMessage(String)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     MessageEditCallbackAction deferEdit();
 
@@ -83,9 +83,9 @@ public interface IMessageEditCallback extends IDeferrableCallback
      *
      * @return {@link MessageEditCallbackAction} that can be used to further update the message
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction editMessage(@Nonnull Message message)
+    default MessageEditCallbackAction editMessage(@NotNull Message message)
     {
         Checks.notNull(message, "Message");
         MessageEditCallbackActionImpl action = (MessageEditCallbackActionImpl) deferEdit();
@@ -109,9 +109,9 @@ public interface IMessageEditCallback extends IDeferrableCallback
      *
      * @return {@link MessageEditCallbackAction} that can be used to further update the message
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction editMessage(@Nonnull String content)
+    default MessageEditCallbackAction editMessage(@NotNull String content)
     {
         Checks.notNull(content, "Content");
         return deferEdit().setContent(content);
@@ -139,9 +139,9 @@ public interface IMessageEditCallback extends IDeferrableCallback
      *
      * @see    LayoutComponent#isMessageCompatible()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction editComponents(@Nonnull Collection<? extends LayoutComponent> components)
+    default MessageEditCallbackAction editComponents(@NotNull Collection<? extends LayoutComponent> components)
     {
         Checks.noneNull(components, "Components");
         if (components.stream().anyMatch(it -> !(it instanceof ActionRow)))
@@ -172,9 +172,9 @@ public interface IMessageEditCallback extends IDeferrableCallback
      *
      * @see    LayoutComponent#isMessageCompatible()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction editComponents(@Nonnull LayoutComponent... components)
+    default MessageEditCallbackAction editComponents(@NotNull LayoutComponent... components)
     {
         Checks.noneNull(components, "LayoutComponents");
         return editComponents(Arrays.asList(components));
@@ -197,9 +197,9 @@ public interface IMessageEditCallback extends IDeferrableCallback
      *
      * @return {@link MessageEditCallbackAction} that can be used to further update the message
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction editMessageEmbeds(@Nonnull Collection<? extends MessageEmbed> embeds)
+    default MessageEditCallbackAction editMessageEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
     {
         Checks.noneNull(embeds, "MessageEmbed");
         return deferEdit().setEmbeds(embeds);
@@ -222,9 +222,9 @@ public interface IMessageEditCallback extends IDeferrableCallback
      *
      * @return {@link MessageEditCallbackAction} that can be used to further update the message
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction editMessageEmbeds(@Nonnull MessageEmbed... embeds)
+    default MessageEditCallbackAction editMessageEmbeds(@NotNull MessageEmbed... embeds)
     {
         Checks.noneNull(embeds, "MessageEmbed");
         return deferEdit().setEmbeds(embeds);
@@ -249,9 +249,9 @@ public interface IMessageEditCallback extends IDeferrableCallback
      *
      * @return {@link MessageEditCallbackAction} that can be used to further update the message
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction editMessageFormat(@Nonnull String format, @Nonnull Object... args)
+    default MessageEditCallbackAction editMessageFormat(@NotNull String format, @NotNull Object... args)
     {
         Checks.notNull(format, "Format String");
         return editMessage(String.format(format, args));

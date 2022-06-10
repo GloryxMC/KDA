@@ -20,8 +20,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.Event;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Indicates that an {@link net.dv8tion.jda.api.entities.Emote Emote} was created/removed/updated.
@@ -29,7 +28,7 @@ import javax.annotation.Nonnull;
  * <h2>Requirements</h2>
  *
  * <p>These events require the {@link net.dv8tion.jda.api.utils.cache.CacheFlag#EMOTE EMOTE} CacheFlag to be enabled, which requires
- * the {@link net.dv8tion.jda.api.requests.GatewayIntent#GUILD_EMOJIS GUILD_EMOJIS} intent.
+ * the {@link net.dv8tion.jda.api.requests.GatewayIntent#GUILD_EMOJIS_AND_STICKERS GUILD_EMOJIS_AND_STICKERS} intent.
  *
  * <br>{@link net.dv8tion.jda.api.JDABuilder#createLight(String) createLight(String)} disables that CacheFlag by default!
  */
@@ -37,7 +36,7 @@ public abstract class GenericEmoteEvent extends Event
 {
     protected final Emote emote;
 
-    public GenericEmoteEvent(@Nonnull JDA api, long responseNumber, @Nonnull Emote emote)
+    public GenericEmoteEvent(@NotNull JDA api, long responseNumber, @NotNull Emote emote)
     {
         super(api, responseNumber);
         this.emote = emote;
@@ -48,7 +47,7 @@ public abstract class GenericEmoteEvent extends Event
      *
      * @return The origin Guild
      */
-    @Nonnull
+    @NotNull
     public Guild getGuild()
     {
         return emote.getGuild();
@@ -59,7 +58,7 @@ public abstract class GenericEmoteEvent extends Event
      *
      * @return The emote
      */
-    @Nonnull
+    @NotNull
     public Emote getEmote()
     {
         return emote;

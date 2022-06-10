@@ -25,9 +25,10 @@ import net.dv8tion.jda.internal.entities.GuildImpl;
 import net.dv8tion.jda.internal.entities.MemberImpl;
 import net.dv8tion.jda.internal.entities.PrivateChannelImpl;
 import net.dv8tion.jda.internal.entities.UserImpl;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Locale;
 
 public class InteractionImpl implements Interaction
@@ -117,7 +118,7 @@ public class InteractionImpl implements Interaction
         return type;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getToken()
     {
@@ -138,13 +139,13 @@ public class InteractionImpl implements Interaction
         return channel;
     }
 
-    @Nonnull
+    @NotNull
     public Locale getUserLocale()
     {
         return userLocale;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public User getUser()
     {
@@ -158,7 +159,7 @@ public class InteractionImpl implements Interaction
         return member;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JDA getJDA()
     {

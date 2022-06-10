@@ -22,8 +22,8 @@ import net.dv8tion.jda.api.interactions.components.selections.SelectMenuInteract
 import net.dv8tion.jda.utils.data.DataArray;
 import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,21 +56,21 @@ public class SelectMenuInteractionImpl extends ComponentInteractionImpl implemen
         }
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public SelectMenu getComponent()
     {
         return menu;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Component.Type getComponentType()
     {
         return Component.Type.SELECT_MENU;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<String> getValues()
     {

@@ -18,9 +18,9 @@ package net.dv8tion.jda.internal.utils.config.sharding;
 
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.function.IntFunction;
 
 public class PresenceProviderConfig
@@ -62,7 +62,7 @@ public class PresenceProviderConfig
         this.idleProvider = idleProvider;
     }
 
-    @Nonnull
+    @NotNull
     public static PresenceProviderConfig getDefault()
     {
         return new PresenceProviderConfig();

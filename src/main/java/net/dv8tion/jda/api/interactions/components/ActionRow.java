@@ -22,9 +22,9 @@ import net.dv8tion.jda.internal.interactions.component.ButtonImpl;
 import net.dv8tion.jda.internal.interactions.component.SelectMenuImpl;
 import net.dv8tion.jda.internal.interactions.component.TextInputImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -54,8 +54,8 @@ public class ActionRow implements LayoutComponent
      *
      * @return ActionRow instance
      */
-    @Nonnull
-    public static ActionRow fromData(@Nonnull DataObject data)
+    @NotNull
+    public static ActionRow fromData(@NotNull DataObject data)
     {
         Checks.notNull(data, "Data");
         ActionRow row = new ActionRow();
@@ -93,8 +93,8 @@ public class ActionRow implements LayoutComponent
      *
      * @return The action row
      */
-    @Nonnull
-    public static ActionRow of(@Nonnull Collection<? extends ItemComponent> components)
+    @NotNull
+    public static ActionRow of(@NotNull Collection<? extends ItemComponent> components)
     {
         Checks.noneNull(components, "Components");
         return of(components.toArray(new ItemComponent[0]));
@@ -112,8 +112,8 @@ public class ActionRow implements LayoutComponent
      *
      * @return The action row
      */
-    @Nonnull
-    public static ActionRow of(@Nonnull ItemComponent... components)
+    @NotNull
+    public static ActionRow of(@NotNull ItemComponent... components)
     {
         Checks.noneNull(components, "Components");
         Checks.check(components.length > 0, "Cannot have empty row!");
@@ -157,8 +157,8 @@ public class ActionRow implements LayoutComponent
      *
      * @return {@link List} of {@link ActionRow}
      */
-    @Nonnull
-    public static List<ActionRow> partitionOf(@Nonnull Collection<? extends ItemComponent> components)
+    @NotNull
+    public static List<ActionRow> partitionOf(@NotNull Collection<? extends ItemComponent> components)
     {
         Checks.noneNull(components, "Components");
 
@@ -212,8 +212,8 @@ public class ActionRow implements LayoutComponent
      *
      * @return {@link List} of {@link ActionRow}
      */
-    @Nonnull
-    public static List<ActionRow> partitionOf(@Nonnull ItemComponent... components)
+    @NotNull
+    public static List<ActionRow> partitionOf(@NotNull ItemComponent... components)
     {
         Checks.notNull(components, "Components");
         return partitionOf(Arrays.asList(components));
@@ -225,14 +225,14 @@ public class ActionRow implements LayoutComponent
      *
      * @return The list of components
      */
-    @Nonnull
+    @NotNull
     @Override
     public List<ItemComponent> getComponents()
     {
         return components;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public ActionRow withDisabled(boolean disabled)
@@ -246,7 +246,7 @@ public class ActionRow implements LayoutComponent
                 .collect(Collectors.toList()));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public ActionRow asDisabled()
@@ -254,7 +254,7 @@ public class ActionRow implements LayoutComponent
         return withDisabled(true);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public ActionRow asEnabled()
@@ -262,14 +262,14 @@ public class ActionRow implements LayoutComponent
         return withDisabled(false);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Component.Type getType()
     {
         return Component.Type.ACTION_ROW;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public DataObject toData()
     {
@@ -278,7 +278,7 @@ public class ActionRow implements LayoutComponent
                 .put("components", DataArray.fromCollection(components));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Iterator<ItemComponent> iterator()
     {

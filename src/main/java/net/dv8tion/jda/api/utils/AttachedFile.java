@@ -20,9 +20,9 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.utils.data.DataArray;
 import net.dv8tion.jda.utils.data.DataObject;
 import okhttp3.MultipartBody;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
@@ -53,8 +53,8 @@ public interface AttachedFile extends Closeable
      *
      * @see    java.io.FileInputStream FileInputStream
      */
-    @Nonnull
-    static FileUpload fromData(@Nonnull InputStream data, @Nonnull String name)
+    @NotNull
+    static FileUpload fromData(@NotNull InputStream data, @NotNull String name)
     {
         return FileUpload.fromData(data, name);
     }
@@ -73,8 +73,8 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link FileUpload}
      */
-    @Nonnull
-    static FileUpload fromData(@Nonnull byte[] data, @Nonnull String name)
+    @NotNull
+    static FileUpload fromData(@NotNull byte[] data, @NotNull String name)
     {
         return FileUpload.fromData(data, name);
     }
@@ -100,8 +100,8 @@ public interface AttachedFile extends Closeable
      *
      * @see    java.io.FileInputStream FileInputStream
      */
-    @Nonnull
-    static FileUpload fromData(@Nonnull File file, @Nonnull String name)
+    @NotNull
+    static FileUpload fromData(@NotNull File file, @NotNull String name)
     {
         return FileUpload.fromData(file, name);
     }
@@ -126,8 +126,8 @@ public interface AttachedFile extends Closeable
      * @see    java.io.FileInputStream FileInputStream
      * @see    #fromData(File, String)
      */
-    @Nonnull
-    static FileUpload fromData(@Nonnull File file)
+    @NotNull
+    static FileUpload fromData(@NotNull File file)
     {
         return FileUpload.fromData(file);
     }
@@ -153,8 +153,8 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link FileUpload}
      */
-    @Nonnull
-    static FileUpload fromData(@Nonnull Path path, @Nonnull String name, @Nonnull OpenOption... options)
+    @NotNull
+    static FileUpload fromData(@NotNull Path path, @NotNull String name, @NotNull OpenOption... options)
     {
         return FileUpload.fromData(path, name, options);
     }
@@ -179,8 +179,8 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link FileUpload}
      */
-    @Nonnull
-    static FileUpload fromData(@Nonnull Path path, @Nonnull OpenOption... options)
+    @NotNull
+    static FileUpload fromData(@NotNull Path path, @NotNull OpenOption... options)
     {
         return FileUpload.fromData(path, options);
     }
@@ -194,7 +194,7 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link AttachmentUpdate}
      */
-    @Nonnull
+    @NotNull
     static AttachmentUpdate fromAttachment(long id)
     {
         return AttachmentUpdate.fromAttachment(id);
@@ -212,8 +212,8 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link AttachmentUpdate}
      */
-    @Nonnull
-    static AttachmentUpdate fromAttachment(@Nonnull String id)
+    @NotNull
+    static AttachmentUpdate fromAttachment(@NotNull String id)
     {
         return AttachmentUpdate.fromAttachment(id);
     }
@@ -228,30 +228,11 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link AttachmentUpdate}
      */
-    @Nonnull
-    static AttachmentUpdate fromAttachment(@Nonnull Message.Attachment attachment)
+    @NotNull
+    static AttachmentUpdate fromAttachment(@NotNull Message.Attachment attachment)
     {
         return AttachmentUpdate.fromAttachment(attachment);
     }
-
-    /**
-     * Marks this attachment as used and throws if it has already been used.
-     * <br>This does nothing on {@link AttachmentUpdate}.
-     *
-     * @throws IllegalStateException
-     *         If this attachment has already been used
-     */
-    void claim();
-
-    /**
-     * Whether this attached file has already been used.
-     * <br>When this is true, {@link #claim()} will throw an {@link IllegalStateException}.
-     *
-     * <p>Resources cannot be read multiple times, so repeated use of this instance is not allowed.
-     *
-     * @return True if this attachment has already been used
-     */
-    boolean isClaimed();
 
     /**
      * Used internally to build the multipart request.
@@ -263,7 +244,7 @@ public interface AttachedFile extends Closeable
      * @param index
      *        The index of the attachment, ignored for {@link AttachmentUpdate}
      */
-    void addPart(@Nonnull MultipartBody.Builder builder, int index);
+    void addPart(@NotNull MultipartBody.Builder builder, int index);
 
     /**
      * Used internally to build attachment descriptions for requests.
@@ -274,7 +255,7 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link DataObject} for the attachment
      */
-    @Nonnull
+    @NotNull
     DataObject toAttachmentData(int index);
 
     /**
@@ -291,8 +272,8 @@ public interface AttachedFile extends Closeable
      *
      * @return {@link MultipartBody.Builder}
      */
-    @Nonnull
-    static MultipartBody.Builder createMultipartBody(@Nonnull List<? extends AttachedFile> files, @Nullable DataObject payloadJson)
+    @NotNull
+    static MultipartBody.Builder createMultipartBody(@NotNull List<? extends AttachedFile> files, @Nullable DataObject payloadJson)
     {
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         DataArray descriptors = DataArray.empty();

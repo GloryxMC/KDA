@@ -18,8 +18,7 @@ package net.dv8tion.jda.api.entities;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.managers.channel.concrete.VoiceChannelManager;
 import net.dv8tion.jda.api.requests.restaction.ChannelAction;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents a Discord Voice GuildChannel.
@@ -50,18 +49,18 @@ public interface VoiceChannel extends AudioChannel, ICategorizableChannel, ICopy
      */
     int getUserLimit();
 
-    @Nonnull
+    @NotNull
     @Override
-    ChannelAction<VoiceChannel> createCopy(@Nonnull Guild guild);
+    ChannelAction<VoiceChannel> createCopy(@NotNull Guild guild);
 
-    @Nonnull
+    @NotNull
     @Override
     default ChannelAction<VoiceChannel> createCopy()
     {
         return createCopy(getGuild());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     VoiceChannelManager getManager();
 }

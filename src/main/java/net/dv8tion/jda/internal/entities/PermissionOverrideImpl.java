@@ -28,7 +28,7 @@ import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.requests.restaction.AuditableRestActionImpl;
 import net.dv8tion.jda.internal.requests.restaction.PermissionOverrideActionImpl;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.EnumSet;
 import java.util.Objects;
 
@@ -68,28 +68,28 @@ public class PermissionOverrideImpl implements PermissionOverride
         return deny;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public EnumSet<Permission> getAllowed()
     {
         return Permission.getPermissions(allow);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public EnumSet<Permission> getInherit()
     {
         return Permission.getPermissions(getInheritRaw());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public EnumSet<Permission> getDenied()
     {
         return Permission.getPermissions(deny);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JDA getJDA()
     {
@@ -114,7 +114,7 @@ public class PermissionOverrideImpl implements PermissionOverride
         return getGuild().getRoleById(id);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public IPermissionContainer getChannel()
     {
@@ -124,7 +124,7 @@ public class PermissionOverrideImpl implements PermissionOverride
         return channel;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Guild getGuild()
     {
@@ -143,7 +143,7 @@ public class PermissionOverrideImpl implements PermissionOverride
         return isRole;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public PermissionOverrideAction getManager()
     {
@@ -151,7 +151,7 @@ public class PermissionOverrideImpl implements PermissionOverride
         return new PermissionOverrideActionImpl(this).setOverride(false);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public AuditableRestAction<Void> delete()
     {

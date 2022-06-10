@@ -21,9 +21,10 @@ import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
 import net.dv8tion.jda.api.interactions.components.Modal;
 import net.dv8tion.jda.api.interactions.modals.ModalMapping;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public interface ModalInteraction extends IReplyCallback, IMessageEditCallback
      * 
      * @see    Modal.Builder#setId(String)
      */
-    @Nonnull
+    @NotNull
     String getModalId();
 
     /**
@@ -53,7 +54,7 @@ public interface ModalInteraction extends IReplyCallback, IMessageEditCallback
      *
      * @see    #getValue(String)
      */
-    @Nonnull
+    @NotNull
     List<ModalMapping> getValues();
 
     /**
@@ -72,7 +73,7 @@ public interface ModalInteraction extends IReplyCallback, IMessageEditCallback
      * @see    #getValues()
      */
     @Nullable
-    default ModalMapping getValue(@Nonnull String id)
+    default ModalMapping getValue(@NotNull String id)
     {
         Checks.notNull(id, "ID");
         return getValues().stream()

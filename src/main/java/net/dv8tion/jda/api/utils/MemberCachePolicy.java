@@ -22,8 +22,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.internal.utils.Checks;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Policy which decides whether a member (and respective user) should be kept in cache.
@@ -122,7 +121,7 @@ public interface MemberCachePolicy
      *
      * @return True, if the member should be cached
      */
-    boolean cacheMember(@Nonnull Member member);
+    boolean cacheMember(@NotNull Member member);
 
     /**
      * Convenience method to concatenate another policy.
@@ -136,8 +135,8 @@ public interface MemberCachePolicy
      *
      * @return New policy which combines both using a logical OR
      */
-    @Nonnull
-    default MemberCachePolicy or(@Nonnull MemberCachePolicy policy)
+    @NotNull
+    default MemberCachePolicy or(@NotNull MemberCachePolicy policy)
     {
         Checks.notNull(policy, "Policy");
         return (member) -> cacheMember(member) || policy.cacheMember(member);
@@ -155,8 +154,8 @@ public interface MemberCachePolicy
      *
      * @return New policy which combines both using a logical AND
      */
-    @Nonnull
-    default MemberCachePolicy and(@Nonnull MemberCachePolicy policy)
+    @NotNull
+    default MemberCachePolicy and(@NotNull MemberCachePolicy policy)
     {
         return (member) -> cacheMember(member) && policy.cacheMember(member);
     }
@@ -172,8 +171,8 @@ public interface MemberCachePolicy
      *
      * @return New policy which combines all provided polices using a logical OR
      */
-    @Nonnull
-    static MemberCachePolicy any(@Nonnull MemberCachePolicy policy, @Nonnull MemberCachePolicy... policies)
+    @NotNull
+    static MemberCachePolicy any(@NotNull MemberCachePolicy policy, @NotNull MemberCachePolicy... policies)
     {
         Checks.notNull(policy, "Policy");
         Checks.notNull(policies, "Policy");
@@ -193,8 +192,8 @@ public interface MemberCachePolicy
      *
      * @return New policy which combines all provided polices using a logical AND
      */
-    @Nonnull
-    static MemberCachePolicy all(@Nonnull MemberCachePolicy policy, @Nonnull MemberCachePolicy... policies)
+    @NotNull
+    static MemberCachePolicy all(@NotNull MemberCachePolicy policy, @NotNull MemberCachePolicy... policies)
     {
         Checks.notNull(policy, "Policy");
         Checks.notNull(policies, "Policy");

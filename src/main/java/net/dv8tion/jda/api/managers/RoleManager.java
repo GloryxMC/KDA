@@ -21,10 +21,11 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Icon;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Collection;
@@ -80,7 +81,7 @@ public interface RoleManager extends Manager<RoleManager>
      *
      * @return RoleManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @Override
     RoleManager reset(long fields);
 
@@ -104,7 +105,7 @@ public interface RoleManager extends Manager<RoleManager>
      *
      * @return RoleManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @Override
     RoleManager reset(long... fields);
 
@@ -114,7 +115,7 @@ public interface RoleManager extends Manager<RoleManager>
      *
      * @return The target Role
      */
-    @Nonnull
+    @NotNull
     Role getRole();
 
     /**
@@ -124,7 +125,7 @@ public interface RoleManager extends Manager<RoleManager>
      *
      * @return The parent {@link net.dv8tion.jda.api.entities.Guild Guild}
      */
-    @Nonnull
+    @NotNull
     default Guild getGuild()
     {
         return getRole().getGuild();
@@ -143,9 +144,9 @@ public interface RoleManager extends Manager<RoleManager>
      *
      * @return RoleManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    RoleManager setName(@Nonnull String name);
+    RoleManager setName(@NotNull String name);
 
     /**
      * Sets the {@link net.dv8tion.jda.api.Permission Permissions} of the selected {@link net.dv8tion.jda.api.entities.Role Role}.
@@ -164,7 +165,7 @@ public interface RoleManager extends Manager<RoleManager>
      * @see    #setPermissions(Collection)
      * @see    #setPermissions(Permission...)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RoleManager setPermissions(long perms);
 
@@ -188,9 +189,9 @@ public interface RoleManager extends Manager<RoleManager>
      * @see    #setPermissions(long)
      * @see    net.dv8tion.jda.api.Permission#getRaw(net.dv8tion.jda.api.Permission...) Permission.getRaw(Permission...)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RoleManager setPermissions(@Nonnull Permission... permissions)
+    default RoleManager setPermissions(@NotNull Permission... permissions)
     {
         Checks.notNull(permissions, "Permissions");
         return setPermissions(Arrays.asList(permissions));
@@ -217,9 +218,9 @@ public interface RoleManager extends Manager<RoleManager>
      * @see    java.util.EnumSet EnumSet
      * @see    net.dv8tion.jda.api.Permission#getRaw(java.util.Collection) Permission.getRaw(Collection)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RoleManager setPermissions(@Nonnull Collection<Permission> permissions)
+    default RoleManager setPermissions(@NotNull Collection<Permission> permissions)
     {
         Checks.noneNull(permissions, "Permissions");
         return setPermissions(Permission.getRaw(permissions));
@@ -233,7 +234,7 @@ public interface RoleManager extends Manager<RoleManager>
      *
      * @return RoleManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default RoleManager setColor(@Nullable Color color)
     {
@@ -250,7 +251,7 @@ public interface RoleManager extends Manager<RoleManager>
      *
      * @see    Role#DEFAULT_COLOR_RAW Role.DEFAULT_COLOR_RAW
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RoleManager setColor(int rgb);
 
@@ -262,7 +263,7 @@ public interface RoleManager extends Manager<RoleManager>
      *
      * @return RoleManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RoleManager setHoisted(boolean hoisted);
 
@@ -274,7 +275,7 @@ public interface RoleManager extends Manager<RoleManager>
      *
      * @return RoleManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RoleManager setMentionable(boolean mentionable);
 
@@ -287,7 +288,7 @@ public interface RoleManager extends Manager<RoleManager>
      *
      * @return RoleManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RoleManager setIcon(@Nullable Icon icon);
 
@@ -300,7 +301,7 @@ public interface RoleManager extends Manager<RoleManager>
      *
      * @return RoleManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RoleManager setIcon(@Nullable String emoji);
 
@@ -322,9 +323,9 @@ public interface RoleManager extends Manager<RoleManager>
      * @see    #setPermissions(Permission...)
      * @see    net.dv8tion.jda.api.Permission#getRaw(net.dv8tion.jda.api.Permission...) Permission.getRaw(Permission...)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RoleManager givePermissions(@Nonnull Permission... perms)
+    default RoleManager givePermissions(@NotNull Permission... perms)
     {
         Checks.notNull(perms, "Permissions");
         return givePermissions(Arrays.asList(perms));
@@ -349,9 +350,9 @@ public interface RoleManager extends Manager<RoleManager>
      * @see    java.util.EnumSet EnumSet
      * @see    net.dv8tion.jda.api.Permission#getRaw(java.util.Collection) Permission.getRaw(Collection)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    RoleManager givePermissions(@Nonnull Collection<Permission> perms);
+    RoleManager givePermissions(@NotNull Collection<Permission> perms);
 
     /**
      * Revokes the specified {@link net.dv8tion.jda.api.Permission Permissions} from the selected {@link net.dv8tion.jda.api.entities.Role Role}.
@@ -371,9 +372,9 @@ public interface RoleManager extends Manager<RoleManager>
      * @see    #setPermissions(Permission...)
      * @see    net.dv8tion.jda.api.Permission#getRaw(net.dv8tion.jda.api.Permission...) Permission.getRaw(Permission...)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RoleManager revokePermissions(@Nonnull Permission... perms)
+    default RoleManager revokePermissions(@NotNull Permission... perms)
     {
         Checks.notNull(perms, "Permissions");
         return revokePermissions(Arrays.asList(perms));
@@ -398,7 +399,7 @@ public interface RoleManager extends Manager<RoleManager>
      * @see    java.util.EnumSet EnumSet
      * @see    net.dv8tion.jda.api.Permission#getRaw(java.util.Collection) Permission.getRaw(Collection)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    RoleManager revokePermissions(@Nonnull Collection<Permission> perms);
+    RoleManager revokePermissions(@NotNull Collection<Permission> perms);
 }

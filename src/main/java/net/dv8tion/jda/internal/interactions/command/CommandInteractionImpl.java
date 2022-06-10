@@ -27,8 +27,7 @@ import net.dv8tion.jda.internal.interactions.DeferrableInteractionImpl;
 import net.dv8tion.jda.internal.requests.restaction.interactions.ModalCallbackActionImpl;
 import net.dv8tion.jda.internal.requests.restaction.interactions.ReplyCallbackActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class CommandInteractionImpl extends DeferrableInteractionImpl implements CommandInteraction, CommandInteractionPayloadMixin
 {
@@ -46,16 +45,16 @@ public class CommandInteractionImpl extends DeferrableInteractionImpl implements
         return payload;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ReplyCallbackAction deferReply()
     {
         return new ReplyCallbackActionImpl(hook);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ModalCallbackAction replyModal(@Nonnull Modal modal)
+    public ModalCallbackAction replyModal(@NotNull Modal modal)
     {
         Checks.notNull(modal, "Modal");
 

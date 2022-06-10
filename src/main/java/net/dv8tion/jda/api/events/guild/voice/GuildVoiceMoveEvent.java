@@ -19,8 +19,7 @@ package net.dv8tion.jda.api.events.guild.voice;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.Member;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Indicates that a {@link net.dv8tion.jda.api.entities.Member Member} moves between {@link net.dv8tion.jda.api.entities.AudioChannel AudioChannels}.
@@ -45,33 +44,33 @@ import javax.annotation.Nonnull;
  */
 public class GuildVoiceMoveEvent extends GenericGuildVoiceUpdateEvent
 {
-    public GuildVoiceMoveEvent(@Nonnull JDA api, long responseNumber, @Nonnull Member member, @Nonnull AudioChannel channelLeft)
+    public GuildVoiceMoveEvent(@NotNull JDA api, long responseNumber, @NotNull Member member, @NotNull AudioChannel channelLeft)
     {
          super(api, responseNumber, member, channelLeft, member.getVoiceState().getChannel());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public AudioChannel getChannelLeft()
     {
         return super.getChannelLeft();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public AudioChannel getChannelJoined()
     {
         return super.getChannelJoined();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public AudioChannel getOldValue()
     {
         return super.getOldValue();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public AudioChannel getNewValue()
     {

@@ -18,7 +18,7 @@ package net.dv8tion.jda.api.interactions.commands.context;
 
 import net.dv8tion.jda.api.interactions.commands.CommandInteraction;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents application comments which are invoked as context menu items in the client UI.
@@ -35,7 +35,7 @@ public interface ContextInteraction<T> extends CommandInteraction
      *
      * @return The context target type
      */
-    @Nonnull
+    @NotNull
     ContextTarget getTargetType();
 
     /**
@@ -43,7 +43,7 @@ public interface ContextInteraction<T> extends CommandInteraction
      *
      * @return The target entity
      */
-    @Nonnull
+    @NotNull
     T getTarget();
 
     /**

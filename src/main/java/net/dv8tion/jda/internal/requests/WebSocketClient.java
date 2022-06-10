@@ -51,7 +51,7 @@ import net.dv8tion.jda.internal.utils.compress.ZlibDecompressor;
 import org.slf4j.Logger;
 import org.slf4j.MDC;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.ref.SoftReference;
@@ -1339,6 +1339,7 @@ public class WebSocketClient extends WebSocketAdapter implements WebSocketListen
         handlers.put("GUILD_ROLE_DELETE",             new GuildRoleDeleteHandler(api));
         handlers.put("GUILD_ROLE_UPDATE",             new GuildRoleUpdateHandler(api));
         handlers.put("GUILD_SYNC",                    new GuildSyncHandler(api));
+        handlers.put("GUILD_STICKERS_UPDATE",         new GuildStickersUpdateHandler(api));
         handlers.put("GUILD_UPDATE",                  new GuildUpdateHandler(api));
         handlers.put("INTERACTION_CREATE",            new InteractionCreateHandler(api));
         handlers.put("INVITE_CREATE",                 new InviteCreateHandler(api));
@@ -1377,14 +1378,14 @@ public class WebSocketClient extends WebSocketAdapter implements WebSocketListen
 
     protected abstract class ConnectNode implements SessionController.SessionConnectNode
     {
-        @Nonnull
+        @NotNull
         @Override
         public JDA getJDA()
         {
             return api;
         }
 
-        @Nonnull
+        @NotNull
         @Override
         public JDA.ShardInfo getShardInfo()
         {

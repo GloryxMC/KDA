@@ -21,9 +21,9 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.ThreadChannel;
 import net.dv8tion.jda.api.entities.ThreadMember;
 import net.dv8tion.jda.api.events.thread.GenericThreadEvent;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 //TODO-v5: Docs
 public class GenericThreadMemberEvent extends GenericThreadEvent
@@ -31,7 +31,7 @@ public class GenericThreadMemberEvent extends GenericThreadEvent
     protected final long threadMemberId;
     protected final ThreadMember threadMember;
 
-    public GenericThreadMemberEvent(@Nonnull JDA api, long responseNumber, ThreadChannel thread, long threadMemberId, ThreadMember threadMember)
+    public GenericThreadMemberEvent(@NotNull JDA api, long responseNumber, ThreadChannel thread, long threadMemberId, ThreadMember threadMember)
     {
         super(api, responseNumber, thread);
 

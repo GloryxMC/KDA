@@ -24,9 +24,9 @@ import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.CommandAutoCompleteInteraction;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.requests.restaction.interactions.AutoCompleteCallbackAction;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Collection;
 import java.util.List;
 
@@ -45,34 +45,34 @@ public class CommandAutoCompleteInteractionEvent extends GenericAutoCompleteInte
 {
     private final CommandAutoCompleteInteraction interaction;
 
-    public CommandAutoCompleteInteractionEvent(@Nonnull JDA api, long responseNumber, @Nonnull CommandAutoCompleteInteraction interaction)
+    public CommandAutoCompleteInteractionEvent(@NotNull JDA api, long responseNumber, @NotNull CommandAutoCompleteInteraction interaction)
     {
         super(api, responseNumber, interaction);
         this.interaction = interaction;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CommandAutoCompleteInteraction getInteraction()
     {
         return interaction;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public AutoCompleteQuery getFocusedOption()
     {
         return interaction.getFocusedOption();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Command.Type getCommandType()
     {
         return interaction.getCommandType();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getName()
     {
@@ -105,16 +105,16 @@ public class CommandAutoCompleteInteractionEvent extends GenericAutoCompleteInte
         return interaction.isGuildCommand();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<OptionMapping> getOptions()
     {
         return interaction.getOptions();
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public AutoCompleteCallbackAction replyChoices(@Nonnull Collection<Command.Choice> choices)
+    public AutoCompleteCallbackAction replyChoices(@NotNull Collection<Command.Choice> choices)
     {
         return interaction.replyChoices(choices);
     }

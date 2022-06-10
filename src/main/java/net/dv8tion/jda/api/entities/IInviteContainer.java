@@ -18,9 +18,9 @@ package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.InviteAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -44,7 +44,7 @@ public interface IInviteContainer extends GuildChannel
      *
      * @see    InviteAction
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     InviteAction createInvite();
 
@@ -61,7 +61,7 @@ public interface IInviteContainer extends GuildChannel
      *
      * @see    Guild#retrieveInvites()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RestAction<List<Invite>> retrieveInvites();
 }

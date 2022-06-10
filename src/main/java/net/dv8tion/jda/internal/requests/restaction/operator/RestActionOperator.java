@@ -20,8 +20,9 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.exceptions.ContextException;
 import net.dv8tion.jda.api.requests.RestAction;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
@@ -70,14 +71,14 @@ public abstract class RestActionOperator<I, O> implements RestAction<O>
         }, catcher);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JDA getJDA()
     {
         return action.getJDA();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RestAction<O> setCheck(@Nullable BooleanSupplier checks)
     {
@@ -93,7 +94,7 @@ public abstract class RestActionOperator<I, O> implements RestAction<O>
         return action.getCheck();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RestAction<O> deadline(long timestamp)
     {

@@ -19,8 +19,7 @@ package net.dv8tion.jda.internal.entities;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.internal.JDAImpl;
 import net.dv8tion.jda.internal.entities.mixin.channel.middleman.ChannelMixin;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractChannelImpl<T extends AbstractChannelImpl<T>> implements ChannelMixin<T>
 {
@@ -35,7 +34,7 @@ public abstract class AbstractChannelImpl<T extends AbstractChannelImpl<T>> impl
         this.api = (JDAImpl) api;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JDA getJDA()
     {
@@ -48,7 +47,7 @@ public abstract class AbstractChannelImpl<T extends AbstractChannelImpl<T>> impl
         return id;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getName()
     {

@@ -19,8 +19,7 @@ package net.dv8tion.jda.api.interactions.commands;
 import net.dv8tion.jda.api.interactions.AutoCompleteQuery;
 import net.dv8tion.jda.api.interactions.callbacks.IAutoCompleteCallback;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Interaction for auto-complete options in slash-commands.
@@ -42,6 +41,6 @@ public interface CommandAutoCompleteInteraction extends IAutoCompleteCallback, C
      *
      * @return The focused {@link AutoCompleteQuery}
      */
-    @Nonnull
+    @NotNull
     AutoCompleteQuery getFocusedOption();
 }

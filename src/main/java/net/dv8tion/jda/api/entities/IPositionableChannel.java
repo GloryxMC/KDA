@@ -17,8 +17,8 @@
 package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.managers.channel.attribute.IPositionableChannelManager;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +33,7 @@ public interface IPositionableChannel extends GuildChannel
 {
     //TODO-v5: Docs
     @Override
-    @Nonnull
+    @NotNull
     IPositionableChannelManager<?, ?> getManager();
 
     //TODO-v5: We should probably reconsider how getPosition is calculated as it isn't particularly useful anymore...

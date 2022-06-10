@@ -27,8 +27,8 @@ import net.dv8tion.jda.utils.data.DataArray;
 import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
 import net.dv8tion.jda.internal.entities.mentions.AbstractMentions;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -67,7 +67,7 @@ public class MessageMentionsImpl extends AbstractMentions
         getMembers();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public synchronized List<Member> getMembers()
     {
@@ -100,7 +100,7 @@ public class MessageMentionsImpl extends AbstractMentions
         return mentionedMembers = Collections.unmodifiableList(members);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public synchronized List<User> getUsers()
     {

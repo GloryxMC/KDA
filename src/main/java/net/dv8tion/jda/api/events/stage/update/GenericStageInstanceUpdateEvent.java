@@ -20,9 +20,9 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.StageInstance;
 import net.dv8tion.jda.api.events.UpdateEvent;
 import net.dv8tion.jda.api.events.stage.GenericStageInstanceEvent;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Indicates that a {@link net.dv8tion.jda.api.entities.StageInstance StageInstance} was updated.
@@ -36,7 +36,7 @@ public abstract class GenericStageInstanceUpdateEvent<T> extends GenericStageIns
     protected final T next;
     protected final String identifier;
 
-    public GenericStageInstanceUpdateEvent(@Nonnull JDA api, long responseNumber, @Nonnull StageInstance stageInstance, T previous, T next, String identifier)
+    public GenericStageInstanceUpdateEvent(@NotNull JDA api, long responseNumber, @NotNull StageInstance stageInstance, T previous, T next, String identifier)
     {
         super(api, responseNumber, stageInstance);
         this.previous = previous;
@@ -44,14 +44,14 @@ public abstract class GenericStageInstanceUpdateEvent<T> extends GenericStageIns
         this.identifier = identifier;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getPropertyIdentifier()
     {
         return identifier;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public StageInstance getEntity()
     {

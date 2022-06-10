@@ -21,7 +21,7 @@ import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 import net.dv8tion.jda.api.interactions.components.text.TextInput;
 import net.dv8tion.jda.utils.data.SerializableData;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Component of a Message or Modal.
@@ -45,7 +45,7 @@ public interface Component extends SerializableData
      *
      * @return {@link Type}
      */
-    @Nonnull
+    @NotNull
     Type getType();
 
     /**
@@ -143,7 +143,7 @@ public interface Component extends SerializableData
          *
          * @return The Type or {@link #UNKNOWN}
          */
-        @Nonnull
+        @NotNull
         public static Type fromKey(int type)
         {
             for (Type t : values())

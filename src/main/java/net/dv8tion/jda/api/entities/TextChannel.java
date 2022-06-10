@@ -19,7 +19,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.managers.channel.concrete.TextChannelManager;
 import net.dv8tion.jda.api.requests.restaction.ChannelAction;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents a standard Discord Text GuildChannel.
@@ -63,18 +63,18 @@ public interface TextChannel extends BaseGuildMessageChannel
      */
     int getSlowmode();
 
-    @Nonnull
+    @NotNull
     @Override
-    ChannelAction<TextChannel> createCopy(@Nonnull Guild guild);
+    ChannelAction<TextChannel> createCopy(@NotNull Guild guild);
 
-    @Nonnull
+    @NotNull
     @Override
     default ChannelAction<TextChannel> createCopy()
     {
         return createCopy(getGuild());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     TextChannelManager getManager();
 }

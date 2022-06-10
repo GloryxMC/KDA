@@ -19,9 +19,9 @@ package net.dv8tion.jda.api.interactions.callbacks;
 import net.dv8tion.jda.api.interactions.Interaction;
 import net.dv8tion.jda.api.interactions.components.Modal;
 import net.dv8tion.jda.api.requests.restaction.interactions.ModalCallbackAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 
 /**
  * Interactions which allow sending modals as a response.
@@ -48,7 +48,7 @@ public interface IModalCallback extends Interaction
      *        
      * @return ModalCallbackAction
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    ModalCallbackAction replyModal(@Nonnull Modal modal);
+    ModalCallbackAction replyModal(@NotNull Modal modal);
 }

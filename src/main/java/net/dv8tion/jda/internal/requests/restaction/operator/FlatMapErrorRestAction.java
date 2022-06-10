@@ -21,8 +21,8 @@ import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.internal.utils.Helpers;
 import org.jetbrains.annotations.Contract;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -98,7 +98,7 @@ public class FlatMapErrorRestAction<T> extends RestActionOperator<T, T>
         throw new AssertionError("Unreachable");
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CompletableFuture<T> submit(boolean shouldQueue)
     {

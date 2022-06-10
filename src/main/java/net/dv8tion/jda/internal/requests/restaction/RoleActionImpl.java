@@ -29,9 +29,9 @@ import net.dv8tion.jda.internal.entities.GuildImpl;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
 import okhttp3.RequestBody;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
 
@@ -58,35 +58,35 @@ public class RoleActionImpl extends AuditableRestActionImpl<Role> implements Rol
         this.guild = guild;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RoleActionImpl setCheck(BooleanSupplier checks)
     {
         return (RoleActionImpl) super.setCheck(checks);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public RoleActionImpl timeout(long timeout, @Nonnull TimeUnit unit)
+    public RoleActionImpl timeout(long timeout, @NotNull TimeUnit unit)
     {
         return (RoleActionImpl) super.timeout(timeout, unit);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RoleActionImpl deadline(long timestamp)
     {
         return (RoleActionImpl) super.deadline(timestamp);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Guild getGuild()
     {
         return guild;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public RoleActionImpl setName(String name)
@@ -100,7 +100,7 @@ public class RoleActionImpl extends AuditableRestActionImpl<Role> implements Rol
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public RoleActionImpl setHoisted(Boolean hoisted)
@@ -109,7 +109,7 @@ public class RoleActionImpl extends AuditableRestActionImpl<Role> implements Rol
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public RoleActionImpl setMentionable(Boolean mentionable)
@@ -118,7 +118,7 @@ public class RoleActionImpl extends AuditableRestActionImpl<Role> implements Rol
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public RoleActionImpl setColor(Integer rgb)
@@ -127,7 +127,7 @@ public class RoleActionImpl extends AuditableRestActionImpl<Role> implements Rol
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public RoleActionImpl setPermissions(Long permissions)
@@ -141,7 +141,7 @@ public class RoleActionImpl extends AuditableRestActionImpl<Role> implements Rol
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public RoleActionImpl setIcon(Icon icon)
@@ -151,7 +151,7 @@ public class RoleActionImpl extends AuditableRestActionImpl<Role> implements Rol
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public RoleActionImpl setIcon(String emoji)

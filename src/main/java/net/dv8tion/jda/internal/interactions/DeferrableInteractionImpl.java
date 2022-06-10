@@ -22,7 +22,7 @@ import net.dv8tion.jda.api.interactions.callbacks.IDeferrableCallback;
 import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class DeferrableInteractionImpl extends InteractionImpl implements IDeferrableCallback
 {
@@ -43,7 +43,7 @@ public class DeferrableInteractionImpl extends InteractionImpl implements IDefer
             hook.fail(new InteractionFailureException());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public InteractionHook getHook()
     {

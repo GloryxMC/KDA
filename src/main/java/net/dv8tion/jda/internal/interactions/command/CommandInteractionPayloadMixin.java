@@ -19,23 +19,23 @@ package net.dv8tion.jda.internal.interactions.command;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.CommandInteractionPayload;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public interface CommandInteractionPayloadMixin extends CommandInteractionPayload
 {
     CommandInteractionPayload getCommandPayload();
 
-    @Nonnull
+    @NotNull
     @Override
     default Command.Type getCommandType()
     {
         return getCommandPayload().getCommandType();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     default String getName()
     {
@@ -62,7 +62,7 @@ public interface CommandInteractionPayloadMixin extends CommandInteractionPayloa
         return getCommandPayload().getCommandIdLong();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     default List<OptionMapping> getOptions()
     {

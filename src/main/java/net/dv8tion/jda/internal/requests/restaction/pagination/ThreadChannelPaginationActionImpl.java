@@ -15,7 +15,7 @@ import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.entities.EntityBuilder;
 import net.dv8tion.jda.internal.requests.Route;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -32,14 +32,14 @@ public class ThreadChannelPaginationActionImpl extends PaginationActionImpl<Thre
         this.useID = useID;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public IThreadContainer getChannel()
     {
         return channel;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public EnumSet<PaginationOrder> getSupportedOrders()
     {

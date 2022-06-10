@@ -18,8 +18,8 @@ package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.managers.channel.attribute.ICategorizableChannelManager;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 /**
@@ -33,7 +33,7 @@ public interface ICategorizableChannel extends GuildChannel, IPermissionContaine
 {
     //TODO-v5: Docs
     @Override
-    @Nonnull
+    @NotNull
     ICategorizableChannelManager<?, ?> getManager();
 
     /**

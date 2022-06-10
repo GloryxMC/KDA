@@ -32,8 +32,8 @@ import okhttp3.RequestBody;
 import org.apache.commons.collections4.map.CaseInsensitiveMap;
 import org.slf4j.Logger;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.*;
 import java.util.function.BiFunction;
 import java.util.function.BooleanSupplier;
@@ -90,7 +90,7 @@ public class RestActionImpl<T> implements RestAction<T>
         DEFAULT_SUCCESS = callback == null ? t -> {} : callback;
     }
 
-    public static void setDefaultTimeout(long timeout, @Nonnull TimeUnit unit)
+    public static void setDefaultTimeout(long timeout, @NotNull TimeUnit unit)
     {
         Checks.notNull(unit, "TimeUnit");
         defaultTimeout = unit.toMillis(timeout);
@@ -153,14 +153,14 @@ public class RestActionImpl<T> implements RestAction<T>
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JDA getJDA()
     {
         return api;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RestAction<T> setCheck(BooleanSupplier checks)
     {
@@ -175,7 +175,7 @@ public class RestActionImpl<T> implements RestAction<T>
         return this.checks;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RestAction<T> deadline(long timestamp)
     {
@@ -198,7 +198,7 @@ public class RestActionImpl<T> implements RestAction<T>
         api.getRequester().request(new Request<>(this, success, failure, finisher, true, data, rawData, getDeadline(), priority, route, headers));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CompletableFuture<T> submit(boolean shouldQueue)
     {

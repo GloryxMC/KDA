@@ -23,9 +23,9 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.interactions.Interaction;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Locale;
 
 /**
@@ -42,7 +42,7 @@ public class GenericInteractionCreateEvent extends Event implements Interaction
 {
     private final Interaction interaction;
 
-    public GenericInteractionCreateEvent(@Nonnull JDA api, long responseNumber, @Nonnull Interaction interaction)
+    public GenericInteractionCreateEvent(@NotNull JDA api, long responseNumber, @NotNull Interaction interaction)
     {
         super(api, responseNumber);
         this.interaction = interaction;
@@ -54,13 +54,13 @@ public class GenericInteractionCreateEvent extends Event implements Interaction
      *
      * @return The {@link Interaction}
      */
-    @Nonnull
+    @NotNull
     public Interaction getInteraction()
     {
         return interaction;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getToken()
     {
@@ -87,14 +87,14 @@ public class GenericInteractionCreateEvent extends Event implements Interaction
         return interaction.getChannel();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Locale getUserLocale()
     {
         return interaction.getUserLocale();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Locale getGuildLocale()
     {
@@ -108,7 +108,7 @@ public class GenericInteractionCreateEvent extends Event implements Interaction
         return interaction.getMember();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public User getUser()
     {

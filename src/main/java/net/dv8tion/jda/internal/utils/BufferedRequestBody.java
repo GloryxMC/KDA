@@ -22,9 +22,10 @@ import okio.BufferedSink;
 import okio.BufferedSource;
 import okio.Okio;
 import okio.Source;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.IOException;
 
 public class BufferedRequestBody extends RequestBody
@@ -39,6 +40,32 @@ public class BufferedRequestBody extends RequestBody
         this.type = type;
     }
 
+    @NotNull
+    public BufferedRequestBody withType(@NotNull MediaType type)
+    {
+        if (type.equals(this.type))
+            return this;
+        synchronized (source)
+        {
+            BufferedRequestBody copy = new BufferedRequestBody(source, type);
+            copy.data = data;
+            return copy;
+        }
+    }
+
+    @Nonnull
+    public BufferedRequestBody withType(@Nonnull MediaType type)
+    {
+        if (type.equals(this.type))
+            return this;
+        synchronized (source)
+        {
+            BufferedRequestBody copy = new BufferedRequestBody(source, type);
+            copy.data = data;
+            return copy;
+        }
+    }
+
     @Nullable
     @Override
     public MediaType contentType()
@@ -47,18 +74,21 @@ public class BufferedRequestBody extends RequestBody
     }
 
     @Override
-    public void writeTo(@Nonnull BufferedSink sink) throws IOException
+    public void writeTo(@NotNull BufferedSink sink) throws IOException
     {
-        if (data != null)
+        synchronized (source)
         {
-            sink.write(data);
-            return;
-        }
+            if (data != null)
+            {
+                sink.write(data);
+                return;
+            }
 
-        try (BufferedSource s = Okio.buffer(source))
-        {
-            data = s.readByteArray();
-            sink.write(data);
+            try (BufferedSource s = Okio.buffer(source))
+            {
+                data = s.readByteArray();
+                sink.write(data);
+            }
         }
     }
 }

@@ -21,9 +21,9 @@ import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.callbacks.*;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.components.Modal;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Locale;
 
 /**
@@ -67,7 +67,7 @@ public interface Interaction extends ISnowflake
      *
      * @return The {@link InteractionType} or {@link InteractionType#UNKNOWN}
      */
-    @Nonnull
+    @NotNull
     default InteractionType getType()
     {
         return InteractionType.fromKey(getTypeRaw());
@@ -78,7 +78,7 @@ public interface Interaction extends ISnowflake
      *
      * @return The interaction token
      */
-    @Nonnull
+    @NotNull
     String getToken();
 
     /**
@@ -107,7 +107,7 @@ public interface Interaction extends ISnowflake
      *
      * @return The {@link ChannelType}
      */
-    @Nonnull
+    @NotNull
     default ChannelType getChannelType()
     {
         Channel channel = getChannel();
@@ -119,7 +119,7 @@ public interface Interaction extends ISnowflake
      *
      * @return The {@link User}
      */
-    @Nonnull
+    @NotNull
     User getUser();
 
     /**
@@ -158,7 +158,7 @@ public interface Interaction extends ISnowflake
      *
      * @return The {@link GuildChannel}
      */
-    @Nonnull
+    @NotNull
     default GuildChannel getGuildChannel()
     {
         Channel channel = getChannel();
@@ -176,7 +176,7 @@ public interface Interaction extends ISnowflake
      *
      * @return The {@link MessageChannel}
      */
-    @Nonnull
+    @NotNull
     default MessageChannel getMessageChannel()
     {
         Channel channel = getChannel();
@@ -194,7 +194,7 @@ public interface Interaction extends ISnowflake
      *
      * @return The {@link TextChannel}
      */
-    @Nonnull
+    @NotNull
     default TextChannel getTextChannel()
     {
         Channel channel = getChannel();
@@ -212,7 +212,7 @@ public interface Interaction extends ISnowflake
      *
      * @return The {@link NewsChannel}
      */
-    @Nonnull
+    @NotNull
     default NewsChannel getNewsChannel()
     {
         Channel channel = getChannel();
@@ -230,7 +230,7 @@ public interface Interaction extends ISnowflake
      *
      * @return The {@link VoiceChannel}
      */
-    @Nonnull
+    @NotNull
     default VoiceChannel getVoiceChannel()
     {
         Channel channel = getChannel();
@@ -248,7 +248,7 @@ public interface Interaction extends ISnowflake
      *
      * @return The {@link PrivateChannel}
      */
-    @Nonnull
+    @NotNull
     default PrivateChannel getPrivateChannel()
     {
         Channel channel = getChannel();
@@ -266,7 +266,7 @@ public interface Interaction extends ISnowflake
      *
      * @return The {@link ThreadChannel}
      */
-    @Nonnull
+    @NotNull
     default ThreadChannel getThreadChannel()
     {
         Channel channel = getChannel();
@@ -280,7 +280,7 @@ public interface Interaction extends ISnowflake
      *
      * @return The language of the invoking user
      */
-    @Nonnull
+    @NotNull
     Locale getUserLocale();
 
     /**
@@ -292,7 +292,7 @@ public interface Interaction extends ISnowflake
      *
      * @return The preferred language of the Guild
      */
-    @Nonnull
+    @NotNull
     default Locale getGuildLocale()
     {
         if (!isFromGuild())
@@ -305,7 +305,7 @@ public interface Interaction extends ISnowflake
      *
      * @return the corresponding JDA instance
      */
-    @Nonnull
+    @NotNull
     JDA getJDA();
 
 }

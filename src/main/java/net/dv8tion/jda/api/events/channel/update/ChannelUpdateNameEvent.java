@@ -20,14 +20,14 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Channel;
 import net.dv8tion.jda.api.entities.ChannelField;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 //TODO-v5: Docs
 public class ChannelUpdateNameEvent extends GenericChannelUpdateEvent<String>
 {
     public static final ChannelField FIELD = ChannelField.NAME;
 
-    public ChannelUpdateNameEvent(@Nonnull JDA api, long responseNumber, Channel channel, String oldValue, String newValue)
+    public ChannelUpdateNameEvent(@NotNull JDA api, long responseNumber, Channel channel, String oldValue, String newValue)
     {
         super(api, responseNumber, channel, FIELD, oldValue, newValue);
     }

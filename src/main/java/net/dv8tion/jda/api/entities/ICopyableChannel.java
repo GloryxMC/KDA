@@ -19,7 +19,7 @@ package net.dv8tion.jda.api.entities;
 import net.dv8tion.jda.api.requests.restaction.ChannelAction;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -65,9 +65,9 @@ public interface ICopyableChannel extends GuildChannel
      * @return A specific {@link ChannelAction ChannelAction}
      *         <br>This action allows to set fields for the new GuildChannel before creating it!
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    ChannelAction<? extends ICopyableChannel> createCopy(@Nonnull Guild guild);
+    ChannelAction<? extends ICopyableChannel> createCopy(@NotNull Guild guild);
 
     /**
      * Creates a copy of the specified {@link GuildChannel GuildChannel}.
@@ -97,7 +97,7 @@ public interface ICopyableChannel extends GuildChannel
      * @return A specific {@link ChannelAction ChannelAction}
      *         <br>This action allows to set fields for the new GuildChannel before creating it!
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     ChannelAction<? extends ICopyableChannel> createCopy();
 }

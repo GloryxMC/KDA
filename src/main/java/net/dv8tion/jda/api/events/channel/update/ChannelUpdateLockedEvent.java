@@ -20,14 +20,14 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Channel;
 import net.dv8tion.jda.api.entities.ChannelField;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 //TODO-v5: Docs
 public class ChannelUpdateLockedEvent extends GenericChannelUpdateEvent<Boolean>
 {
     public static final ChannelField FIELD = ChannelField.LOCKED;
 
-    public ChannelUpdateLockedEvent(@Nonnull JDA api, long responseNumber, Channel channel, Boolean oldValue, Boolean newValue)
+    public ChannelUpdateLockedEvent(@NotNull JDA api, long responseNumber, Channel channel, Boolean oldValue, Boolean newValue)
     {
         super(api, responseNumber, channel, FIELD, oldValue, newValue);
     }

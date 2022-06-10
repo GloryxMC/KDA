@@ -26,8 +26,8 @@ import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.internal.managers.StageInstanceManagerImpl;
 import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.EnumSet;
 
 public class StageInstanceImpl implements StageInstance
@@ -50,14 +50,14 @@ public class StageInstanceImpl implements StageInstance
         return id;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Guild getGuild()
     {
         return getChannel().getGuild();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public StageChannel getChannel()
     {
@@ -67,21 +67,21 @@ public class StageInstanceImpl implements StageInstance
         return channel;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getTopic()
     {
         return topic;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public PrivacyLevel getPrivacyLevel()
     {
         return privacyLevel;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RestAction<Void> delete()
     {
@@ -90,7 +90,7 @@ public class StageInstanceImpl implements StageInstance
         return new RestActionImpl<>(channel.getJDA(), route);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public StageInstanceManager getManager()
     {

@@ -18,8 +18,7 @@ package net.dv8tion.jda.api.events.thread;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.ThreadChannel;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This event is dispatched when a {@link ThreadChannel} that JDA didn't previously have access to (due to permissions) is now visible.
@@ -30,7 +29,7 @@ import javax.annotation.Nonnull;
  */
 public class ThreadRevealedEvent extends GenericThreadEvent
 {
-    public ThreadRevealedEvent(@Nonnull JDA api, long responseNumber, ThreadChannel thread)
+    public ThreadRevealedEvent(@NotNull JDA api, long responseNumber, ThreadChannel thread)
     {
         super(api, responseNumber, thread);
     }

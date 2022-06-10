@@ -21,10 +21,11 @@ import net.dv8tion.jda.api.managers.EmoteManager;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 import net.dv8tion.jda.api.utils.ImageProxy;
 import net.dv8tion.jda.internal.utils.PermissionUtil;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 /**
@@ -75,7 +76,7 @@ public interface Emote extends IMentionable
      *
      * @see    #canProvideRoles()
      */
-    @Nonnull
+    @NotNull
     List<Role> getRoles();
 
     /**
@@ -94,7 +95,7 @@ public interface Emote extends IMentionable
      *
      * @return String representation of this emote's name
      */
-    @Nonnull
+    @NotNull
     String getName();
 
     /**
@@ -129,7 +130,7 @@ public interface Emote extends IMentionable
      *
      * @return The JDA instance of this Emote
      */
-    @Nonnull
+    @NotNull
     JDA getJDA();
 
     /**
@@ -155,7 +156,7 @@ public interface Emote extends IMentionable
      * @return {@link AuditableRestAction AuditableRestAction}
      *         The RestAction to delete this Emote.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     AuditableRestAction<Void> delete();
 
@@ -174,7 +175,7 @@ public interface Emote extends IMentionable
      *
      * @return The EmoteManager for this Emote
      */
-    @Nonnull
+    @NotNull
     EmoteManager getManager();
 
     /**
@@ -192,7 +193,7 @@ public interface Emote extends IMentionable
      *
      * @return Discord CDN link to the Emote's image
      */
-    @Nonnull
+    @NotNull
     default String getImageUrl()
     {
         return String.format(ICON_URL, getId(), isAnimated() ? "gif" : "png");
@@ -205,7 +206,7 @@ public interface Emote extends IMentionable
      *
      * @see    #getImageUrl()
      */
-    @Nonnull
+    @NotNull
     default ImageProxy getImage()
     {
         return new ImageProxy(getImageUrl());
@@ -219,7 +220,7 @@ public interface Emote extends IMentionable
      *
      * @see    <a href="https://discord.com/developers/docs/resources/channel#message-formatting">Message Formatting</a>
      */
-    @Nonnull
+    @NotNull
     @Override
     default String getAsMention()
     {

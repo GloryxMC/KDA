@@ -19,7 +19,7 @@ package net.dv8tion.jda.internal.entities;
 import net.dv8tion.jda.api.entities.ApplicationTeam;
 import net.dv8tion.jda.api.entities.TeamMember;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class ApplicationTeamImpl implements ApplicationTeam
         return iconId;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<TeamMember> getMembers()
     {

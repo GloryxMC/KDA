@@ -21,8 +21,8 @@ import net.dv8tion.jda.internal.requests.Requester;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.IOUtil;
 import okhttp3.MultipartBody;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
@@ -66,8 +66,8 @@ public class FileUpload implements Closeable, AttachedFile
      *
      * @see    java.io.FileInputStream FileInputStream
      */
-    @Nonnull
-    public static FileUpload fromData(@Nonnull InputStream data, @Nonnull String name)
+    @NotNull
+    public static FileUpload fromData(@NotNull InputStream data, @NotNull String name)
     {
         Checks.notNull(data, "Data");
         Checks.notBlank(name, "Name");
@@ -88,8 +88,8 @@ public class FileUpload implements Closeable, AttachedFile
      *
      * @return {@link FileUpload}
      */
-    @Nonnull
-    public static FileUpload fromData(@Nonnull byte[] data, @Nonnull String name)
+    @NotNull
+    public static FileUpload fromData(@NotNull byte[] data, @NotNull String name)
     {
         Checks.notNull(data, "Data");
         Checks.notNull(name, "Name");
@@ -117,8 +117,8 @@ public class FileUpload implements Closeable, AttachedFile
      *
      * @see    java.io.FileInputStream FileInputStream
      */
-    @Nonnull
-    public static FileUpload fromData(@Nonnull File file, @Nonnull String name)
+    @NotNull
+    public static FileUpload fromData(@NotNull File file, @NotNull String name)
     {
         Checks.notNull(file, "File");
         try
@@ -151,8 +151,8 @@ public class FileUpload implements Closeable, AttachedFile
      * @see    java.io.FileInputStream FileInputStream
      * @see    #fromData(File, String)
      */
-    @Nonnull
-    public static FileUpload fromData(@Nonnull File file)
+    @NotNull
+    public static FileUpload fromData(@NotNull File file)
     {
         Checks.notNull(file, "File");
         try
@@ -186,8 +186,8 @@ public class FileUpload implements Closeable, AttachedFile
      *
      * @return {@link FileUpload}
      */
-    @Nonnull
-    public static FileUpload fromData(@Nonnull Path path, @Nonnull String name, @Nonnull OpenOption... options)
+    @NotNull
+    public static FileUpload fromData(@NotNull Path path, @NotNull String name, @NotNull OpenOption... options)
     {
         Checks.notNull(path, "Path");
         Checks.noneNull(options, "Options");
@@ -222,8 +222,8 @@ public class FileUpload implements Closeable, AttachedFile
      *
      * @return {@link FileUpload}
      */
-    @Nonnull
-    public static FileUpload fromData(@Nonnull Path path, @Nonnull OpenOption... options)
+    @NotNull
+    public static FileUpload fromData(@NotNull Path path, @NotNull OpenOption... options)
     {
         Checks.notNull(path, "Path");
         Path fileName = path.getFileName();
@@ -236,7 +236,7 @@ public class FileUpload implements Closeable, AttachedFile
      *
      * @return The filename
      */
-    @Nonnull
+    @NotNull
     public String getName()
     {
         return name;
@@ -247,7 +247,7 @@ public class FileUpload implements Closeable, AttachedFile
      *
      * @return The {@link InputStream}
      */
-    @Nonnull
+    @NotNull
     public InputStream getData()
     {
         return resource;
@@ -268,12 +268,12 @@ public class FileUpload implements Closeable, AttachedFile
     }
 
     @Override
-    public void addPart(@Nonnull MultipartBody.Builder builder, int index)
+    public void addPart(@NotNull MultipartBody.Builder builder, int index)
     {
         builder.addFormDataPart("files[" + index + "]", name, IOUtil.createRequestBody(Requester.MEDIA_TYPE_OCTET, resource));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public DataObject toAttachmentData(int index)
     {

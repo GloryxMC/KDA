@@ -20,7 +20,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.IThreadContainer;
 import net.dv8tion.jda.api.entities.ThreadChannel;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * {@link PaginationAction PaginationAction} that paginates the thread members endpoint.
@@ -59,7 +59,7 @@ import javax.annotation.Nonnull;
 public interface ThreadChannelPaginationAction extends PaginationAction<ThreadChannel, ThreadChannelPaginationAction>
 {
     //TODO-v5: Docs
-    @Nonnull
+    @NotNull
     IThreadContainer getChannel();
 
     /**
@@ -67,7 +67,7 @@ public interface ThreadChannelPaginationAction extends PaginationAction<ThreadCh
      *
      * @return The never-null target Guild
      */
-    @Nonnull
+    @NotNull
     default Guild getGuild()
     {
         return getChannel().getGuild();

@@ -25,8 +25,8 @@ import net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData;
 import net.dv8tion.jda.utils.data.DataArray;
 import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,14 +45,14 @@ public class CommandDataImpl implements SlashCommandData
 
     private final Command.Type type;
 
-    public CommandDataImpl(@Nonnull String name, @Nonnull String description)
+    public CommandDataImpl(@NotNull String name, @NotNull String description)
     {
         this.type = Command.Type.SLASH;
         setName(name);
         setDescription(description);
     }
 
-    public CommandDataImpl(@Nonnull Command.Type type, @Nonnull String name)
+    public CommandDataImpl(@NotNull Command.Type type, @NotNull String name)
     {
         this.type = type;
         Checks.notNull(type, "Command Type");
@@ -66,7 +66,7 @@ public class CommandDataImpl implements SlashCommandData
             throw new IllegalStateException("Cannot " + action + " for commands of type " + type);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public DataObject toData()
     {
@@ -80,14 +80,14 @@ public class CommandDataImpl implements SlashCommandData
         return json;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Command.Type getType()
     {
         return type;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<SubcommandData> getSubcommands()
     {
@@ -101,7 +101,7 @@ public class CommandDataImpl implements SlashCommandData
                 .collect(Collectors.toList());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<SubcommandGroupData> getSubcommandGroups()
     {
@@ -115,7 +115,7 @@ public class CommandDataImpl implements SlashCommandData
                 .collect(Collectors.toList());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CommandDataImpl setDefaultEnabled(boolean enabled)
     {
@@ -129,9 +129,9 @@ public class CommandDataImpl implements SlashCommandData
         return defaultPermissions;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public CommandDataImpl addOptions(@Nonnull OptionData... options)
+    public CommandDataImpl addOptions(@NotNull OptionData... options)
     {
         Checks.noneNull(options, "Option");
         if (options.length == 0)
@@ -161,9 +161,9 @@ public class CommandDataImpl implements SlashCommandData
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public CommandDataImpl addSubcommands(@Nonnull SubcommandData... subcommands)
+    public CommandDataImpl addSubcommands(@NotNull SubcommandData... subcommands)
     {
         Checks.noneNull(subcommands, "Subcommands");
         if (subcommands.length == 0)
@@ -184,9 +184,9 @@ public class CommandDataImpl implements SlashCommandData
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public CommandDataImpl addSubcommandGroups(@Nonnull SubcommandGroupData... groups)
+    public CommandDataImpl addSubcommandGroups(@NotNull SubcommandGroupData... groups)
     {
         Checks.noneNull(groups, "SubcommandGroups");
         if (groups.length == 0)
@@ -207,9 +207,9 @@ public class CommandDataImpl implements SlashCommandData
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public CommandDataImpl setName(@Nonnull String name)
+    public CommandDataImpl setName(@NotNull String name)
     {
         Checks.inRange(name, 1, 32, "Name");
         if (type == Command.Type.SLASH)
@@ -221,9 +221,9 @@ public class CommandDataImpl implements SlashCommandData
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public CommandDataImpl setDescription(@Nonnull String description)
+    public CommandDataImpl setDescription(@NotNull String description)
     {
         checkType(Command.Type.SLASH, "set description");
         Checks.notEmpty(description, "Description");
@@ -232,21 +232,21 @@ public class CommandDataImpl implements SlashCommandData
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getName()
     {
         return name;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getDescription()
     {
         return description;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<OptionData> getOptions()
     {

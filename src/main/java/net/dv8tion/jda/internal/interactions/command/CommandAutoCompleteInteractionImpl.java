@@ -24,8 +24,8 @@ import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
 import net.dv8tion.jda.internal.interactions.InteractionImpl;
 import net.dv8tion.jda.internal.requests.restaction.interactions.AutoCompleteCallbackActionImpl;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Collection;
 
 public class CommandAutoCompleteInteractionImpl extends InteractionImpl implements CommandInteractionPayloadMixin, CommandAutoCompleteInteraction
@@ -67,7 +67,7 @@ public class CommandAutoCompleteInteractionImpl extends InteractionImpl implemen
         }
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public AutoCompleteQuery getFocusedOption()
     {
@@ -80,9 +80,9 @@ public class CommandAutoCompleteInteractionImpl extends InteractionImpl implemen
         return payload;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public AutoCompleteCallbackAction replyChoices(@Nonnull Collection<Command.Choice> choices)
+    public AutoCompleteCallbackAction replyChoices(@NotNull Collection<Command.Choice> choices)
     {
         return new AutoCompleteCallbackActionImpl(this, focused.getType()).addChoices(choices);
     }

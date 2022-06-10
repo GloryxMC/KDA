@@ -24,8 +24,8 @@ import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.Helpers;
 import net.dv8tion.jda.internal.utils.JDALogger;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -128,7 +128,7 @@ public class ErrorResponseException extends RuntimeException
      *
      * @return Possibly-empty list of {@link SchemaError SchemaError}
      */
-    @Nonnull
+    @NotNull
     public List<SchemaError> getSchemaErrors()
     {
         return schemaErrors;
@@ -254,8 +254,8 @@ public class ErrorResponseException extends RuntimeException
      * @return {@link Consumer} decorator for {@link RestAction#getDefaultFailure()}
      *         which ignores the specified {@link ErrorResponse ErrorResponses}
      */
-    @Nonnull
-    public static Consumer<Throwable> ignore(@Nonnull Collection<ErrorResponse> set)
+    @NotNull
+    public static Consumer<Throwable> ignore(@NotNull Collection<ErrorResponse> set)
     {
         return ignore(RestAction.getDefaultFailure(), set);
     }
@@ -284,8 +284,8 @@ public class ErrorResponseException extends RuntimeException
      * @return {@link Consumer} decorator for {@link RestAction#getDefaultFailure()}
      *         which ignores the specified {@link ErrorResponse ErrorResponses}
      */
-    @Nonnull
-    public static Consumer<Throwable> ignore(@Nonnull ErrorResponse ignored, @Nonnull ErrorResponse... errorResponses)
+    @NotNull
+    public static Consumer<Throwable> ignore(@NotNull ErrorResponse ignored, @NotNull ErrorResponse... errorResponses)
     {
         return ignore(RestAction.getDefaultFailure(), ignored, errorResponses);
     }
@@ -316,8 +316,8 @@ public class ErrorResponseException extends RuntimeException
      * @return {@link Consumer} decorator for the provided callback
      *         which ignores the specified {@link ErrorResponse ErrorResponses}
      */
-    @Nonnull
-    public static Consumer<Throwable> ignore(@Nonnull Consumer<? super Throwable> orElse, @Nonnull ErrorResponse ignored, @Nonnull ErrorResponse... errorResponses)
+    @NotNull
+    public static Consumer<Throwable> ignore(@NotNull Consumer<? super Throwable> orElse, @NotNull ErrorResponse ignored, @NotNull ErrorResponse... errorResponses)
     {
         return ignore(orElse, EnumSet.of(ignored, errorResponses));
     }
@@ -346,8 +346,8 @@ public class ErrorResponseException extends RuntimeException
      * @return {@link Consumer} decorator for the provided callback
      *         which ignores the specified {@link ErrorResponse ErrorResponses}
      */
-    @Nonnull
-    public static Consumer<Throwable> ignore(@Nonnull Consumer<? super Throwable> orElse, @Nonnull Collection<ErrorResponse> set)
+    @NotNull
+    public static Consumer<Throwable> ignore(@NotNull Consumer<? super Throwable> orElse, @NotNull Collection<ErrorResponse> set)
     {
         Checks.notNull(orElse, "Callback");
         Checks.notEmpty(set, "Ignored collection");
@@ -376,7 +376,7 @@ public class ErrorResponseException extends RuntimeException
          *
          * @return The error code
          */
-        @Nonnull
+        @NotNull
         public String getCode()
         {
             return code;
@@ -387,7 +387,7 @@ public class ErrorResponseException extends RuntimeException
          *
          * @return The message
          */
-        @Nonnull
+        @NotNull
         public String getMessage()
         {
             return message;
@@ -423,7 +423,7 @@ public class ErrorResponseException extends RuntimeException
          *
          * @return The JSON-path location
          */
-        @Nonnull
+        @NotNull
         public String getLocation()
         {
             return location;
@@ -434,7 +434,7 @@ public class ErrorResponseException extends RuntimeException
          *
          * @return The error codes
          */
-        @Nonnull
+        @NotNull
         public List<ErrorCode> getErrors()
         {
             return errors;

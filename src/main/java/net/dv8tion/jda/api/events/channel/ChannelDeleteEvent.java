@@ -18,13 +18,12 @@ package net.dv8tion.jda.api.events.channel;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Channel;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 //TODO-v5: Docs
 public class ChannelDeleteEvent extends GenericChannelEvent
 {
-    public ChannelDeleteEvent(@Nonnull JDA api, long responseNumber, Channel channel)
+    public ChannelDeleteEvent(@NotNull JDA api, long responseNumber, Channel channel)
     {
         super(api, responseNumber, channel);
     }

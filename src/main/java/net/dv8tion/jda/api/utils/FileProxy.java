@@ -25,8 +25,8 @@ import okhttp3.Call;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,7 +58,7 @@ public class FileProxy
      * @throws IllegalArgumentException
      *         If the provided URL is null
      */
-    public FileProxy(@Nonnull String url)
+    public FileProxy(@NotNull String url)
     {
         Checks.notNull(url, "URL");
         this.url = url;
@@ -74,7 +74,7 @@ public class FileProxy
      * @throws IllegalArgumentException
      *         If the provided {@link OkHttpClient} is null
      */
-    public static void setDefaultHttpClient(@Nonnull OkHttpClient httpClient)
+    public static void setDefaultHttpClient(@NotNull OkHttpClient httpClient)
     {
         Checks.notNull(httpClient, "Default OkHttpClient");
         FileProxy.defaultHttpClient = httpClient;
@@ -86,7 +86,7 @@ public class FileProxy
      *
      * @return The URL of the file.
      */
-    @Nonnull
+    @NotNull
     public String getUrl()
     {
         return url;
@@ -103,8 +103,8 @@ public class FileProxy
      *
      * @return This proxy for chaining convenience.
      */
-    @Nonnull
-    public FileProxy withClient(@Nonnull OkHttpClient customHttpClient)
+    @NotNull
+    public FileProxy withClient(@NotNull OkHttpClient customHttpClient)
     {
         Checks.notNull(customHttpClient, "Custom HTTP client");
         this.customHttpClient = customHttpClient;
@@ -236,7 +236,7 @@ public class FileProxy
      *
      * @return {@link CompletableFuture} which holds an {@link InputStream}, the {@link InputStream} must be closed manually
      */
-    @Nonnull
+    @NotNull
     public CompletableFuture<InputStream> download()
     {
         return download(url);
@@ -250,7 +250,7 @@ public class FileProxy
      *
      * @return {@link CompletableFuture} which holds a {@link Path} which corresponds to the location the file has been downloaded.
      */
-    @Nonnull
+    @NotNull
     public CompletableFuture<Path> downloadToPath()
     {
         return downloadToPath(url);
@@ -274,8 +274,8 @@ public class FileProxy
      *
      * @return {@link CompletableFuture} which holds a {@link File}, it is the same as the file passed in the parameters.
      */
-    @Nonnull
-    public CompletableFuture<File> downloadToFile(@Nonnull File file)
+    @NotNull
+    public CompletableFuture<File> downloadToFile(@NotNull File file)
     {
         Checks.notNull(file, "File");
 
@@ -302,8 +302,8 @@ public class FileProxy
      *
      * @return {@link CompletableFuture} which holds a {@link Path}, it is the same as the path passed in the parameters.
      */
-    @Nonnull
-    public CompletableFuture<Path> downloadToPath(@Nonnull Path path)
+    @NotNull
+    public CompletableFuture<Path> downloadToPath(@NotNull Path path)
     {
         Checks.notNull(path, "Path");
 

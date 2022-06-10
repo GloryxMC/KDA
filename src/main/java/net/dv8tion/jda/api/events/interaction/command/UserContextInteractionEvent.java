@@ -22,8 +22,8 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
 import net.dv8tion.jda.api.interactions.commands.context.UserContextInteraction;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Indicates that a user context command was used.
@@ -37,12 +37,12 @@ import javax.annotation.Nullable;
  */
 public class UserContextInteractionEvent extends GenericContextInteractionEvent<User> implements UserContextInteraction
 {
-    public UserContextInteractionEvent(@Nonnull JDA api, long responseNumber, @Nonnull UserContextInteraction interaction)
+    public UserContextInteractionEvent(@NotNull JDA api, long responseNumber, @NotNull UserContextInteraction interaction)
     {
         super(api, responseNumber, interaction);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public UserContextInteraction getInteraction()
     {

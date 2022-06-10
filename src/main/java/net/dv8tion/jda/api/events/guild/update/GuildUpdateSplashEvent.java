@@ -20,8 +20,8 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.utils.ImageProxy;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Indicates that the splash of a {@link net.dv8tion.jda.api.entities.Guild Guild} changed.
@@ -34,7 +34,7 @@ public class GuildUpdateSplashEvent extends GenericGuildUpdateEvent<String>
 {
     public static final String IDENTIFIER = "splash";
 
-    public GuildUpdateSplashEvent(@Nonnull JDA api, long responseNumber, @Nonnull Guild guild, @Nullable String oldSplashId)
+    public GuildUpdateSplashEvent(@NotNull JDA api, long responseNumber, @NotNull Guild guild, @Nullable String oldSplashId)
     {
         super(api, responseNumber, guild, oldSplashId, guild.getSplashId(), IDENTIFIER);
     }

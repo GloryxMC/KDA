@@ -25,9 +25,9 @@ import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
 import okhttp3.RequestBody;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
 
@@ -46,28 +46,28 @@ public class InviteActionImpl extends AuditableRestActionImpl<Invite> implements
         super(api, Route.Invites.CREATE_INVITE.compile(channelId));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public InviteActionImpl setCheck(BooleanSupplier checks)
     {
         return (InviteActionImpl) super.setCheck(checks);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public InviteActionImpl timeout(long timeout, @Nonnull TimeUnit unit)
+    public InviteActionImpl timeout(long timeout, @NotNull TimeUnit unit)
     {
         return (InviteActionImpl) super.timeout(timeout, unit);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public InviteActionImpl deadline(long timestamp)
     {
         return (InviteActionImpl) super.deadline(timestamp);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public InviteActionImpl setMaxAge(final Integer maxAge)
@@ -79,10 +79,10 @@ public class InviteActionImpl extends AuditableRestActionImpl<Invite> implements
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    public InviteActionImpl setMaxAge(final Long maxAge, @Nonnull final TimeUnit timeUnit)
+    public InviteActionImpl setMaxAge(final Long maxAge, @NotNull final TimeUnit timeUnit)
     {
         if (maxAge == null)
             return this.setMaxAge(null);
@@ -93,7 +93,7 @@ public class InviteActionImpl extends AuditableRestActionImpl<Invite> implements
         return this.setMaxAge(Math.toIntExact(timeUnit.toSeconds(maxAge)));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public InviteActionImpl setMaxUses(final Integer maxUses)
@@ -105,7 +105,7 @@ public class InviteActionImpl extends AuditableRestActionImpl<Invite> implements
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public InviteActionImpl setTemporary(final Boolean temporary)
@@ -114,7 +114,7 @@ public class InviteActionImpl extends AuditableRestActionImpl<Invite> implements
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public InviteActionImpl setUnique(final Boolean unique)
@@ -123,7 +123,7 @@ public class InviteActionImpl extends AuditableRestActionImpl<Invite> implements
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public InviteAction setTargetApplication(final long applicationId)
     {
@@ -139,7 +139,7 @@ public class InviteActionImpl extends AuditableRestActionImpl<Invite> implements
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public InviteAction setTargetStream(final long userId)
     {

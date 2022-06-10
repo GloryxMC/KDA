@@ -19,8 +19,8 @@ package net.dv8tion.jda.api.events.self;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.utils.ImageProxy;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Indicates that the avatar of the current user changed.
@@ -34,7 +34,7 @@ public class SelfUpdateAvatarEvent extends GenericSelfUpdateEvent<String>
     public static final String IDENTIFIER = "avatar";
     private static final String AVATAR_URL = "https://cdn.discordapp.com/avatars/%s/%s%s";
 
-    public SelfUpdateAvatarEvent(@Nonnull JDA api, long responseNumber, @Nullable String oldAvatarId)
+    public SelfUpdateAvatarEvent(@NotNull JDA api, long responseNumber, @Nullable String oldAvatarId)
     {
         super(api, responseNumber, oldAvatarId, api.getSelfUser().getAvatarId(), IDENTIFIER);
     }

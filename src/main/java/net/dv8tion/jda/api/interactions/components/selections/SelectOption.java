@@ -20,10 +20,11 @@ import net.dv8tion.jda.api.entities.Emoji;
 import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.utils.data.SerializableData;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * One of the possible options provided in a {@link SelectMenu}.
@@ -62,7 +63,7 @@ public class SelectOption implements SerializableData
      * @throws IllegalArgumentException
      *         If the null is provided, or any of the individual parameter requirements are violated.
      */
-    protected SelectOption(@Nonnull String label, @Nonnull String value)
+    protected SelectOption(@NotNull String label, @NotNull String value)
     {
         this(label, value, null, false, null);
     }
@@ -85,7 +86,7 @@ public class SelectOption implements SerializableData
      * @throws IllegalArgumentException
      *         If the an invalid null is provided, or any of the individual parameter requirements are violated.
      */
-    protected SelectOption(@Nonnull String label, @Nonnull String value, @Nullable String description, boolean isDefault, @Nullable Emoji emoji)
+    protected SelectOption(@NotNull String label, @NotNull String value, @Nullable String description, boolean isDefault, @Nullable Emoji emoji)
     {
         Checks.notEmpty(label, "Label");
         Checks.notEmpty(value, "Value");
@@ -115,9 +116,9 @@ public class SelectOption implements SerializableData
      *
      * @return The new select option instance
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    public static SelectOption of(@Nonnull String label, @Nonnull String value)
+    public static SelectOption of(@NotNull String label, @NotNull String value)
     {
         return new SelectOption(label, value);
     }
@@ -133,9 +134,9 @@ public class SelectOption implements SerializableData
      *
      * @return The new select option instance
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    public SelectOption withLabel(@Nonnull String label)
+    public SelectOption withLabel(@NotNull String label)
     {
         return new SelectOption(label, value, description, isDefault, emoji);
     }
@@ -152,9 +153,9 @@ public class SelectOption implements SerializableData
      *
      * @return The new select option instance
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    public SelectOption withValue(@Nonnull String value)
+    public SelectOption withValue(@NotNull String value)
     {
         return new SelectOption(label, value, description, isDefault, emoji);
     }
@@ -172,7 +173,7 @@ public class SelectOption implements SerializableData
      *
      * @return The new select option instance
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public SelectOption withDescription(@Nullable String description)
     {
@@ -188,7 +189,7 @@ public class SelectOption implements SerializableData
      *
      * @return The new select option instance
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public SelectOption withDefault(boolean isDefault)
     {
@@ -204,7 +205,7 @@ public class SelectOption implements SerializableData
      *
      * @return The new select option instance
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public SelectOption withEmoji(@Nullable Emoji emoji)
     {
@@ -216,7 +217,7 @@ public class SelectOption implements SerializableData
      *
      * @return The label
      */
-    @Nonnull
+    @NotNull
     public String getLabel()
     {
         return label;
@@ -227,7 +228,7 @@ public class SelectOption implements SerializableData
      *
      * @return The option value
      */
-    @Nonnull
+    @NotNull
     public String getValue()
     {
         return value;
@@ -265,7 +266,7 @@ public class SelectOption implements SerializableData
         return emoji;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public DataObject toData()
     {
@@ -293,9 +294,9 @@ public class SelectOption implements SerializableData
      *
      * @return The parsed SelectOption instance
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    public static SelectOption fromData(@Nonnull DataObject data)
+    public static SelectOption fromData(@NotNull DataObject data)
     {
         Checks.notNull(data, "DataObject");
         return new SelectOption(

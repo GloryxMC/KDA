@@ -19,9 +19,9 @@ package net.dv8tion.jda.api.events.guild.update;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.utils.ImageProxy;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Indicates that the {@link net.dv8tion.jda.api.entities.Guild#getBannerId() banner} of a {@link net.dv8tion.jda.api.entities.Guild Guild} changed.
@@ -34,7 +34,7 @@ public class GuildUpdateBannerEvent extends GenericGuildUpdateEvent<String>
 {
     public static final String IDENTIFIER = "banner";
 
-    public GuildUpdateBannerEvent(@Nonnull JDA api, long responseNumber, @Nonnull Guild guild, @Nullable String previous)
+    public GuildUpdateBannerEvent(@NotNull JDA api, long responseNumber, @NotNull Guild guild, @Nullable String previous)
     {
         super(api, responseNumber, guild, previous, guild.getBannerId(), IDENTIFIER);
     }

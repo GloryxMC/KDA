@@ -18,8 +18,8 @@ package net.dv8tion.jda.api.utils;
 import net.dv8tion.jda.api.entities.Icon;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.FutureUtil;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +42,7 @@ public class AttachmentProxy extends FileProxy
      * @throws IllegalArgumentException
      *         If the provided URL is null
      */
-    public AttachmentProxy(@Nonnull String url)
+    public AttachmentProxy(@NotNull String url)
     {
         super(url);
     }
@@ -58,7 +58,7 @@ public class AttachmentProxy extends FileProxy
      *
      * @return URL of the attachment with the specified width and height
      */
-    @Nonnull
+    @NotNull
     public String getUrl(int width, int height)
     {
         Checks.positive(width, "Image width");
@@ -86,7 +86,7 @@ public class AttachmentProxy extends FileProxy
      *
      * @return {@link CompletableFuture} which holds an {@link InputStream}, the {@link InputStream} must be closed manually.
      */
-    @Nonnull
+    @NotNull
     public CompletableFuture<InputStream> download(int width, int height)
     {
         return download(getUrl(width, height));
@@ -116,7 +116,7 @@ public class AttachmentProxy extends FileProxy
      * @return {@link CompletableFuture} which holds a {@link Path} which corresponds to the location the file has been downloaded.
      *
      */
-    @Nonnull
+    @NotNull
     public CompletableFuture<Path> downloadToPath(int width, int height)
     {
         return downloadToPath(getUrl(width, height));
@@ -148,8 +148,8 @@ public class AttachmentProxy extends FileProxy
      *
      * @return {@link CompletableFuture} which holds a {@link File}, it is the same as the file passed in the parameters.
      */
-    @Nonnull
-    public CompletableFuture<File> downloadToFile(@Nonnull File file, int width, int height)
+    @NotNull
+    public CompletableFuture<File> downloadToFile(@NotNull File file, int width, int height)
     {
         Checks.notNull(file, "File");
 
@@ -184,15 +184,15 @@ public class AttachmentProxy extends FileProxy
      *
      * @return {@link CompletableFuture} which holds a {@link Path}, it is the same as the path passed in the parameters.
      */
-    @Nonnull
-    public CompletableFuture<Path> downloadToPath(@Nonnull Path path, int width, int height)
+    @NotNull
+    public CompletableFuture<Path> downloadToPath(@NotNull Path path, int width, int height)
     {
         Checks.notNull(path, "Path");
 
         return downloadToPath(getUrl(width, height), path);
     }
 
-    @Nonnull
+    @NotNull
     private CompletableFuture<Icon> downloadAsIcon(String url)
     {
         final CompletableFuture<InputStream> downloadFuture = download(url);
@@ -214,7 +214,7 @@ public class AttachmentProxy extends FileProxy
      *
      * @return {@link CompletableFuture} which holds an {@link Icon}.
      */
-    @Nonnull
+    @NotNull
     public CompletableFuture<Icon> downloadAsIcon()
     {
         return downloadAsIcon(getUrl());
@@ -239,7 +239,7 @@ public class AttachmentProxy extends FileProxy
      *
      * @return {@link CompletableFuture} which holds an {@link Icon}.
      */
-    @Nonnull
+    @NotNull
     public CompletableFuture<Icon> downloadAsIcon(int width, int height)
     {
         return downloadAsIcon(getUrl(width, height));

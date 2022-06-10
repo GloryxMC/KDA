@@ -35,9 +35,9 @@ import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.requests.restaction.StageInstanceActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -65,7 +65,7 @@ public class StageChannelImpl extends AbstractGuildChannelImpl<StageChannelImpl>
         super(id, guild);
     }
     
-    @Nonnull
+    @NotNull
     @Override
     public ChannelType getType()
     {
@@ -104,16 +104,16 @@ public class StageChannelImpl extends AbstractGuildChannelImpl<StageChannelImpl>
         return instance;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<Member> getMembers()
     {
         return Collections.unmodifiableList(new ArrayList<>(connectedMembers.valueCollection()));
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public StageInstanceAction createStageInstance(@Nonnull String topic)
+    public StageInstanceAction createStageInstance(@NotNull String topic)
     {
         EnumSet<Permission> permissions = getGuild().getSelfMember().getPermissions(this);
         EnumSet<Permission> required = EnumSet.of(Permission.MANAGE_CHANNEL, Permission.VOICE_MUTE_OTHERS, Permission.VOICE_MOVE_OTHERS);
@@ -126,9 +126,9 @@ public class StageChannelImpl extends AbstractGuildChannelImpl<StageChannelImpl>
         return new StageInstanceActionImpl(this).setTopic(topic);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ChannelAction<StageChannel> createCopy(@Nonnull Guild guild)
+    public ChannelAction<StageChannel> createCopy(@NotNull Guild guild)
     {
         Checks.notNull(guild, "Guild");
         //TODO-v5: .setRegion here?
@@ -149,14 +149,14 @@ public class StageChannelImpl extends AbstractGuildChannelImpl<StageChannelImpl>
         return action;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public StageChannelManager getManager()
     {
         return new StageChannelManagerImpl(this);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RestAction<Void> requestToSpeak()
     {
@@ -174,7 +174,7 @@ public class StageChannelImpl extends AbstractGuildChannelImpl<StageChannelImpl>
         return new RestActionImpl<>(getJDA(), route, body);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RestAction<Void> cancelRequestToSpeak()
     {

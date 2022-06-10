@@ -25,10 +25,11 @@ import net.dv8tion.jda.api.interactions.components.ItemComponent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.utils.AttachmentOption;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Collection;
@@ -41,19 +42,19 @@ import java.util.stream.Collectors;
  */
 public interface MessageEditCallbackAction extends InteractionCallbackAction<InteractionHook>
 {
-    @Nonnull
+    @NotNull
     @Override
     MessageEditCallbackAction setCheck(@Nullable BooleanSupplier checks);
 
-    @Nonnull
+    @NotNull
     @Override
-    MessageEditCallbackAction timeout(long timeout, @Nonnull TimeUnit unit);
+    MessageEditCallbackAction timeout(long timeout, @NotNull TimeUnit unit);
 
-    @Nonnull
+    @NotNull
     @Override
     MessageEditCallbackAction deadline(long timestamp);
 
-    @Nonnull
+    @NotNull
     @Override
     MessageEditCallbackAction closeResources();
 
@@ -68,7 +69,7 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     MessageEditCallbackAction setContent(@Nullable final String content);
 
     /**
@@ -82,9 +83,9 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction setEmbeds(@Nonnull MessageEmbed... embeds)
+    default MessageEditCallbackAction setEmbeds(@NotNull MessageEmbed... embeds)
     {
         Checks.noneNull(embeds, "MessageEmbed");
         return setEmbeds(Arrays.asList(embeds));
@@ -101,9 +102,9 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    MessageEditCallbackAction setEmbeds(@Nonnull Collection<? extends MessageEmbed> embeds);
+    MessageEditCallbackAction setEmbeds(@NotNull Collection<? extends MessageEmbed> embeds);
 
     /**
      * Set the action rows for the message.
@@ -122,9 +123,9 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      *
      * @see    ActionRow#isMessageCompatible()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction setActionRows(@Nonnull Collection<? extends ActionRow> rows)
+    default MessageEditCallbackAction setActionRows(@NotNull Collection<? extends ActionRow> rows)
     {
         Checks.noneNull(rows, "ActionRows");
         return setActionRows(rows.toArray(new ActionRow[0]));
@@ -147,9 +148,9 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      *
      * @see    ActionRow#isMessageCompatible()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    MessageEditCallbackAction setActionRows(@Nonnull ActionRow... rows);
+    MessageEditCallbackAction setActionRows(@NotNull ActionRow... rows);
 
     /**
      * Set only one action row for convenience.
@@ -169,9 +170,9 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      * @see    ActionRow#of(ItemComponent...)
      * @see    ItemComponent#isMessageCompatible()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction setActionRow(@Nonnull ItemComponent... components)
+    default MessageEditCallbackAction setActionRow(@NotNull ItemComponent... components)
     {
         return setActionRows(ActionRow.of(components));
     }
@@ -194,9 +195,9 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      * @see    ActionRow#of(Collection)
      * @see    ItemComponent#isMessageCompatible()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction setActionRow(@Nonnull Collection<? extends ItemComponent> components)
+    default MessageEditCallbackAction setActionRow(@NotNull Collection<? extends ItemComponent> components)
     {
         return setActionRows(ActionRow.of(components));
     }
@@ -216,9 +217,9 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction addFile(@Nonnull File file, @Nonnull AttachmentOption... options)
+    default MessageEditCallbackAction addFile(@NotNull File file, @NotNull AttachmentOption... options)
     {
         Checks.notNull(file, "File");
         return addFile(file, file.getName(), options);
@@ -253,9 +254,9 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction addFile(@Nonnull File file, @Nonnull String name, @Nonnull AttachmentOption... options)
+    default MessageEditCallbackAction addFile(@NotNull File file, @NotNull String name, @NotNull AttachmentOption... options)
     {
         try
         {
@@ -287,9 +288,9 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction addFile(@Nonnull byte[] data, @Nonnull String name, @Nonnull AttachmentOption... options)
+    default MessageEditCallbackAction addFile(@NotNull byte[] data, @NotNull String name, @NotNull AttachmentOption... options)
     {
         Checks.notNull(data, "Data");
         return addFile(new ByteArrayInputStream(data), name, options);
@@ -313,9 +314,9 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    MessageEditCallbackAction addFile(@Nonnull InputStream data, @Nonnull String name, @Nonnull AttachmentOption... options);
+    MessageEditCallbackAction addFile(@NotNull InputStream data, @NotNull String name, @NotNull AttachmentOption... options);
 
     /**
      * Removes all attachments that are currently attached to the existing message except for the ones provided.
@@ -331,9 +332,9 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    MessageEditCallbackAction retainFilesById(@Nonnull Collection<String> ids);
+    MessageEditCallbackAction retainFilesById(@NotNull Collection<String> ids);
 
     /**
      * Removes all attachments that are currently attached to the existing message except for the ones provided.
@@ -349,9 +350,9 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction retainFilesById(@Nonnull String... ids)
+    default MessageEditCallbackAction retainFilesById(@NotNull String... ids)
     {
         Checks.notNull(ids, "IDs");
         return retainFilesById(Arrays.asList(ids));
@@ -371,7 +372,7 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default MessageEditCallbackAction retainFilesById(long... ids)
     {
@@ -397,9 +398,9 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction retainFiles(@Nonnull Collection<? extends Message.Attachment> attachments)
+    default MessageEditCallbackAction retainFiles(@NotNull Collection<? extends Message.Attachment> attachments)
     {
         Checks.noneNull(attachments, "Attachments");
         return retainFilesById(attachments
@@ -423,9 +424,9 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      *
      * @return The same update action, for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction retainFiles(@Nonnull Message.Attachment... attachments)
+    default MessageEditCallbackAction retainFiles(@NotNull Message.Attachment... attachments)
     {
         Checks.noneNull(attachments, "Attachments");
         return retainFiles(Arrays.asList(attachments));

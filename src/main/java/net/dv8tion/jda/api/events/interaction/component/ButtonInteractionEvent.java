@@ -19,8 +19,7 @@ package net.dv8tion.jda.api.events.interaction.component;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.interactions.components.buttons.ButtonInteraction;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Indicates that a custom {@link Button} on one of the bots messages was clicked by a user.
@@ -35,27 +34,27 @@ public class ButtonInteractionEvent extends GenericComponentInteractionCreateEve
 {
     private final ButtonInteraction interaction;
 
-    public ButtonInteractionEvent(@Nonnull JDA api, long responseNumber, @Nonnull ButtonInteraction interaction)
+    public ButtonInteractionEvent(@NotNull JDA api, long responseNumber, @NotNull ButtonInteraction interaction)
     {
         super(api, responseNumber, interaction);
         this.interaction = interaction;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ButtonInteraction getInteraction()
     {
         return interaction;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Button getComponent()
     {
         return interaction.getComponent();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Button getButton()
     {

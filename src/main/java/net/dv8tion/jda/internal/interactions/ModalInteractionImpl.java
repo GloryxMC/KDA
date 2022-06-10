@@ -25,8 +25,8 @@ import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
 import net.dv8tion.jda.internal.requests.restaction.interactions.MessageEditCallbackActionImpl;
 import net.dv8tion.jda.internal.requests.restaction.interactions.ReplyCallbackActionImpl;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,28 +50,28 @@ public class ModalInteractionImpl extends DeferrableInteractionImpl implements M
                 .collect(Collectors.toList());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getModalId()
     {
         return modalId;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<ModalMapping> getValues()
     {
         return Collections.unmodifiableList(mappings);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ReplyCallbackAction deferReply()
     {
         return new ReplyCallbackActionImpl(hook);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageEditCallbackAction deferEdit()
     {

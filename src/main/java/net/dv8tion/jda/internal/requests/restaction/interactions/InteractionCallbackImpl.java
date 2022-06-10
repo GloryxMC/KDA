@@ -28,8 +28,8 @@ import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.IOUtil;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -62,7 +62,7 @@ public abstract class InteractionCallbackImpl<T> extends RestActionImpl<T> imple
         return body.build();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public InteractionCallbackAction<T> closeResources()
     {
@@ -110,7 +110,7 @@ public abstract class InteractionCallbackImpl<T> extends RestActionImpl<T> imple
         super.queue(success, failure);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public final CompletableFuture<T> submit(boolean shouldQueue)
     {

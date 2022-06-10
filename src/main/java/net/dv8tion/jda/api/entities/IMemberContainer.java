@@ -16,7 +16,8 @@
 
 package net.dv8tion.jda.api.entities;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 /**
@@ -46,6 +47,6 @@ public interface IMemberContainer extends GuildChannel
      *
      * @return An immutable List of {@link Member Members} that are in this GuildChannel.
      */
-    @Nonnull
+    @NotNull
     List<Member> getMembers();
 }

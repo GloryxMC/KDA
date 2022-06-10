@@ -22,10 +22,12 @@ import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.ComponentInteraction;
 import net.dv8tion.jda.api.interactions.components.LayoutComponent;
 import net.dv8tion.jda.api.requests.RestAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -38,7 +40,7 @@ import java.util.stream.Collectors;
  */
 public interface SelectMenuInteraction extends ComponentInteraction
 {
-    @Nonnull
+    @NotNull
     @Override
     SelectMenu getComponent();
 
@@ -49,7 +51,7 @@ public interface SelectMenuInteraction extends ComponentInteraction
      *
      * @see    #getComponentId()
      */
-    @Nonnull
+    @NotNull
     default SelectMenu getSelectMenu()
     {
         return getComponent();
@@ -61,7 +63,7 @@ public interface SelectMenuInteraction extends ComponentInteraction
      *
      * @return {@link List} of the selected options or null if this message is ephemeral
      */
-    @Nonnull
+    @NotNull
     default List<SelectOption> getSelectedOptions()
     {
         SelectMenu menu = getComponent();
@@ -77,7 +79,7 @@ public interface SelectMenuInteraction extends ComponentInteraction
      *
      * @return {@link List} of {@link SelectOption#getValue()}
      */
-    @Nonnull
+    @NotNull
     List<String> getValues();
 
     /**
@@ -94,7 +96,7 @@ public interface SelectMenuInteraction extends ComponentInteraction
      * @see    SelectMenu#createCopy()
      * @see    SelectMenu#create(String)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default RestAction<Void> editSelectMenu(@Nullable SelectMenu newMenu)
     {

@@ -18,8 +18,8 @@ package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.JDA;
 import org.apache.commons.collections4.Bag;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -32,7 +32,7 @@ public interface Mentions
      *
      * @return The jda instance
      */
-    @Nonnull
+    @NotNull
     JDA getJDA();
 
     /**
@@ -53,7 +53,7 @@ public interface Mentions
      *
      * @return Immutable list of mentioned users
      */
-    @Nonnull
+    @NotNull
     List<User> getUsers();
 
     /**
@@ -85,7 +85,7 @@ public interface Mentions
      *
      * @see    #getUsers()
      */
-    @Nonnull
+    @NotNull
     Bag<User> getUsersBag();
 
     /**
@@ -96,7 +96,7 @@ public interface Mentions
      *
      * @return Immutable list of mentioned GuildChannels
      */
-    @Nonnull
+    @NotNull
     List<GuildChannel> getChannels();
 
     /**
@@ -127,7 +127,7 @@ public interface Mentions
      *
      * @see    #getChannels()
      */
-    @Nonnull
+    @NotNull
     Bag<GuildChannel> getChannelsBag();
 
     /**
@@ -155,8 +155,8 @@ public interface Mentions
      *
      * @return Immutable list of mentioned GuildChannels that are of type {@code clazz}.
      */
-    @Nonnull
-    <T extends GuildChannel> List<T> getChannels(@Nonnull Class<T> clazz);
+    @NotNull
+    <T extends GuildChannel> List<T> getChannels(@NotNull Class<T> clazz);
 
     /**
      * A {@link Bag Bag} of mentioned channels of type {@code clazz}.
@@ -192,8 +192,8 @@ public interface Mentions
      *
      * @see    #getChannels(Class)
      */
-    @Nonnull
-    <T extends GuildChannel> Bag<T> getChannelsBag(@Nonnull Class<T> clazz);
+    @NotNull
+    <T extends GuildChannel> Bag<T> getChannelsBag(@NotNull Class<T> clazz);
 
     /**
      * An immutable list of all mentioned {@link Role Roles}.
@@ -204,7 +204,7 @@ public interface Mentions
      *
      * @return immutable list of mentioned Roles
      */
-    @Nonnull
+    @NotNull
     List<Role> getRoles();
 
     /**
@@ -236,7 +236,7 @@ public interface Mentions
      *
      * @see    #getRoles()
      */
-    @Nonnull
+    @NotNull
     Bag<Role> getRolesBag();
 
     /**
@@ -249,7 +249,7 @@ public interface Mentions
      *
      * @return An immutable list of the Emotes used (example match {@literal <:jda:230988580904763393>})
      */
-    @Nonnull
+    @NotNull
     List<Emote> getEmotes();
 
     /**
@@ -278,7 +278,7 @@ public interface Mentions
      *
      * @see    #getEmotes()
      */
-    @Nonnull
+    @NotNull
     Bag<Emote> getEmotesBag();
 
     /**
@@ -290,7 +290,7 @@ public interface Mentions
      *
      * @return Immutable list of mentioned Members, or an empty list
      */
-    @Nonnull
+    @NotNull
     List<Member> getMembers();
 
     /**
@@ -320,7 +320,7 @@ public interface Mentions
      *
      * @see    #getMembers()
      */
-    @Nonnull
+    @NotNull
     Bag<Member> getMembersBag();
 
     /**
@@ -339,8 +339,8 @@ public interface Mentions
      *
      * @return Immutable list of filtered {@link IMentionable IMentionable} instances
      */
-    @Nonnull
-    List<IMentionable> getMentions(@Nonnull Message.MentionType... types);
+    @NotNull
+    List<IMentionable> getMentions(@NotNull Message.MentionType... types);
 
     /**
      * Checks if given {@link IMentionable IMentionable}
@@ -361,5 +361,5 @@ public interface Mentions
      *
      * @return True, if the given mentionable was mentioned in this message
      */
-    boolean isMentioned(@Nonnull IMentionable mentionable, @Nonnull Message.MentionType... types);
+    boolean isMentioned(@NotNull IMentionable mentionable, @NotNull Message.MentionType... types);
 }

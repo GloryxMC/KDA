@@ -34,8 +34,7 @@ import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.Helpers;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.time.OffsetDateTime;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -67,7 +66,7 @@ public class ThreadChannelImpl extends AbstractGuildChannelImpl<ThreadChannelImp
         this.type = type;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ChannelType getType()
     {
@@ -99,20 +98,20 @@ public class ThreadChannelImpl extends AbstractGuildChannelImpl<ThreadChannelImp
     }
 
     @Override
-    public boolean canTalk(@Nonnull Member member)
+    public boolean canTalk(@NotNull Member member)
     {
         Checks.notNull(member, "Member");
         return member.hasPermission(getParentChannel(), Permission.VIEW_CHANNEL, Permission.MESSAGE_SEND_IN_THREADS);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<Member> getMembers()
     {
         return null;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("ConstantConditions")
     public IThreadContainer getParentChannel()
@@ -120,7 +119,7 @@ public class ThreadChannelImpl extends AbstractGuildChannelImpl<ThreadChannelImp
         return (IThreadContainer) guild.getGuildChannelById(parentChannelId);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RestAction<Message> retrieveParentMessage()
     {
@@ -133,7 +132,7 @@ public class ThreadChannelImpl extends AbstractGuildChannelImpl<ThreadChannelImp
         return getParentChannel();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<ThreadMember> getThreadMembers()
     {
@@ -147,7 +146,7 @@ public class ThreadChannelImpl extends AbstractGuildChannelImpl<ThreadChannelImp
         return threadMembers.get(id);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RestAction<ThreadMember> retrieveThreadMemberById(long id)
     {
@@ -212,14 +211,14 @@ public class ThreadChannelImpl extends AbstractGuildChannelImpl<ThreadChannelImp
         return Helpers.toOffset(archiveTimestamp);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public AutoArchiveDuration getAutoArchiveDuration()
     {
         return autoArchiveDuration;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public @NotNull OffsetDateTime getTimeCreated()
     {
@@ -273,7 +272,7 @@ public class ThreadChannelImpl extends AbstractGuildChannelImpl<ThreadChannelImp
         return new RestActionImpl<>(api, route);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ThreadChannelManager getManager()
     {

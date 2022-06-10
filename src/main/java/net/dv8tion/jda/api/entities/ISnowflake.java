@@ -19,7 +19,6 @@ package net.dv8tion.jda.api.entities;
 import net.dv8tion.jda.api.utils.TimeUtil;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.time.OffsetDateTime;
 
 /**

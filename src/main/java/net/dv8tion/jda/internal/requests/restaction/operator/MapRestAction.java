@@ -18,9 +18,9 @@ package net.dv8tion.jda.internal.requests.restaction.operator;
 
 import net.dv8tion.jda.api.exceptions.RateLimitedException;
 import net.dv8tion.jda.api.requests.RestAction;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -49,7 +49,7 @@ public class MapRestAction<I, O> extends RestActionOperator<I, O>
         return function.apply(action.complete(shouldQueue));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CompletableFuture<O> submit(boolean shouldQueue)
     {

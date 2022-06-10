@@ -30,8 +30,7 @@ import net.dv8tion.jda.internal.requests.restaction.AuditableRestActionImpl;
 import net.dv8tion.jda.internal.requests.restaction.WebhookMessageActionImpl;
 import net.dv8tion.jda.internal.requests.restaction.WebhookMessageUpdateActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The implementation for {@link net.dv8tion.jda.api.entities.Webhook Webhook}
@@ -60,7 +59,7 @@ public class WebhookImpl extends AbstractWebhookClient<Void> implements Webhook
         this.type = type;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public WebhookType getType()
     {
@@ -73,14 +72,14 @@ public class WebhookImpl extends AbstractWebhookClient<Void> implements Webhook
         return channel == null;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JDA getJDA()
     {
         return api;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Guild getGuild()
     {
@@ -89,7 +88,7 @@ public class WebhookImpl extends AbstractWebhookClient<Void> implements Webhook
         return getChannel().getGuild();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public BaseGuildMessageChannel getChannel()
     {
@@ -112,14 +111,14 @@ public class WebhookImpl extends AbstractWebhookClient<Void> implements Webhook
         return ownerUser;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public User getDefaultUser()
     {
         return user;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getName()
     {
@@ -132,7 +131,7 @@ public class WebhookImpl extends AbstractWebhookClient<Void> implements Webhook
         return token;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getUrl()
     {
@@ -151,7 +150,7 @@ public class WebhookImpl extends AbstractWebhookClient<Void> implements Webhook
         return sourceGuild;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public AuditableRestAction<Void> delete()
     {
@@ -165,16 +164,16 @@ public class WebhookImpl extends AbstractWebhookClient<Void> implements Webhook
         return new AuditableRestActionImpl<>(getJDA(), route);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public AuditableRestAction<Void> delete(@Nonnull String token)
+    public AuditableRestAction<Void> delete(@NotNull String token)
     {
         Checks.notNull(token, "Token");
         Route.CompiledRoute route = Route.Webhooks.DELETE_TOKEN_WEBHOOK.compile(getId(), token);
         return new AuditableRestActionImpl<>(getJDA(), route);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public WebhookManager getManager()
     {
@@ -268,9 +267,9 @@ public class WebhookImpl extends AbstractWebhookClient<Void> implements Webhook
         return action;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public RestAction<Void> deleteMessageById(@Nonnull String messageId)
+    public RestAction<Void> deleteMessageById(@NotNull String messageId)
     {
         checkToken();
         return super.deleteMessageById(messageId);

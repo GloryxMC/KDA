@@ -16,9 +16,11 @@
 
 package net.dv8tion.jda.api.interactions.components;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Component which supports interactions via {@link ComponentInteraction}.
@@ -53,7 +55,7 @@ public interface ActionComponent extends ItemComponent
      *
      * @return New disabled component instance
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default ActionComponent asDisabled()
     {
@@ -66,7 +68,7 @@ public interface ActionComponent extends ItemComponent
      *
      * @return New enabled component instance
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default ActionComponent asEnabled()
     {
@@ -84,7 +86,7 @@ public interface ActionComponent extends ItemComponent
      *
      * @return New enabled/disabled component instance
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     ActionComponent withDisabled(boolean disabled);
 }

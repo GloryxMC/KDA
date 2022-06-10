@@ -19,9 +19,9 @@ package net.dv8tion.jda.api.events.guild.voice;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.Member;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * <h2>Requirements</h2>
@@ -41,7 +41,7 @@ public class GenericGuildVoiceUpdateEvent extends GenericGuildVoiceEvent impleme
     protected final AudioChannel joined, left;
 
     public GenericGuildVoiceUpdateEvent(
-            @Nonnull JDA api, long responseNumber, @Nonnull Member member, @Nullable AudioChannel left, @Nullable AudioChannel joined)
+            @NotNull JDA api, long responseNumber, @NotNull Member member, @Nullable AudioChannel left, @Nullable AudioChannel joined)
     {
         super(api, responseNumber, member);
         this.left = left;
@@ -62,14 +62,14 @@ public class GenericGuildVoiceUpdateEvent extends GenericGuildVoiceEvent impleme
         return joined;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getPropertyIdentifier()
     {
         return IDENTIFIER;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Member getEntity()
     {

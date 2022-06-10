@@ -20,10 +20,11 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.interactions.components.buttons.ButtonStyle;
 import net.dv8tion.jda.utils.data.SerializableData;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,7 @@ public interface LayoutComponent extends SerializableData, Iterable<ItemComponen
      *
      * @return {@link List} of components in this layout
      */
-    @Nonnull
+    @NotNull
     List<ItemComponent> getComponents();
 
     @Override
@@ -68,7 +69,7 @@ public interface LayoutComponent extends SerializableData, Iterable<ItemComponen
      *
      * @return Immutable {@link List} copy of {@link ActionComponent ActionComponents} in this layout
      */
-    @Nonnull
+    @NotNull
     default List<ActionComponent> getActionComponents()
     {
         return getComponents().stream()
@@ -82,7 +83,7 @@ public interface LayoutComponent extends SerializableData, Iterable<ItemComponen
      *
      * @return Immutable {@link List} of {@link Button Buttons}
      */
-    @Nonnull
+    @NotNull
     default List<Button> getButtons()
     {
         return Collections.unmodifiableList(
@@ -125,7 +126,7 @@ public interface LayoutComponent extends SerializableData, Iterable<ItemComponen
      *
      * @see    ActionComponent#withDisabled(boolean)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     LayoutComponent withDisabled(boolean disabled);
 
@@ -137,7 +138,7 @@ public interface LayoutComponent extends SerializableData, Iterable<ItemComponen
      *
      * @see    ActionComponent#asDisabled()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     LayoutComponent asDisabled();
 
@@ -149,7 +150,7 @@ public interface LayoutComponent extends SerializableData, Iterable<ItemComponen
      *
      * @see    ActionComponent#asEnabled()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     LayoutComponent asEnabled();
 
@@ -205,7 +206,7 @@ public interface LayoutComponent extends SerializableData, Iterable<ItemComponen
      * @return The old {@link ItemComponent} that was replaced or removed
      */
     @Nullable
-    default ItemComponent updateComponent(@Nonnull String id, @Nullable ItemComponent newComponent)
+    default ItemComponent updateComponent(@NotNull String id, @Nullable ItemComponent newComponent)
     {
         Checks.notNull(id, "ID");
         List<ItemComponent> list = getComponents();
@@ -248,7 +249,7 @@ public interface LayoutComponent extends SerializableData, Iterable<ItemComponen
      *
      * @return True, if any of the layouts was modified
      */
-    static boolean updateComponent(@Nonnull List<? extends LayoutComponent> layouts, @Nonnull String id, @Nullable ItemComponent newComponent)
+    static boolean updateComponent(@NotNull List<? extends LayoutComponent> layouts, @NotNull String id, @Nullable ItemComponent newComponent)
     {
         Checks.notNull(layouts, "LayoutComponent");
         Checks.notEmpty(id, "ID or URL");
@@ -290,7 +291,7 @@ public interface LayoutComponent extends SerializableData, Iterable<ItemComponen
      * @return The old {@link ItemComponent} that was replaced or removed
      */
     @Nullable
-    default ItemComponent updateComponent(@Nonnull ItemComponent component, @Nullable ItemComponent newComponent)
+    default ItemComponent updateComponent(@NotNull ItemComponent component, @Nullable ItemComponent newComponent)
     {
         Checks.notNull(component, "Component to replace");
         List<ItemComponent> list = getComponents();
@@ -330,7 +331,7 @@ public interface LayoutComponent extends SerializableData, Iterable<ItemComponen
      *
      * @return True, if any of the layouts was modified
      */
-    static boolean updateComponent(@Nonnull List<? extends LayoutComponent> layouts, @Nonnull ItemComponent component, @Nullable ItemComponent newComponent)
+    static boolean updateComponent(@NotNull List<? extends LayoutComponent> layouts, @NotNull ItemComponent component, @Nullable ItemComponent newComponent)
     {
         Checks.notNull(layouts, "LayoutComponent");
         Checks.notNull(component, "Component to replace");

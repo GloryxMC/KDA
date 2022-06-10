@@ -5,10 +5,12 @@ import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 import net.dv8tion.jda.api.requests.restaction.ChannelAction;
 import net.dv8tion.jda.api.requests.restaction.WebhookAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 
@@ -25,7 +27,7 @@ public interface BaseGuildMessageChannel extends GuildMessageChannel, IThreadCon
 {
     //TODO-v5: Docs
     @Override
-    @Nonnull
+    @NotNull
     BaseGuildMessageChannelManager<?, ?> getManager();
 
     /**
@@ -59,7 +61,7 @@ public interface BaseGuildMessageChannel extends GuildMessageChannel, IThreadCon
      * @return {@link RestAction} - Type: List{@literal <}{@link Webhook Webhook}{@literal >}
      *         <br>Retrieved an immutable list of Webhooks attached to this channel
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RestAction<List<Webhook>> retrieveWebhooks();
 
@@ -91,9 +93,9 @@ public interface BaseGuildMessageChannel extends GuildMessageChannel, IThreadCon
      * @return A specific {@link WebhookAction WebhookAction}
      *         <br>This action allows to set fields for the new webhook before creating it
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    WebhookAction createWebhook(@Nonnull String name);
+    WebhookAction createWebhook(@NotNull String name);
 
     /**
      * Deletes a {@link Webhook Webhook} attached to this channel
@@ -127,17 +129,17 @@ public interface BaseGuildMessageChannel extends GuildMessageChannel, IThreadCon
      *
      * @return {@link AuditableRestAction AuditableRestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    AuditableRestAction<Void> deleteWebhookById(@Nonnull String id);
+    AuditableRestAction<Void> deleteWebhookById(@NotNull String id);
 
     @Override
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    ChannelAction<? extends BaseGuildMessageChannel> createCopy(@Nonnull Guild guild);
+    ChannelAction<? extends BaseGuildMessageChannel> createCopy(@NotNull Guild guild);
 
     @Override
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     ChannelAction<? extends BaseGuildMessageChannel> createCopy();
 }

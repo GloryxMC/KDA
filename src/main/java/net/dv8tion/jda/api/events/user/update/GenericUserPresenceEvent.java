@@ -20,7 +20,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.GenericEvent;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Indicates that the presence of a {@link net.dv8tion.jda.api.entities.User User} has changed.
@@ -47,7 +47,7 @@ public interface GenericUserPresenceEvent extends GenericEvent
      *
      * @return The guild
      */
-    @Nonnull
+    @NotNull
     Guild getGuild();
 
     /**
@@ -55,6 +55,6 @@ public interface GenericUserPresenceEvent extends GenericEvent
      *
      * @return The member
      */
-    @Nonnull
+    @NotNull
     Member getMember();
 }

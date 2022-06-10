@@ -21,8 +21,7 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.interactions.callbacks.IMessageEditCallback;
 import net.dv8tion.jda.api.interactions.callbacks.IModalCallback;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Interaction on a message {@link ActionComponent}.
@@ -42,7 +41,7 @@ public interface ComponentInteraction extends IReplyCallback, IMessageEditCallba
      *
      * @see    ActionComponent#getId()
      */
-    @Nonnull
+    @NotNull
     String getComponentId();
 
     /**
@@ -50,7 +49,7 @@ public interface ComponentInteraction extends IReplyCallback, IMessageEditCallba
      *
      * @return The {@link ActionComponent}
      */
-    @Nonnull
+    @NotNull
     ActionComponent getComponent();
 
     /**
@@ -58,7 +57,7 @@ public interface ComponentInteraction extends IReplyCallback, IMessageEditCallba
      *
      * @return The {@link Message}
      */
-    @Nonnull
+    @NotNull
     Message getMessage();
 
     /**
@@ -73,7 +72,7 @@ public interface ComponentInteraction extends IReplyCallback, IMessageEditCallba
      *
      * @return The message id
      */
-    @Nonnull
+    @NotNull
     default String getMessageId()
     {
         return Long.toUnsignedString(getMessageIdLong());
@@ -84,7 +83,7 @@ public interface ComponentInteraction extends IReplyCallback, IMessageEditCallba
      *
      * @return The {@link Component.Type}
      */
-    @Nonnull
+    @NotNull
     Component.Type getComponentType();
 
     /**
@@ -92,7 +91,7 @@ public interface ComponentInteraction extends IReplyCallback, IMessageEditCallba
      *
      * @return The {@link MessageChannel}
      */
-    @Nonnull
+    @NotNull
     @Override
     MessageChannel getChannel();
 }

@@ -17,8 +17,8 @@ package net.dv8tion.jda.api.utils;
 
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.FutureUtil;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -39,7 +39,7 @@ public class ImageProxy extends FileProxy
      * @throws IllegalArgumentException
      *         If the provided URL is null
      */
-    public ImageProxy(@Nonnull String url)
+    public ImageProxy(@NotNull String url)
     {
         super(url);
     }
@@ -53,7 +53,7 @@ public class ImageProxy extends FileProxy
      *
      * @return URL of the image with the specified size
      */
-    @Nonnull
+    @NotNull
     public String getUrl(int size)
     {
         Checks.positive(size, "Image size");
@@ -72,7 +72,7 @@ public class ImageProxy extends FileProxy
      *
      * @return {@link CompletableFuture} which holds an {@link InputStream}, the {@link InputStream} must be closed manually.
      */
-    @Nonnull
+    @NotNull
     public CompletableFuture<InputStream> download(int size)
     {
         return download(getUrl(size));
@@ -99,7 +99,7 @@ public class ImageProxy extends FileProxy
      *
      * @return {@link CompletableFuture} which holds a {@link Path} which corresponds to the location the file has been downloaded.
      */
-    @Nonnull
+    @NotNull
     public CompletableFuture<Path> downloadToPath(int size)
     {
         return downloadToPath(getUrl(size));
@@ -127,8 +127,8 @@ public class ImageProxy extends FileProxy
      *
      * @return {@link CompletableFuture} which holds a {@link File}, it is the same as the file passed in the parameters.
      */
-    @Nonnull
-    public CompletableFuture<File> downloadToFile(@Nonnull File file, int size)
+    @NotNull
+    public CompletableFuture<File> downloadToFile(@NotNull File file, int size)
     {
         Checks.notNull(file, "File");
 
@@ -159,8 +159,8 @@ public class ImageProxy extends FileProxy
      *
      * @return {@link CompletableFuture} which holds a {@link Path}, it is the same as the path passed in the parameters.
      */
-    @Nonnull
-    public CompletableFuture<Path> downloadToPath(@Nonnull Path path, int size)
+    @NotNull
+    public CompletableFuture<Path> downloadToPath(@NotNull Path path, int size)
     {
         Checks.notNull(path, "Path");
 

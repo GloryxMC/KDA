@@ -18,8 +18,8 @@ package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.managers.RoleManager;
 import net.dv8tion.jda.api.utils.ImageProxy;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.Objects;
 
 /**

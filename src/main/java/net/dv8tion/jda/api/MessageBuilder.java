@@ -16,16 +16,19 @@
 package net.dv8tion.jda.api;
 
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.sticker.Sticker;
+import net.dv8tion.jda.api.entities.sticker.StickerSnowflake;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.LayoutComponent;
 import net.dv8tion.jda.api.requests.restaction.MessageAction;
 import net.dv8tion.jda.internal.entities.DataMessage;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.Helpers;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Builder system used to build {@link net.dv8tion.jda.api.entities.Message Messages}.
@@ -43,6 +46,7 @@ public class MessageBuilder implements Appendable
 
     protected final List<MessageEmbed> embeds = new ArrayList<>();
     protected final List<LayoutComponent> components = new ArrayList<>();
+    protected final List<StickerSnowflake> stickers = new ArrayList<>();
     protected boolean isTTS = false;
     protected String nonce;
     protected EnumSet<Message.MentionType> allowedMentions = null;
@@ -74,6 +78,14 @@ public class MessageBuilder implements Appendable
                     this.allowedMentions = Helpers.copyEnumSet(Message.MentionType.class, data.getAllowedMentions());
                 Collections.addAll(this.mentionedUsers, data.getMentionedUsersWhitelist());
                 Collections.addAll(this.mentionedRoles, data.getMentionedRolesWhitelist());
+                stickers.addAll(data.getStickerSnowflakes());
+            }
+            else
+            {
+                stickers.addAll(message.getStickers().stream()
+                        .map(Sticker::getId)
+                        .map(Sticker::fromId)
+                        .collect(Collectors.toList()));
             }
         }
     }
@@ -87,6 +99,7 @@ public class MessageBuilder implements Appendable
             this.nonce = builder.nonce;
             this.embeds.addAll(builder.embeds);
             this.components.addAll(builder.components);
+            this.stickers.addAll(builder.stickers);
             if (builder.allowedMentions != null)
                 this.allowedMentions = Helpers.copyEnumSet(Message.MentionType.class, builder.allowedMentions);
             this.mentionedRoles.addAll(builder.mentionedRoles);
@@ -116,7 +129,7 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
+    @NotNull
     public MessageBuilder setTTS(boolean tts)
     {
         this.isTTS = tts;
@@ -136,8 +149,8 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
-    public MessageBuilder setEmbeds(@Nonnull MessageEmbed... embeds)
+    @NotNull
+    public MessageBuilder setEmbeds(@NotNull MessageEmbed... embeds)
     {
         Checks.noneNull(embeds, "MessageEmbeds");
         return setEmbeds(Arrays.asList(embeds));
@@ -156,8 +169,8 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
-    public MessageBuilder setEmbeds(@Nonnull Collection<? extends MessageEmbed> embeds)
+    @NotNull
+    public MessageBuilder setEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
     {
 
         Checks.noneNull(embeds, "MessageEmbeds");
@@ -184,7 +197,7 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
+    @NotNull
     public MessageBuilder setActionRows(@Nullable Collection<? extends ActionRow> rows)
     {
         if (rows == null)
@@ -210,7 +223,7 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
+    @NotNull
     public MessageBuilder setActionRows(@Nullable ActionRow... rows)
     {
         if (rows == null)
@@ -219,6 +232,112 @@ public class MessageBuilder implements Appendable
             return this;
         }
         return setActionRows(Arrays.asList(rows));
+    }
+
+    /**
+     * Set the stickers to send alongside this message.
+     * <br>This is not supported for message edits.
+     *
+     * @param  stickers
+     *         The stickers to send, or null to not send any stickers
+     *
+     * @throws IllegalArgumentException
+     *         If more than {@value Message#MAX_STICKER_COUNT} stickers or null stickers are provided
+     *
+     * @return The MessageBuilder instance. Useful for chaining.
+     *
+     * @see    Sticker#fromId(long)
+     */
+    @NotNull
+    public MessageBuilder setStickers(@Nullable Collection<? extends StickerSnowflake> stickers)
+    {
+        this.stickers.clear();
+        if (stickers == null || stickers.isEmpty())
+            return this;
+        Checks.noneNull(stickers, "Stickers");
+        Checks.check(stickers.size() <= Message.MAX_STICKER_COUNT,
+                "Cannot send more than %d stickers in a message!", Message.MAX_STICKER_COUNT);
+
+        stickers.stream()
+                .map(StickerSnowflake::getId)
+                .map(StickerSnowflake::fromId)
+                .forEach(this.stickers::add);
+        return this;
+    }
+
+    /**
+     * Set the stickers to send alongside this message.
+     * <br>This is not supported for message edits.
+     *
+     * @param  stickers
+     *         The stickers to send, or null to not send any stickers
+     *
+     * @throws IllegalArgumentException
+     *         If more than {@value Message#MAX_STICKER_COUNT} stickers or null stickers are provided
+     *
+     * @return The MessageBuilder instance. Useful for chaining.
+     *
+     * @see    Sticker#fromId(long)
+     */
+    @NotNull
+    public MessageBuilder setStickers(@Nullable StickerSnowflake... stickers)
+    {
+        if (stickers != null)
+            Checks.noneNull(stickers, "Stickers");
+        return setStickers(stickers == null ? null : Arrays.asList(stickers));
+    }
+
+    /**
+     * Set the stickers to send alongside this message.
+     * <br>This is not supported for message edits.
+     *
+     * @param  stickers
+     *         The stickers to send, or null to not send any stickers
+     *
+     * @throws IllegalArgumentException
+     *         If more than {@value Message#MAX_STICKER_COUNT} stickers or null stickers are provided
+     *
+     * @return The MessageBuilder instance. Useful for chaining.
+     *
+     * @see    Sticker#fromId(long)
+     */
+    @Nonnull
+    public MessageBuilder setStickers(@Nullable Collection<? extends StickerSnowflake> stickers)
+    {
+        this.stickers.clear();
+        if (stickers == null || stickers.isEmpty())
+            return this;
+        Checks.noneNull(stickers, "Stickers");
+        Checks.check(stickers.size() <= Message.MAX_STICKER_COUNT,
+                "Cannot send more than %d stickers in a message!", Message.MAX_STICKER_COUNT);
+
+        stickers.stream()
+                .map(StickerSnowflake::getId)
+                .map(StickerSnowflake::fromId)
+                .forEach(this.stickers::add);
+        return this;
+    }
+
+    /**
+     * Set the stickers to send alongside this message.
+     * <br>This is not supported for message edits.
+     *
+     * @param  stickers
+     *         The stickers to send, or null to not send any stickers
+     *
+     * @throws IllegalArgumentException
+     *         If more than {@value Message#MAX_STICKER_COUNT} stickers or null stickers are provided
+     *
+     * @return The MessageBuilder instance. Useful for chaining.
+     *
+     * @see    Sticker#fromId(long)
+     */
+    @Nonnull
+    public MessageBuilder setStickers(@Nullable StickerSnowflake... stickers)
+    {
+        if (stickers != null)
+            Checks.noneNull(stickers, "Stickers");
+        return setStickers(stickers == null ? null : Arrays.asList(stickers));
     }
 
     /**
@@ -236,7 +355,7 @@ public class MessageBuilder implements Appendable
      * @see    net.dv8tion.jda.api.entities.Message#getNonce()
      * @see    <a href="https://en.wikipedia.org/wiki/Cryptographic_nonce" target="_blank">Cryptographic Nonce - Wikipedia</a>
      */
-    @Nonnull
+    @NotNull
     public MessageBuilder setNonce(@Nullable String nonce)
     {
         this.nonce = nonce;
@@ -254,7 +373,7 @@ public class MessageBuilder implements Appendable
      *
      * @see    net.dv8tion.jda.api.entities.Message#getContentRaw()
      */
-    @Nonnull
+    @NotNull
     public MessageBuilder setContent(@Nullable String content)
     {
         if (content == null)
@@ -269,7 +388,7 @@ public class MessageBuilder implements Appendable
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageBuilder append(@Nullable CharSequence text)
     {
@@ -277,7 +396,7 @@ public class MessageBuilder implements Appendable
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageBuilder append(@Nullable CharSequence text, int start, int end)
     {
@@ -285,7 +404,7 @@ public class MessageBuilder implements Appendable
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageBuilder append(char c)
     {
@@ -302,7 +421,7 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
+    @NotNull
     public MessageBuilder append(@Nullable Object object)
     {
         return append(String.valueOf(object));
@@ -324,8 +443,8 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
-    public MessageBuilder append(@Nonnull IMentionable mention)
+    @NotNull
+    public MessageBuilder append(@NotNull IMentionable mention)
     {
         Checks.notNull(mention, "Mentionable");
         builder.append(mention.getAsMention());
@@ -342,8 +461,8 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
-    public MessageBuilder append(@Nullable CharSequence text, @Nonnull Formatting... format)
+    @NotNull
+    public MessageBuilder append(@Nullable CharSequence text, @NotNull Formatting... format)
     {
         boolean blockPresent = false;
         for (Formatting formatting : format)
@@ -421,8 +540,8 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
-    public MessageBuilder appendFormat(@Nonnull String format, @Nonnull Object... args)
+    @NotNull
+    public MessageBuilder appendFormat(@NotNull String format, @NotNull Object... args)
     {
         Checks.notEmpty(format, "Format String");
         this.append(String.format(format, args));
@@ -438,7 +557,7 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
+    @NotNull
     public MessageBuilder appendCodeLine(@Nullable CharSequence text)
     {
         this.append(text, Formatting.BLOCK);
@@ -457,7 +576,7 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
+    @NotNull
     public MessageBuilder appendCodeBlock(@Nullable CharSequence text, @Nullable CharSequence language)
     {
         builder.append("```").append(language).append('\n').append(text).append("\n```");
@@ -502,8 +621,8 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
-    public MessageBuilder replace(@Nonnull String target, @Nonnull String replacement)
+    @NotNull
+    public MessageBuilder replace(@NotNull String target, @NotNull String replacement)
     {
         int index = builder.indexOf(target);
         while (index != -1)
@@ -524,8 +643,8 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
-    public MessageBuilder replaceFirst(@Nonnull String target, @Nonnull String replacement)
+    @NotNull
+    public MessageBuilder replaceFirst(@NotNull String target, @NotNull String replacement)
     {
         int index = builder.indexOf(target);
         if (index != -1)
@@ -545,8 +664,8 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
-    public MessageBuilder replaceLast(@Nonnull String target, @Nonnull String replacement)
+    @NotNull
+    public MessageBuilder replaceLast(@NotNull String target, @NotNull String replacement)
     {
         int index = builder.lastIndexOf(target);
         if (index != -1)
@@ -563,7 +682,7 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
+    @NotNull
     public MessageBuilder clearMentionedUsers()
     {
         mentionedUsers.clear();
@@ -577,7 +696,7 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
+    @NotNull
     public MessageBuilder clearMentionedRoles()
     {
         mentionedRoles.clear();
@@ -592,7 +711,7 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
+    @NotNull
     public MessageBuilder clearMentions()
     {
         return clearMentionedUsers().clearMentionedRoles();
@@ -607,7 +726,7 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
+    @NotNull
     public MessageBuilder setAllowedMentions(@Nullable Collection<Message.MentionType> mentionTypes)
     {
         this.allowedMentions = mentionTypes == null
@@ -627,8 +746,8 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
-    public MessageBuilder allowMentions(@Nonnull Message.MentionType... types)
+    @NotNull
+    public MessageBuilder allowMentions(@NotNull Message.MentionType... types)
     {
         Checks.noneNull(types, "MentionTypes");
         if (types.length > 0)
@@ -651,8 +770,8 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
-    public MessageBuilder denyMentions(@Nonnull Message.MentionType... types)
+    @NotNull
+    public MessageBuilder denyMentions(@NotNull Message.MentionType... types)
     {
         Checks.noneNull(types, "MentionTypes");
         if (types.length > 0)
@@ -683,8 +802,8 @@ public class MessageBuilder implements Appendable
      * @see    #clearMentions()
      * @see    MessageAction#mention(IMentionable...)
      */
-    @Nonnull
-    public MessageBuilder mention(@Nonnull IMentionable... mentions)
+    @NotNull
+    public MessageBuilder mention(@NotNull IMentionable... mentions)
     {
         Checks.noneNull(mentions, "Mentions");
 
@@ -716,8 +835,8 @@ public class MessageBuilder implements Appendable
      * @see    #clearMentions()
      * @see    MessageAction#mention(IMentionable...)
      */
-    @Nonnull
-    public MessageBuilder mention(@Nonnull Collection<? extends IMentionable> mentions)
+    @NotNull
+    public MessageBuilder mention(@NotNull Collection<? extends IMentionable> mentions)
     {
         Checks.noneNull(mentions, "Mentions");
         return mention(mentions.toArray(new IMentionable[0]));
@@ -742,8 +861,8 @@ public class MessageBuilder implements Appendable
      * @see    #clearMentionedUsers()
      * @see    MessageAction#mentionUsers(String...)
      */
-    @Nonnull
-    public MessageBuilder mentionUsers(@Nonnull String... users)
+    @NotNull
+    public MessageBuilder mentionUsers(@NotNull String... users)
     {
         Checks.noneNull(users, "Users");
         Collections.addAll(mentionedUsers, users);
@@ -769,8 +888,8 @@ public class MessageBuilder implements Appendable
      * @see    #clearMentionedRoles()
      * @see    MessageAction#mentionRoles(String...)
      */
-    @Nonnull
-    public MessageBuilder mentionRoles(@Nonnull String... roles)
+    @NotNull
+    public MessageBuilder mentionRoles(@NotNull String... roles)
     {
         Checks.noneNull(roles, "Roles");
         Collections.addAll(mentionedRoles, roles);
@@ -796,8 +915,8 @@ public class MessageBuilder implements Appendable
      * @see    #clearMentionedUsers()
      * @see    MessageAction#mentionUsers(long...)
      */
-    @Nonnull
-    public MessageBuilder mentionUsers(@Nonnull long... users)
+    @NotNull
+    public MessageBuilder mentionUsers(@NotNull long... users)
     {
         Checks.notNull(users, "Users");
         return mentionUsers(toStringArray(users));
@@ -822,8 +941,8 @@ public class MessageBuilder implements Appendable
      * @see    #clearMentionedRoles()
      * @see    MessageAction#mentionRoles(long...)
      */
-    @Nonnull
-    public MessageBuilder mentionRoles(@Nonnull long... roles)
+    @NotNull
+    public MessageBuilder mentionRoles(@NotNull long... roles)
     {
         Checks.notNull(roles, "Roles");
         return mentionRoles(toStringArray(roles));
@@ -834,7 +953,7 @@ public class MessageBuilder implements Appendable
      *
      * @return The {@link StringBuilder} used by this {@link MessageBuilder}
      */
-    @Nonnull
+    @NotNull
     public StringBuilder getStringBuilder()
     {
         return this.builder;
@@ -847,7 +966,7 @@ public class MessageBuilder implements Appendable
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
-    @Nonnull
+    @NotNull
     public MessageBuilder clear() {
         this.builder.setLength(0);
         this.embeds.clear();
@@ -878,7 +997,7 @@ public class MessageBuilder implements Appendable
      * @return the index of the first occurrence of the specified substring between
      *         the specified indices or {@code -1} if there is no such occurrence.
      */
-    public int indexOf(@Nonnull CharSequence target, int fromIndex, int endIndex)
+    public int indexOf(@NotNull CharSequence target, int fromIndex, int endIndex)
     {
         if (fromIndex < 0)
             throw new IndexOutOfBoundsException("index out of range: " + fromIndex);
@@ -944,7 +1063,7 @@ public class MessageBuilder implements Appendable
      * @return the index of the last occurrence of the specified substring between
      *         the specified indices or {@code -1} if there is no such occurrence.
      */
-    public int lastIndexOf(@Nonnull CharSequence target, int fromIndex, int endIndex)
+    public int lastIndexOf(@NotNull CharSequence target, int fromIndex, int endIndex)
     {
         if (fromIndex < 0)
             throw new IndexOutOfBoundsException("index out of range: " + fromIndex);
@@ -1012,7 +1131,7 @@ public class MessageBuilder implements Appendable
      *
      * @return the created {@link net.dv8tion.jda.api.entities.Message Message}
      */
-    @Nonnull
+    @NotNull
     public Message build()
     {
         String message = builder.toString();
@@ -1023,7 +1142,9 @@ public class MessageBuilder implements Appendable
 
         String[] ids = new String[0];
         return new DataMessage(isTTS, message, nonce, embeds,
-                allowedMentions, mentionedUsers.toArray(ids), mentionedRoles.toArray(ids), components.toArray(new LayoutComponent[0]));
+                allowedMentions, mentionedUsers.toArray(ids), mentionedRoles.toArray(ids),
+                components.toArray(new LayoutComponent[0]),
+                new ArrayList<>(stickers));
     }
 
     /**
@@ -1042,7 +1163,7 @@ public class MessageBuilder implements Appendable
      *
      * @return the created {@link net.dv8tion.jda.api.entities.Message Messages}
      */
-    @Nonnull
+    @NotNull
     public Queue<Message> buildAll(@Nullable SplitPolicy... policy)
     {
         if (this.isEmpty())
@@ -1086,12 +1207,14 @@ public class MessageBuilder implements Appendable
         return messages;
     }
 
-    @Nonnull
+    @NotNull
     protected DataMessage build(int beginIndex, int endIndex)
     {
         String[] ids = new String[0];
         return new DataMessage(isTTS, builder.substring(beginIndex, endIndex), null, null,
-                allowedMentions, mentionedUsers.toArray(ids), mentionedRoles.toArray(ids), components.toArray(new LayoutComponent[0]));
+                allowedMentions, mentionedUsers.toArray(ids), mentionedRoles.toArray(ids),
+                components.toArray(new LayoutComponent[0]),
+                new ArrayList<>(stickers));
     }
 
     private String[] toStringArray(long[] users)
@@ -1133,8 +1256,8 @@ public class MessageBuilder implements Appendable
          *
          * @return a new {@link SplitPolicy}
          */
-        @Nonnull
-        static SplitPolicy onChars(@Nonnull CharSequence chars, boolean remove)
+        @NotNull
+        static SplitPolicy onChars(@NotNull CharSequence chars, boolean remove)
         {
             return new CharSequenceSplitPolicy(chars, remove);
         }
@@ -1147,7 +1270,7 @@ public class MessageBuilder implements Appendable
             private final boolean remove;
             private final CharSequence chars;
 
-            private CharSequenceSplitPolicy(@Nonnull final CharSequence chars, final boolean remove)
+            private CharSequenceSplitPolicy(@NotNull final CharSequence chars, final boolean remove)
             {
                 this.chars = chars;
                 this.remove = remove;
@@ -1202,7 +1325,7 @@ public class MessageBuilder implements Appendable
             this.tag = tag;
         }
 
-        @Nonnull
+        @NotNull
         private String getTag()
         {
             return tag;

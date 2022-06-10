@@ -18,7 +18,7 @@ package net.dv8tion.jda.api.requests.restaction.pagination;
 
 import net.dv8tion.jda.api.entities.*;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * {@link PaginationAction PaginationAction} that paginates the reaction users endpoint.
@@ -65,6 +65,6 @@ public interface ReactionPaginationAction extends PaginationAction<User, Reactio
      *
      * @return The current MessageReaction
      */
-    @Nonnull
+    @NotNull
     MessageReaction getReaction();
 }

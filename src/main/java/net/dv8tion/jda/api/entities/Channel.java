@@ -19,9 +19,9 @@ package net.dv8tion.jda.api.entities;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.utils.MiscUtil;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.FormattableFlags;
 import java.util.Formatter;
 
@@ -35,7 +35,7 @@ public interface Channel extends IMentionable
      *
      * @return The name of this channel
      */
-    @Nonnull
+    @NotNull
     String getName();
 
     /**
@@ -43,7 +43,7 @@ public interface Channel extends IMentionable
      *
      * @return The channel type
      */
-    @Nonnull
+    @NotNull
     ChannelType getType();
 
     /**
@@ -51,7 +51,7 @@ public interface Channel extends IMentionable
      *
      * @return the corresponding JDA instance
      */
-    @Nonnull
+    @NotNull
     JDA getJDA();
 
     /**
@@ -66,7 +66,7 @@ public interface Channel extends IMentionable
      *
      * @return {@link RestAction RestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RestAction<Void> delete();
 

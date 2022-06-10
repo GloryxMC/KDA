@@ -26,9 +26,10 @@ import net.dv8tion.jda.utils.data.DataArray;
 import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.interactions.InteractionHookImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -47,28 +48,28 @@ public class MessageEditCallbackActionImpl extends DeferrableCallbackActionImpl 
         super(hook);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageEditCallbackActionImpl setCheck(BooleanSupplier checks)
     {
         return (MessageEditCallbackActionImpl) super.setCheck(checks);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public MessageEditCallbackActionImpl timeout(long timeout, @Nonnull TimeUnit unit)
+    public MessageEditCallbackActionImpl timeout(long timeout, @NotNull TimeUnit unit)
     {
         return (MessageEditCallbackActionImpl) super.timeout(timeout, unit);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageEditCallbackActionImpl deadline(long timestamp)
     {
         return (MessageEditCallbackActionImpl) super.deadline(timestamp);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageEditCallbackActionImpl closeResources()
     {
@@ -114,9 +115,9 @@ public class MessageEditCallbackActionImpl extends DeferrableCallbackActionImpl 
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public MessageEditCallbackAction setEmbeds(@Nonnull Collection<? extends MessageEmbed> embeds)
+    public MessageEditCallbackAction setEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
     {
         Checks.noneNull(embeds, "MessageEmbed");
         Checks.check(embeds.size() <= Message.MAX_EMBED_COUNT, "Cannot have more than %d embeds per message!", Message.MAX_EMBED_COUNT);
@@ -133,9 +134,9 @@ public class MessageEditCallbackActionImpl extends DeferrableCallbackActionImpl 
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public MessageEditCallbackAction setActionRows(@Nonnull ActionRow... rows)
+    public MessageEditCallbackAction setActionRows(@NotNull ActionRow... rows)
     {
         Checks.noneNull(rows, "ActionRows");
 
@@ -150,9 +151,9 @@ public class MessageEditCallbackActionImpl extends DeferrableCallbackActionImpl 
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public MessageEditCallbackAction addFile(@Nonnull InputStream data, @Nonnull String name, @Nonnull AttachmentOption... options)
+    public MessageEditCallbackAction addFile(@NotNull InputStream data, @NotNull String name, @NotNull AttachmentOption... options)
     {
         Checks.notNull(data, "Data");
         Checks.notEmpty(name, "Name");
@@ -164,9 +165,9 @@ public class MessageEditCallbackActionImpl extends DeferrableCallbackActionImpl 
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public MessageEditCallbackAction retainFilesById(@Nonnull Collection<String> ids)
+    public MessageEditCallbackAction retainFilesById(@NotNull Collection<String> ids)
     {
         Checks.noneNull(ids, "IDs");
         ids.forEach(Checks::isSnowflake);
@@ -175,7 +176,7 @@ public class MessageEditCallbackActionImpl extends DeferrableCallbackActionImpl 
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageEditCallbackAction setContent(@Nullable String content)
     {

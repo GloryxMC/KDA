@@ -28,10 +28,7 @@ import net.dv8tion.jda.api.interactions.components.Modal;
 import net.dv8tion.jda.api.requests.restaction.interactions.MessageEditCallbackAction;
 import net.dv8tion.jda.api.requests.restaction.interactions.ModalCallbackAction;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
-import net.dv8tion.jda.internal.requests.restaction.interactions.ModalCallbackActionImpl;
-import net.dv8tion.jda.internal.utils.Checks;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Indicates that a {@link ComponentInteraction} was created in a channel.
@@ -45,41 +42,41 @@ public class GenericComponentInteractionCreateEvent extends GenericInteractionCr
 {
     private final ComponentInteraction interaction;
 
-    public GenericComponentInteractionCreateEvent(@Nonnull JDA api, long responseNumber, @Nonnull ComponentInteraction interaction)
+    public GenericComponentInteractionCreateEvent(@NotNull JDA api, long responseNumber, @NotNull ComponentInteraction interaction)
     {
         super(api, responseNumber, interaction);
         this.interaction = interaction;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ComponentInteraction getInteraction()
     {
         return interaction;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageChannel getChannel()
     {
         return interaction.getChannel();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getComponentId()
     {
         return interaction.getComponentId();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ActionComponent getComponent()
     {
         return interaction.getComponent();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Message getMessage()
     {
@@ -92,37 +89,37 @@ public class GenericComponentInteractionCreateEvent extends GenericInteractionCr
         return interaction.getMessageIdLong();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Component.Type getComponentType()
     {
         return interaction.getComponentType();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageEditCallbackAction deferEdit()
     {
         return interaction.deferEdit();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public InteractionHook getHook()
     {
         return interaction.getHook();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ReplyCallbackAction deferReply()
     {
         return interaction.deferReply();
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ModalCallbackAction replyModal(@Nonnull Modal modal)
+    public ModalCallbackAction replyModal(@NotNull Modal modal)
     {
         return interaction.replyModal(modal);
     }

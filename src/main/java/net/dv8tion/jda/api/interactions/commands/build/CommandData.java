@@ -23,8 +23,8 @@ import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.utils.data.SerializableData;
 import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Map;
 
@@ -47,8 +47,8 @@ public interface CommandData extends SerializableData
      *
      * @return The builder instance, for chaining
      */
-    @Nonnull
-    CommandData setName(@Nonnull String name);
+    @NotNull
+    CommandData setName(@NotNull String name);
 
     /**
      * Whether this command is available to everyone by default.
@@ -62,7 +62,7 @@ public interface CommandData extends SerializableData
      *
      * @return The builder instance, for chaining
      */
-    @Nonnull
+    @NotNull
     CommandData setDefaultEnabled(boolean enabled);
 
     /**
@@ -70,7 +70,7 @@ public interface CommandData extends SerializableData
      *
      * @return The command name
      */
-    @Nonnull
+    @NotNull
     String getName();
 
     /**
@@ -88,7 +88,7 @@ public interface CommandData extends SerializableData
      *
      * @return The {@link Command.Type}
      */
-    @Nonnull
+    @NotNull
     Command.Type getType();
 
     /**
@@ -104,8 +104,8 @@ public interface CommandData extends SerializableData
      *
      * @see    SlashCommandData#fromCommand(Command)
      */
-    @Nonnull
-    static CommandData fromCommand(@Nonnull Command command)
+    @NotNull
+    static CommandData fromCommand(@NotNull Command command)
     {
         Checks.notNull(command, "Command");
         if (command.getType() != Command.Type.SLASH)
@@ -132,8 +132,8 @@ public interface CommandData extends SerializableData
      * @see    SlashCommandData#fromData(DataObject)
      * @see    Commands#fromList(Collection)
      */
-    @Nonnull
-    static CommandData fromData(@Nonnull DataObject object)
+    @NotNull
+    static CommandData fromData(@NotNull DataObject object)
     {
         Checks.notNull(object, "DataObject");
         String name = object.getString("name");

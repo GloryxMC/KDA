@@ -18,10 +18,11 @@ package net.dv8tion.jda.api.managers;
 
 import net.dv8tion.jda.api.entities.Icon;
 import net.dv8tion.jda.api.entities.SelfUser;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Manager providing functionality to update one or more fields for the logged in account.
@@ -54,7 +55,7 @@ public interface AccountManager extends Manager<AccountManager>
      *
      * @return The corresponding SelfUser
      */
-    @Nonnull
+    @NotNull
     SelfUser getSelfUser();
 
     /**
@@ -73,7 +74,7 @@ public interface AccountManager extends Manager<AccountManager>
      *
      * @return AccountManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     AccountManager reset(long fields);
@@ -94,7 +95,7 @@ public interface AccountManager extends Manager<AccountManager>
      *
      * @return AccountManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     AccountManager reset(long... fields);
@@ -114,9 +115,9 @@ public interface AccountManager extends Manager<AccountManager>
      *
      * @return AccountManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    AccountManager setName(@Nonnull String name);
+    AccountManager setName(@NotNull String name);
 
     /**
      * Sets the avatar for the currently logged in account
@@ -127,7 +128,7 @@ public interface AccountManager extends Manager<AccountManager>
      *
      * @return AccountManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     AccountManager setAvatar(@Nullable Icon avatar);
 }

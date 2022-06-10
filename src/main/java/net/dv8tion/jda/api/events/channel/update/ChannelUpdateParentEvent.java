@@ -21,14 +21,14 @@ import net.dv8tion.jda.api.entities.Category;
 import net.dv8tion.jda.api.entities.Channel;
 import net.dv8tion.jda.api.entities.ChannelField;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 //TODO-v5: Docs
 public class ChannelUpdateParentEvent extends GenericChannelUpdateEvent<Category>
 {
     public static final ChannelField FIELD = ChannelField.PARENT;
 
-    public ChannelUpdateParentEvent(@Nonnull JDA api, long responseNumber, Channel channel, Category oldValue, Category newValue)
+    public ChannelUpdateParentEvent(@NotNull JDA api, long responseNumber, Channel channel, Category oldValue, Category newValue)
     {
         super(api, responseNumber, channel, FIELD, oldValue, newValue);
     }

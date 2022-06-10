@@ -18,7 +18,7 @@ package net.dv8tion.jda.internal.entities;
 
 import net.dv8tion.jda.api.entities.UserSnowflake;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class UserSnowflakeImpl implements UserSnowflake
 {
@@ -35,7 +35,7 @@ public class UserSnowflakeImpl implements UserSnowflake
         return this.id;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getAsMention()
     {

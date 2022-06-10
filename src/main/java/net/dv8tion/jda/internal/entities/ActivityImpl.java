@@ -18,8 +18,8 @@ package net.dv8tion.jda.internal.entities;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.RichPresence;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 public class ActivityImpl implements Activity
@@ -66,7 +66,7 @@ public class ActivityImpl implements Activity
         return null;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getName()
     {
@@ -79,7 +79,7 @@ public class ActivityImpl implements Activity
         return url;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ActivityType getType()
     {

@@ -21,8 +21,8 @@ import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.events.UpdateEvent;
 import net.dv8tion.jda.api.events.emote.GenericEmoteEvent;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Indicates that an {@link net.dv8tion.jda.api.entities.Emote Emote} was updated.
@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
  * <h2>Requirements</h2>
  *
  * <p>These events require the {@link net.dv8tion.jda.api.utils.cache.CacheFlag#EMOTE EMOTE} CacheFlag to be enabled, which requires
- * the {@link net.dv8tion.jda.api.requests.GatewayIntent#GUILD_EMOJIS GUILD_EMOJIS} intent.
+ * the {@link net.dv8tion.jda.api.requests.GatewayIntent#GUILD_EMOJIS_AND_STICKERS GUILD_EMOJIS_AND_STICKERS} intent.
  *
  * <br>{@link net.dv8tion.jda.api.JDABuilder#createLight(String) createLight(String)} disables that CacheFlag by default!
  */
@@ -41,8 +41,8 @@ public abstract class GenericEmoteUpdateEvent<T> extends GenericEmoteEvent imple
     protected final String identifier;
 
     public GenericEmoteUpdateEvent(
-            @Nonnull JDA api, long responseNumber, @Nonnull Emote emote,
-            @Nullable T previous, @Nullable T next, @Nonnull String identifier)
+            @NotNull JDA api, long responseNumber, @NotNull Emote emote,
+            @Nullable T previous, @Nullable T next, @NotNull String identifier)
     {
         super(api, responseNumber, emote);
         this.previous = previous;
@@ -50,14 +50,14 @@ public abstract class GenericEmoteUpdateEvent<T> extends GenericEmoteEvent imple
         this.identifier = identifier;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Emote getEntity()
     {
         return getEmote();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getPropertyIdentifier()
     {

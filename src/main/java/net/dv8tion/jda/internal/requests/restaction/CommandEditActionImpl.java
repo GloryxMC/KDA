@@ -33,9 +33,9 @@ import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
 import okhttp3.RequestBody;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
 
@@ -61,23 +61,23 @@ public class CommandEditActionImpl extends RestActionImpl<Command> implements Co
         this.guild = guild;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CommandEditAction setCheck(BooleanSupplier checks)
     {
         return (CommandEditAction) super.setCheck(checks);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CommandEditAction deadline(long timestamp)
     {
         return (CommandEditAction) super.deadline(timestamp);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public CommandEditAction apply(@Nonnull CommandData commandData)
+    public CommandEditAction apply(@NotNull CommandData commandData)
     {
         Checks.notNull(commandData, "Command Data");
         this.mask = NAME_SET | DESCRIPTION_SET | OPTIONS_SET;
@@ -85,7 +85,7 @@ public class CommandEditActionImpl extends RestActionImpl<Command> implements Co
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CommandEditAction setDefaultEnabled(boolean enabled)
     {
@@ -93,21 +93,21 @@ public class CommandEditActionImpl extends RestActionImpl<Command> implements Co
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public CommandEditAction addCheck(@Nonnull BooleanSupplier checks)
+    public CommandEditAction addCheck(@NotNull BooleanSupplier checks)
     {
         return (CommandEditAction) super.addCheck(checks);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public CommandEditAction timeout(long timeout, @Nonnull TimeUnit unit)
+    public CommandEditAction timeout(long timeout, @NotNull TimeUnit unit)
     {
         return (CommandEditAction) super.timeout(timeout, unit);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CommandEditAction setName(@Nullable String name)
     {
@@ -121,7 +121,7 @@ public class CommandEditActionImpl extends RestActionImpl<Command> implements Co
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CommandEditAction setDescription(@Nullable String description)
     {
@@ -135,7 +135,7 @@ public class CommandEditActionImpl extends RestActionImpl<Command> implements Co
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CommandEditAction clearOptions()
     {
@@ -144,27 +144,27 @@ public class CommandEditActionImpl extends RestActionImpl<Command> implements Co
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public CommandEditAction addOptions(@Nonnull OptionData... options)
+    public CommandEditAction addOptions(@NotNull OptionData... options)
     {
         data.addOptions(options);
         mask |= OPTIONS_SET;
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public CommandEditAction addSubcommands(@Nonnull SubcommandData... subcommands)
+    public CommandEditAction addSubcommands(@NotNull SubcommandData... subcommands)
     {
         data.addSubcommands(subcommands);
         mask |= OPTIONS_SET;
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public CommandEditAction addSubcommandGroups(@Nonnull SubcommandGroupData... groups)
+    public CommandEditAction addSubcommandGroups(@NotNull SubcommandGroupData... groups)
     {
         data.addSubcommandGroups(groups);
         mask |= OPTIONS_SET;

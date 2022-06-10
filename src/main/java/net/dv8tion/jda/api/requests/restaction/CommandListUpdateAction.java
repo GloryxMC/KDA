@@ -21,10 +21,12 @@ import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -39,21 +41,21 @@ import java.util.function.BooleanSupplier;
  */
 public interface CommandListUpdateAction extends RestAction<List<Command>>
 {
-    @Nonnull
+    @NotNull
     @Override
-    CommandListUpdateAction timeout(long timeout, @Nonnull TimeUnit unit);
+    CommandListUpdateAction timeout(long timeout, @NotNull TimeUnit unit);
 
-    @Nonnull
+    @NotNull
     @Override
     CommandListUpdateAction deadline(long timestamp);
 
-    @Nonnull
+    @NotNull
     @Override
     CommandListUpdateAction setCheck(@Nullable BooleanSupplier checks);
 
-    @Nonnull
+    @NotNull
     @Override
-    CommandListUpdateAction addCheck(@Nonnull BooleanSupplier checks);
+    CommandListUpdateAction addCheck(@NotNull BooleanSupplier checks);
 
     /**
      * Adds up to
@@ -78,9 +80,9 @@ public interface CommandListUpdateAction extends RestAction<List<Command>>
      * @see    Commands#message(String) Commands.message(...)
      * @see    Commands#user(String) Commands.user(...)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    CommandListUpdateAction addCommands(@Nonnull Collection<? extends CommandData> commands);
+    CommandListUpdateAction addCommands(@NotNull Collection<? extends CommandData> commands);
 
     /**
      * Adds up to
@@ -105,9 +107,9 @@ public interface CommandListUpdateAction extends RestAction<List<Command>>
      * @see    Commands#message(String) Commands.message(...)
      * @see    Commands#user(String) Commands.user(...)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default CommandListUpdateAction addCommands(@Nonnull CommandData... commands)
+    default CommandListUpdateAction addCommands(@NotNull CommandData... commands)
     {
         Checks.noneNull(commands, "Command");
         return addCommands(Arrays.asList(commands));

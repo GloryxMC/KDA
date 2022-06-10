@@ -19,10 +19,11 @@ package net.dv8tion.jda.api.managers.channel.attribute;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.managers.channel.ChannelManager;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 
 public interface ICategorizableChannelManager<T extends ICategorizableChannel, M extends ICategorizableChannelManager<T, M>>
         extends ChannelManager<T, M>, IPermissionContainerManager<T, M>
@@ -44,7 +45,7 @@ public interface ICategorizableChannelManager<T extends ICategorizableChannel, M
      *
      * @since  3.4.0
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     M setParent(@Nullable Category category);
 
@@ -68,7 +69,7 @@ public interface ICategorizableChannelManager<T extends ICategorizableChannel, M
      *
      * @see     <a href="https://discord.com/developers/docs/topics/permissions#permission-syncing" target="_blank">Discord Documentation - Permission Syncing</a>
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default M sync()
     {
@@ -104,7 +105,7 @@ public interface ICategorizableChannelManager<T extends ICategorizableChannel, M
      *
      * @see     <a href="https://discord.com/developers/docs/topics/permissions#permission-syncing" target="_blank">Discord Documentation - Permission Syncing</a>
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    M sync(@Nonnull IPermissionContainer syncSource);
+    M sync(@NotNull IPermissionContainer syncSource);
 }

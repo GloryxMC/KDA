@@ -19,9 +19,9 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Indicates that a Message was edited in a {@link net.dv8tion.jda.api.entities.MessageChannel MessageChannel}.
@@ -44,7 +44,7 @@ public class MessageUpdateEvent extends GenericMessageEvent
 {
     private final Message message;
 
-    public MessageUpdateEvent(@Nonnull JDA api, long responseNumber, @Nonnull Message message)
+    public MessageUpdateEvent(@NotNull JDA api, long responseNumber, @NotNull Message message)
     {
         super(api, responseNumber, message.getIdLong(), message.getChannel());
         this.message = message;
@@ -56,7 +56,7 @@ public class MessageUpdateEvent extends GenericMessageEvent
      *
      * @return The updated Message
      */
-    @Nonnull
+    @NotNull
     public Message getMessage()
     {
         return message;
@@ -69,7 +69,7 @@ public class MessageUpdateEvent extends GenericMessageEvent
      *
      * @see    net.dv8tion.jda.api.entities.User User
      */
-    @Nonnull
+    @NotNull
     public User getAuthor()
     {
         return message.getAuthor();

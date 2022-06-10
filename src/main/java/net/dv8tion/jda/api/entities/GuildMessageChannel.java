@@ -1,12 +1,18 @@
 package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.sticker.GuildSticker;
+import net.dv8tion.jda.api.entities.sticker.Sticker;
+import net.dv8tion.jda.api.entities.sticker.StickerSnowflake;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
+import net.dv8tion.jda.api.exceptions.MissingAccessException;
 import net.dv8tion.jda.api.requests.RestAction;
+import net.dv8tion.jda.api.requests.restaction.MessageAction;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +45,7 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @return True, if the specified member is able to read and send messages in this channel
      */
-    boolean canTalk(@Nonnull Member member);
+    boolean canTalk(@NotNull Member member);
 
     /**
      * Attempts to remove the reaction from a message represented by the specified {@code messageId}
@@ -100,9 +106,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @return {@link RestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    RestAction<Void> removeReactionById(@Nonnull String messageId, @Nonnull String unicode, @Nonnull User user);
+    RestAction<Void> removeReactionById(@NotNull String messageId, @NotNull String unicode, @NotNull User user);
 
     /**
      * Attempts to remove the reaction from a message represented by the specified {@code messageId}
@@ -163,9 +169,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @return {@link RestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> removeReactionById(long messageId, @Nonnull String unicode, @Nonnull User user)
+    default RestAction<Void> removeReactionById(long messageId, @NotNull String unicode, @NotNull User user)
     {
         return removeReactionById(Long.toUnsignedString(messageId), unicode, user);
     }
@@ -223,9 +229,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @return {@link RestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> removeReactionById(@Nonnull String messageId, @Nonnull Emote emote, @Nonnull User user)
+    default RestAction<Void> removeReactionById(@NotNull String messageId, @NotNull Emote emote, @NotNull User user)
     {
         Checks.notNull(emote, "Emote");
         return removeReactionById(messageId, emote.getName() + ":" + emote.getId(), user);
@@ -284,9 +290,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @return {@link RestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> removeReactionById(long messageId, @Nonnull Emote emote, @Nonnull User user)
+    default RestAction<Void> removeReactionById(long messageId, @NotNull Emote emote, @NotNull User user)
     {
         return removeReactionById(Long.toUnsignedString(messageId), emote, user);
     }
@@ -334,9 +340,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * @see    #deleteMessagesByIds(Collection)
      * @see    #purgeMessages(List)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> deleteMessages(@Nonnull Collection<Message> messages)
+    default RestAction<Void> deleteMessages(@NotNull Collection<Message> messages)
     {
         Checks.notEmpty(messages, "Messages collection");
 
@@ -391,9 +397,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * @see    #deleteMessages(Collection)
      * @see    #purgeMessagesById(List)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    RestAction<Void> deleteMessagesByIds(@Nonnull Collection<String> messageIds);
+    RestAction<Void> deleteMessagesByIds(@NotNull Collection<String> messageIds);
 
     /**
      * Attempts to remove all reactions from a message with the specified {@code messageId} in this TextChannel
@@ -426,9 +432,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    RestAction<Void> clearReactionsById(@Nonnull String messageId);
+    RestAction<Void> clearReactionsById(@NotNull String messageId);
 
     /**
      * Attempts to remove all reactions from a message with the specified {@code messageId} in this TextChannel
@@ -459,7 +465,7 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default RestAction<Void> clearReactionsById(long messageId)
     {
@@ -506,9 +512,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @since  4.2.0
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    RestAction<Void> clearReactionsById(@Nonnull String messageId, @Nonnull String unicode);
+    RestAction<Void> clearReactionsById(@NotNull String messageId, @NotNull String unicode);
 
     /**
      * Removes all reactions for the specified emoji.
@@ -540,9 +546,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @since  4.2.0
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> clearReactionsById(@Nonnull String messageId, @Nonnull Emote emote)
+    default RestAction<Void> clearReactionsById(@NotNull String messageId, @NotNull Emote emote)
     {
         Checks.notNull(emote, "Emote");
         return clearReactionsById(messageId, emote.getName() + ":" + emote.getId());
@@ -588,9 +594,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @since  4.2.0
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> clearReactionsById(long messageId, @Nonnull String unicode)
+    default RestAction<Void> clearReactionsById(long messageId, @NotNull String unicode)
     {
         return clearReactionsById(Long.toUnsignedString(messageId), unicode);
     }
@@ -625,10 +631,76 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @since  4.2.0
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> clearReactionsById(long messageId, @Nonnull Emote emote)
+    default RestAction<Void> clearReactionsById(long messageId, @NotNull Emote emote)
     {
         return clearReactionsById(Long.toUnsignedString(messageId), emote);
+    }
+
+    /**
+     * Send up to 3 stickers in this channel.
+     * <br>Bots can only send {@link GuildSticker GuildStickers} from the same {@link Guild}.
+     * Bots cannot use {@link net.dv8tion.jda.api.entities.sticker.StandardSticker StandardStickers}.
+     *
+     * @param  stickers
+     *         Collection of 1-3 stickers to send
+     *
+     * @throws MissingAccessException
+     *         If the currently logged in account does not have {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} in this channel
+     * @throws InsufficientPermissionException
+     *         <ul>
+     *           <li>If this is a {@link ThreadChannel} and the bot does not have {@link Permission#MESSAGE_SEND_IN_THREADS Permission.MESSAGE_SEND_IN_THREADS}</li>
+     *           <li>If this is not a {@link ThreadChannel} and the bot does not have {@link Permission#MESSAGE_SEND Permission.MESSAGE_SEND}</li>
+     *         </ul>
+     * @throws IllegalArgumentException
+     *         <ul>
+     *           <li>If any of the provided stickers is a {@link GuildSticker},
+     *               which is either {@link GuildSticker#isAvailable() unavailable} or from a different guild.</li>
+     *           <li>If the list is empty or has more than 3 stickers</li>
+     *           <li>If null is provided</li>
+     *         </ul>
+     *
+     * @return {@link MessageAction}
+     *
+     * @see    Sticker#fromId(long)
+     */
+    @NotNull
+    @CheckReturnValue
+    MessageAction sendStickers(@NotNull Collection<? extends StickerSnowflake> stickers);
+
+    /**
+     * Send up to 3 stickers in this channel.
+     * <br>Bots can only send {@link GuildSticker GuildStickers} from the same {@link Guild}.
+     * Bots cannot use {@link net.dv8tion.jda.api.entities.sticker.StandardSticker StandardStickers}.
+     *
+     * @param  stickers
+     *         The 1-3 stickers to send
+     *
+     * @throws MissingAccessException
+     *         If the currently logged in account does not have {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} in this channel
+     * @throws InsufficientPermissionException
+     *         <ul>
+     *           <li>If this is a {@link ThreadChannel} and the bot does not have {@link Permission#MESSAGE_SEND_IN_THREADS Permission.MESSAGE_SEND_IN_THREADS}</li>
+     *           <li>If this is not a {@link ThreadChannel} and the bot does not have {@link Permission#MESSAGE_SEND Permission.MESSAGE_SEND}</li>
+     *         </ul>
+     * @throws IllegalArgumentException
+     *         <ul>
+     *           <li>If any of the provided stickers is a {@link GuildSticker},
+     *               which is either {@link GuildSticker#isAvailable() unavailable} or from a different guild.</li>
+     *           <li>If the list is empty or has more than 3 stickers</li>
+     *           <li>If null is provided</li>
+     *         </ul>
+     *
+     * @return {@link MessageAction}
+     *
+     * @see    Sticker#fromId(long)
+     */
+    @NotNull
+    @CheckReturnValue
+    default MessageAction sendStickers(@NotNull StickerSnowflake... stickers)
+    {
+        Checks.notEmpty(stickers, "Stickers");
+        return sendStickers(Arrays.asList(stickers));
     }
 }

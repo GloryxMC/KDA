@@ -18,29 +18,29 @@ package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.JDA;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.time.OffsetDateTime;
 
 //TODO-v5: docs
 public interface ThreadMember extends IMentionable
 {
-    @Nonnull
+    @NotNull
     JDA getJDA();
 
-    @Nonnull
+    @NotNull
     Guild getGuild();
 
-    @Nonnull
+    @NotNull
     ThreadChannel getThread();
 
     //We might not actually be able to provide a user because we only get the `userId` in the ThreadMember object.
-    @Nonnull
+    @NotNull
     User getUser();
 
-    @Nonnull
+    @NotNull
     Member getMember();
 
-    @Nonnull
+    @NotNull
     OffsetDateTime getTimeJoined();
 
     //TODO | Set<ThreadMemberFlags> getFlags();

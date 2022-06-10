@@ -22,10 +22,11 @@ import net.dv8tion.jda.api.utils.ImageProxy;
 import net.dv8tion.jda.api.utils.MiscUtil;
 import net.dv8tion.jda.internal.entities.UserSnowflakeImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import java.awt.*;
 import java.util.Collection;
 import java.util.EnumSet;
@@ -100,7 +101,7 @@ public interface User extends UserSnowflake
      * @see    JDA#retrieveUserById(long)
      * @see    UserSnowflake#fromId(long)
      */
-    @Nonnull
+    @NotNull
     static UserSnowflake fromId(long id)
     {
         return new UserSnowflakeImpl(id);
@@ -120,8 +121,8 @@ public interface User extends UserSnowflake
      * @see    JDA#retrieveUserById(String)
      * @see    UserSnowflake#fromId(String)
      */
-    @Nonnull
-    static UserSnowflake fromId(@Nonnull String id)
+    @NotNull
+    static UserSnowflake fromId(@NotNull String id)
     {
         return fromId(MiscUtil.parseSnowflake(id));
     }
@@ -134,7 +135,7 @@ public interface User extends UserSnowflake
      *
      * @return Never-null String containing the {@link User User}'s username.
      */
-    @Nonnull
+    @NotNull
     String getName();
 
     /**
@@ -147,7 +148,7 @@ public interface User extends UserSnowflake
      *
      * @return Never-null String containing the {@link User User} discriminator.
      */
-    @Nonnull
+    @NotNull
     String getDiscriminator();
 
     /**
@@ -200,7 +201,7 @@ public interface User extends UserSnowflake
      *
      * @return Never-null String containing the {@link User User} default avatar id.
      */
-    @Nonnull
+    @NotNull
     String getDefaultAvatarId();
 
     /**
@@ -211,7 +212,7 @@ public interface User extends UserSnowflake
      *
      * @return Never-null String containing the {@link User User} default avatar url.
      */
-    @Nonnull
+    @NotNull
     default String getDefaultAvatarUrl()
     {
         return String.format(DEFAULT_AVATAR_URL, getDefaultAvatarId());
@@ -224,7 +225,7 @@ public interface User extends UserSnowflake
      *
      * @see    #getDefaultAvatarUrl()
      */
-    @Nonnull
+    @NotNull
     default ImageProxy getDefaultAvatar()
     {
         return new ImageProxy(getDefaultAvatarUrl());
@@ -240,7 +241,7 @@ public interface User extends UserSnowflake
      *
      * @return  Never-null String containing the {@link User User} effective avatar url.
      */
-    @Nonnull
+    @NotNull
     default String getEffectiveAvatarUrl()
     {
         String avatarUrl = getAvatarUrl();
@@ -254,7 +255,7 @@ public interface User extends UserSnowflake
      *
      * @see    #getEffectiveAvatarUrl()
      */
-    @Nonnull
+    @NotNull
     default ImageProxy getEffectiveAvatar()
     {
         final ImageProxy avatar = getAvatar();
@@ -272,7 +273,7 @@ public interface User extends UserSnowflake
      *
      * @since 4.3.0
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RestAction<Profile> retrieveProfile();
 
@@ -285,7 +286,7 @@ public interface User extends UserSnowflake
      *
      * @return Never-null String containing the tag for this user, for example DV8FromTheWorld#6297
      */
-    @Nonnull
+    @NotNull
     String getAsTag();
 
     /**
@@ -331,7 +332,7 @@ public interface User extends UserSnowflake
      *
      * @see    JDA#openPrivateChannelById(long)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RestAction<PrivateChannel> openPrivateChannel();
 
@@ -344,7 +345,7 @@ public interface User extends UserSnowflake
      *
      * @return Immutable list of all {@link Guild Guilds} that this user is a member of.
      */
-    @Nonnull
+    @NotNull
     List<Guild> getMutualGuilds();
 
     /**
@@ -376,7 +377,7 @@ public interface User extends UserSnowflake
      *
      * @return the corresponding JDA instance
      */
-    @Nonnull
+    @NotNull
     JDA getJDA();
 
     /**
@@ -387,7 +388,7 @@ public interface User extends UserSnowflake
      *
      * @return EnumSet containing the flags of the user.
      */
-    @Nonnull
+    @NotNull
     EnumSet<UserFlag> getFlags();
 
     /**
@@ -534,7 +535,7 @@ public interface User extends UserSnowflake
         private final int raw;
         private final String name;
 
-        UserFlag(int offset, @Nonnull String name)
+        UserFlag(int offset, @NotNull String name)
         {
             this.offset = offset;
             this.raw = 1 << offset;
@@ -546,7 +547,7 @@ public interface User extends UserSnowflake
          *
          * @return The readable name of this UserFlag.
          */
-        @Nonnull
+        @NotNull
         public String getName()
         {
             return this.name;
@@ -583,7 +584,7 @@ public interface User extends UserSnowflake
          *
          * @return UserFlag relating to the provided offset.
          */
-        @Nonnull
+        @NotNull
         public static UserFlag getFromOffset(int offset)
         {
             for (UserFlag flag : values())
@@ -603,7 +604,7 @@ public interface User extends UserSnowflake
          *
          * @return Possibly-empty EnumSet of UserFlags.
          */
-        @Nonnull
+        @NotNull
         public static EnumSet<UserFlag> getFlags(int flags)
         {
             final EnumSet<UserFlag> foundFlags = EnumSet.noneOf(UserFlag.class);
@@ -632,7 +633,7 @@ public interface User extends UserSnowflake
          *
          * @return bitmask representing the provided flags.
          */
-        public static int getRaw(@Nonnull UserFlag... flags){
+        public static int getRaw(@NotNull UserFlag... flags){
             Checks.noneNull(flags, "UserFlags");
 
             int raw = 0;
@@ -660,7 +661,7 @@ public interface User extends UserSnowflake
          *
          * @see EnumSet EnumSet
          */
-        public static int getRaw(@Nonnull Collection<UserFlag> flags)
+        public static int getRaw(@NotNull Collection<UserFlag> flags)
         {
             Checks.notNull(flags, "Flag Collection");
 

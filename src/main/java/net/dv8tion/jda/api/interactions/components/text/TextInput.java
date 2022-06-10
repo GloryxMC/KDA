@@ -19,9 +19,9 @@ package net.dv8tion.jda.api.interactions.components.text;
 import net.dv8tion.jda.api.interactions.components.ActionComponent;
 import net.dv8tion.jda.internal.interactions.component.TextInputImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a Discord Text input component
@@ -55,7 +55,7 @@ public interface TextInput extends ActionComponent
      *
      * @return The style of this TextInput component.
      */
-    @Nonnull
+    @NotNull
     TextInputStyle getStyle();
 
     /**
@@ -65,7 +65,7 @@ public interface TextInput extends ActionComponent
      *
      * @return The custom id of this component.
      */
-    @Nonnull
+    @NotNull
     String getId();
 
     /**
@@ -73,7 +73,7 @@ public interface TextInput extends ActionComponent
      *
      * @return The label of this TextInput component.
      */
-    @Nonnull
+    @NotNull
     String getLabel();
 
     /**
@@ -129,14 +129,14 @@ public interface TextInput extends ActionComponent
         return false;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     default ActionComponent withDisabled(boolean disabled)
     {
         throw new UnsupportedOperationException("TextInputs cannot be disabled!");
     }
 
-    @Nonnull
+    @NotNull
     @Override
     default Type getType()
     {
@@ -163,8 +163,8 @@ public interface TextInput extends ActionComponent
      *
      * @return a new TextInput Builder.
      */
-    @Nonnull
-    static TextInput.Builder create(@Nonnull String id, @Nonnull String label, @Nonnull TextInputStyle style)
+    @NotNull
+    static TextInput.Builder create(@NotNull String id, @NotNull String label, @NotNull TextInputStyle style)
     {
         return new Builder(id, label, style);
     }
@@ -205,8 +205,8 @@ public interface TextInput extends ActionComponent
          *
          * @return The same Builder for chaining convenience.
          */
-        @Nonnull
-        public Builder setId(@Nonnull String id)
+        @NotNull
+        public Builder setId(@NotNull String id)
         {
             Checks.notBlank(id, "ID");
             Checks.notLonger(id, MAX_ID_LENGTH, "ID");
@@ -228,8 +228,8 @@ public interface TextInput extends ActionComponent
          *
          * @return The same Builder for chaining convenience.
          */
-        @Nonnull
-        public Builder setLabel(@Nonnull String label)
+        @NotNull
+        public Builder setLabel(@NotNull String label)
         {
             Checks.notBlank(label, "Label");
             Checks.notLonger(label, MAX_LABEL_LENGTH, "Label");
@@ -253,7 +253,7 @@ public interface TextInput extends ActionComponent
          *
          * @return The same Builder for chaining convenience.
          */
-        @Nonnull
+        @NotNull
         public Builder setStyle(TextInputStyle style)
         {
             Checks.notNull(style, "Style");
@@ -270,7 +270,7 @@ public interface TextInput extends ActionComponent
          *
          * @return The same builder instance for chaining
          */
-        @Nonnull
+        @NotNull
         public Builder setRequired(boolean required)
         {
             this.required = required;
@@ -290,7 +290,7 @@ public interface TextInput extends ActionComponent
          *
          * @return The same builder instance for chaining
          */
-        @Nonnull
+        @NotNull
         public Builder setMinLength(int minLength)
         {
             Checks.notNegative(minLength, "Minimum length");
@@ -312,7 +312,7 @@ public interface TextInput extends ActionComponent
          *
          * @return The same builder instance for chaining
          */
-        @Nonnull
+        @NotNull
         public Builder setMaxLength(int maxLength)
         {
             Checks.check(maxLength >= 1, "Maximum length cannot be smaller than 1 character!");
@@ -338,7 +338,7 @@ public interface TextInput extends ActionComponent
          *
          * @return The same builder instance for chaining
          */
-        @Nonnull
+        @NotNull
         public Builder setRequiredRange(int min, int max)
         {
             if (min > max)
@@ -358,7 +358,7 @@ public interface TextInput extends ActionComponent
          *
          * @return The same builder instance for chaining
          */
-        @Nonnull
+        @NotNull
         public Builder setValue(@Nullable String value)
         {
             if (value != null)
@@ -383,7 +383,7 @@ public interface TextInput extends ActionComponent
          *
          * @return The same builder instance for chaining
          */
-        @Nonnull
+        @NotNull
         public Builder setPlaceholder(@Nullable String placeholder)
         {
             if (placeholder != null)
@@ -420,7 +420,7 @@ public interface TextInput extends ActionComponent
          *
          * @return Custom id
          */
-        @Nonnull
+        @NotNull
         public String getId()
         {
             return id;
@@ -431,7 +431,7 @@ public interface TextInput extends ActionComponent
          *
          * @return Label for the input
          */
-        @Nonnull
+        @NotNull
         public String getLabel()
         {
             return label;
@@ -442,7 +442,7 @@ public interface TextInput extends ActionComponent
          *
          * @return The TextInputStyle
          */
-        @Nonnull
+        @NotNull
         public TextInputStyle getStyle()
         {
             return style;
@@ -492,7 +492,7 @@ public interface TextInput extends ActionComponent
          *
          * @return the TextInput instance
          */
-        @Nonnull
+        @NotNull
         public TextInput build()
         {
             if (maxLength < minLength && maxLength != -1)

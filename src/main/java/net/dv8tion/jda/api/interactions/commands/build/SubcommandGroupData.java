@@ -22,8 +22,8 @@ import net.dv8tion.jda.utils.data.DataArray;
 import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.utils.data.SerializableData;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -53,7 +53,7 @@ public class SubcommandGroupData implements SerializableData
      *             <li>The description must be 1-100 characters long</li>
      *         </ul>
      */
-    public SubcommandGroupData(@Nonnull String name, @Nonnull String description)
+    public SubcommandGroupData(@NotNull String name, @NotNull String description)
     {
         Checks.notEmpty(name, "Name");
         Checks.notEmpty(description, "Description");
@@ -76,8 +76,8 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return The SubcommandGroupData instance, for chaining
      */
-    @Nonnull
-    public SubcommandGroupData setName(@Nonnull String name)
+    @NotNull
+    public SubcommandGroupData setName(@NotNull String name)
     {
         Checks.notEmpty(name, "Name");
         Checks.notLonger(name, 32, "Name");
@@ -98,8 +98,8 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return The SubcommandGroupData instance, for chaining
      */
-    @Nonnull
-    public SubcommandGroupData setDescription(@Nonnull String description)
+    @NotNull
+    public SubcommandGroupData setDescription(@NotNull String description)
     {
         Checks.notEmpty(description, "Description");
         Checks.notLonger(description, 100, "Description");
@@ -112,7 +112,7 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return The name
      */
-    @Nonnull
+    @NotNull
     public String getName()
     {
         return name;
@@ -123,7 +123,7 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return The description
      */
-    @Nonnull
+    @NotNull
     public String getDescription()
     {
         return description;
@@ -136,7 +136,7 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return Immutable list of {@link SubcommandData}
      */
-    @Nonnull
+    @NotNull
     public List<SubcommandData> getSubcommands()
     {
         return options.stream(DataArray::getObject)
@@ -155,8 +155,8 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return The SubcommandGroupData instance, for chaining
      */
-    @Nonnull
-    public SubcommandGroupData addSubcommands(@Nonnull SubcommandData... subcommands)
+    @NotNull
+    public SubcommandGroupData addSubcommands(@NotNull SubcommandData... subcommands)
     {
         Checks.noneNull(subcommands, "Subcommand");
         Checks.check(subcommands.length + options.length() <= 25, "Cannot have more than 25 subcommands in one group!");
@@ -181,14 +181,14 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return The SubcommandGroupData instance, for chaining
      */
-    @Nonnull
-    public SubcommandGroupData addSubcommands(@Nonnull Collection<? extends SubcommandData> subcommands)
+    @NotNull
+    public SubcommandGroupData addSubcommands(@NotNull Collection<? extends SubcommandData> subcommands)
     {
         Checks.noneNull(subcommands, "Subcommands");
         return addSubcommands(subcommands.toArray(new SubcommandData[0]));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public DataObject toData()
     {
@@ -213,8 +213,8 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return The parsed SubcommandGroupData instance, which can be further configured through setters
      */
-    @Nonnull
-    public static SubcommandGroupData fromData(@Nonnull DataObject json)
+    @NotNull
+    public static SubcommandGroupData fromData(@NotNull DataObject json)
     {
         String name = json.getString("name");
         String description = json.getString("description");
@@ -238,8 +238,8 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return An instance of SubcommandGroupData
      */
-    @Nonnull
-    public static SubcommandGroupData fromGroup(@Nonnull Command.SubcommandGroup group)
+    @NotNull
+    public static SubcommandGroupData fromGroup(@NotNull Command.SubcommandGroup group)
     {
         Checks.notNull(group, "Subcommand Group");
         SubcommandGroupData data = new SubcommandGroupData(group.getName(), group.getDescription());

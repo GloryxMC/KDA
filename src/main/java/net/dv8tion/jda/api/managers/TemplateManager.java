@@ -17,10 +17,11 @@
 package net.dv8tion.jda.api.managers;
 
 import net.dv8tion.jda.api.entities.templates.Template;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Manager providing functionality to update one or more fields for a {@link net.dv8tion.jda.api.entities.templates.Template Template}.
@@ -61,7 +62,7 @@ public interface TemplateManager extends Manager<TemplateManager>
      *
      * @return TemplateManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @Override
     TemplateManager reset(long fields);
 
@@ -80,7 +81,7 @@ public interface TemplateManager extends Manager<TemplateManager>
      *
      * @return TemplateManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @Override
     TemplateManager reset(long... fields);
 
@@ -95,9 +96,9 @@ public interface TemplateManager extends Manager<TemplateManager>
      *
      * @return TemplateManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    TemplateManager setName(@Nonnull String name);
+    TemplateManager setName(@NotNull String name);
 
     /**
      * Sets the description of this {@link Template Template}.
@@ -110,7 +111,7 @@ public interface TemplateManager extends Manager<TemplateManager>
      *
      * @return TemplateManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     TemplateManager setDescription(@Nullable String description);
 }

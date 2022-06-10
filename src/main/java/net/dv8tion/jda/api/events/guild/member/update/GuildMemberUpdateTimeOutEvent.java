@@ -19,8 +19,8 @@ package net.dv8tion.jda.api.events.guild.member.update;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Member;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.time.OffsetDateTime;
 
 /**
@@ -46,7 +46,7 @@ public class GuildMemberUpdateTimeOutEvent extends GenericGuildMemberUpdateEvent
 {
     public static final String IDENTIFIER = "timeout_time";
 
-    public GuildMemberUpdateTimeOutEvent(@Nonnull JDA api, long responseNumber, @Nonnull Member member, @Nullable OffsetDateTime previous)
+    public GuildMemberUpdateTimeOutEvent(@NotNull JDA api, long responseNumber, @NotNull Member member, @Nullable OffsetDateTime previous)
     {
         super(api, responseNumber, member, previous, member.getTimeOutEnd(), IDENTIFIER);
     }

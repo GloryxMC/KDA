@@ -22,13 +22,13 @@ import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public interface ChannelMixin<T extends ChannelMixin<T>> extends Channel
 {
     // ---- Default implementations of interface ----
     @Override
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default RestAction<Void> delete()
     {

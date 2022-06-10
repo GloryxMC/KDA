@@ -24,10 +24,12 @@ import net.dv8tion.jda.api.requests.restaction.ChannelAction;
 import net.dv8tion.jda.api.requests.restaction.StageInstanceAction;
 import net.dv8tion.jda.internal.requests.restaction.StageInstanceActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
+
 import java.util.EnumSet;
 
 /**
@@ -68,9 +70,9 @@ public interface StageChannel extends GuildChannel, AudioChannel, ICategorizable
      *
      * @return {@link StageInstanceAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default StageInstanceAction createStageInstance(@Nonnull String topic)
+    default StageInstanceAction createStageInstance(@NotNull String topic)
     {
         EnumSet<Permission> permissions = getGuild().getSelfMember().getPermissions(this);
         EnumSet<Permission> required = EnumSet.of(Permission.MANAGE_CHANNEL, Permission.VOICE_MUTE_OTHERS, Permission.VOICE_MOVE_OTHERS);
@@ -104,24 +106,24 @@ public interface StageChannel extends GuildChannel, AudioChannel, ICategorizable
      *
      * @return True, if the provided member is a stage moderator
      */
-    default boolean isModerator(@Nonnull Member member)
+    default boolean isModerator(@NotNull Member member)
     {
         Checks.notNull(member, "Member");
         return member.hasPermission(this, Permission.MANAGE_CHANNEL, Permission.VOICE_MUTE_OTHERS, Permission.VOICE_MOVE_OTHERS);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    ChannelAction<StageChannel> createCopy(@Nonnull Guild guild);
+    ChannelAction<StageChannel> createCopy(@NotNull Guild guild);
 
-    @Nonnull
+    @NotNull
     @Override
     default ChannelAction<StageChannel> createCopy()
     {
         return createCopy(getGuild());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     StageChannelManager getManager();
 
@@ -136,7 +138,7 @@ public interface StageChannel extends GuildChannel, AudioChannel, ICategorizable
      *
      * @see    #cancelRequestToSpeak()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RestAction<Void> requestToSpeak();
 
@@ -153,7 +155,7 @@ public interface StageChannel extends GuildChannel, AudioChannel, ICategorizable
      *
      * @see    #requestToSpeak()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RestAction<Void> cancelRequestToSpeak();
 }

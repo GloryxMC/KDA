@@ -29,7 +29,7 @@ import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.requests.restaction.InviteActionImpl;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +37,7 @@ import java.util.List;
 public interface IInviteContainerMixin<T extends IInviteContainerMixin<T>> extends IInviteContainer, GuildChannelMixin<T>
 {
     // ---- Default implementations of interface ----
-    @Nonnull
+    @NotNull
     @Override
     default InviteAction createInvite()
     {
@@ -46,7 +46,7 @@ public interface IInviteContainerMixin<T extends IInviteContainerMixin<T>> exten
         return new InviteActionImpl(this.getJDA(), this.getId());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     default RestAction<List<Invite>> retrieveInvites()
     {

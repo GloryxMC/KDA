@@ -22,8 +22,8 @@ import net.dv8tion.jda.api.utils.Procedure;
 import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -34,8 +34,8 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
 public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
-    extends RestActionImpl<List<T>>
-    implements PaginationAction<T, M>
+        extends RestActionImpl<List<T>>
+        implements PaginationAction<T, M>
 {
     protected final List<T> cached = new CopyOnWriteArrayList<>();
     protected final int maxLimit;
@@ -87,7 +87,7 @@ public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
         this.limit = new AtomicInteger(0);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("unchecked")
     public M skipTo(long id)
@@ -111,17 +111,17 @@ public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
         return lastKey;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public PaginationOrder getOrder()
     {
         return order;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("unchecked")
-    public M order(@Nonnull PaginationAction.PaginationOrder order)
+    public M order(@NotNull PaginationAction.PaginationOrder order)
     {
         Checks.notNull(order, "PaginationOrder");
         if (order != this.order)
@@ -135,7 +135,7 @@ public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("unchecked")
     public M setCheck(BooleanSupplier checks)
@@ -143,15 +143,15 @@ public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
         return (M) super.setCheck(checks);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("unchecked")
-    public M timeout(long timeout, @Nonnull TimeUnit unit)
+    public M timeout(long timeout, @NotNull TimeUnit unit)
     {
         return (M) super.timeout(timeout, unit);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("unchecked")
     public M deadline(long timestamp)
@@ -171,14 +171,14 @@ public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
         return cached.isEmpty();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<T> getCached()
     {
         return Collections.unmodifiableList(cached);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public T getLast()
     {
@@ -188,7 +188,7 @@ public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
         return last;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public T getFirst()
     {
@@ -197,7 +197,7 @@ public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
         return cached.get(0);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("unchecked")
     public M limit(final int limit)
@@ -208,7 +208,7 @@ public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
         return (M) this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("unchecked")
     public M cache(final boolean enableCache)
@@ -241,21 +241,23 @@ public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
         return limit.get();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CompletableFuture<List<T>> takeAsync(int amount)
     {
-        return takeAsync0(amount, (task, list) -> forEachAsync(val -> {
+        return takeAsync0(amount, (task, list) -> forEachAsync(val ->
+        {
             list.add(val);
             return list.size() < amount;
         }, task::completeExceptionally));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CompletableFuture<List<T>> takeRemainingAsync(int amount)
     {
-        return takeAsync0(amount, (task, list) -> forEachRemainingAsync(val -> {
+        return takeAsync0(amount, (task, list) -> forEachRemainingAsync(val ->
+        {
             list.add(val);
             return list.size() < amount;
         }, task::completeExceptionally));
@@ -270,16 +272,16 @@ public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
         return task;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public PaginationIterator<T> iterator()
     {
         return new PaginationIterator<>(cached, this::getNextChunk);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public CompletableFuture<?> forEachAsync(@Nonnull final Procedure<? super T> action, @Nonnull final Consumer<? super Throwable> failure)
+    public CompletableFuture<?> forEachAsync(@NotNull final Procedure<? super T> action, @NotNull final Consumer<? super Throwable> failure)
     {
         Checks.notNull(action, "Procedure");
         Checks.notNull(failure, "Failure Consumer");
@@ -302,9 +304,9 @@ public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
         return task;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public CompletableFuture<?> forEachRemainingAsync(@Nonnull final Procedure<? super T> action, @Nonnull final Consumer<? super Throwable> failure)
+    public CompletableFuture<?> forEachRemainingAsync(@NotNull final Procedure<? super T> action, @NotNull final Consumer<? super Throwable> failure)
     {
         Checks.notNull(action, "Procedure");
         Checks.notNull(failure, "Failure Consumer");
@@ -328,7 +330,7 @@ public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
     }
 
     @Override
-    public void forEachRemaining(@Nonnull final Procedure<? super T> action)
+    public void forEachRemaining(@NotNull final Procedure<? super T> action)
     {
         Checks.notNull(action, "Procedure");
         Queue<T> queue = new LinkedList<>();
@@ -347,20 +349,58 @@ public abstract class PaginationActionImpl<T, M extends PaginationAction<T, M>>
         }
     }
 
+    // Introduced for paginating archived threads, because two endpoints require a different request parameter value format.
+    // May become more useful if discord introduces more pagination endpoints not using ids.
+    // Check ThreadChannelPaginationActionImpl
+    // Background of #getPaginationLastEvaluatedKey:
+    //     Archived thread channel pagination (example: TextChannel#retrieveArchivedPublicThreadChannels) would throw an exception,
+    //     where Discord complained about receiving a snowflake instead of an ISO8601 date.
+    //     The snowflake originated from this class (creating initial & subsequent requests),
+    //     while the correct value was set in ThreadChannelPaginationActionImpl for the initial request
+    //     and appended as a second value for subsequent requests.
+    //     However, withQueryParams is a simple string append and Discord only reads the first parameter.
+    //     If you debugged, you would see some duplicated fields on the compiled route.
+    //     The fix here is to let the implementor supply the "last" string value, which could be anything,
+    //     while the default implementation still would provide snowflakes
+    @NotNull
+    protected String getPaginationLastEvaluatedKey(long lastId, T last)
+    {
+        return Long.toUnsignedString(lastId);
+    }
+
+    // Introduced for paginating archived threads, because two endpoints require a different request parameter value format.
+    // May become more useful if discord introduces more pagination endpoints not using ids.
+    // Check ThreadChannelPaginationActionImpl
+    // Background of #getPaginationLastEvaluatedKey:
+    //     Archived thread channel pagination (example: TextChannel#retrieveArchivedPublicThreadChannels) would throw an exception,
+    //     where Discord complained about receiving a snowflake instead of an ISO8601 date.
+    //     The snowflake originated from this class (creating initial & subsequent requests),
+    //     while the correct value was set in ThreadChannelPaginationActionImpl for the initial request
+    //     and appended as a second value for subsequent requests.
+    //     However, withQueryParams is a simple string append and Discord only reads the first parameter.
+    //     If you debugged, you would see some duplicated fields on the compiled route.
+    //     The fix here is to let the implementor supply the "last" string value, which could be anything,
+    //     while the default implementation still would provide snowflakes
+    @Nonnull
+    protected String getPaginationLastEvaluatedKey(long lastId, T last)
+    {
+        return Long.toUnsignedString(lastId);
+    }
+
     @Override
     protected Route.CompiledRoute finalizeRoute()
     {
         Route.CompiledRoute route = super.finalizeRoute();
 
         final String limit = String.valueOf(this.getLimit());
-        final long last = this.lastKey;
+        final long localLastKey = this.lastKey;
 
         route = route.withQueryParams("limit", limit);
 
-        if (last != 0)
-            route = route.withQueryParams(order.getKey(), Long.toUnsignedString(last));
+        if (localLastKey != 0)
+            route = route.withQueryParams(order.getKey(), getPaginationLastEvaluatedKey(localLastKey, this.last));
         else if (order == PaginationOrder.FORWARD)
-            route = route.withQueryParams("after", "0");
+            route = route.withQueryParams("after", getPaginationLastEvaluatedKey(0, this.last));
 
         return route;
     }

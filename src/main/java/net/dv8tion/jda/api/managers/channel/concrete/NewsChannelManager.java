@@ -23,7 +23,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.managers.channel.middleman.BaseGuildMessageChannelManager;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public interface NewsChannelManager extends BaseGuildMessageChannelManager<NewsChannel, NewsChannelManager>
 {
@@ -69,7 +69,7 @@ public interface NewsChannelManager extends BaseGuildMessageChannelManager<NewsC
      *
      * @see    Guild#getFeatures()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    NewsChannelManager setType(@Nonnull ChannelType type);
+    NewsChannelManager setType(@NotNull ChannelType type);
 }

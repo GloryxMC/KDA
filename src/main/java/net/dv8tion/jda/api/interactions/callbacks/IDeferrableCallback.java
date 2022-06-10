@@ -19,7 +19,7 @@ package net.dv8tion.jda.api.interactions.callbacks;
 import net.dv8tion.jda.api.interactions.Interaction;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Interactions which can be deferred.
@@ -36,6 +36,6 @@ public interface IDeferrableCallback extends Interaction
      *
      * @return The interaction hook
      */
-    @Nonnull
+    @NotNull
     InteractionHook getHook();
 }

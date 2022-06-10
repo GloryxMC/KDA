@@ -39,12 +39,12 @@ class CommandClient(private val prefixProvider: PrefixProvider, private val cool
         }
 
         val args = content.substring(trigger.length).split(" +".toRegex()).toMutableList()
-        val command = args.removeAt(0).toLowerCase()
+        val command = args.removeAt(0).lowercase()
 
         val cmd = commands[command] ?: commands.values.firstOrNull { it.properties.aliases.contains(command) }
         ?: return dispatchSafely { it.onUnknownCommand(event, command, args) }
 
-        val subcommand = args.firstOrNull()?.let { cmd.subcommands[it.toLowerCase()] }
+        val subcommand = args.firstOrNull()?.let { cmd.subcommands[it.lowercase()] }
         val invoked = subcommand ?: cmd
 
         if (subcommand != null) {
@@ -83,7 +83,7 @@ class CommandClient(private val prefixProvider: PrefixProvider, private val cool
 
         if (event.channelType.isGuild) {
             if (props.userPermissions.isNotEmpty()) {
-                val userCheck = props.userPermissions.filterNot { event.member!!.hasPermission(event.textChannel, it) }
+                val userCheck = props.userPermissions.filterNot { event.member!!.hasPermission(event.textChannel, it) || event.author.idLong in ownerIds }
 
                 if (userCheck.isNotEmpty()) {
                     return dispatchSafely { it.onUserMissingPermissions(ctx, cmd, userCheck) }

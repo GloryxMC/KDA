@@ -27,9 +27,10 @@ import net.dv8tion.jda.internal.entities.mixin.channel.attribute.IPositionableCh
 import net.dv8tion.jda.internal.entities.mixin.channel.middleman.AudioChannelMixin;
 import net.dv8tion.jda.internal.managers.channel.concrete.VoiceChannelManagerImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -55,7 +56,7 @@ public class VoiceChannelImpl extends AbstractGuildChannelImpl<VoiceChannelImpl>
         super(id, guild);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ChannelType getType()
     {
@@ -93,16 +94,16 @@ public class VoiceChannelImpl extends AbstractGuildChannelImpl<VoiceChannelImpl>
         return userLimit;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<Member> getMembers()
     {
         return Collections.unmodifiableList(new ArrayList<>(connectedMembers.valueCollection()));
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ChannelAction<VoiceChannel> createCopy(@Nonnull Guild guild)
+    public ChannelAction<VoiceChannel> createCopy(@NotNull Guild guild)
     {
         Checks.notNull(guild, "Guild");
         //TODO-v5: .setRegion here?
@@ -123,7 +124,7 @@ public class VoiceChannelImpl extends AbstractGuildChannelImpl<VoiceChannelImpl>
         return action;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public VoiceChannelManager getManager()
     {

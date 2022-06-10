@@ -24,7 +24,7 @@ import net.dv8tion.jda.api.requests.restaction.interactions.AutoCompleteCallback
 import net.dv8tion.jda.internal.utils.Checks;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -58,9 +58,9 @@ public interface IAutoCompleteCallback extends Interaction
      *
      * @return {@link AutoCompleteCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    AutoCompleteCallbackAction replyChoices(@Nonnull Collection<Command.Choice> choices);
+    AutoCompleteCallbackAction replyChoices(@NotNull Collection<Command.Choice> choices);
 
     /**
      * Reply with up to {@value OptionData#MAX_CHOICES} choices which can be picked from by the user.
@@ -82,9 +82,9 @@ public interface IAutoCompleteCallback extends Interaction
      *
      * @return {@link AutoCompleteCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction replyChoices(@Nonnull Command.Choice... choices)
+    default AutoCompleteCallbackAction replyChoices(@NotNull Command.Choice... choices)
     {
         Checks.noneNull(choices, "Choice");
         return replyChoices(Arrays.asList(choices));
@@ -111,9 +111,9 @@ public interface IAutoCompleteCallback extends Interaction
      *
      * @return {@link AutoCompleteCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction replyChoice(@Nonnull String name, @Nonnull String value)
+    default AutoCompleteCallbackAction replyChoice(@NotNull String name, @NotNull String value)
     {
         return replyChoices(new Command.Choice(name, value));
     }
@@ -139,9 +139,9 @@ public interface IAutoCompleteCallback extends Interaction
      *
      * @return {@link AutoCompleteCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction replyChoice(@Nonnull String name, long value)
+    default AutoCompleteCallbackAction replyChoice(@NotNull String name, long value)
     {
         return replyChoices(new Command.Choice(name, value));
     }
@@ -167,9 +167,9 @@ public interface IAutoCompleteCallback extends Interaction
      *
      * @return {@link AutoCompleteCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction replyChoice(@Nonnull String name, double value)
+    default AutoCompleteCallbackAction replyChoice(@NotNull String name, double value)
     {
         return replyChoices(new Command.Choice(name, value));
     }
@@ -194,9 +194,9 @@ public interface IAutoCompleteCallback extends Interaction
      *
      * @return {@link AutoCompleteCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction replyChoiceStrings(@Nonnull String... choices)
+    default AutoCompleteCallbackAction replyChoiceStrings(@NotNull String... choices)
     {
         return replyChoices(Arrays.stream(choices)
                 .map(it -> new Command.Choice(it, it))
@@ -223,9 +223,9 @@ public interface IAutoCompleteCallback extends Interaction
      *
      * @return {@link AutoCompleteCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction replyChoiceStrings(@Nonnull Collection<String> choices)
+    default AutoCompleteCallbackAction replyChoiceStrings(@NotNull Collection<String> choices)
     {
         return replyChoices(choices.stream()
                 .map(it -> new Command.Choice(it, it))
@@ -252,9 +252,9 @@ public interface IAutoCompleteCallback extends Interaction
      *
      * @return {@link AutoCompleteCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction replyChoiceLongs(@Nonnull long... choices)
+    default AutoCompleteCallbackAction replyChoiceLongs(@NotNull long... choices)
     {
         return replyChoices(Arrays.stream(choices)
                 .mapToObj(it -> new Command.Choice(String.valueOf(it), it))
@@ -281,9 +281,9 @@ public interface IAutoCompleteCallback extends Interaction
      *
      * @return {@link AutoCompleteCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction replyChoiceLongs(@Nonnull Collection<Long> choices)
+    default AutoCompleteCallbackAction replyChoiceLongs(@NotNull Collection<Long> choices)
     {
         return replyChoices(choices.stream()
                 .map(it -> new Command.Choice(String.valueOf(it), it))
@@ -310,9 +310,9 @@ public interface IAutoCompleteCallback extends Interaction
      *
      * @return {@link AutoCompleteCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction replyChoiceDoubles(@Nonnull double... choices)
+    default AutoCompleteCallbackAction replyChoiceDoubles(@NotNull double... choices)
     {
         return replyChoices(Arrays.stream(choices)
                 .mapToObj(it -> new Command.Choice(String.valueOf(it), it))
@@ -339,9 +339,9 @@ public interface IAutoCompleteCallback extends Interaction
      *
      * @return {@link AutoCompleteCallbackAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AutoCompleteCallbackAction replyChoiceDoubles(@Nonnull Collection<Double> choices)
+    default AutoCompleteCallbackAction replyChoiceDoubles(@NotNull Collection<Double> choices)
     {
         return replyChoices(choices.stream()
                 .map(it -> new Command.Choice(String.valueOf(it), it))

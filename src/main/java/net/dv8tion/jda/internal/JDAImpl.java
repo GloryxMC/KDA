@@ -82,7 +82,6 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.MDC;
 
-import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -488,6 +487,8 @@ public class JDAImpl implements JDA
         }
         return this;
     }
+
+
 
     @Override
     public int cancelRequests()

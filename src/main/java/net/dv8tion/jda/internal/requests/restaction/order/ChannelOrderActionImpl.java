@@ -28,7 +28,7 @@ import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
 import okhttp3.RequestBody;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -89,7 +89,7 @@ public class ChannelOrderActionImpl
         this.orderList.addAll(channels);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Guild getGuild()
     {

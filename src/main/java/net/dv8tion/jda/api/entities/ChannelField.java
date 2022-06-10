@@ -18,8 +18,8 @@ package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.audit.AuditLogKey;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 /**
@@ -212,7 +212,7 @@ public enum ChannelField
         this.auditLogKey = auditLogKey;
     }
 
-    @Nonnull
+    @NotNull
     public String getFieldName()
     {
         return fieldName;

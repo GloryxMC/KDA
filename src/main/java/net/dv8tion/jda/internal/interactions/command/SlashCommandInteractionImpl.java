@@ -21,7 +21,7 @@ import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 import net.dv8tion.jda.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class SlashCommandInteractionImpl extends CommandInteractionImpl implements SlashCommandInteraction
 {
@@ -30,7 +30,7 @@ public class SlashCommandInteractionImpl extends CommandInteractionImpl implemen
         super(jda, data);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("ConstantConditions")
     public MessageChannel getChannel()

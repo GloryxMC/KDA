@@ -18,9 +18,9 @@ package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.Region;
 import net.dv8tion.jda.api.managers.channel.middleman.AudioChannelManager;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a Guild Channel that is capable of handling audio.
@@ -46,7 +46,7 @@ public interface AudioChannel extends GuildChannel, IMemberContainer
 {
     //TODO-v5: Docs
     @Override
-    @Nonnull
+    @NotNull
     AudioChannelManager<?, ?> getManager();
 
     /**
@@ -64,7 +64,7 @@ public interface AudioChannel extends GuildChannel, IMemberContainer
      *
      * @return the {@link Region Region} of this channel.
      */
-    @Nonnull
+    @NotNull
     default Region getRegion()
     {
         return getRegionRaw() == null ? Region.AUTOMATIC : Region.fromKey(getRegionRaw());

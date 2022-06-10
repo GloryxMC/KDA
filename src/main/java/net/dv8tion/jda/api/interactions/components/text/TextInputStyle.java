@@ -18,7 +18,7 @@ package net.dv8tion.jda.api.interactions.components.text;
 
 import net.dv8tion.jda.api.interactions.components.Modal;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The different styles a {@link TextInput TextInput} field can have.
@@ -65,7 +65,7 @@ public enum TextInputStyle
      *
      * @return The text input style or {@link #UNKNOWN}
      */
-    @Nonnull
+    @NotNull
     public static TextInputStyle fromKey(int key)
     {
         for (TextInputStyle style : values())

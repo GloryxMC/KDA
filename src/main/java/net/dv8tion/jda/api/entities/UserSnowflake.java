@@ -19,8 +19,7 @@ package net.dv8tion.jda.api.entities;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.utils.MiscUtil;
 import net.dv8tion.jda.internal.entities.UserSnowflakeImpl;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents an abstract user reference by only the user ID.
@@ -40,7 +39,7 @@ public interface UserSnowflake extends IMentionable // Make this a value type wh
      *
      * @see    JDA#retrieveUserById(long)
      */
-    @Nonnull
+    @NotNull
     static UserSnowflake fromId(long id)
     {
         return new UserSnowflakeImpl(id);
@@ -59,8 +58,8 @@ public interface UserSnowflake extends IMentionable // Make this a value type wh
      *
      * @see    JDA#retrieveUserById(String)
      */
-    @Nonnull
-    static UserSnowflake fromId(@Nonnull String id)
+    @NotNull
+    static UserSnowflake fromId(@NotNull String id)
     {
         return fromId(MiscUtil.parseSnowflake(id));
     }

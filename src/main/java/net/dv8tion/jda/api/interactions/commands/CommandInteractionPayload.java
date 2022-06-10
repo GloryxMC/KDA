@@ -24,9 +24,9 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.interactions.Interaction;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -43,7 +43,7 @@ public interface CommandInteractionPayload extends Interaction
      *
      * @return The command type
      */
-    @Nonnull
+    @NotNull
     Command.Type getCommandType();
 
     /**
@@ -61,7 +61,7 @@ public interface CommandInteractionPayload extends Interaction
      *
      * @return The command name
      */
-    @Nonnull
+    @NotNull
     String getName();
 
     /**
@@ -113,7 +113,7 @@ public interface CommandInteractionPayload extends Interaction
      *
      * @return The command path
      */
-    @Nonnull
+    @NotNull
     default String getCommandPath()
     {
         StringBuilder builder = new StringBuilder(getName());
@@ -133,7 +133,7 @@ public interface CommandInteractionPayload extends Interaction
      *
      * @return The display string for this command
      */
-    @Nonnull
+    @NotNull
     default String getCommandString()
     {
         //Get text like the text that appears when you hover over the interaction in discord
@@ -196,7 +196,7 @@ public interface CommandInteractionPayload extends Interaction
      *
      * @return The command id
      */
-    @Nonnull
+    @NotNull
     default String getCommandId()
     {
         return Long.toUnsignedString(getCommandIdLong());
@@ -234,7 +234,7 @@ public interface CommandInteractionPayload extends Interaction
      *
      * @see    #getOption(String)
      */
-    @Nonnull
+    @NotNull
     List<OptionMapping> getOptions();
 
     /**
@@ -254,8 +254,8 @@ public interface CommandInteractionPayload extends Interaction
      * @see   #getOption(String)
      * @see   #getOptions()
      */
-    @Nonnull
-    default List<OptionMapping> getOptionsByName(@Nonnull String name)
+    @NotNull
+    default List<OptionMapping> getOptionsByName(@NotNull String name)
     {
         Checks.notNull(name, "Name");
         return getOptions().stream()
@@ -279,8 +279,8 @@ public interface CommandInteractionPayload extends Interaction
      *
      * @see    #getOptions()
      */
-    @Nonnull
-    default List<OptionMapping> getOptionsByType(@Nonnull OptionType type)
+    @NotNull
+    default List<OptionMapping> getOptionsByType(@NotNull OptionType type)
     {
         Checks.notNull(type, "Type");
         return getOptions().stream()
@@ -310,7 +310,7 @@ public interface CommandInteractionPayload extends Interaction
      * @see    #getOption(String, Supplier, Function)
      */
     @Nullable
-    default OptionMapping getOption(@Nonnull String name)
+    default OptionMapping getOption(@NotNull String name)
     {
         List<OptionMapping> options = getOptionsByName(name);
         return options.isEmpty() ? null : options.get(0);
@@ -353,7 +353,7 @@ public interface CommandInteractionPayload extends Interaction
      * @see    #getOption(String, Supplier, Function)
      */
     @Nullable
-    default <T> T getOption(@Nonnull String name, @Nonnull Function<? super OptionMapping, ? extends T> resolver)
+    default <T> T getOption(@NotNull String name, @NotNull Function<? super OptionMapping, ? extends T> resolver)
     {
         return getOption(name, null, resolver);
     }
@@ -396,9 +396,9 @@ public interface CommandInteractionPayload extends Interaction
      * @see    #getOption(String, Function)
      * @see    #getOption(String, Supplier, Function)
      */
-    default <T> T getOption(@Nonnull String name,
+    default <T> T getOption(@NotNull String name,
                             @Nullable T fallback,
-                            @Nonnull Function<? super OptionMapping, ? extends T> resolver)
+                            @NotNull Function<? super OptionMapping, ? extends T> resolver)
     {
         Checks.notNull(resolver, "Resolver");
         OptionMapping mapping = getOption(name);
@@ -445,9 +445,9 @@ public interface CommandInteractionPayload extends Interaction
      * @see    #getOption(String, Function)
      * @see    #getOption(String, Object, Function)
      */
-    default <T> T getOption(@Nonnull String name,
+    default <T> T getOption(@NotNull String name,
                             @Nullable Supplier<? extends T> fallback,
-                            @Nonnull Function<? super OptionMapping, ? extends T> resolver)
+                            @NotNull Function<? super OptionMapping, ? extends T> resolver)
     {
         Checks.notNull(resolver, "Resolver");
         OptionMapping mapping = getOption(name);

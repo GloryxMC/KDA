@@ -20,9 +20,9 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.IPositionableChannel;
 import net.dv8tion.jda.api.managers.channel.ChannelManager;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 
 public interface IPositionableChannelManager<T extends IPositionableChannel, M extends IPositionableChannelManager<T, M>> extends ChannelManager<T, M>
 {
@@ -38,7 +38,7 @@ public interface IPositionableChannelManager<T extends IPositionableChannel, M e
      *
      * @return ChannelManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     M setPosition(int position);
 }

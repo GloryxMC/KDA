@@ -25,15 +25,15 @@ import net.dv8tion.jda.internal.entities.mixin.channel.middleman.GuildChannelMix
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.requests.restaction.ThreadChannelActionImpl;
 import net.dv8tion.jda.internal.requests.restaction.pagination.ThreadChannelPaginationActionImpl;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 
 //TODO-v5: add checks for valid ThreadChannel names (0-100 chars)
 public interface IThreadContainerMixin<T extends IThreadContainerMixin<T>> extends IThreadContainer, GuildChannelMixin<T>
 {
     // ---- Default implementations of interface ----
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     @Override
     default ThreadChannelAction createThreadChannel(String name, boolean isPrivate)
@@ -59,7 +59,7 @@ public interface IThreadContainerMixin<T extends IThreadContainerMixin<T>> exten
         return new ThreadChannelActionImpl(this, name, threadType);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     @Override
     default ThreadChannelAction createThreadChannel(String name, long messageId)
@@ -70,7 +70,7 @@ public interface IThreadContainerMixin<T extends IThreadContainerMixin<T>> exten
         return new ThreadChannelActionImpl(this, name, Long.toUnsignedString(messageId));
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     @Override
     default ThreadChannelPaginationAction retrieveArchivedPublicThreadChannels()
@@ -81,7 +81,7 @@ public interface IThreadContainerMixin<T extends IThreadContainerMixin<T>> exten
         return new ThreadChannelPaginationActionImpl(getJDA(), route, this, false);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     @Override
     default ThreadChannelPaginationAction retrieveArchivedPrivateThreadChannels()
@@ -93,7 +93,7 @@ public interface IThreadContainerMixin<T extends IThreadContainerMixin<T>> exten
         return new ThreadChannelPaginationActionImpl(getJDA(), route, this, false);
     }
 
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     @Override
     default ThreadChannelPaginationAction retrieveArchivedPrivateJoinedThreadChannels()

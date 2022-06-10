@@ -27,8 +27,7 @@ import net.dv8tion.jda.internal.entities.mixin.channel.attribute.IPositionableCh
 import net.dv8tion.jda.internal.managers.channel.concrete.CategoryManagerImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.PermissionUtil;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class CategoryImpl extends AbstractGuildChannelImpl<CategoryImpl> implements
         Category,
@@ -44,7 +43,7 @@ public class CategoryImpl extends AbstractGuildChannelImpl<CategoryImpl> impleme
         super(id, guild);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ChannelType getType()
     {
@@ -57,47 +56,47 @@ public class CategoryImpl extends AbstractGuildChannelImpl<CategoryImpl> impleme
         return position;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ChannelAction<TextChannel> createTextChannel(@Nonnull String name)
+    public ChannelAction<TextChannel> createTextChannel(@NotNull String name)
     {
         ChannelAction<TextChannel> action = getGuild().createTextChannel(name, this);
         return trySync(action);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ChannelAction<VoiceChannel> createVoiceChannel(@Nonnull String name)
+    public ChannelAction<VoiceChannel> createVoiceChannel(@NotNull String name)
     {
         ChannelAction<VoiceChannel> action = getGuild().createVoiceChannel(name, this);
         return trySync(action);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ChannelAction<StageChannel> createStageChannel(@Nonnull String name)
+    public ChannelAction<StageChannel> createStageChannel(@NotNull String name)
     {
         ChannelAction<StageChannel> action = getGuild().createStageChannel(name, this);
         return trySync(action);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CategoryOrderAction modifyTextChannelPositions()
     {
         return getGuild().modifyTextChannelPositions(this);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CategoryOrderAction modifyVoiceChannelPositions()
     {
         return getGuild().modifyVoiceChannelPositions(this);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ChannelAction<Category> createCopy(@Nonnull Guild guild)
+    public ChannelAction<Category> createCopy(@NotNull Guild guild)
     {
         Checks.notNull(guild, "Guild");
         ChannelAction<Category> action = guild.createCategory(name);
@@ -114,14 +113,14 @@ public class CategoryImpl extends AbstractGuildChannelImpl<CategoryImpl> impleme
         return action;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ChannelAction<Category> createCopy()
     {
         return createCopy(getGuild());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CategoryManager getManager()
     {

@@ -25,9 +25,9 @@ import net.dv8tion.jda.api.utils.MiscUtil;
 import net.dv8tion.jda.internal.entities.mixin.channel.middleman.BaseGuildMessageChannelMixin;
 import net.dv8tion.jda.internal.managers.channel.concrete.TextChannelManagerImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,7 +61,7 @@ public class TextChannelImpl extends AbstractGuildChannelImpl<TextChannelImpl> i
         return nsfw;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ChannelType getType()
     {
@@ -74,7 +74,7 @@ public class TextChannelImpl extends AbstractGuildChannelImpl<TextChannelImpl> i
         return parentCategoryId;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<Member> getMembers()
     {
@@ -101,9 +101,9 @@ public class TextChannelImpl extends AbstractGuildChannelImpl<TextChannelImpl> i
         return slowmode;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ChannelAction<TextChannel> createCopy(@Nonnull Guild guild)
+    public ChannelAction<TextChannel> createCopy(@NotNull Guild guild)
     {
         Checks.notNull(guild, "Guild");
         ChannelAction<TextChannel> action = guild.createTextChannel(name).setNSFW(nsfw).setTopic(topic).setSlowmode(slowmode);
@@ -123,7 +123,7 @@ public class TextChannelImpl extends AbstractGuildChannelImpl<TextChannelImpl> i
         return action;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public TextChannelManager getManager()
     {

@@ -29,9 +29,10 @@ import net.dv8tion.jda.internal.interactions.InteractionHookImpl;
 import net.dv8tion.jda.internal.utils.AllowedMentionsImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.Helpers;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -53,7 +54,7 @@ public class ReplyCallbackActionImpl extends DeferrableCallbackActionImpl implem
         super(hook);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ReplyCallbackActionImpl closeResources()
     {
@@ -104,7 +105,7 @@ public class ReplyCallbackActionImpl extends DeferrableCallbackActionImpl implem
         return Helpers.isEmpty(content) && embeds.isEmpty() && files.isEmpty();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ReplyCallbackActionImpl setEphemeral(boolean ephemeral)
     {
@@ -115,9 +116,9 @@ public class ReplyCallbackActionImpl extends DeferrableCallbackActionImpl implem
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ReplyCallbackAction addFile(@Nonnull InputStream data, @Nonnull String name, @Nonnull AttachmentOption... options)
+    public ReplyCallbackAction addFile(@NotNull InputStream data, @NotNull String name, @NotNull AttachmentOption... options)
     {
         Checks.notNull(data, "Data");
         Checks.notEmpty(name, "Name");
@@ -129,9 +130,9 @@ public class ReplyCallbackActionImpl extends DeferrableCallbackActionImpl implem
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ReplyCallbackAction addEmbeds(@Nonnull Collection<? extends MessageEmbed> embeds)
+    public ReplyCallbackAction addEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
     {
         Checks.noneNull(embeds, "MessageEmbed");
         for (MessageEmbed embed : embeds)
@@ -147,9 +148,9 @@ public class ReplyCallbackActionImpl extends DeferrableCallbackActionImpl implem
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ReplyCallbackAction addActionRows(@Nonnull ActionRow... rows)
+    public ReplyCallbackAction addActionRows(@NotNull ActionRow... rows)
     {
         Checks.noneNull(rows, "ActionRows");
 
@@ -164,28 +165,28 @@ public class ReplyCallbackActionImpl extends DeferrableCallbackActionImpl implem
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ReplyCallbackAction setCheck(BooleanSupplier checks)
     {
         return (ReplyCallbackAction) super.setCheck(checks);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ReplyCallbackAction timeout(long timeout, @Nonnull TimeUnit unit)
+    public ReplyCallbackAction timeout(long timeout, @NotNull TimeUnit unit)
     {
         return (ReplyCallbackAction) super.timeout(timeout, unit);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ReplyCallbackAction deadline(long timestamp)
     {
         return (ReplyCallbackAction) super.deadline(timestamp);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ReplyCallbackActionImpl setTTS(boolean isTTS)
     {
@@ -193,7 +194,7 @@ public class ReplyCallbackActionImpl extends DeferrableCallbackActionImpl implem
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ReplyCallbackActionImpl setContent(String content)
     {
@@ -203,7 +204,7 @@ public class ReplyCallbackActionImpl extends DeferrableCallbackActionImpl implem
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public ReplyCallbackAction mentionRepliedUser(boolean mention)
@@ -212,7 +213,7 @@ public class ReplyCallbackActionImpl extends DeferrableCallbackActionImpl implem
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public ReplyCallbackAction allowedMentions(@Nullable Collection<Message.MentionType> allowedMentions)
@@ -221,28 +222,28 @@ public class ReplyCallbackActionImpl extends DeferrableCallbackActionImpl implem
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public ReplyCallbackAction mention(@Nonnull IMentionable... mentions)
+    public ReplyCallbackAction mention(@NotNull IMentionable... mentions)
     {
         allowedMentions.mention(mentions);
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public ReplyCallbackAction mentionUsers(@Nonnull String... userIds)
+    public ReplyCallbackAction mentionUsers(@NotNull String... userIds)
     {
         allowedMentions.mentionUsers(userIds);
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public ReplyCallbackAction mentionRoles(@Nonnull String... roleIds)
+    public ReplyCallbackAction mentionRoles(@NotNull String... roleIds)
     {
         allowedMentions.mentionRoles(roleIds);
         return this;

@@ -21,10 +21,11 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.utils.MiscUtil;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
 
@@ -36,15 +37,15 @@ import java.util.function.BooleanSupplier;
  */
 public interface InviteAction extends AuditableRestAction<Invite>
 {
-    @Nonnull
+    @NotNull
     @Override
     InviteAction setCheck(@Nullable BooleanSupplier checks);
 
-    @Nonnull
+    @NotNull
     @Override
-    InviteAction timeout(long timeout, @Nonnull TimeUnit unit);
+    InviteAction timeout(long timeout, @NotNull TimeUnit unit);
 
-    @Nonnull
+    @NotNull
     @Override
     InviteAction deadline(long timestamp);
 
@@ -60,7 +61,7 @@ public interface InviteAction extends AuditableRestAction<Invite>
      *
      * @return The current InviteAction for chaining.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     InviteAction setMaxAge(@Nullable final Integer maxAge);
 
@@ -78,9 +79,9 @@ public interface InviteAction extends AuditableRestAction<Invite>
      *
      * @return The current InviteAction for chaining.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    InviteAction setMaxAge(@Nullable final Long maxAge, @Nonnull final TimeUnit timeUnit);
+    InviteAction setMaxAge(@Nullable final Long maxAge, @NotNull final TimeUnit timeUnit);
 
     /**
      * Sets the max uses for the invite. Set this to {@code 0} if the invite should have unlimited uses. Default is {@code 0}.
@@ -94,7 +95,7 @@ public interface InviteAction extends AuditableRestAction<Invite>
      *
      * @return The current InviteAction for chaining.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     InviteAction setMaxUses(@Nullable final Integer maxUses);
 
@@ -106,7 +107,7 @@ public interface InviteAction extends AuditableRestAction<Invite>
      *
      * @return The current InviteAction for chaining.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     InviteAction setTemporary(@Nullable final Boolean temporary);
 
@@ -118,7 +119,7 @@ public interface InviteAction extends AuditableRestAction<Invite>
      *
      * @return The current InviteAction for chaining.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     InviteAction setUnique(@Nullable final Boolean unique);
 
@@ -132,7 +133,7 @@ public interface InviteAction extends AuditableRestAction<Invite>
      *
      * @return The current InviteAction for chaining.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     InviteAction setTargetApplication(final long applicationId);
 
@@ -151,9 +152,9 @@ public interface InviteAction extends AuditableRestAction<Invite>
      *
      * @return The current InviteAction for chaining.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default InviteAction setTargetApplication(@Nonnull final String applicationId)
+    default InviteAction setTargetApplication(@NotNull final String applicationId)
     {
         return setTargetApplication(MiscUtil.parseSnowflake(applicationId));
     }
@@ -168,7 +169,7 @@ public interface InviteAction extends AuditableRestAction<Invite>
      *
      * @return The current InviteAction for chaining.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     InviteAction setTargetStream(final long userId);
 
@@ -187,9 +188,9 @@ public interface InviteAction extends AuditableRestAction<Invite>
      *
      * @return The current InviteAction for chaining.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default InviteAction setTargetStream(@Nonnull final String userId)
+    default InviteAction setTargetStream(@NotNull final String userId)
     {
         return setTargetStream(MiscUtil.parseSnowflake(userId));
     }
@@ -207,9 +208,9 @@ public interface InviteAction extends AuditableRestAction<Invite>
      *
      * @return The current InviteAction for chaining.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default InviteAction setTargetStream(@Nonnull final User user)
+    default InviteAction setTargetStream(@NotNull final User user)
     {
         Checks.notNull(user, "User");
         return setTargetStream(user.getIdLong());
@@ -228,9 +229,9 @@ public interface InviteAction extends AuditableRestAction<Invite>
      *
      * @return The current InviteAction for chaining.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default InviteAction setTargetStream(@Nonnull final Member member)
+    default InviteAction setTargetStream(@NotNull final Member member)
     {
         Checks.notNull(member, "Member");
         return setTargetStream(member.getIdLong());

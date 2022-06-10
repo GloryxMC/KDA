@@ -30,8 +30,8 @@ import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.requests.restaction.CommandEditActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -81,7 +81,7 @@ public class CommandImpl implements Command
         ).orElse(Collections.emptyList());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RestAction<Void> delete()
     {
@@ -95,7 +95,7 @@ public class CommandImpl implements Command
         return new RestActionImpl<>(api, route);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CommandEditAction editCommand()
     {
@@ -103,54 +103,54 @@ public class CommandImpl implements Command
         return guild == null ? new CommandEditActionImpl(api, getId()) : new CommandEditActionImpl(guild, getId());
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public RestAction<List<CommandPrivilege>> retrievePrivileges(@Nonnull Guild guild)
+    public RestAction<List<CommandPrivilege>> retrievePrivileges(@NotNull Guild guild)
     {
         checkSelfUser("Cannot retrieve privileges for a command from another bot!");
         Checks.notNull(guild, "Guild");
         return guild.retrieveCommandPrivilegesById(id);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public RestAction<List<CommandPrivilege>> updatePrivileges(@Nonnull Guild guild, @Nonnull Collection<? extends CommandPrivilege> privileges)
+    public RestAction<List<CommandPrivilege>> updatePrivileges(@NotNull Guild guild, @NotNull Collection<? extends CommandPrivilege> privileges)
     {
         checkSelfUser("Cannot update privileges for a command from another bot!");
         Checks.notNull(guild, "Guild");
         return guild.updateCommandPrivilegesById(id, privileges);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public RestAction<List<CommandPrivilege>> updatePrivileges(@Nonnull Guild guild, @Nonnull CommandPrivilege... privileges)
+    public RestAction<List<CommandPrivilege>> updatePrivileges(@NotNull Guild guild, @NotNull CommandPrivilege... privileges)
     {
         Checks.noneNull(privileges, "CommandPrivileges");
         return updatePrivileges(guild, Arrays.asList(privileges));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JDA getJDA()
     {
         return api;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Command.Type getType()
     {
         return type;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getName()
     {
         return name;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getDescription()
     {
@@ -163,21 +163,21 @@ public class CommandImpl implements Command
         return defaultEnabled;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<Command.Option> getOptions()
     {
         return options;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<Command.Subcommand> getSubcommands()
     {
         return subcommands;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<Command.SubcommandGroup> getSubcommandGroups()
     {

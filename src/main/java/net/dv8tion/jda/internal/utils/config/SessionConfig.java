@@ -23,8 +23,8 @@ import net.dv8tion.jda.api.utils.SessionController;
 import net.dv8tion.jda.internal.utils.config.flags.ConfigFlag;
 import okhttp3.OkHttpClient;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 
 public class SessionConfig
@@ -64,7 +64,7 @@ public class SessionConfig
             flags.remove(ConfigFlag.AUTO_RECONNECT);
     }
 
-    @Nonnull
+    @NotNull
     public SessionController getSessionController()
     {
         return sessionController;
@@ -76,7 +76,7 @@ public class SessionConfig
         return httpClient;
     }
 
-    @Nonnull
+    @NotNull
     public WebSocketFactory getWebSocketFactory()
     {
         return webSocketFactory;
@@ -128,7 +128,7 @@ public class SessionConfig
         return flags;
     }
 
-    @Nonnull
+    @NotNull
     public static SessionConfig getDefault()
     {
         return new SessionConfig(null, new OkHttpClient(), null, null, ConfigFlag.getDefault(), 900, 250);
