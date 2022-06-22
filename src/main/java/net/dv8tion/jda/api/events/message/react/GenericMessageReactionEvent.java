@@ -18,14 +18,14 @@ package net.dv8tion.jda.api.events.message.react;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.message.GenericMessageEvent;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.internal.requests.CompletedRestAction;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Indicates that a MessageReaction was added/removed.
@@ -48,8 +48,8 @@ public class GenericMessageReactionEvent extends GenericMessageEvent
     protected Member member;
     protected MessageReaction reaction;
 
-    public GenericMessageReactionEvent(@NotNull JDA api, long responseNumber, @Nullable User user,
-                                       @Nullable Member member, @NotNull MessageReaction reaction, long userId)
+    public GenericMessageReactionEvent(@Nonnull JDA api, long responseNumber, @Nullable User user,
+                                       @Nullable Member member, @Nonnull MessageReaction reaction, long userId)
     {
         super(api, responseNumber, reaction.getMessageIdLong(), reaction.getChannel());
         this.userId = userId;
@@ -63,7 +63,7 @@ public class GenericMessageReactionEvent extends GenericMessageEvent
      *
      * @return The user id
      */
-    @NotNull
+    @Nonnull
     public String getUserId()
     {
         return Long.toUnsignedString(userId);
@@ -119,22 +119,21 @@ public class GenericMessageReactionEvent extends GenericMessageEvent
      *
      * @return The MessageReaction
      */
-    @NotNull
+    @Nonnull
     public MessageReaction getReaction()
     {
         return reaction;
     }
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.MessageReaction.ReactionEmote ReactionEmote}
-     * of the reaction, shortcut for {@code getReaction().getReactionEmote()}
+     * The {@link Emoji} of the reaction, shortcut for {@code getReaction().getEmoji()}
      *
-     * @return The ReactionEmote instance
+     * @return The Emoji instance
      */
-    @NotNull
-    public MessageReaction.ReactionEmote getReactionEmote()
+    @Nonnull
+    public Emoji getEmoji()
     {
-        return reaction.getReactionEmote();
+        return reaction.getEmoji();
     }
 
     /**
@@ -145,7 +144,7 @@ public class GenericMessageReactionEvent extends GenericMessageEvent
      *
      * @since  4.2.1
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     public RestAction<User> retrieveUser()
     {
@@ -170,7 +169,7 @@ public class GenericMessageReactionEvent extends GenericMessageEvent
      *
      * @since  4.2.1
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     public RestAction<Member> retrieveMember()
     {
@@ -192,7 +191,7 @@ public class GenericMessageReactionEvent extends GenericMessageEvent
      *
      * @since  4.2.1
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     public RestAction<Message> retrieveMessage()
     {

@@ -14,26 +14,14 @@
  * limitations under the License.
  */
 
-package net.dv8tion.jda.api.events.emote;
-
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Emote;
-import org.jetbrains.annotations.NotNull;
-
 /**
- * Indicates that a new {@link net.dv8tion.jda.api.entities.Emote Emote} was added to a {@link net.dv8tion.jda.api.entities.Guild Guild}.
+ * Events that track updates for existing {@link net.dv8tion.jda.api.entities.emoji.RichCustomEmoji Custom Emojis}
  *
  * <h2>Requirements</h2>
  *
- * <p>This event requires the {@link net.dv8tion.jda.api.utils.cache.CacheFlag#EMOTE EMOTE} CacheFlag to be enabled, which requires
+ * <p>These events require the {@link net.dv8tion.jda.api.utils.cache.CacheFlag#EMOJI EMOJI} CacheFlag to be enabled, which requires
  * the {@link net.dv8tion.jda.api.requests.GatewayIntent#GUILD_EMOJIS_AND_STICKERS GUILD_EMOJIS_AND_STICKERS} intent.
  *
  * <br>{@link net.dv8tion.jda.api.JDABuilder#createLight(String) createLight(String)} disables that CacheFlag by default!
  */
-public class EmoteAddedEvent extends GenericEmoteEvent
-{
-    public EmoteAddedEvent(@NotNull JDA api, long responseNumber, @NotNull Emote emote)
-    {
-        super(api, responseNumber, emote);
-    }
-}
+package net.dv8tion.jda.api.events.emoji.update;

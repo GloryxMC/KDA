@@ -19,13 +19,15 @@ package net.dv8tion.jda.api.events.message.react;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageReaction;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.message.GenericMessageEvent;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
- * Indicates that all reactions for a specific emoji/emote were removed by a moderator.
+ * Indicates that all reactions for a specific emoji were removed by a moderator.
  *
- * <p>Can be used to detect which emoji/emote was removed.
+ * <p>Can be used to detect which emoji was removed.
  *
  * <h2>Requirements</h2>
  *
@@ -34,15 +36,12 @@ import org.jetbrains.annotations.NotNull;
  *     <li>{@link net.dv8tion.jda.api.requests.GatewayIntent#GUILD_MESSAGE_REACTIONS GUILD_MESSAGE_REACTIONS} to work in guild text channels</li>
  *     <li>{@link net.dv8tion.jda.api.requests.GatewayIntent#DIRECT_MESSAGE_REACTIONS DIRECT_MESSAGE_REACTIONS} to work in private channels</li>
  * </ul>
- *
- * @since  4.2.0
  */
-//TODO-v5: Consider renaming to 'MessageReactionRemoveEmojiEvent' to match actual event name
-public class MessageReactionRemoveEmoteEvent extends GenericMessageEvent
+public class MessageReactionRemoveEmojiEvent extends GenericMessageEvent
 {
     private final MessageReaction reaction;
 
-    public MessageReactionRemoveEmoteEvent(@NotNull JDA api, long responseNumber, long messageId, @NotNull MessageChannel channel, @NotNull MessageReaction reaction)
+    public MessageReactionRemoveEmojiEvent(@Nonnull JDA api, long responseNumber, long messageId, @Nonnull MessageChannel channel, @Nonnull MessageReaction reaction)
     {
         super(api, responseNumber, messageId, channel);
         this.reaction = reaction;
@@ -53,21 +52,21 @@ public class MessageReactionRemoveEmoteEvent extends GenericMessageEvent
      *
      * @return The removed MessageReaction
      */
-    @NotNull
+    @Nonnull
     public MessageReaction getReaction()
     {
         return reaction;
     }
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.MessageReaction.ReactionEmote ReactionEmote}.
-     * <br>Shortcut for {@code getReaction().getReactionEmote()}.
+     * The reaction {@link Emoji}.
+     * <br>Shortcut for {@code getReaction().getEmoji()}.
      *
-     * @return The ReactionEmote
+     * @return The Emoji for the reaction
      */
-    @NotNull
-    public MessageReaction.ReactionEmote getReactionEmote()
+    @Nonnull
+    public Emoji getEmoji()
     {
-        return reaction.getReactionEmote();
+        return reaction.getEmoji();
     }
 }

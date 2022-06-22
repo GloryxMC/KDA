@@ -18,6 +18,7 @@ package net.dv8tion.jda.internal.entities;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.entities.sticker.StickerItem;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.LayoutComponent;
@@ -28,7 +29,8 @@ import net.dv8tion.jda.api.requests.restaction.pagination.ReactionPaginationActi
 import net.dv8tion.jda.internal.utils.Helpers;
 import org.jetbrains.annotations.NotNull;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.time.OffsetDateTime;
@@ -49,7 +51,7 @@ public abstract class AbstractMessage implements Message
         this.isTTS = isTTS;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getContentRaw()
     {
@@ -114,7 +116,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public Mentions getMentions()
     {
@@ -136,7 +138,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public User getAuthor()
     {
@@ -151,7 +153,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getJumpUrl()
     {
@@ -159,7 +161,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getContentDisplay()
     {
@@ -167,7 +169,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getContentStripped()
     {
@@ -175,7 +177,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public List<String> getInvites()
     {
@@ -184,13 +186,13 @@ public abstract class AbstractMessage implements Message
     }
 
     @Override
-    public boolean isFromType(@NotNull ChannelType type)
+    public boolean isFromType(@Nonnull ChannelType type)
     {
         unsupported();
         return false;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public ChannelType getChannelType()
     {
@@ -205,7 +207,7 @@ public abstract class AbstractMessage implements Message
         return false;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public MessageChannel getChannel()
     {
@@ -213,7 +215,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public GuildMessageChannel getGuildChannel()
     {
@@ -221,7 +223,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public PrivateChannel getPrivateChannel()
     {
@@ -229,7 +231,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public TextChannel getTextChannel()
     {
@@ -237,7 +239,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public NewsChannel getNewsChannel()
     {
@@ -252,7 +254,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public Guild getGuild()
     {
@@ -260,7 +262,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public List<Attachment> getAttachments()
     {
@@ -268,7 +270,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public List<MessageEmbed> getEmbeds()
     {
@@ -276,7 +278,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public List<ActionRow> getActionRows()
     {
@@ -284,7 +286,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public List<MessageReaction> getReactions()
     {
@@ -292,7 +294,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public List<StickerItem> getStickers()
     {
@@ -300,47 +302,47 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public MessageAction editMessage(@NotNull CharSequence newContent)
+    public MessageAction editMessage(@Nonnull CharSequence newContent)
     {
         unsupported();
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public MessageAction editMessageEmbeds(@NotNull Collection<? extends MessageEmbed> newContent)
+    public MessageAction editMessageEmbeds(@Nonnull Collection<? extends MessageEmbed> newContent)
     {
         unsupported();
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public MessageAction editMessageComponents(@NotNull Collection<? extends LayoutComponent> components)
+    public MessageAction editMessageComponents(@Nonnull Collection<? extends LayoutComponent> components)
     {
         unsupported();
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public MessageAction editMessageFormat(@NotNull String format, @NotNull Object... args)
+    public MessageAction editMessageFormat(@Nonnull String format, @Nonnull Object... args)
     {
         unsupported();
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public MessageAction editMessage(@NotNull Message newContent)
+    public MessageAction editMessage(@Nonnull Message newContent)
     {
         unsupported();
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public AuditableRestAction<Void> delete()
     {
@@ -348,7 +350,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public JDA getJDA()
     {
@@ -363,7 +365,7 @@ public abstract class AbstractMessage implements Message
         return false;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public RestAction<Void> pin()
     {
@@ -371,7 +373,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public RestAction<Void> unpin()
     {
@@ -379,23 +381,15 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public RestAction<Void> addReaction(@NotNull Emote emote)
+    public RestAction<Void> addReaction(@Nonnull Emoji emoji)
     {
         unsupported();
         return null;
     }
 
-    @NotNull
-    @Override
-    public RestAction<Void> addReaction(@NotNull String unicode)
-    {
-        unsupported();
-        return null;
-    }
-
-    @NotNull
+    @Nonnull
     @Override
     public RestAction<Void> clearReactions()
     {
@@ -403,85 +397,47 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public RestAction<Void> clearReactions(@NotNull String unicode)
+    public RestAction<Void> clearReactions(@Nonnull Emoji emoji)
     {
         unsupported();
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public RestAction<Void> clearReactions(@NotNull Emote emote)
+    public RestAction<Void> removeReaction(@Nonnull Emoji emoji)
     {
         unsupported();
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public RestAction<Void> removeReaction(@NotNull Emote emote)
+    public RestAction<Void> removeReaction(@Nonnull Emoji emoji, @Nonnull User user)
     {
         unsupported();
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public RestAction<Void> removeReaction(@NotNull Emote emote, @NotNull User user)
+    public ReactionPaginationAction retrieveReactionUsers(@Nonnull Emoji emoji)
     {
         unsupported();
         return null;
     }
 
-    @NotNull
+    @Nullable
     @Override
-    public RestAction<Void> removeReaction(@NotNull String unicode)
+    public MessageReaction getReaction(@NotNull Emoji emoji)
     {
         unsupported();
         return null;
     }
 
-    @NotNull
-    @Override
-    public RestAction<Void> removeReaction(@NotNull String unicode, @NotNull User user)
-    {
-        unsupported();
-        return null;
-    }
-
-    @NotNull
-    @Override
-    public ReactionPaginationAction retrieveReactionUsers(@NotNull Emote emote)
-    {
-        unsupported();
-        return null;
-    }
-
-    @NotNull
-    @Override
-    public ReactionPaginationAction retrieveReactionUsers(@NotNull String unicode)
-    {
-        unsupported();
-        return null;
-    }
-
-    @Override
-    public MessageReaction getReactionByUnicode(@NotNull String unicode)
-    {
-        unsupported();
-        return null;
-    }
-
-    @Override
-    public MessageReaction getReactionById(long id)
-    {
-        unsupported();
-        return null;
-    }
-
-    @NotNull
+    @Nonnull
     @Override
     public AuditableRestAction<Void> suppressEmbeds(boolean suppressed)
     {
@@ -489,7 +445,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public RestAction<Message> crosspost()
     {
@@ -504,7 +460,7 @@ public abstract class AbstractMessage implements Message
         return false;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public EnumSet<MessageFlag> getFlags()
     {
@@ -534,7 +490,7 @@ public abstract class AbstractMessage implements Message
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public MessageType getType()
     {

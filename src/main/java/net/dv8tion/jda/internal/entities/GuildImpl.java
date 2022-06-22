@@ -23,6 +23,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.Region;
 import net.dv8tion.jda.api.audio.hooks.ConnectionStatus;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 import net.dv8tion.jda.api.entities.sticker.GuildSticker;
 import net.dv8tion.jda.api.entities.sticker.StandardSticker;
 import net.dv8tion.jda.api.entities.sticker.StickerSnowflake;
@@ -72,7 +73,6 @@ import net.dv8tion.jda.internal.utils.concurrent.task.GatewayTask;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
@@ -98,7 +98,7 @@ public class GuildImpl implements Guild
     private final SortedSnowflakeCacheViewImpl<StageChannel> stageChannelCache = new SortedSnowflakeCacheViewImpl<>(StageChannel.class, Channel::getName, Comparator.naturalOrder());
     private final SortedSnowflakeCacheViewImpl<ThreadChannel> threadChannelCache = new SortedSnowflakeCacheViewImpl<>(ThreadChannel.class, Channel::getName, Comparator.naturalOrder());
     private final SortedSnowflakeCacheViewImpl<Role> roleCache = new SortedSnowflakeCacheViewImpl<>(Role.class, Role::getName, Comparator.reverseOrder());
-    private final SnowflakeCacheViewImpl<Emote> emoteCache = new SnowflakeCacheViewImpl<>(Emote.class, Emote::getName);
+    private final SnowflakeCacheViewImpl<RichCustomEmoji> emojicache = new SnowflakeCacheViewImpl<>(RichCustomEmoji.class, RichCustomEmoji::getName);
     private final SnowflakeCacheViewImpl<GuildSticker> stickerCache = new SnowflakeCacheViewImpl<>(GuildSticker.class, GuildSticker::getName);
     private final MemberCacheViewImpl memberCache = new MemberCacheViewImpl();
     private final CacheView.SimpleCacheView<MemberPresenceImpl> memberPresences;
@@ -157,32 +157,32 @@ public class GuildImpl implements Guild
         try (UnlockHook hook = stageView.writeLock())
         {
             getStageChannelCache()
-                    .forEachUnordered(chan -> stageView.getMap().remove(chan.getIdLong()));
+                .forEachUnordered(chan -> stageView.getMap().remove(chan.getIdLong()));
         }
         try (UnlockHook hook = textView.writeLock())
         {
             getTextChannelCache()
-                    .forEachUnordered(chan -> textView.getMap().remove(chan.getIdLong()));
+                .forEachUnordered(chan -> textView.getMap().remove(chan.getIdLong()));
         }
         try (UnlockHook hook = threadView.writeLock())
         {
             getThreadChannelsView()
-                    .forEachUnordered(chan -> threadView.getMap().remove(chan.getIdLong()));
+                .forEachUnordered(chan -> threadView.getMap().remove(chan.getIdLong()));
         }
         try (UnlockHook hook = newsView.writeLock())
         {
             getNewsChannelCache()
-                    .forEachUnordered(chan -> newsView.getMap().remove(chan.getIdLong()));
+                .forEachUnordered(chan -> newsView.getMap().remove(chan.getIdLong()));
         }
         try (UnlockHook hook = voiceView.writeLock())
         {
             getVoiceChannelCache()
-                    .forEachUnordered(chan -> voiceView.getMap().remove(chan.getIdLong()));
+                .forEachUnordered(chan -> voiceView.getMap().remove(chan.getIdLong()));
         }
         try (UnlockHook hook = categoryView.writeLock())
         {
             getCategoryCache()
-                    .forEachUnordered(chan -> categoryView.getMap().remove(chan.getIdLong()));
+                .forEachUnordered(chan -> categoryView.getMap().remove(chan.getIdLong()));
         }
 
         // Clear audio connection
@@ -305,7 +305,7 @@ public class GuildImpl implements Guild
         Route.CompiledRoute route = Route.Interactions.EDIT_COMMAND_PERMISSIONS.compile(getJDA().getSelfUser().getApplicationId(), getId(), id);
         DataArray array = DataArray.fromCollection(privileges);
         return new RestActionImpl<>(getJDA(), route, DataObject.empty().put("permissions", array),
-                (response, request) -> parsePrivilegesList(response.getObject()));
+            (response, request) -> parsePrivilegesList(response.getObject()));
     }
 
     @Nonnull
@@ -467,7 +467,7 @@ public class GuildImpl implements Guild
         JDAImpl api = getJDA();
         Route.CompiledRoute route = Route.Guilds.GET_VANITY_URL.compile(getId());
         return new RestActionImpl<>(api, route,
-                (response, request) -> new VanityInvite(vanityCode, response.getObject().getInt("uses")));
+            (response, request) -> new VanityInvite(vanityCode, response.getObject().getInt("uses")));
     }
 
     @Nullable
@@ -510,9 +510,9 @@ public class GuildImpl implements Guild
     public List<Member> getBoosters()
     {
         return memberCache.applyStream((members) ->
-                members.filter(m -> m.getTimeBoosted() != null)
-                        .sorted(Comparator.comparing(Member::getTimeBoosted))
-                        .collect(Collectors.toList()));
+            members.filter(m -> m.getTimeBoosted() != null)
+                   .sorted(Comparator.comparing(Member::getTimeBoosted))
+                   .collect(Collectors.toList()));
     }
 
     @Override
@@ -700,9 +700,9 @@ public class GuildImpl implements Guild
 
     @Nonnull
     @Override
-    public SnowflakeCacheView<Emote> getEmoteCache()
+    public SnowflakeCacheView<RichCustomEmoji> getEmojiCache()
     {
-        return emoteCache;
+        return emojicache;
     }
 
     @Nonnull
@@ -789,19 +789,18 @@ public class GuildImpl implements Guild
 
     @Nonnull
     @Override
-    public RestAction<List<ListedEmote>> retrieveEmotes()
+    public RestAction<List<RichCustomEmoji>> retrieveEmojis()
     {
-        Route.CompiledRoute route = Route.Emotes.GET_EMOTES.compile(getId());
+        Route.CompiledRoute route = Route.Emojis.GET_EMOJIS.compile(getId());
         return new RestActionImpl<>(getJDA(), route, (response, request) ->
         {
-
             EntityBuilder builder = GuildImpl.this.getJDA().getEntityBuilder();
-            DataArray emotes = response.getArray();
-            List<ListedEmote> list = new ArrayList<>(emotes.length());
-            for (int i = 0; i < emotes.length(); i++)
+            DataArray emojis = response.getArray();
+            List<RichCustomEmoji> list = new ArrayList<>(emojis.length());
+            for (int i = 0; i < emojis.length(); i++)
             {
-                DataObject emote = emotes.getObject(i);
-                list.add(builder.createEmote(GuildImpl.this, emote));
+                DataObject emoji = emojis.getObject(i);
+                list.add(builder.createEmoji(GuildImpl.this, emoji));
             }
 
             return Collections.unmodifiableList(list);
@@ -810,27 +809,26 @@ public class GuildImpl implements Guild
 
     @Nonnull
     @Override
-    public RestAction<ListedEmote> retrieveEmoteById(@Nonnull String id)
+    public RestAction<RichCustomEmoji> retrieveEmojiById(@Nonnull String id)
     {
-        Checks.isSnowflake(id, "Emote ID");
+        Checks.isSnowflake(id, "Emoji ID");
 
         JDAImpl jda = getJDA();
-        return new DeferredRestAction<>(jda, ListedEmote.class,
-                () -> {
-                    Emote emote = getEmoteById(id);
-                    if (emote != null)
-                    {
-                        ListedEmote listedEmote = (ListedEmote) emote;
-                        if (listedEmote.hasUser() || !getSelfMember().hasPermission(Permission.MANAGE_EMOTES_AND_STICKERS))
-                            return listedEmote;
-                    }
-                    return null;
-                }, () -> {
-            Route.CompiledRoute route = Route.Emotes.GET_EMOTE.compile(getId(), id);
+        return new DeferredRestAction<>(jda, RichCustomEmoji.class,
+        () -> {
+            RichCustomEmoji emoji = getEmojiById(id);
+            if (emoji != null)
+            {
+                if (emoji.getOwner() != null || !getSelfMember().hasPermission(Permission.MANAGE_EMOJIS_AND_STICKERS))
+                    return emoji;
+            }
+            return null;
+        }, () -> {
+            Route.CompiledRoute route = Route.Emojis.GET_EMOJI.compile(getId(), id);
             return new AuditableRestActionImpl<>(jda, route, (response, request) ->
             {
                 EntityBuilder builder = GuildImpl.this.getJDA().getEntityBuilder();
-                return builder.createEmote(GuildImpl.this, response.getObject());
+                return builder.createEmoji(GuildImpl.this, response.getObject());
             });
         });
     }
@@ -1078,9 +1076,9 @@ public class GuildImpl implements Guild
     {
         return Collections.unmodifiableList(
                 getMembersView().stream()
-                        .map(Member::getVoiceState)
-                        .filter(Objects::nonNull)
-                        .collect(Collectors.toList()));
+                    .map(Member::getVoiceState)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList()));
     }
 
     @Nonnull
@@ -1365,11 +1363,11 @@ public class GuildImpl implements Guild
             throw new InsufficientPermissionException(channel, Permission.VOICE_MOVE_OTHERS, "This account does not have Permission to MOVE_OTHERS out of the channel that the Member is currently in.");
 
         if (audioChannel != null
-                && !getSelfMember().hasPermission(audioChannel, Permission.VOICE_CONNECT)
-                && !member.hasPermission(audioChannel, Permission.VOICE_CONNECT))
+            && !getSelfMember().hasPermission(audioChannel, Permission.VOICE_CONNECT)
+            && !member.hasPermission(audioChannel, Permission.VOICE_CONNECT))
             throw new InsufficientPermissionException(audioChannel, Permission.VOICE_CONNECT,
-                    "Neither this account nor the Member that is attempting to be moved have the VOICE_CONNECT permission " +
-                            "for the destination AudioChannel, so the move cannot be done.");
+                                                      "Neither this account nor the Member that is attempting to be moved have the VOICE_CONNECT permission " +
+                                                      "for the destination AudioChannel, so the move cannot be done.");
 
         DataObject body = DataObject.empty().put("channel_id", audioChannel == null ? null : audioChannel.getId());
         Route.CompiledRoute route = Route.Guilds.MODIFY_MEMBER.compile(getId(), member.getUser().getId());
@@ -1640,7 +1638,7 @@ public class GuildImpl implements Guild
         });
 
         Checks.check(!roles.contains(getPublicRole()),
-                "Cannot add the PublicRole of a Guild to a Member. All members have this role by default!");
+             "Cannot add the PublicRole of a Guild to a Member. All members have this role by default!");
 
         // Return an empty rest action if there were no changes
         final List<Role> memberRoles = member.getRoles();
@@ -1668,7 +1666,7 @@ public class GuildImpl implements Guild
         }
 
         DataObject body = DataObject.empty()
-                .put("roles", roles.stream().map(Role::getId).collect(Collectors.toSet()));
+            .put("roles", roles.stream().map(Role::getId).collect(Collectors.toSet()));
         Route.CompiledRoute route = Route.Guilds.MODIFY_MEMBER.compile(getId(), member.getUser().getId());
 
         return new AuditableRestActionImpl<>(getJDA(), route, body);
@@ -1684,7 +1682,7 @@ public class GuildImpl implements Guild
             throw new PermissionException("The logged in account must be the owner of this Guild to be able to transfer ownership");
 
         Checks.check(!getSelfMember().equals(newOwner),
-                "The member provided as the newOwner is the currently logged in account. Provide a different member to give ownership to.");
+                     "The member provided as the newOwner is the currently logged in account. Provide a different member to give ownership to.");
 
         Checks.check(!newOwner.getUser().isBot(), "Cannot transfer ownership of a Guild to a Bot!");
 
@@ -1763,11 +1761,11 @@ public class GuildImpl implements Guild
 
     @Nonnull
     @Override
-    public AuditableRestAction<Emote> createEmote(@Nonnull String name, @Nonnull Icon icon, @Nonnull Role... roles)
+    public AuditableRestAction<RichCustomEmoji> createEmoji(@Nonnull String name, @Nonnull Icon icon, @Nonnull Role... roles)
     {
-        checkPermission(Permission.MANAGE_EMOTES_AND_STICKERS);
-        Checks.inRange(name, 2, 32, "Emote name");
-        Checks.notNull(icon, "Emote icon");
+        checkPermission(Permission.MANAGE_EMOJIS_AND_STICKERS);
+        Checks.inRange(name, 2, 32, "Emoji name");
+        Checks.notNull(icon, "Emoji icon");
         Checks.notNull(roles, "Roles");
 
         DataObject body = DataObject.empty();
@@ -1777,19 +1775,19 @@ public class GuildImpl implements Guild
             body.put("roles", Stream.of(roles).filter(Objects::nonNull).map(ISnowflake::getId).collect(Collectors.toSet()));
 
         JDAImpl jda = getJDA();
-        Route.CompiledRoute route = Route.Emotes.CREATE_EMOTE.compile(getId());
+        Route.CompiledRoute route = Route.Emojis.CREATE_EMOJI.compile(getId());
         return new AuditableRestActionImpl<>(jda, route, body, (response, request) ->
         {
             DataObject obj = response.getObject();
-            return jda.getEntityBuilder().createEmote(this, obj);
+            return jda.getEntityBuilder().createEmoji(this, obj);
         });
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public AuditableRestAction<GuildSticker> createSticker(@Nonnull String name, @Nonnull String description, @Nonnull FileUpload file, @Nonnull Collection<String> tags)
     {
-        checkPermission(Permission.MANAGE_EMOTES_AND_STICKERS);
+        checkPermission(Permission.MANAGE_EMOJIS_AND_STICKERS);
         Checks.inRange(name, 2, 30, "Name");
         Checks.notNull(file, "File");
         Checks.notNull(description, "Description");
@@ -1811,15 +1809,15 @@ public class GuildImpl implements Guild
         MediaType mediaType;
         switch (extension)
         {
-        case "apng":
-        case "png":
-            mediaType = Requester.MEDIA_TYPE_PNG;
-            break;
-        case "json":
-            mediaType = Requester.MEDIA_TYPE_JSON;
-            break;
-        default:
-            throw new IllegalArgumentException("Unsupported file extension: '." + extension + "', must be PNG or JSON.");
+            case "apng":
+            case "png":
+                mediaType = Requester.MEDIA_TYPE_PNG;
+                break;
+            case "json":
+                mediaType = Requester.MEDIA_TYPE_JSON;
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported file extension: '." + extension + "', must be PNG or JSON.");
         }
 
         // Add sticker metadata as form parts (because payload_json is broken)
@@ -1834,7 +1832,7 @@ public class GuildImpl implements Guild
         MultipartBody body = builder.build();
         Route.CompiledRoute route = Route.Stickers.CREATE_GUILD_STICKER.compile(getId());
         return new AuditableRestActionImpl<>(api, route, body,
-                (response, request) -> (GuildSticker) api.getEntityBuilder().createRichSticker(response.getObject())
+            (response, request) -> (GuildSticker) api.getEntityBuilder().createRichSticker(response.getObject())
         );
     }
 
@@ -2172,9 +2170,9 @@ public class GuildImpl implements Guild
         return roleCache;
     }
 
-    public SnowflakeCacheViewImpl<Emote> getEmotesView()
+    public SnowflakeCacheViewImpl<RichCustomEmoji> getEmojisView()
     {
-        return emoteCache;
+        return emojicache;
     }
 
     public SnowflakeCacheViewImpl<GuildSticker> getStickersView()

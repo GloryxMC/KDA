@@ -18,6 +18,7 @@ package net.dv8tion.jda.api;
 
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.entities.channel.IGuildChannelContainer;
+import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 import net.dv8tion.jda.api.entities.sticker.*;
 import net.dv8tion.jda.api.hooks.IEventManager;
 import net.dv8tion.jda.api.interactions.commands.Command;
@@ -41,11 +42,10 @@ import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.Helpers;
 import okhttp3.OkHttpClient;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
@@ -205,7 +205,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return Current JDA status.
      */
-    @NotNull
+    @Nonnull
     Status getStatus();
 
     /**
@@ -213,7 +213,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return {@link EnumSet} of active gateway intents
      */
-    @NotNull
+    @Nonnull
     EnumSet<GatewayIntent> getGatewayIntents();
 
     /**
@@ -221,7 +221,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return Copy of the EnumSet of cache flags for this session
      */
-    @NotNull
+    @Nonnull
     EnumSet<CacheFlag> getCacheFlags();
 
     /**
@@ -270,7 +270,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @see    #getGatewayPing()
      */
-    @NotNull
+    @Nonnull
     default RestAction<Long> getRestPing()
     {
         AtomicLong time = new AtomicLong();
@@ -312,8 +312,8 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return The current JDA instance, for chaining convenience
      */
-    @NotNull
-    default JDA awaitStatus(@NotNull JDA.Status status) throws InterruptedException
+    @Nonnull
+    default JDA awaitStatus(@Nonnull JDA.Status status) throws InterruptedException
     {
         //This is done to retain backwards compatible ABI as it would otherwise change the signature of the method
         // which would require recompilation for all users (including extension libraries)
@@ -350,8 +350,8 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return The current JDA instance, for chaining convenience
      */
-    @NotNull
-    JDA awaitStatus(@NotNull JDA.Status status, @NotNull JDA.Status... failOn) throws InterruptedException;
+    @Nonnull
+    JDA awaitStatus(@Nonnull JDA.Status status, @Nonnull JDA.Status... failOn) throws InterruptedException;
 
     /**
      * This method will block until JDA has reached the status {@link Status#CONNECTED}.
@@ -364,7 +364,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return The current JDA instance, for chaining convenience
      */
-    @NotNull
+    @Nonnull
     default JDA awaitReady() throws InterruptedException
     {
         return awaitStatus(Status.CONNECTED);
@@ -393,7 +393,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @since 4.0.0
      */
-    @NotNull
+    @Nonnull
     ScheduledExecutorService getRateLimitPool();
 
     /**
@@ -404,7 +404,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @since 4.0.0
      */
-    @NotNull
+    @Nonnull
     ScheduledExecutorService getGatewayPool();
 
     /**
@@ -417,7 +417,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @since 4.0.0
      */
-    @NotNull
+    @Nonnull
     ExecutorService getCallbackPool();
 
     /**
@@ -427,7 +427,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @since 4.0.0
      */
-    @NotNull
+    @Nonnull
     OkHttpClient getHttpClient();
 
     /**
@@ -444,7 +444,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @since 4.0.0
      */
-    @NotNull
+    @Nonnull
     DirectAudioController getDirectAudioController();
 
     /**
@@ -472,7 +472,7 @@ public interface JDA extends IGuildChannelContainer
      * @throws java.lang.IllegalArgumentException
      *         If either listeners or one of it's objects is {@code null}.
      */
-    void addEventListener(@NotNull Object... listeners);
+    void addEventListener(@Nonnull Object... listeners);
 
     /**
      * Removes all provided listeners from the event-listeners and no longer uses them to handle events.
@@ -483,14 +483,14 @@ public interface JDA extends IGuildChannelContainer
      * @throws java.lang.IllegalArgumentException
      *         If either listeners or one of it's objects is {@code null}.
      */
-    void removeEventListener(@NotNull Object... listeners);
+    void removeEventListener(@Nonnull Object... listeners);
 
     /**
      * Immutable List of Objects that have been registered as EventListeners.
      *
      * @return List of currently registered Objects acting as EventListeners.
      */
-    @NotNull
+    @Nonnull
     List<Object> getRegisteredListeners();
 
     /**
@@ -499,7 +499,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return {@link RestAction} - Type: {@link List} of {@link Command}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     RestAction<List<Command>> retrieveCommands();
 
@@ -517,9 +517,9 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return {@link RestAction} - Type: {@link Command}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    RestAction<Command> retrieveCommandById(@NotNull String id);
+    RestAction<Command> retrieveCommandById(@Nonnull String id);
 
     /**
      * Retrieves the existing {@link Command} instance by id.
@@ -532,7 +532,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return {@link RestAction} - Type: {@link Command}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     default RestAction<Command> retrieveCommandById(long id)
     {
@@ -566,9 +566,9 @@ public interface JDA extends IGuildChannelContainer
      * @see    Commands#user(String) Commands.user(...)
      * @see    Guild#upsertCommand(CommandData) Guild.upsertCommand(...)
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    RestAction<Command> upsertCommand(@NotNull CommandData command);
+    RestAction<Command> upsertCommand(@Nonnull CommandData command);
 
     /**
      * Creates or updates a global slash command.
@@ -595,9 +595,9 @@ public interface JDA extends IGuildChannelContainer
      *
      * @see Guild#upsertCommand(String, String)
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    default CommandCreateAction upsertCommand(@NotNull String name, @NotNull String description)
+    default CommandCreateAction upsertCommand(@Nonnull String name, @Nonnull String description)
     {
         return (CommandCreateAction) upsertCommand(new CommandDataImpl(name, description));
     }
@@ -630,7 +630,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @see    Guild#updateCommands()
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     CommandListUpdateAction updateCommands();
 
@@ -651,9 +651,9 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return {@link CommandEditAction} used to edit the command
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    CommandEditAction editCommandById(@NotNull String id);
+    CommandEditAction editCommandById(@Nonnull String id);
 
     /**
      * Edit an existing global command by id.
@@ -669,7 +669,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return {@link CommandEditAction} used to edit the command
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     default CommandEditAction editCommandById(long id)
     {
@@ -693,9 +693,9 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return {@link RestAction}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    RestAction<Void> deleteCommandById(@NotNull String commandId);
+    RestAction<Void> deleteCommandById(@Nonnull String commandId);
 
     /**
      * Delete the global command for this id.
@@ -711,7 +711,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return {@link RestAction}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     default RestAction<Void> deleteCommandById(long commandId)
     {
@@ -737,9 +737,9 @@ public interface JDA extends IGuildChannelContainer
      * @return {@link GuildAction GuildAction}
      *         <br>Allows for setting various details for the resulting Guild
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    GuildAction createGuild(@NotNull String name);
+    GuildAction createGuild(@Nonnull String name);
 
     /**
      * Constructs a new {@link Guild Guild} from the specified template code.
@@ -767,9 +767,9 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    RestAction<Void> createGuildFromTemplate(@NotNull String code, @NotNull String name, @Nullable Icon icon);
+    RestAction<Void> createGuildFromTemplate(@Nonnull String code, @Nonnull String name, @Nullable Icon icon);
 
     /**
      * {@link net.dv8tion.jda.api.utils.cache.CacheView CacheView} of
@@ -781,7 +781,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return {@link net.dv8tion.jda.api.utils.cache.CacheView CacheView}
      */
-    @NotNull
+    @Nonnull
     CacheView<AudioManager> getAudioManagerCache();
 
     /**
@@ -789,7 +789,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return Immutable list of all created AudioManager instances
      */
-    @NotNull
+    @Nonnull
     default List<AudioManager> getAudioManagers()
     {
         return getAudioManagerCache().asList();
@@ -801,7 +801,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView}
      */
-    @NotNull
+    @Nonnull
     SnowflakeCacheView<User> getUserCache();
 
     /**
@@ -822,7 +822,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return Immutable list of all {@link net.dv8tion.jda.api.entities.User Users} that are visible to JDA.
      */
-    @NotNull
+    @Nonnull
     default List<User> getUsers()
     {
         return getUserCache().asList();
@@ -845,7 +845,7 @@ public interface JDA extends IGuildChannelContainer
      * @see    #retrieveUserById(String)
      */
     @Nullable
-    default User getUserById(@NotNull String id)
+    default User getUserById(@Nonnull String id)
     {
         return getUserCache().getElementById(id);
     }
@@ -890,7 +890,7 @@ public interface JDA extends IGuildChannelContainer
      * @return The {@link net.dv8tion.jda.api.entities.User} for the discord tag or null if no user has the provided tag
      */
     @Nullable
-    default User getUserByTag(@NotNull String tag)
+    default User getUserByTag(@Nonnull String tag)
     {
         Checks.notNull(tag, "Tag");
         Matcher matcher = User.USER_TAG.matcher(tag);
@@ -923,7 +923,7 @@ public interface JDA extends IGuildChannelContainer
      * @return The {@link net.dv8tion.jda.api.entities.User} for the discord tag or null if no user has the provided tag
      */
     @Nullable
-    default User getUserByTag(@NotNull String username, @NotNull String discriminator)
+    default User getUserByTag(@Nonnull String username, @Nonnull String discriminator)
     {
         Checks.notNull(username, "Username");
         Checks.notNull(discriminator, "Discriminator");
@@ -953,8 +953,8 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return Possibly-empty immutable list of {@link net.dv8tion.jda.api.entities.User Users} that all have the same name as the provided name.
      */
-    @NotNull
-    default List<User> getUsersByName(@NotNull String name, boolean ignoreCase)
+    @Nonnull
+    default List<User> getUsersByName(@Nonnull String name, boolean ignoreCase)
     {
         return getUserCache().getElementsByName(name, ignoreCase);
     }
@@ -969,8 +969,8 @@ public interface JDA extends IGuildChannelContainer
      *
      * @see    Guild#isMember(UserSnowflake)
      */
-    @NotNull
-    List<Guild> getMutualGuilds(@NotNull User... users);
+    @Nonnull
+    List<Guild> getMutualGuilds(@Nonnull User... users);
 
     /**
      * Gets all {@link Guild Guilds} that contain all given users as their members.
@@ -980,8 +980,8 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return Immutable list of all {@link Guild Guild} instances which have all {@link net.dv8tion.jda.api.entities.User Users} in them.
      */
-    @NotNull
-    List<Guild> getMutualGuilds(@NotNull Collection<User> users);
+    @Nonnull
+    List<Guild> getMutualGuilds(@Nonnull Collection<User> users);
 
     /**
      * Attempts to retrieve a {@link net.dv8tion.jda.api.entities.User User} object based on the provided id.
@@ -1015,9 +1015,9 @@ public interface JDA extends IGuildChannelContainer
      * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: {@link net.dv8tion.jda.api.entities.User User}
      *         <br>On request, gets the User with id matching provided id from Discord.
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    default RestAction<User> retrieveUserById(@NotNull String id)
+    default RestAction<User> retrieveUserById(@Nonnull String id)
     {
         return retrieveUserById(id, true);
     }
@@ -1046,7 +1046,7 @@ public interface JDA extends IGuildChannelContainer
      * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: {@link net.dv8tion.jda.api.entities.User User}
      *         <br>On request, gets the User with id matching provided id from Discord.
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     default RestAction<User> retrieveUserById(long id)
     {
@@ -1085,9 +1085,9 @@ public interface JDA extends IGuildChannelContainer
      * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: {@link net.dv8tion.jda.api.entities.User User}
      *         <br>On request, gets the User with id matching provided id from Discord.
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    default RestAction<User> retrieveUserById(@NotNull String id, boolean update)
+    default RestAction<User> retrieveUserById(@Nonnull String id, boolean update)
     {
         return retrieveUserById(MiscUtil.parseSnowflake(id), update);
     }
@@ -1116,7 +1116,7 @@ public interface JDA extends IGuildChannelContainer
      * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: {@link net.dv8tion.jda.api.entities.User User}
      *         <br>On request, gets the User with id matching provided id from Discord.
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     RestAction<User> retrieveUserById(long id, boolean update);
 
@@ -1126,7 +1126,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView}
      */
-    @NotNull
+    @Nonnull
     SnowflakeCacheView<Guild> getGuildCache();
 
     /**
@@ -1146,7 +1146,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return Possibly-empty immutable list of all the {@link Guild Guilds} that this account is connected to.
      */
-    @NotNull
+    @Nonnull
     default List<Guild> getGuilds()
     {
         return getGuildCache().asList();
@@ -1165,7 +1165,7 @@ public interface JDA extends IGuildChannelContainer
      * @return Possibly-null {@link Guild Guild} with matching id.
      */
     @Nullable
-    default Guild getGuildById(@NotNull String id)
+    default Guild getGuildById(@Nonnull String id)
     {
         return getGuildCache().getElementById(id);
     }
@@ -1196,8 +1196,8 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return Possibly-empty immutable list of all the {@link Guild Guilds} that all have the same name as the provided name.
      */
-    @NotNull
-    default List<Guild> getGuildsByName(@NotNull String name, boolean ignoreCase)
+    @Nonnull
+    default List<Guild> getGuildsByName(@Nonnull String name, boolean ignoreCase)
     {
         return getGuildCache().getElementsByName(name, ignoreCase);
     }
@@ -1211,7 +1211,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return Possibly-empty set of guild IDs for unavailable guilds
      */
-    @NotNull
+    @Nonnull
     Set<String> getUnavailableGuilds();
 
     /**
@@ -1232,7 +1232,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @see    net.dv8tion.jda.api.utils.cache.CacheView#allSnowflakes(java.util.function.Supplier) CacheView.allSnowflakes(...)
      */
-    @NotNull
+    @Nonnull
     SnowflakeCacheView<Role> getRoleCache();
 
     /**
@@ -1247,7 +1247,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return Immutable List of all visible Roles
      */
-    @NotNull
+    @Nonnull
     default List<Role> getRoles()
     {
         return getRoleCache().asList();
@@ -1267,7 +1267,7 @@ public interface JDA extends IGuildChannelContainer
      * @return Possibly-null {@link net.dv8tion.jda.api.entities.Role Role} for the specified ID
      */
     @Nullable
-    default Role getRoleById(@NotNull String id)
+    default Role getRoleById(@Nonnull String id)
     {
         return getRoleCache().getElementById(id);
     }
@@ -1300,15 +1300,15 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return Immutable List of all Roles matching the parameters provided.
      */
-    @NotNull
-    default List<Role> getRolesByName(@NotNull String name, boolean ignoreCase)
+    @Nonnull
+    default List<Role> getRolesByName(@Nonnull String name, boolean ignoreCase)
     {
         return getRoleCache().getElementsByName(name, ignoreCase);
     }
 
     @Nullable
     @Override
-    default <T extends Channel> T getChannelById(@NotNull Class<T> type, long id)
+    default <T extends Channel> T getChannelById(@Nonnull Class<T> type, long id)
     {
         Checks.notNull(type, "Class");
         Channel channel = getPrivateChannelById(id);
@@ -1323,7 +1323,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView}
      */
-    @NotNull
+    @Nonnull
     SnowflakeCacheView<PrivateChannel> getPrivateChannelCache();
 
     /**
@@ -1336,7 +1336,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return Possibly-empty list of all {@link net.dv8tion.jda.api.entities.PrivateChannel PrivateChannels}.
      */
-    @NotNull
+    @Nonnull
     default List<PrivateChannel> getPrivateChannels()
     {
         return getPrivateChannelCache().asList();
@@ -1355,7 +1355,7 @@ public interface JDA extends IGuildChannelContainer
      * @return Possibly-null {@link net.dv8tion.jda.api.entities.PrivateChannel PrivateChannel} with matching id.
      */
     @Nullable
-    default PrivateChannel getPrivateChannelById(@NotNull String id)
+    default PrivateChannel getPrivateChannelById(@Nonnull String id)
     {
         return getPrivateChannelCache().getElementById(id);
     }
@@ -1400,7 +1400,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @see    User#openPrivateChannel()
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     RestAction<PrivateChannel> openPrivateChannelById(long userId);
 
@@ -1430,107 +1430,107 @@ public interface JDA extends IGuildChannelContainer
      *
      * @see    User#openPrivateChannel()
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    default RestAction<PrivateChannel> openPrivateChannelById(@NotNull String userId)
+    default RestAction<PrivateChannel> openPrivateChannelById(@Nonnull String userId)
     {
         return openPrivateChannelById(MiscUtil.parseSnowflake(userId));
     }
 
     /**
      * Unified {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView} of
-     * all cached {@link net.dv8tion.jda.api.entities.Emote Emotes} visible to this JDA session.
+     * all cached {@link RichCustomEmoji Custom Emojis} visible to this JDA session.
      *
      * @return Unified {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView}
      *
      * @see    net.dv8tion.jda.api.utils.cache.CacheView#allSnowflakes(java.util.function.Supplier) CacheView.allSnowflakes(...)
      */
-    @NotNull
-    SnowflakeCacheView<Emote> getEmoteCache();
+    @Nonnull
+    SnowflakeCacheView<RichCustomEmoji> getEmojiCache();
 
     /**
-     * A collection of all to us known emotes (managed/restricted included).
-     * <br>This will be empty if {@link net.dv8tion.jda.api.utils.cache.CacheFlag#EMOTE} is disabled.
+     * A collection of all to us known custom emoji (managed/restricted included).
+     * <br>This will be empty if {@link net.dv8tion.jda.api.utils.cache.CacheFlag#EMOJI} is disabled.
      *
-     * <p><b>Hint</b>: To check whether you can use an {@link net.dv8tion.jda.api.entities.Emote Emote} in a specific
-     * context you can use {@link Emote#canInteract(net.dv8tion.jda.api.entities.Member)} or {@link
-     * Emote#canInteract(net.dv8tion.jda.api.entities.User, net.dv8tion.jda.api.entities.MessageChannel)}
+     * <p><b>Hint</b>: To check whether you can use an {@link RichCustomEmoji} in a specific
+     * context you can use {@link RichCustomEmoji#canInteract(net.dv8tion.jda.api.entities.Member)} or {@link
+     * RichCustomEmoji#canInteract(net.dv8tion.jda.api.entities.User, net.dv8tion.jda.api.entities.MessageChannel)}
      *
-     * <p><b>Unicode emojis are not included as {@link net.dv8tion.jda.api.entities.Emote Emote}!</b>
+     * <p><b>Unicode emojis are not included as {@link RichCustomEmoji Custom Emoji}!</b>
      *
      * <p>This copies the backing store into a list. This means every call
      * creates a new list with O(n) complexity. It is recommended to store this into
-     * a local variable or use {@link #getEmoteCache()} and use its more efficient
+     * a local variable or use {@link #getEmojiCache()} and use its more efficient
      * versions of handling these values.
      *
-     * @return An immutable list of Emotes (which may or may not be available to usage).
+     * @return An immutable list of Custom Emojis (which may or may not be available to usage).
      */
-    @NotNull
-    default List<Emote> getEmotes()
+    @Nonnull
+    default List<RichCustomEmoji> getEmojis()
     {
-        return getEmoteCache().asList();
+        return getEmojiCache().asList();
     }
 
     /**
-     * Retrieves an emote matching the specified {@code id} if one is available in our cache.
-     * <br>This will be null if {@link net.dv8tion.jda.api.utils.cache.CacheFlag#EMOTE} is disabled.
+     * Retrieves a custom emoji matching the specified {@code id} if one is available in our cache.
+     * <br>This will be null if {@link net.dv8tion.jda.api.utils.cache.CacheFlag#EMOJI} is disabled.
      *
-     * <p><b>Unicode emojis are not included as {@link net.dv8tion.jda.api.entities.Emote Emote}!</b>
+     * <p><b>Unicode emojis are not included as {@link RichCustomEmoji Custom Emoji}!</b>
      *
      * @param  id
-     *         The id of the requested {@link net.dv8tion.jda.api.entities.Emote}.
+     *         The id of the requested {@link RichCustomEmoji}.
      *
      * @throws java.lang.NumberFormatException
      *         If the provided {@code id} cannot be parsed by {@link Long#parseLong(String)}
      *
-     * @return An {@link net.dv8tion.jda.api.entities.Emote Emote} represented by this id or null if none is found in
+     * @return A {@link RichCustomEmoji Custom Emoji} represented by this id or null if none is found in
      *         our cache.
      */
     @Nullable
-    default Emote getEmoteById(@NotNull String id)
+    default RichCustomEmoji getEmojiById(@Nonnull String id)
     {
-        return getEmoteCache().getElementById(id);
+        return getEmojiCache().getElementById(id);
     }
 
     /**
-     * Retrieves an emote matching the specified {@code id} if one is available in our cache.
-     * <br>This will be null if {@link net.dv8tion.jda.api.utils.cache.CacheFlag#EMOTE} is disabled.
+     * Retrieves a custom emoji matching the specified {@code id} if one is available in our cache.
+     * <br>This will be null if {@link net.dv8tion.jda.api.utils.cache.CacheFlag#EMOJI} is disabled.
      *
-     * <p><b>Unicode emojis are not included as {@link net.dv8tion.jda.api.entities.Emote Emote}!</b>
+     * <p><b>Unicode emojis are not included as {@link RichCustomEmoji Custom Emoji}!</b>
      *
      * @param  id
-     *         The id of the requested {@link net.dv8tion.jda.api.entities.Emote}.
+     *         The id of the requested {@link RichCustomEmoji}.
      *
-     * @return An {@link net.dv8tion.jda.api.entities.Emote Emote} represented by this id or null if none is found in
+     * @return A {@link RichCustomEmoji Custom Emoji} represented by this id or null if none is found in
      *         our cache.
      */
     @Nullable
-    default Emote getEmoteById(long id)
+    default RichCustomEmoji getEmojiById(long id)
     {
-        return getEmoteCache().getElementById(id);
+        return getEmojiCache().getElementById(id);
     }
 
     /**
-     * An unmodifiable list of all {@link net.dv8tion.jda.api.entities.Emote Emotes} that have the same name as the one
-     * provided. <br>If there are no {@link net.dv8tion.jda.api.entities.Emote Emotes} with the provided name, then
+     * An unmodifiable list of all {@link RichCustomEmoji Custom Emojis} that have the same name as the one
+     * provided. <br>If there are no {@link RichCustomEmoji Custom Emojis} with the provided name, then
      * this returns an empty list.
-     * <br>This will be empty if {@link net.dv8tion.jda.api.utils.cache.CacheFlag#EMOTE} is disabled.
+     * <br>This will be empty if {@link net.dv8tion.jda.api.utils.cache.CacheFlag#EMOJI} is disabled.
      *
-     * <p><b>Unicode emojis are not included as {@link net.dv8tion.jda.api.entities.Emote Emote}!</b>
+     * <p><b>Unicode emojis are not included as {@link RichCustomEmoji Custom Emoji}!</b>
      *
      * @param  name
-     *         The name of the requested {@link net.dv8tion.jda.api.entities.Emote Emotes}. Without colons.
+     *         The name of the requested {@link RichCustomEmoji Custom Emojis}. Without colons.
      * @param  ignoreCase
      *         Whether to ignore case or not when comparing the provided name to each {@link
-     *         net.dv8tion.jda.api.entities.Emote#getName()}.
+     *         RichCustomEmoji#getName()}.
      *
-     * @return Possibly-empty list of all the {@link net.dv8tion.jda.api.entities.Emote Emotes} that all have the same
+     * @return Possibly-empty list of all the {@link RichCustomEmoji Custom Emojis} that all have the same
      *         name as the provided name.
      */
-    @NotNull
-    default List<Emote> getEmotesByName(@NotNull String name, boolean ignoreCase)
+    @Nonnull
+    default List<RichCustomEmoji> getEmojisByName(@Nonnull String name, boolean ignoreCase)
     {
-        return getEmoteCache().getElementsByName(name, ignoreCase);
+        return getEmojiCache().getElementsByName(name, ignoreCase);
     }
 
     /**
@@ -1555,16 +1555,16 @@ public interface JDA extends IGuildChannelContainer
      * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: {@link StickerUnion}
      *         <br>On request, gets the sticker with id matching provided id from Discord.
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    RestAction<StickerUnion> retrieveSticker(@NotNull StickerSnowflake sticker);
+    RestAction<StickerUnion> retrieveSticker(@Nonnull StickerSnowflake sticker);
 
     /**
      * Retrieves a list of all the public {@link StickerPack StickerPacks} used for nitro.
      *
      * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: List of {@link StickerPack}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     RestAction<List<StickerPack>> retrieveNitroStickerPacks();
 
@@ -1573,7 +1573,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return The {@link net.dv8tion.jda.api.hooks.IEventManager}
      */
-    @NotNull
+    @Nonnull
     IEventManager getEventManager();
 
     /**
@@ -1583,7 +1583,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return The currently logged in account.
      */
-    @NotNull
+    @Nonnull
     SelfUser getSelfUser();
 
     /**
@@ -1592,7 +1592,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return The never-null {@link net.dv8tion.jda.api.managers.Presence Presence} for this session.
      */
-    @NotNull
+    @Nonnull
     Presence getPresence();
 
     /**
@@ -1601,7 +1601,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return The shard information for this shard
      */
-    @NotNull
+    @Nonnull
     ShardInfo getShardInfo();
 
     /**
@@ -1609,7 +1609,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return Never-null, 18 character length string containing the auth token.
      */
-    @NotNull
+    @Nonnull
     String getToken();
 
     /**
@@ -1710,7 +1710,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return The current AccountType.
      */
-    @NotNull
+    @Nonnull
     AccountType getAccountType();
 
     /**
@@ -1724,7 +1724,7 @@ public interface JDA extends IGuildChannelContainer
      * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: {@link ApplicationInfo ApplicationInfo}
      *         <br>The {@link ApplicationInfo ApplicationInfo} of the bot's application.
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     RestAction<ApplicationInfo> retrieveApplicationInfo();
 
@@ -1740,8 +1740,8 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return The current JDA instance
      */
-    @NotNull
-    default JDA setRequiredScopes(@NotNull String... scopes)
+    @Nonnull
+    default JDA setRequiredScopes(@Nonnull String... scopes)
     {
         Checks.noneNull(scopes, "Scopes");
         return setRequiredScopes(Arrays.asList(scopes));
@@ -1759,8 +1759,8 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return The current JDA instance
      */
-    @NotNull
-    JDA setRequiredScopes(@NotNull Collection<String> scopes);
+    @Nonnull
+    JDA setRequiredScopes(@Nonnull Collection<String> scopes);
 
     /**
      * Creates an authorization invite url for the currently logged in Bot-Account.
@@ -1778,7 +1778,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return A valid OAuth2 invite url for the currently logged in Bot-Account
      */
-    @NotNull
+    @Nonnull
     String getInviteUrl(@Nullable Permission... permissions);
 
     /**
@@ -1797,7 +1797,7 @@ public interface JDA extends IGuildChannelContainer
      *
      * @return A valid OAuth2 invite url for the currently logged in Bot-Account
      */
-    @NotNull
+    @Nonnull
     String getInviteUrl(@Nullable Collection<Permission> permissions);
 
     /**
@@ -1834,9 +1834,9 @@ public interface JDA extends IGuildChannelContainer
      * @see    Guild#retrieveWebhooks()
      * @see    TextChannel#retrieveWebhooks()
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    RestAction<Webhook> retrieveWebhookById(@NotNull String webhookId);
+    RestAction<Webhook> retrieveWebhookById(@Nonnull String webhookId);
 
     /**
      * Retrieves a {@link net.dv8tion.jda.api.entities.Webhook Webhook} by its id.
@@ -1860,7 +1860,7 @@ public interface JDA extends IGuildChannelContainer
      * @see    Guild#retrieveWebhooks()
      * @see    TextChannel#retrieveWebhooks()
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     default RestAction<Webhook> retrieveWebhookById(long webhookId)
     {
@@ -1876,7 +1876,7 @@ public interface JDA extends IGuildChannelContainer
      * @return {@link AuditableRestAction} - Type: int
      *         Provides the resulting used port
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     default AuditableRestAction<Integer> installAuxiliaryPort()
     {

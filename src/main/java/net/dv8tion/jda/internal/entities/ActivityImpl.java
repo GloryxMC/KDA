@@ -17,6 +17,7 @@ package net.dv8tion.jda.internal.entities;
 
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.RichPresence;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

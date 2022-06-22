@@ -16,13 +16,13 @@
 package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.annotations.Incubating;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.internal.entities.EntityBuilder;
 import net.dv8tion.jda.internal.utils.Checks;
-import net.dv8tion.jda.internal.utils.EncodingUtil;
 import net.dv8tion.jda.internal.utils.Helpers;
-import org.jetbrains.annotations.NotNull;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.time.Instant;
 import java.time.temporal.TemporalUnit;
 import java.util.Objects;
@@ -52,12 +52,12 @@ public interface Activity
      * Whether this is a <a href="https://discord.com/developers/docs/rich-presence/best-practices" target="_blank">Rich Presence</a>
      * <br>If {@code false} the result of {@link #asRichPresence()} is {@code null}
      *
-     * @return {@code true} if this is a {@link RichPresence RichPresence}
+     * @return {@code true} if this is a {@link net.dv8tion.jda.api.entities.RichPresence RichPresence}
      */
     boolean isRich();
 
     /**
-     * {@link RichPresence RichPresence} representation of
+     * {@link net.dv8tion.jda.api.entities.RichPresence RichPresence} representation of
      * this Activity.
      *
      * @return RichPresence or {@code null} if {@link #isRich()} returns {@code false}
@@ -71,7 +71,7 @@ public interface Activity
      *
      * @return String containing the Activity's name.
      */
-    @NotNull
+    @Nonnull
     String getName();
 
     /**
@@ -86,15 +86,15 @@ public interface Activity
     /**
      * The type of {@link Activity Activity}.
      *
-     * @return Never-null {@link ActivityType ActivityType} representing the type of Activity
+     * @return Never-null {@link net.dv8tion.jda.api.entities.Activity.ActivityType ActivityType} representing the type of Activity
      */
-    @NotNull
+    @Nonnull
     ActivityType getType();
 
     /**
      * Information on the match duration, start, and end.
      *
-     * @return {@link Timestamps Timestamps} wrapper of {@code null} if unset
+     * @return {@link net.dv8tion.jda.api.entities.Activity.Timestamps Timestamps} wrapper of {@code null} if unset
      */
     @Nullable
     Timestamps getTimestamps();
@@ -118,10 +118,10 @@ public interface Activity
      * @throws IllegalArgumentException
      *         if the specified name is null, empty, blank or longer than 128 characters
      *
-     * @return A valid Activity instance with the provided name with {@link ActivityType#PLAYING}
+     * @return A valid Activity instance with the provided name with {@link net.dv8tion.jda.api.entities.Activity.ActivityType#PLAYING}
      */
-    @NotNull
-    static Activity playing(@NotNull String name)
+    @Nonnull
+    static Activity playing(@Nonnull String name)
     {
         Checks.notBlank(name, "Name");
         name = name.trim();
@@ -146,8 +146,8 @@ public interface Activity
      *
      * @see    #isValidStreamingUrl(String)
      */
-    @NotNull
-    static Activity streaming(@NotNull String name, @Nullable String url)
+    @Nonnull
+    static Activity streaming(@Nonnull String name, @Nullable String url)
     {
         Checks.notEmpty(name, "Provided game name");
         name = Helpers.isBlank(name) ? name : name.trim();
@@ -170,10 +170,10 @@ public interface Activity
      * @throws IllegalArgumentException
      *         if the specified name is null, empty, blank or longer than 128 characters
      *
-     * @return A valid Activity instance with the provided name with {@link ActivityType#LISTENING}
+     * @return A valid Activity instance with the provided name with {@link net.dv8tion.jda.api.entities.Activity.ActivityType#LISTENING}
      */
-    @NotNull
-    static Activity listening(@NotNull String name)
+    @Nonnull
+    static Activity listening(@Nonnull String name)
     {
         Checks.notBlank(name, "Name");
         name = name.trim();
@@ -191,13 +191,13 @@ public interface Activity
      * @throws IllegalArgumentException
      *         if the specified name is null, empty, blank or longer than 128 characters
      *
-     * @return A valid Activity instance with the provided name with {@link ActivityType#WATCHING}
+     * @return A valid Activity instance with the provided name with {@link net.dv8tion.jda.api.entities.Activity.ActivityType#WATCHING}
      *
      * @incubating This feature is not yet confirmed for the official bot API
      */
-    @NotNull
+    @Nonnull
     @Incubating
-    static Activity watching(@NotNull String name)
+    static Activity watching(@Nonnull String name)
     {
         Checks.notBlank(name, "Name");
         name = name.trim();
@@ -215,12 +215,12 @@ public interface Activity
      * @throws IllegalArgumentException
      *         If the specified name is null, empty, blank or longer than 128 characters
      * 
-     * @return A valid Activity instance with the provided name with {@link ActivityType#COMPETING}
+     * @return A valid Activity instance with the provided name with {@link net.dv8tion.jda.api.entities.Activity.ActivityType#COMPETING}
      *
      * @since  4.2.1
      */
-    @NotNull
-    static Activity competing(@NotNull String name)
+    @Nonnull
+    static Activity competing(@Nonnull String name)
     {
         Checks.notBlank(name, "Name");
         name = name.trim();
@@ -232,7 +232,7 @@ public interface Activity
      * Creates a new Activity instance with the specified name.
      *
      * @param  type
-     *         The {@link ActivityType ActivityType} to use
+     *         The {@link net.dv8tion.jda.api.entities.Activity.ActivityType ActivityType} to use
      * @param  name
      *         The not-null name of the newly created game
      *
@@ -244,19 +244,19 @@ public interface Activity
      *
      * @return A valid Activity instance with the provided name
      */
-    @NotNull
-    static Activity of(@NotNull ActivityType type, @NotNull String name)
+    @Nonnull
+    static Activity of(@Nonnull ActivityType type, @Nonnull String name)
     {
         return of(type, name, null);
     }
 
     /**
      * Creates a new Activity instance with the specified name and url.
-     * <br>The provided url would only be used for {@link ActivityType#STREAMING ActivityType.STREAMING}
+     * <br>The provided url would only be used for {@link net.dv8tion.jda.api.entities.Activity.ActivityType#STREAMING ActivityType.STREAMING}
      * and should be a twitch url.
      *
      * @param  type
-     *         The {@link ActivityType ActivityType} to use
+     *         The {@link net.dv8tion.jda.api.entities.Activity.ActivityType ActivityType} to use
      * @param  name
      *         The not-null name of the newly created game
      * @param  url
@@ -272,8 +272,8 @@ public interface Activity
      *
      * @see    #isValidStreamingUrl(String)
      */
-    @NotNull
-    static Activity of(@NotNull ActivityType type, @NotNull String name, @Nullable String url)
+    @Nonnull
+    static Activity of(@Nonnull ActivityType type, @Nonnull String name, @Nullable String url)
     {
         Checks.notNull(type, "Type");
         switch (type)
@@ -377,7 +377,7 @@ public interface Activity
          *
          * @return The ActivityType that has the key provided, or {@link #PLAYING} for unknown key.
          */
-        @NotNull
+        @Nonnull
         public static ActivityType fromKey(int key)
         {
             switch (key)
@@ -461,7 +461,7 @@ public interface Activity
          * <br>If {@link #getEndTime()} is {@code null} this will be negative.
          *
          * @param  unit
-         *         The {@link TemporalUnit TemporalUnit} to return
+         *         The {@link java.time.temporal.TemporalUnit TemporalUnit} to return
          *
          * @throws IllegalArgumentException
          *         If the provided unit is {@code null}
@@ -472,10 +472,10 @@ public interface Activity
          * @throws java.time.temporal.UnsupportedTemporalTypeException
          *         If the provided unit is not supported
          *
-         * @return Remaining time in the provided {@link TemporalUnit TemporalUnit} or {@code -1} if unset
+         * @return Remaining time in the provided {@link java.time.temporal.TemporalUnit TemporalUnit} or {@code -1} if unset
          *
-         * @see    Instant#until(java.time.temporal.Temporal, TemporalUnit) Instant.until(Temporal, TemporalUnit)
-         * @see    TemporalUnit
+         * @see    java.time.Instant#until(java.time.temporal.Temporal, java.time.temporal.TemporalUnit) Instant.until(Temporal, TemporalUnit)
+         * @see    java.time.temporal.TemporalUnit
          */
         public long getRemainingTime(TemporalUnit unit)
         {
@@ -489,7 +489,7 @@ public interface Activity
          * <br>If {@link #getStartTime()} is {@code null} this will be negative.
          *
          * @param  unit
-         *         The {@link TemporalUnit TemporalUnit} to return
+         *         The {@link java.time.temporal.TemporalUnit TemporalUnit} to return
          *
          * @throws IllegalArgumentException
          *         If the provided unit is {@code null}
@@ -500,10 +500,10 @@ public interface Activity
          * @throws java.time.temporal.UnsupportedTemporalTypeException
          *         If the provided unit is not supported
          *
-         * @return Elapsed time in the provided {@link TemporalUnit TemporalUnit} or {@code -1} if unset
+         * @return Elapsed time in the provided {@link java.time.temporal.TemporalUnit TemporalUnit} or {@code -1} if unset
          *
-         * @see    Instant#until(java.time.temporal.Temporal, TemporalUnit) Instant.until(Temporal, TemporalUnit)
-         * @see    TemporalUnit
+         * @see    java.time.Instant#until(java.time.temporal.Temporal, java.time.temporal.TemporalUnit) Instant.until(Temporal, TemporalUnit)
+         * @see    java.time.temporal.TemporalUnit
          */
         public long getElapsedTime(TemporalUnit unit)
         {
@@ -531,145 +531,6 @@ public interface Activity
         public int hashCode()
         {
             return Objects.hash(start, end);
-        }
-    }
-
-    /**
-     * Emoji for a custom status.
-     * <br>This can be a unicode emoji or a custom emoji (Emote).
-     */
-    class Emoji implements ISnowflake, IMentionable
-    {
-        private final String name;
-        private final long id;
-        private final boolean animated;
-
-        public Emoji(String name, long id, boolean animated)
-        {
-            this.name = name;
-            this.id = id;
-            this.animated = animated;
-        }
-
-        public Emoji(String name)
-        {
-            this(name, 0, false);
-        }
-
-        /**
-         * The name of this emoji. This will be the unicode characters for a unicode emoji
-         * and the name of the custom emote otherwise.
-         *
-         * @return The emoji name
-         *
-         * @see    #getAsCodepoints()
-         */
-        @NotNull
-        public String getName()
-        {
-            return name;
-        }
-
-        /**
-         * The codepoint notation ({@code "U+XXXX"}) for the unicode of this emoji.
-         * Not available for custom emotes.
-         *
-         * @throws IllegalStateException
-         *         If {@link #isEmoji()} is false
-         *
-         * @return The codepoint notation
-         *
-         * @see    #getName()
-         */
-        @NotNull
-        public String getAsCodepoints()
-        {
-            if (!isEmoji())
-                throw new IllegalStateException("Cannot convert custom emote to codepoints");
-            return EncodingUtil.encodeCodepoints(name);
-        }
-
-        /**
-         * The id for this custom emoji.
-         *
-         * @throws IllegalStateException
-         *         If {@link #isEmote()} is false
-         *
-         * @return The emoji id
-         */
-        @Override
-        public long getIdLong()
-        {
-            if (!isEmote())
-                throw new IllegalStateException("Cannot get id for unicode emoji");
-            return id;
-        }
-
-        /**
-         * Whether this emoji is animated.
-         * This is always false for unicode emoji.
-         *
-         * @return True, if this emoji is animated
-         */
-        public boolean isAnimated()
-        {
-            return animated;
-        }
-
-        /**
-         * Whether this is a unicode emoji.
-         *
-         * @return True, if this is a unicode emoji
-         */
-        public boolean isEmoji()
-        {
-            return id == 0;
-        }
-
-        /**
-         * Whether this is a custom emoji (Emote)
-         *
-         * @return True, if this is a custom emoji
-         */
-        public boolean isEmote()
-        {
-            return id != 0;
-        }
-
-        @NotNull
-        @Override
-        public String getAsMention()
-        {
-            if (isEmoji())
-                return name; // unicode name
-            // custom emoji format (for messages)
-            return String.format("<%s:%s:%s>", isAnimated() ? "a" : "", name, getId());
-        }
-
-        @Override
-        public int hashCode()
-        {
-            return id == 0 ? name.hashCode() : Long.hashCode(id);
-        }
-
-        @Override
-        public boolean equals(Object obj)
-        {
-            if (obj == this)
-                return true;
-            if (!(obj instanceof Emoji))
-                return false;
-            Emoji other = (Emoji) obj;
-            return id == 0 ? other.name.equals(this.name)
-                           : other.id == this.id;
-        }
-
-        @Override
-        public String toString()
-        {
-            if (isEmoji())
-                return "ActivityEmoji(" + getAsCodepoints() + ')';
-            return "ActivityEmoji(" + Long.toUnsignedString(id) + " / " + name + ')';
         }
     }
 }

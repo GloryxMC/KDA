@@ -18,9 +18,10 @@ package net.dv8tion.jda.internal.entities;
 
 import net.dv8tion.jda.api.entities.ActivityFlag;
 import net.dv8tion.jda.api.entities.RichPresence;
-import org.jetbrains.annotations.NotNull;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.Objects;
 
@@ -38,9 +39,9 @@ public class RichPresenceImpl extends ActivityImpl implements RichPresence
     protected final int flags;
 
     protected RichPresenceImpl(
-        ActivityType type, String name, String url, long applicationId,
-        Emoji emoji, Party party, String details, String state, Timestamps timestamps, String syncId, String sessionId,
-        int flags, String largeImageKey, String largeImageText, String smallImageKey, String smallImageText)
+            ActivityType type, String name, String url, long applicationId,
+            Emoji emoji, Party party, String details, String state, Timestamps timestamps, String syncId, String sessionId,
+            int flags, String largeImageKey, String largeImageText, String smallImageKey, String smallImageText)
     {
         super(name, url, type, timestamps, emoji);
         this.applicationId = applicationId;
@@ -72,7 +73,7 @@ public class RichPresenceImpl extends ActivityImpl implements RichPresence
         return applicationId;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getApplicationId()
     {

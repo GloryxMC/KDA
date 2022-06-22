@@ -14,27 +14,27 @@
  * limitations under the License.
  */
 
-package net.dv8tion.jda.api.events.emote;
+package net.dv8tion.jda.api.events.emoji;
 
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
- * Indicates that an {@link net.dv8tion.jda.api.entities.Emote Emote} was removed from a Guild.
+ * Indicates that a {@link RichCustomEmoji Custom Emoji} was removed from a Guild.
  *
  * <h2>Requirements</h2>
  *
- * <p>This event requires the {@link net.dv8tion.jda.api.utils.cache.CacheFlag#EMOTE EMOTE} CacheFlag to be enabled, which requires
+ * <p>This event requires the {@link net.dv8tion.jda.api.utils.cache.CacheFlag#EMOJI EMOJI} CacheFlag to be enabled, which requires
  * the {@link net.dv8tion.jda.api.requests.GatewayIntent#GUILD_EMOJIS_AND_STICKERS GUILD_EMOJIS_AND_STICKERS} intent.
  *
  * <br>{@link net.dv8tion.jda.api.JDABuilder#createLight(String) createLight(String)} disables that CacheFlag by default!
  */
-public class EmoteRemovedEvent extends GenericEmoteEvent
+public class EmojiRemovedEvent extends GenericEmojiEvent
 {
-    public EmoteRemovedEvent(@NotNull JDA api, long responseNumber, @NotNull Emote emote)
+    public EmojiRemovedEvent(@Nonnull JDA api, long responseNumber, @Nonnull RichCustomEmoji emoji)
     {
-        super(api, responseNumber, emote);
+        super(api, responseNumber, emoji);
     }
 }

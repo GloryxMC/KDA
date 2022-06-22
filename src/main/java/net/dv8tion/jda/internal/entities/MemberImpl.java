@@ -21,6 +21,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.dv8tion.jda.api.utils.cache.CacheView;
 import net.dv8tion.jda.internal.JDAImpl;
@@ -28,9 +29,9 @@ import net.dv8tion.jda.internal.entities.mixin.channel.attribute.IPermissionCont
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.Helpers;
 import net.dv8tion.jda.internal.utils.PermissionUtil;
-import org.jetbrains.annotations.NotNull;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -67,7 +68,7 @@ public class MemberImpl implements Member
         return presences == null ? null : presences.get(getIdLong());
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public User getUser()
     {
@@ -78,7 +79,7 @@ public class MemberImpl implements Member
         return user;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public GuildImpl getGuild()
     {
@@ -88,14 +89,14 @@ public class MemberImpl implements Member
         return guild;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public JDA getJDA()
     {
         return api;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public OffsetDateTime getTimeJoined()
     {
@@ -136,7 +137,7 @@ public class MemberImpl implements Member
         return voiceState;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public List<Activity> getActivities()
     {
@@ -144,7 +145,7 @@ public class MemberImpl implements Member
         return presence == null ? Collections.emptyList() : presence.getActivities();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public OnlineStatus getOnlineStatus()
     {
@@ -152,9 +153,9 @@ public class MemberImpl implements Member
         return presence == null ? OnlineStatus.OFFLINE : presence.getOnlineStatus();
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public OnlineStatus getOnlineStatus(@NotNull ClientType type)
+    public OnlineStatus getOnlineStatus(@Nonnull ClientType type)
     {
         Checks.notNull(type, "Type");
         MemberPresenceImpl presence = getPresence();
@@ -164,7 +165,7 @@ public class MemberImpl implements Member
         return status == null ? OnlineStatus.OFFLINE : status;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public EnumSet<ClientType> getActiveClients()
     {
@@ -184,14 +185,14 @@ public class MemberImpl implements Member
         return avatarId;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getEffectiveName()
     {
         return nickname != null ? nickname : getUser().getName();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public List<Role> getRoles()
     {
@@ -220,16 +221,16 @@ public class MemberImpl implements Member
         return Role.DEFAULT_COLOR_RAW;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public EnumSet<Permission> getPermissions()
     {
         return Permission.getPermissions(PermissionUtil.getEffectivePermission(this));
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public EnumSet<Permission> getPermissions(@NotNull GuildChannel channel)
+    public EnumSet<Permission> getPermissions(@Nonnull GuildChannel channel)
     {
         Checks.notNull(channel, "Channel");
         if (!getGuild().equals(channel.getGuild()))
@@ -238,28 +239,28 @@ public class MemberImpl implements Member
         return Permission.getPermissions(PermissionUtil.getEffectivePermission(channel.getPermissionContainer(), this));
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public EnumSet<Permission> getPermissionsExplicit()
     {
         return Permission.getPermissions(PermissionUtil.getExplicitPermission(this));
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public EnumSet<Permission> getPermissionsExplicit(@NotNull GuildChannel channel)
+    public EnumSet<Permission> getPermissionsExplicit(@Nonnull GuildChannel channel)
     {
         return Permission.getPermissions(PermissionUtil.getExplicitPermission(channel.getPermissionContainer(), this));
     }
 
     @Override
-    public boolean hasPermission(@NotNull Permission... permissions)
+    public boolean hasPermission(@Nonnull Permission... permissions)
     {
         return PermissionUtil.checkPermission(this, permissions);
     }
 
     @Override
-    public boolean hasPermission(@NotNull Collection<Permission> permissions)
+    public boolean hasPermission(@Nonnull Collection<Permission> permissions)
     {
         Checks.notNull(permissions, "Permission Collection");
 
@@ -267,13 +268,13 @@ public class MemberImpl implements Member
     }
 
     @Override
-    public boolean hasPermission(@NotNull GuildChannel channel, @NotNull Permission... permissions)
+    public boolean hasPermission(@Nonnull GuildChannel channel, @Nonnull Permission... permissions)
     {
         return PermissionUtil.checkPermission(channel.getPermissionContainer(), this, permissions);
     }
 
     @Override
-    public boolean hasPermission(@NotNull GuildChannel channel, @NotNull Collection<Permission> permissions)
+    public boolean hasPermission(@Nonnull GuildChannel channel, @Nonnull Collection<Permission> permissions)
     {
         Checks.notNull(permissions, "Permission Collection");
 
@@ -281,7 +282,7 @@ public class MemberImpl implements Member
     }
 
     @Override
-    public boolean canSync(@NotNull IPermissionContainer targetChannel, @NotNull IPermissionContainer syncSource)
+    public boolean canSync(@Nonnull IPermissionContainer targetChannel, @Nonnull IPermissionContainer syncSource)
     {
         Checks.notNull(targetChannel, "Channel");
         Checks.notNull(syncSource, "Channel");
@@ -316,7 +317,7 @@ public class MemberImpl implements Member
     }
 
     @Override
-    public boolean canSync(@NotNull IPermissionContainer channel)
+    public boolean canSync(@Nonnull IPermissionContainer channel)
     {
         Checks.notNull(channel, "Channel");
         Checks.check(channel.getGuild().equals(getGuild()), "Channels must be from the same guild!");
@@ -330,21 +331,21 @@ public class MemberImpl implements Member
     }
 
     @Override
-    public boolean canInteract(@NotNull Member member)
+    public boolean canInteract(@Nonnull Member member)
     {
         return PermissionUtil.canInteract(this, member);
     }
 
     @Override
-    public boolean canInteract(@NotNull Role role)
+    public boolean canInteract(@Nonnull Role role)
     {
         return PermissionUtil.canInteract(this, role);
     }
 
     @Override
-    public boolean canInteract(@NotNull Emote emote)
+    public boolean canInteract(@Nonnull RichCustomEmoji emoji)
     {
-        return PermissionUtil.canInteract(this, emote);
+        return PermissionUtil.canInteract(this, emoji);
     }
 
     @Override
@@ -441,7 +442,7 @@ public class MemberImpl implements Member
         return "MB:" + getEffectiveName() + '(' + getUser().toString() + " / " + getGuild().toString() +')';
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getAsMention()
     {

@@ -17,9 +17,10 @@
 package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.emoji.CustomEmoji;
 import org.apache.commons.collections4.Bag;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public interface Mentions
      *
      * @return The jda instance
      */
-    @NotNull
+    @Nonnull
     JDA getJDA();
 
     /**
@@ -45,7 +46,7 @@ public interface Mentions
     boolean mentionsEveryone();
 
     /**
-     * An immutable list of all mentioned {@link User Users}.
+     * An immutable list of all mentioned {@link net.dv8tion.jda.api.entities.User Users}.
      * <br>If no user was mentioned, this list is empty. Elements are sorted in order of appearance. This only
      * counts direct mentions of the user and not mentions through roles or everyone mentions.
      *
@@ -53,11 +54,11 @@ public interface Mentions
      *
      * @return Immutable list of mentioned users
      */
-    @NotNull
+    @Nonnull
     List<User> getUsers();
 
     /**
-     * A {@link Bag Bag} of mentioned {@link User Users}.
+     * A {@link org.apache.commons.collections4.Bag Bag} of mentioned {@link net.dv8tion.jda.api.entities.User Users}.
      * <br>This can be used to retrieve the amount of times a user was mentioned. This only
      * counts direct mentions of the user and not mentions through roles or everyone mentions.
      *
@@ -81,29 +82,29 @@ public interface Mentions
      * }
      * }</pre>
      *
-     * @return {@link Bag Bag} of mentioned users
+     * @return {@link org.apache.commons.collections4.Bag Bag} of mentioned users
      *
      * @see    #getUsers()
      */
-    @NotNull
+    @Nonnull
     Bag<User> getUsersBag();
 
     /**
-     * An immutable list of all mentioned {@link GuildChannel GuildChannels}.
+     * An immutable list of all mentioned {@link net.dv8tion.jda.api.entities.GuildChannel GuildChannels}.
      * <br>If none were mentioned, this list is empty. Elements are sorted in order of appearance.
      *
-     * <p><b>This may include GuildChannels from other {@link Guild Guilds}</b>
+     * <p><b>This may include GuildChannels from other {@link net.dv8tion.jda.api.entities.Guild Guilds}</b>
      *
      * @return Immutable list of mentioned GuildChannels
      */
-    @NotNull
+    @Nonnull
     List<GuildChannel> getChannels();
 
     /**
-     * A {@link Bag Bag} of mentioned channels.
+     * A {@link org.apache.commons.collections4.Bag Bag} of mentioned channels.
      * <br>This can be used to retrieve the amount of times a channel was mentioned.
      *
-     * <p><b>This may include GuildChannels from other {@link Guild Guilds}</b>
+     * <p><b>This may include GuildChannels from other {@link net.dv8tion.jda.api.entities.Guild Guilds}</b>
      *
      * <p><b>Example</b><br>
      * <pre>{@code
@@ -123,18 +124,18 @@ public interface Mentions
      * }
      * }</pre>
      *
-     * @return {@link Bag Bag} of mentioned channels
+     * @return {@link org.apache.commons.collections4.Bag Bag} of mentioned channels
      *
      * @see    #getChannels()
      */
-    @NotNull
+    @Nonnull
     Bag<GuildChannel> getChannelsBag();
 
     /**
-     * An immutable list of all mentioned {@link GuildChannel GuildChannels} of type {@code clazz}.
+     * An immutable list of all mentioned {@link net.dv8tion.jda.api.entities.GuildChannel GuildChannels} of type {@code clazz}.
      * <br>If none were mentioned, this list is empty. Elements are sorted in order of appearance.
      *
-     * <p><b>This may include GuildChannels from other {@link Guild Guilds}</b>
+     * <p><b>This may include GuildChannels from other {@link net.dv8tion.jda.api.entities.Guild Guilds}</b>
      *
      * <p><b>Example</b><br>
      * <pre>{@code
@@ -150,19 +151,19 @@ public interface Mentions
      * @param  clazz
      *         The {@link GuildChannel} sub-class {@link Class class object} of the type of channel desired
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *         If {@code clazz} is {@code null}
      *
      * @return Immutable list of mentioned GuildChannels that are of type {@code clazz}.
      */
-    @NotNull
-    <T extends GuildChannel> List<T> getChannels(@NotNull Class<T> clazz);
+    @Nonnull
+    <T extends GuildChannel> List<T> getChannels(@Nonnull Class<T> clazz);
 
     /**
-     * A {@link Bag Bag} of mentioned channels of type {@code clazz}.
+     * A {@link org.apache.commons.collections4.Bag Bag} of mentioned channels of type {@code clazz}.
      * <br>This can be used to retrieve the amount of times a channel was mentioned.
      *
-     * <p><b>This may include GuildChannels from other {@link Guild Guilds}</b>
+     * <p><b>This may include GuildChannels from other {@link net.dv8tion.jda.api.entities.Guild Guilds}</b>
      *
      * <p><b>Example</b><br>
      * <pre>{@code
@@ -185,34 +186,34 @@ public interface Mentions
      * @param  clazz
      *         The {@link GuildChannel} sub-class {@link Class class object} of the type of channel desired
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *         If {@code clazz} is {@code null}
      *
-     * @return {@link Bag Bag} of mentioned channels of type {@code clazz}
+     * @return {@link org.apache.commons.collections4.Bag Bag} of mentioned channels of type {@code clazz}
      *
      * @see    #getChannels(Class)
      */
-    @NotNull
-    <T extends GuildChannel> Bag<T> getChannelsBag(@NotNull Class<T> clazz);
+    @Nonnull
+    <T extends GuildChannel> Bag<T> getChannelsBag(@Nonnull Class<T> clazz);
 
     /**
-     * An immutable list of all mentioned {@link Role Roles}.
+     * An immutable list of all mentioned {@link net.dv8tion.jda.api.entities.Role Roles}.
      * <br>If none were mentioned, this list is empty. Elements are sorted in order of appearance. This only
      * counts direct mentions of the role and not mentions through everyone mentions.
      *
-     * <p><b>This may include Roles from other {@link Guild Guilds}</b>
+     * <p><b>This may include Roles from other {@link net.dv8tion.jda.api.entities.Guild Guilds}</b>
      *
      * @return immutable list of mentioned Roles
      */
-    @NotNull
+    @Nonnull
     List<Role> getRoles();
 
     /**
-     * A {@link Bag Bag} of mentioned roles.
+     * A {@link org.apache.commons.collections4.Bag Bag} of mentioned roles.
      * <br>This can be used to retrieve the amount of times a role was mentioned. This only
      * counts direct mentions of the role and not mentions through everyone mentions.
      *
-     * <p><b>This may include Roles from other {@link Guild Guilds}</b>
+     * <p><b>This may include Roles from other {@link net.dv8tion.jda.api.entities.Guild Guilds}</b>
      *
      * <p><b>Example</b><br>
      * <pre>{@code
@@ -232,57 +233,56 @@ public interface Mentions
      * }
      * }</pre>
      *
-     * @return {@link Bag Bag} of mentioned roles
+     * @return {@link org.apache.commons.collections4.Bag Bag} of mentioned roles
      *
      * @see    #getRoles()
      */
-    @NotNull
+    @Nonnull
     Bag<Role> getRolesBag();
 
     /**
-     * All {@link Emote Emotes} used.
-     * <br><b>This only includes Custom Emotes, not unicode Emojis.</b> JDA classifies Emotes as the Custom Emojis uploaded
-     * to a Guild and retrievable with {@link Guild#getEmotes()}. These are not the same
+     * All {@link net.dv8tion.jda.api.entities.emoji.CustomEmoji CustomEmojis} used.
+     * <br><b>This only includes Custom Emojis, not unicode Emojis.</b> These are not the same
      * as the unicode emojis that Discord also supports. Elements are sorted in order of appearance.
      *
-     * <p><b><u>Unicode emojis are not included as {@link Emote Emote}!</u></b>
+     * <p><b><u>Unicode emojis are not included as {@link net.dv8tion.jda.api.entities.emoji.CustomEmoji CustomEmojis}!</u></b>
      *
-     * @return An immutable list of the Emotes used (example match {@literal <:jda:230988580904763393>})
+     * @return An immutable list of the Custom Emojis used (example match {@literal <:jda:230988580904763393>})
      */
-    @NotNull
-    List<Emote> getEmotes();
+    @Nonnull
+    List<CustomEmoji> getCustomEmojis();
 
     /**
-     * A {@link Bag Bag} of emotes used.
-     * <br>This can be used to retrieve the amount of times an emote was used.
+     * A {@link org.apache.commons.collections4.Bag Bag} of custom emojis used.
+     * <br>This can be used to retrieve the amount of times an emoji was used.
      *
      * <p><b>Example</b><br>
      * <pre>{@code
      * void sendCount(Message msg)
      * {
-     *     List<Emote> emotes = msg.getMentions().getEmotes(); // distinct list, in order of appearance
-     *     Bag<Emote> count = msg.getMentions().getEmotesBag();
+     *     List<CustomEmoji> emojis = msg.getMentions().getCustomEmojis(); // distinct list, in order of appearance
+     *     Bag<CustomEmoji> count = msg.getMentions().getCustomEmojisBag();
      *     StringBuilder content = new StringBuilder();
-     *     for (Emote emote : emotes)
+     *     for (CustomEmoji emoji : emojis)
      *     {
-     *         content.append(emote.getName())
+     *         content.append(emojis.getName())
      *                .append(": ")
-     *                .append(count.getCount(role))
+     *                .append(count.getCount(emoji))
      *                .append("\n");
      *     }
      *     msg.getChannel().sendMessage(content.toString()).queue();
      * }
      * }</pre>
      *
-     * @return {@link Bag Bag} of used emotes
+     * @return {@link org.apache.commons.collections4.Bag Bag} of used custom emojis
      *
-     * @see    #getEmotes()
+     * @see    #getCustomEmojis()
      */
-    @NotNull
-    Bag<Emote> getEmotesBag();
+    @Nonnull
+    Bag<CustomEmoji> getCustomEmojisBag();
 
     /**
-     * An immutable list of all mentioned {@link Member Members}.
+     * An immutable list of all mentioned {@link net.dv8tion.jda.api.entities.Member Members}.
      * <br>If none were mentioned, this list is empty. Elements are sorted in order of appearance. This only
      * counts direct mentions of the role and not mentions through everyone mentions.
      *
@@ -290,11 +290,11 @@ public interface Mentions
      *
      * @return Immutable list of mentioned Members, or an empty list
      */
-    @NotNull
+    @Nonnull
     List<Member> getMembers();
 
     /**
-     * A {@link Bag Bag} of mentioned {@link Member Members}.
+     * A {@link org.apache.commons.collections4.Bag Bag} of mentioned {@link net.dv8tion.jda.api.entities.Member Members}.
      * <br>This can be used to retrieve the amount of times a user was mentioned. This only
      * counts direct mentions of the member and not mentions through roles or everyone mentions.
      *
@@ -316,41 +316,41 @@ public interface Mentions
      * }
      * }</pre>
      *
-     * @return {@link Bag Bag} of mentioned members
+     * @return {@link org.apache.commons.collections4.Bag Bag} of mentioned members
      *
      * @see    #getMembers()
      */
-    @NotNull
+    @Nonnull
     Bag<Member> getMembersBag();
 
     /**
-     * Combines all instances of {@link IMentionable IMentionable}
-     * filtered by the specified {@link Message.MentionType MentionType} values.
+     * Combines all instances of {@link net.dv8tion.jda.api.entities.IMentionable IMentionable}
+     * filtered by the specified {@link net.dv8tion.jda.api.entities.Message.MentionType MentionType} values.
      * <br>If a {@link Member} is available, it will be taken in favor of a {@link User}.
      * This only provides either the Member or the User instance, rather than both.
      *
      * <p>If no MentionType values are given, all types are used.
      *
      * @param  types
-     *         {@link Message.MentionType MentionTypes} to include
+     *         {@link net.dv8tion.jda.api.entities.Message.MentionType MentionTypes} to include
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *         If provided with {@code null}
      *
-     * @return Immutable list of filtered {@link IMentionable IMentionable} instances
+     * @return Immutable list of filtered {@link net.dv8tion.jda.api.entities.IMentionable IMentionable} instances
      */
-    @NotNull
-    List<IMentionable> getMentions(@NotNull Message.MentionType... types);
+    @Nonnull
+    List<IMentionable> getMentions(@Nonnull Message.MentionType... types);
 
     /**
-     * Checks if given {@link IMentionable IMentionable}
+     * Checks if given {@link net.dv8tion.jda.api.entities.IMentionable IMentionable}
      * was mentioned in any way (@User, @everyone, @here, @Role).
-     * <br>If no filtering {@link Message.MentionType MentionTypes} are
+     * <br>If no filtering {@link net.dv8tion.jda.api.entities.Message.MentionType MentionTypes} are
      * specified, all types are used.
      *
      * <p>{@link Message.MentionType#HERE MentionType.HERE} and {@link Message.MentionType#EVERYONE MentionType.EVERYONE}
-     * will only be checked, if the given {@link IMentionable IMentionable} is of type
-     * {@link User User} or {@link Member Member}.
+     * will only be checked, if the given {@link net.dv8tion.jda.api.entities.IMentionable IMentionable} is of type
+     * {@link net.dv8tion.jda.api.entities.User User} or {@link net.dv8tion.jda.api.entities.Member Member}.
      * <br>Online status of Users/Members is <b>NOT</b> considered when checking {@link Message.MentionType#HERE MentionType.HERE}.
      *
      * @param  mentionable
@@ -361,5 +361,5 @@ public interface Mentions
      *
      * @return True, if the given mentionable was mentioned in this message
      */
-    boolean isMentioned(@NotNull IMentionable mentionable, @NotNull Message.MentionType... types);
+    boolean isMentioned(@Nonnull IMentionable mentionable, @Nonnull Message.MentionType... types);
 }
