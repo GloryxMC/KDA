@@ -21,7 +21,7 @@ import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.ISnowflake;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.privileges.CommandPrivilege;
+import net.dv8tion.jda.api.interactions.commands.privileges.IntegrationPrivilege;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.CommandEditAction;
 import net.dv8tion.jda.api.utils.TimeUtil;
@@ -30,11 +30,10 @@ import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.api.utils.data.DataType;
 import net.dv8tion.jda.internal.interactions.command.CommandImpl;
 import net.dv8tion.jda.internal.utils.Checks;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -57,7 +56,7 @@ public interface Command extends ISnowflake
      *
      * @return {@link RestAction}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     RestAction<Void> delete();
 
@@ -70,15 +69,15 @@ public interface Command extends ISnowflake
      *
      * @return {@link CommandEditAction}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     CommandEditAction editCommand();
 
     /**
-     * Retrieves the {@link CommandPrivilege CommandPrivileges} for this command.
-     * <br>This is a shortcut for {@link Guild#retrieveCommandPrivilegesById(String)}.
+     * Retrieves the {@link IntegrationPrivilege IntegrationPrivileges} for this command.
+     * <br>This is a shortcut for {@link Guild#retrieveIntegrationPrivilegesById(String)}.
      *
-     * <p>These privileges are used to restrict who can use commands through Role/User whitelists/blacklists.
+     * <p>Moderators of a guild can modify these privileges through the Integrations Menu
      *
      * <p>If there is no command with the provided ID,
      * this RestAction fails with {@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_COMMAND ErrorResponse.UNKNOWN_COMMAND}
@@ -89,72 +88,18 @@ public interface Command extends ISnowflake
      * @throws IllegalArgumentException
      *         If the guild is null
      *
-     * @return {@link RestAction} - Type: {@link List} of {@link CommandPrivilege}
+     * @return {@link RestAction} - Type: {@link List} of {@link IntegrationPrivilege}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    RestAction<List<CommandPrivilege>> retrievePrivileges(@NotNull Guild guild);
-
-    /**
-     * Updates the list of {@link CommandPrivilege CommandPrivileges} for this command.
-     * <br>Note that commands are enabled by default for all members of a guild, which means you can only <em>blacklist</em> roles and members using this method.
-     * To change this behavior, use {@link CommandData#setDefaultEnabled(boolean)} on your command.
-     *
-     * <p>These privileges are used to restrict who can use commands through Role/User whitelists/blacklists.
-     *
-     * <p>If there is no command with the provided ID,
-     * this RestAction fails with {@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_COMMAND ErrorResponse.UNKNOWN_COMMAND}
-     *
-     * @param  guild
-     *         The target guild from which to update the privileges
-     * @param  privileges
-     *         Complete list of {@link CommandPrivilege CommandPrivileges} for this command
-     *
-     * @throws IllegalArgumentException
-     *         If null is provided
-     * @throws IllegalStateException
-     *         If this command is not owned by this bot
-     *
-     * @return {@link RestAction} - Type: {@link List} or {@link CommandPrivilege}
-     *         The updated list of privileges for this command.
-     */
-    @NotNull
-    @CheckReturnValue
-    RestAction<List<CommandPrivilege>> updatePrivileges(@NotNull Guild guild, @NotNull Collection<? extends CommandPrivilege> privileges);
-
-    /**
-     * Updates the list of {@link CommandPrivilege CommandPrivileges} for this command.
-     * <br>Note that commands are enabled by default for all members of a guild, which means you can only <em>blacklist</em> roles and members using this method.
-     * To change this behavior, use {@link CommandData#setDefaultEnabled(boolean)} on your command.
-     *
-     * <p>These privileges are used to restrict who can use commands through Role/User whitelists/blacklists.
-     *
-     * <p>If there is no command with the provided ID,
-     * this RestAction fails with {@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_COMMAND ErrorResponse.UNKNOWN_COMMAND}
-     *
-     * @param  guild
-     *         The target guild from which to update the privileges
-     * @param  privileges
-     *         Complete list of {@link CommandPrivilege CommandPrivileges} for this command
-     *
-     * @throws IllegalArgumentException
-     *         If null is provided
-     * @throws IllegalStateException
-     *         If this command is not owned by this bot
-     *
-     * @return {@link RestAction} - Type: {@link List} or {@link CommandPrivilege}
-     *         The updated list of privileges for this command.
-     */
-    @NotNull
-    @CheckReturnValue
-    RestAction<List<CommandPrivilege>> updatePrivileges(@NotNull Guild guild, @NotNull CommandPrivilege... privileges);
+    RestAction<List<IntegrationPrivilege>> retrievePrivileges(@Nonnull Guild guild);
 
     /**
      * Returns the {@link JDA JDA} instance of this Command
      *
      * @return the corresponding JDA instance
      */
-    @NotNull
+    @Nonnull
     JDA getJDA();
 
     /**
@@ -162,7 +107,7 @@ public interface Command extends ISnowflake
      *
      * @return The command type
      */
-    @NotNull
+    @Nonnull
     Type getType();
 
     /**
@@ -170,7 +115,7 @@ public interface Command extends ISnowflake
      *
      * @return The name
      */
-    @NotNull
+    @Nonnull
     String getName();
 
     /**
@@ -178,22 +123,15 @@ public interface Command extends ISnowflake
      *
      * @return The description, empty for context menu commands
      */
-    @NotNull
+    @Nonnull
     String getDescription();
-
-    /**
-     * Whether this command is enabled for everyone by default.
-     *
-     * @return True, if everyone can use this command by default.
-     */
-    boolean isDefaultEnabled();
 
     /**
      * The {@link Option Options} of this command.
      *
      * @return Immutable list of command options
      */
-    @NotNull
+    @Nonnull
     List<Option> getOptions();
 
     /**
@@ -201,7 +139,7 @@ public interface Command extends ISnowflake
      *
      * @return Immutable list of subcommands
      */
-    @NotNull
+    @Nonnull
     List<Subcommand> getSubcommands();
 
     /**
@@ -209,7 +147,7 @@ public interface Command extends ISnowflake
      *
      * @return Immutable list of subcommand groups
      */
-    @NotNull
+    @Nonnull
     List<SubcommandGroup> getSubcommandGroups();
 
     /**
@@ -224,7 +162,7 @@ public interface Command extends ISnowflake
      *
      * @return The application id
      */
-    @NotNull
+    @Nonnull
     default String getApplicationId()
     {
         return Long.toUnsignedString(getApplicationIdLong());
@@ -248,11 +186,28 @@ public interface Command extends ISnowflake
      *
      * @see #getVersion()
      */
-    @NotNull
+    @Nonnull
     default OffsetDateTime getTimeModified()
     {
         return TimeUtil.getTimeCreated(getVersion());
     }
+
+    /**
+     * The {@link DefaultMemberPermissions} of this command.
+     * <br>If this command has no default permission set, this returns {@link DefaultMemberPermissions#ENABLED}.
+     *
+     * @return The DefaultMemberPermissions of this command.
+     */
+    @Nonnull
+    DefaultMemberPermissions getDefaultPermissions();
+
+    /**
+     * Whether the command can only be used inside a guild.
+     * <br>Always true for guild commands.
+     *
+     * @return True, if this command is restricted to guilds.
+     */
+    boolean isGuildOnly();
 
     /**
      * Possible command types
@@ -279,7 +234,7 @@ public interface Command extends ISnowflake
          *
          * @return The type or {@link #UNKNOWN}
          */
-        @NotNull
+        @Nonnull
         public static Type fromId(int id)
         {
             for (Type type : values())
@@ -323,7 +278,7 @@ public interface Command extends ISnowflake
          * @param value
          *        The integer value you receive in a command option
          */
-        public Choice(@NotNull String name, long value)
+        public Choice(@Nonnull String name, long value)
         {
             this.name = name;
             setIntValue(value);
@@ -337,7 +292,7 @@ public interface Command extends ISnowflake
          * @param value
          *        The double value you receive in a command option
          */
-        public Choice(@NotNull String name, double value)
+        public Choice(@Nonnull String name, double value)
         {
             this.name = name;
             setDoubleValue(value);
@@ -351,7 +306,7 @@ public interface Command extends ISnowflake
          * @param value
          *        The string value you receive in a command option
          */
-        public Choice(@NotNull String name, @NotNull String value)
+        public Choice(@Nonnull String name, @Nonnull String value)
         {
             this.name = name;
             setStringValue(value);
@@ -368,7 +323,7 @@ public interface Command extends ISnowflake
          * @throws net.dv8tion.jda.api.exceptions.ParsingException
          *         If the data is not formatted correctly or missing required parameters
          */
-        public Choice(@NotNull DataObject json)
+        public Choice(@Nonnull DataObject json)
         {
             Checks.notNull(json, "DataObject");
             this.name = json.getString("name");
@@ -392,7 +347,7 @@ public interface Command extends ISnowflake
          *
          * @return The choice name
          */
-        @NotNull
+        @Nonnull
         public String getName()
         {
             return name;
@@ -423,7 +378,7 @@ public interface Command extends ISnowflake
          *
          * @return The String value
          */
-        @NotNull
+        @Nonnull
         public String getAsString()
         {
             return stringValue;
@@ -434,7 +389,7 @@ public interface Command extends ISnowflake
          *
          * @return The option type of this choice
          */
-        @NotNull
+        @Nonnull
         public OptionType getType()
         {
             return type;
@@ -477,7 +432,7 @@ public interface Command extends ISnowflake
             this.type = OptionType.NUMBER;
         }
 
-        private void setStringValue(@NotNull String value)
+        private void setStringValue(@Nonnull String value)
         {
             this.doubleValue = Double.NaN;
             this.intValue = 0;
@@ -499,7 +454,7 @@ public interface Command extends ISnowflake
         private Number minValue;
         private Number maxValue;
 
-        public Option(@NotNull DataObject json)
+        public Option(@Nonnull DataObject json)
         {
             this.name = json.getString("name");
             this.description = json.getString("description");
@@ -523,7 +478,7 @@ public interface Command extends ISnowflake
          *
          * @return The name
          */
-        @NotNull
+        @Nonnull
         public String getName()
         {
             return name;
@@ -534,7 +489,7 @@ public interface Command extends ISnowflake
          *
          * @return The description
          */
-        @NotNull
+        @Nonnull
         public String getDescription()
         {
             return description;
@@ -575,7 +530,7 @@ public interface Command extends ISnowflake
          *
          * @return The type
          */
-        @NotNull
+        @Nonnull
         public OptionType getType()
         {
             return OptionType.fromKey(type);
@@ -587,7 +542,7 @@ public interface Command extends ISnowflake
          *
          * @return Immutable {@link Set} of {@link ChannelType}
          */
-        @NotNull
+        @Nonnull
         public Set<ChannelType> getChannelTypes()
         {
             return channelTypes;
@@ -625,7 +580,7 @@ public interface Command extends ISnowflake
          *
          * @return Immutable {@link List} of {@link Choice}
          */
-        @NotNull
+        @Nonnull
         public List<Choice> getChoices()
         {
             return choices;
@@ -681,7 +636,7 @@ public interface Command extends ISnowflake
          *
          * @return The name
          */
-        @NotNull
+        @Nonnull
         public String getName()
         {
             return name;
@@ -692,7 +647,7 @@ public interface Command extends ISnowflake
          *
          * @return The description
          */
-        @NotNull
+        @Nonnull
         public String getDescription()
         {
             return description;
@@ -703,7 +658,7 @@ public interface Command extends ISnowflake
          *
          * @return Immutable list of Options
          */
-        @NotNull
+        @Nonnull
         public List<Option> getOptions()
         {
             return options;
@@ -753,7 +708,7 @@ public interface Command extends ISnowflake
          *
          * @return The name
          */
-        @NotNull
+        @Nonnull
         public String getName()
         {
             return name;
@@ -764,7 +719,7 @@ public interface Command extends ISnowflake
          *
          * @return The description
          */
-        @NotNull
+        @Nonnull
         public String getDescription()
         {
             return description;
@@ -775,7 +730,7 @@ public interface Command extends ISnowflake
          *
          * @return Immutable {@link List} of {@link Subcommand}
          */
-        @NotNull
+        @Nonnull
         public List<Subcommand> getSubcommands()
         {
             return subcommands;

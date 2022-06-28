@@ -19,6 +19,7 @@ package net.dv8tion.jda.internal.requests.restaction;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.interactions.commands.Command;
+import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
@@ -33,9 +34,9 @@ import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
 import okhttp3.RequestBody;
-import org.jetbrains.annotations.NotNull;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
 
@@ -61,23 +62,23 @@ public class CommandEditActionImpl extends RestActionImpl<Command> implements Co
         this.guild = guild;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public CommandEditAction setCheck(BooleanSupplier checks)
     {
         return (CommandEditAction) super.setCheck(checks);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public CommandEditAction deadline(long timestamp)
     {
         return (CommandEditAction) super.deadline(timestamp);
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandEditAction apply(@NotNull CommandData commandData)
+    public CommandEditAction apply(@Nonnull CommandData commandData)
     {
         Checks.notNull(commandData, "Command Data");
         this.mask = NAME_SET | DESCRIPTION_SET | OPTIONS_SET;
@@ -85,29 +86,21 @@ public class CommandEditActionImpl extends RestActionImpl<Command> implements Co
         return this;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandEditAction setDefaultEnabled(boolean enabled)
-    {
-        data.setDefaultEnabled(enabled);
-        return this;
-    }
-
-    @NotNull
-    @Override
-    public CommandEditAction addCheck(@NotNull BooleanSupplier checks)
+    public CommandEditAction addCheck(@Nonnull BooleanSupplier checks)
     {
         return (CommandEditAction) super.addCheck(checks);
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandEditAction timeout(long timeout, @NotNull TimeUnit unit)
+    public CommandEditAction timeout(long timeout, @Nonnull TimeUnit unit)
     {
         return (CommandEditAction) super.timeout(timeout, unit);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public CommandEditAction setName(@Nullable String name)
     {
@@ -121,7 +114,23 @@ public class CommandEditActionImpl extends RestActionImpl<Command> implements Co
         return this;
     }
 
-    @NotNull
+    @Nonnull
+    @Override
+    public CommandEditAction setGuildOnly(boolean guildOnly)
+    {
+        data.setGuildOnly(guildOnly);
+        return this;
+    }
+
+    @Nonnull
+    @Override
+    public CommandEditAction setDefaultPermissions(@Nonnull DefaultMemberPermissions permission)
+    {
+        data.setDefaultPermissions(permission);
+        return this;
+    }
+
+    @Nonnull
     @Override
     public CommandEditAction setDescription(@Nullable String description)
     {
@@ -135,7 +144,7 @@ public class CommandEditActionImpl extends RestActionImpl<Command> implements Co
         return this;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public CommandEditAction clearOptions()
     {
@@ -144,27 +153,27 @@ public class CommandEditActionImpl extends RestActionImpl<Command> implements Co
         return this;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandEditAction addOptions(@NotNull OptionData... options)
+    public CommandEditAction addOptions(@Nonnull OptionData... options)
     {
         data.addOptions(options);
         mask |= OPTIONS_SET;
         return this;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandEditAction addSubcommands(@NotNull SubcommandData... subcommands)
+    public CommandEditAction addSubcommands(@Nonnull SubcommandData... subcommands)
     {
         data.addSubcommands(subcommands);
         mask |= OPTIONS_SET;
         return this;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandEditAction addSubcommandGroups(@NotNull SubcommandGroupData... groups)
+    public CommandEditAction addSubcommandGroups(@Nonnull SubcommandGroupData... groups)
     {
         data.addSubcommandGroups(groups);
         mask |= OPTIONS_SET;

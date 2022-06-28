@@ -16,6 +16,7 @@
 package net.dv8tion.jda.internal.requests.restaction;
 
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
@@ -31,8 +32,8 @@ import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
 import okhttp3.RequestBody;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
@@ -56,65 +57,80 @@ public class CommandCreateActionImpl extends RestActionImpl<Command> implements 
         this.data = command;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandCreateAction addCheck(@NotNull BooleanSupplier checks)
+    public CommandCreateAction addCheck(@Nonnull BooleanSupplier checks)
     {
         return (CommandCreateAction) super.addCheck(checks);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public CommandCreateAction setCheck(BooleanSupplier checks)
     {
         return (CommandCreateAction) super.setCheck(checks);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public CommandCreateAction deadline(long timestamp)
     {
         return (CommandCreateAction) super.deadline(timestamp);
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandCreateAction setDefaultEnabled(boolean enabled)
+    public CommandCreateAction setDefaultPermissions(@Nonnull DefaultMemberPermissions permission)
     {
-        data.setDefaultEnabled(enabled);
+        data.setDefaultPermissions(permission);
         return this;
     }
 
-    @NotNull
+    @Nonnull
+    @Override
+    public CommandCreateAction setGuildOnly(boolean guildOnly)
+    {
+        data.setGuildOnly(guildOnly);
+        return this;
+    }
+
+    @Nonnull
     @Override
     public String getName()
     {
         return data.getName();
     }
 
-    @Override
-    public boolean isDefaultEnabled()
-    {
-        return data.isDefaultEnabled();
-    }
-
-    @NotNull
+    @Nonnull
     @Override
     public Command.Type getType()
     {
         return data.getType();
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandCreateAction timeout(long timeout, @NotNull TimeUnit unit)
+    public DefaultMemberPermissions getDefaultPermissions()
+    {
+        return data.getDefaultPermissions();
+    }
+
+    @Override
+    public boolean isGuildOnly()
+    {
+        return data.isGuildOnly();
+    }
+
+    @Nonnull
+    @Override
+    public CommandCreateAction timeout(long timeout, @Nonnull TimeUnit unit)
     {
         return (CommandCreateAction) super.timeout(timeout, unit);
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandCreateAction setName(@NotNull String name)
+    public CommandCreateAction setName(@Nonnull String name)
     {
         Checks.notEmpty(name, "Name");
         Checks.notLonger(name, 32, "Name");
@@ -123,9 +139,9 @@ public class CommandCreateActionImpl extends RestActionImpl<Command> implements 
         return this;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandCreateAction setDescription(@NotNull String description)
+    public CommandCreateAction setDescription(@Nonnull String description)
     {
         Checks.notEmpty(description, "Description");
         Checks.notLonger(description, 100, "Description");
@@ -133,53 +149,53 @@ public class CommandCreateActionImpl extends RestActionImpl<Command> implements 
         return this;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getDescription()
     {
         return data.getDescription();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public List<SubcommandData> getSubcommands()
     {
         return data.getSubcommands();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public List<SubcommandGroupData> getSubcommandGroups()
     {
         return data.getSubcommandGroups();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public List<OptionData> getOptions()
     {
         return data.getOptions();
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandCreateAction addOptions(@NotNull OptionData... options)
+    public CommandCreateAction addOptions(@Nonnull OptionData... options)
     {
         data.addOptions(options);
         return this;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandCreateAction addSubcommands(@NotNull SubcommandData... subcommand)
+    public CommandCreateAction addSubcommands(@Nonnull SubcommandData... subcommand)
     {
         data.addSubcommands(subcommand);
         return this;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandCreateAction addSubcommandGroups(@NotNull SubcommandGroupData... group)
+    public CommandCreateAction addSubcommandGroups(@Nonnull SubcommandGroupData... group)
     {
         data.addSubcommandGroups(group);
         return this;
@@ -198,7 +214,7 @@ public class CommandCreateActionImpl extends RestActionImpl<Command> implements 
         request.onSuccess(new CommandImpl(api, guild, json));
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public DataObject toData()
     {

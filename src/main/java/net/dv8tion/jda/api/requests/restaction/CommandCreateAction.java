@@ -17,17 +17,17 @@
 package net.dv8tion.jda.api.requests.restaction;
 
 import net.dv8tion.jda.api.interactions.commands.Command;
+import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData;
 import net.dv8tion.jda.api.requests.RestAction;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
@@ -41,98 +41,103 @@ import java.util.function.BooleanSupplier;
  */
 public interface CommandCreateAction extends RestAction<Command>, SlashCommandData
 {
-    @NotNull
+    @Nonnull
     @Override
     CommandCreateAction setCheck(@Nullable BooleanSupplier checks);
 
-    @NotNull
+    @Nonnull
     @Override
-    CommandCreateAction addCheck(@NotNull BooleanSupplier checks);
+    CommandCreateAction addCheck(@Nonnull BooleanSupplier checks);
 
-    @NotNull
+    @Nonnull
     @Override
-    CommandCreateAction timeout(long timeout, @NotNull TimeUnit unit);
+    CommandCreateAction timeout(long timeout, @Nonnull TimeUnit unit);
 
-    @NotNull
+    @Nonnull
     @Override
     @CheckReturnValue
     CommandCreateAction deadline(long timestamp);
 
-    @NotNull
+    @Nonnull
     @Override
     @CheckReturnValue
-    CommandCreateAction setDefaultEnabled(boolean enabled);
+    CommandCreateAction setName(@Nonnull String name);
 
-    @NotNull
+    @Nonnull
     @Override
     @CheckReturnValue
-    CommandCreateAction setName(@NotNull String name);
+    CommandCreateAction setDescription(@Nonnull String description);
 
-    @NotNull
+    @Nonnull
     @Override
     @CheckReturnValue
-    CommandCreateAction setDescription(@NotNull String description);
+    CommandCreateAction addOptions(@Nonnull OptionData... options);
 
-    @NotNull
+    @Nonnull
     @Override
     @CheckReturnValue
-    CommandCreateAction addOptions(@NotNull OptionData... options);
-
-    @NotNull
-    @Override
-    @CheckReturnValue
-    default CommandCreateAction addOptions(@NotNull Collection<? extends OptionData> options)
+    default CommandCreateAction addOptions(@Nonnull Collection<? extends OptionData> options)
     {
         return (CommandCreateAction) SlashCommandData.super.addOptions(options);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     @CheckReturnValue
-    default CommandCreateAction addOption(@NotNull OptionType type, @NotNull String name, @NotNull String description, boolean required, boolean autoComplete)
+    default CommandCreateAction addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description, boolean required, boolean autoComplete)
     {
         return (CommandCreateAction) SlashCommandData.super.addOption(type, name, description, required, autoComplete);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     @CheckReturnValue
-    default CommandCreateAction addOption(@NotNull OptionType type, @NotNull String name, @NotNull String description, boolean required)
+    default CommandCreateAction addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description, boolean required)
     {
         return (CommandCreateAction) SlashCommandData.super.addOption(type, name, description, required);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     @CheckReturnValue
-    default CommandCreateAction addOption(@NotNull OptionType type, @NotNull String name, @NotNull String description)
+    default CommandCreateAction addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description)
     {
         return (CommandCreateAction) SlashCommandData.super.addOption(type, name, description, false);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     @CheckReturnValue
-    CommandCreateAction addSubcommands(@NotNull SubcommandData... subcommands);
+    CommandCreateAction addSubcommands(@Nonnull SubcommandData... subcommands);
 
-    @NotNull
+    @Nonnull
     @Override
     @CheckReturnValue
-    default CommandCreateAction addSubcommands(@NotNull Collection<? extends SubcommandData> subcommands)
+    default CommandCreateAction addSubcommands(@Nonnull Collection<? extends SubcommandData> subcommands)
     {
         return (CommandCreateAction) SlashCommandData.super.addSubcommands(subcommands);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     @CheckReturnValue
-    CommandCreateAction addSubcommandGroups(@NotNull SubcommandGroupData... groups);
+    CommandCreateAction addSubcommandGroups(@Nonnull SubcommandGroupData... groups);
 
-    @NotNull
+    @Nonnull
     @Override
     @CheckReturnValue
-    default CommandCreateAction addSubcommandGroups(@NotNull Collection<? extends SubcommandGroupData> groups)
+    default CommandCreateAction addSubcommandGroups(@Nonnull Collection<? extends SubcommandGroupData> groups)
     {
         return (CommandCreateAction) SlashCommandData.super.addSubcommandGroups(groups);
     }
+
+    @Nonnull
+    @Override
+    @CheckReturnValue
+    CommandCreateAction setDefaultPermissions(@Nonnull DefaultMemberPermissions permission);
+
+    @Nonnull
+    @Override
+    @CheckReturnValue
+    CommandCreateAction setGuildOnly(boolean guildOnly);
 }
