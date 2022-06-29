@@ -17,16 +17,15 @@ package net.dv8tion.jda.api.entities;
 
 
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.requests.RestAction;
+import net.dv8tion.jda.api.requests.restaction.CacheRestAction;
 import net.dv8tion.jda.api.utils.ImageProxy;
 import net.dv8tion.jda.api.utils.MiscUtil;
 import net.dv8tion.jda.internal.entities.UserSnowflakeImpl;
 import net.dv8tion.jda.internal.utils.Checks;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.Collection;
 import java.util.EnumSet;
@@ -101,7 +100,7 @@ public interface User extends UserSnowflake
      * @see    JDA#retrieveUserById(long)
      * @see    UserSnowflake#fromId(long)
      */
-    @NotNull
+    @Nonnull
     static UserSnowflake fromId(long id)
     {
         return new UserSnowflakeImpl(id);
@@ -121,34 +120,34 @@ public interface User extends UserSnowflake
      * @see    JDA#retrieveUserById(String)
      * @see    UserSnowflake#fromId(String)
      */
-    @NotNull
-    static UserSnowflake fromId(@NotNull String id)
+    @Nonnull
+    static UserSnowflake fromId(@Nonnull String id)
     {
         return fromId(MiscUtil.parseSnowflake(id));
     }
 
     /**
-     * The username of the {@link User User}. Length is between 2 and 32 characters (inclusive).
+     * The username of the {@link net.dv8tion.jda.api.entities.User User}. Length is between 2 and 32 characters (inclusive).
      *
      * @throws UnsupportedOperationException
      *         If this User was created with {@link #fromId(long)}
      *
-     * @return Never-null String containing the {@link User User}'s username.
+     * @return Never-null String containing the {@link net.dv8tion.jda.api.entities.User User}'s username.
      */
-    @NotNull
+    @Nonnull
     String getName();
 
     /**
-     * <br>The discriminator of the {@link User User}. Used to differentiate between users with the same usernames.
+     * <br>The discriminator of the {@link net.dv8tion.jda.api.entities.User User}. Used to differentiate between users with the same usernames.
      * <br>This only contains the 4 digits after the username and the #.
      *
      * @throws UnsupportedOperationException
      *         If this User was created with {@link #fromId(long)}
      * Ex: 6297
      *
-     * @return Never-null String containing the {@link User User} discriminator.
+     * @return Never-null String containing the {@link net.dv8tion.jda.api.entities.User User} discriminator.
      */
-    @NotNull
+    @Nonnull
     String getDiscriminator();
 
     /**
@@ -158,7 +157,7 @@ public interface User extends UserSnowflake
      * @throws UnsupportedOperationException
      *         If this User was created with {@link #fromId(long)}
      *
-     * @return Possibly-null String containing the {@link User User} avatar id.
+     * @return Possibly-null String containing the {@link net.dv8tion.jda.api.entities.User User} avatar id.
      */
     @Nullable
     String getAvatarId();
@@ -170,7 +169,7 @@ public interface User extends UserSnowflake
      * @throws UnsupportedOperationException
      *         If this User was created with {@link #fromId(long)}
      *
-     * @return Possibly-null String containing the {@link User User} avatar url.
+     * @return Possibly-null String containing the {@link net.dv8tion.jda.api.entities.User User} avatar url.
      */
     @Nullable
     default String getAvatarUrl()
@@ -199,9 +198,9 @@ public interface User extends UserSnowflake
      * @throws UnsupportedOperationException
      *         If this User was created with {@link #fromId(long)}
      *
-     * @return Never-null String containing the {@link User User} default avatar id.
+     * @return Never-null String containing the {@link net.dv8tion.jda.api.entities.User User} default avatar id.
      */
-    @NotNull
+    @Nonnull
     String getDefaultAvatarId();
 
     /**
@@ -210,9 +209,9 @@ public interface User extends UserSnowflake
      * @throws UnsupportedOperationException
      *         If this User was created with {@link #fromId(long)}
      *
-     * @return Never-null String containing the {@link User User} default avatar url.
+     * @return Never-null String containing the {@link net.dv8tion.jda.api.entities.User User} default avatar url.
      */
-    @NotNull
+    @Nonnull
     default String getDefaultAvatarUrl()
     {
         return String.format(DEFAULT_AVATAR_URL, getDefaultAvatarId());
@@ -225,7 +224,7 @@ public interface User extends UserSnowflake
      *
      * @see    #getDefaultAvatarUrl()
      */
-    @NotNull
+    @Nonnull
     default ImageProxy getDefaultAvatar()
     {
         return new ImageProxy(getDefaultAvatarUrl());
@@ -239,9 +238,9 @@ public interface User extends UserSnowflake
      * @throws UnsupportedOperationException
      *         If this User was created with {@link #fromId(long)}
      *
-     * @return  Never-null String containing the {@link User User} effective avatar url.
+     * @return  Never-null String containing the {@link net.dv8tion.jda.api.entities.User User} effective avatar url.
      */
-    @NotNull
+    @Nonnull
     default String getEffectiveAvatarUrl()
     {
         String avatarUrl = getAvatarUrl();
@@ -255,7 +254,7 @@ public interface User extends UserSnowflake
      *
      * @see    #getEffectiveAvatarUrl()
      */
-    @NotNull
+    @Nonnull
     default ImageProxy getEffectiveAvatar()
     {
         final ImageProxy avatar = getAvatar();
@@ -263,35 +262,34 @@ public interface User extends UserSnowflake
     }
 
     /**
-     * Loads the user's {@link Profile} data.
+     * Loads the user's {@link User.Profile} data.
      * Returns a completed RestAction if this User has been retrieved using {@link JDA#retrieveUserById(long)}.
+     * You can use {@link CacheRestAction#useCache(boolean) useCache(false)} to force the request for a new profile with up-to-date information.
      *
      * @throws UnsupportedOperationException
      *         If this User was created with {@link #fromId(long)}
      *
-     * @return {@link RestAction} - Type: {@link Profile}
-     *
-     * @since 4.3.0
+     * @return {@link CacheRestAction} - Type: {@link User.Profile}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    RestAction<Profile> retrieveProfile();
+    CacheRestAction<Profile> retrieveProfile();
 
     /**
      * The "tag" for this user
-     * <p>This is the equivalent of calling {@link String#format(String, Object...) String.format}("%#s", user)
+     * <p>This is the equivalent of calling {@link java.lang.String#format(String, Object...) String.format}("%#s", user)
      *
      * @throws UnsupportedOperationException
      *         If this User was created with {@link #fromId(long)}
      *
      * @return Never-null String containing the tag for this user, for example DV8FromTheWorld#6297
      */
-    @NotNull
+    @Nonnull
     String getAsTag();
 
     /**
      * Whether or not the currently logged in user and this user have a currently open
-     * {@link PrivateChannel PrivateChannel} or not.
+     * {@link net.dv8tion.jda.api.entities.PrivateChannel PrivateChannel} or not.
      *
      * @throws UnsupportedOperationException
      *         If this User was created with {@link #fromId(long)}
@@ -301,9 +299,11 @@ public interface User extends UserSnowflake
     boolean hasPrivateChannel();
 
     /**
-     * Opens a {@link PrivateChannel PrivateChannel} with this User.
+     * Opens a {@link PrivateChannel} with this User.
      * <br>If a channel has already been opened with this user, it is immediately returned in the RestAction's
      * success consumer without contacting the Discord API.
+     * You can use {@link CacheRestAction#useCache(boolean) useCache(false)} to force the request for a new channel object,
+     * which is rarely useful since the channel id never changes.
      *
      * <h4>Examples</h4>
      * <pre>{@code
@@ -324,28 +324,28 @@ public interface User extends UserSnowflake
      * }</pre>
      *
      * @throws UnsupportedOperationException
-     *         If the recipient User is the currently logged in account (represented by {@link SelfUser SelfUser})
+     *         If the recipient User is the currently logged in account (represented by {@link net.dv8tion.jda.api.entities.SelfUser SelfUser})
      *         or if the user was created with {@link #fromId(long)}
      *
-     * @return {@link RestAction RestAction} - Type: {@link PrivateChannel PrivateChannel}
+     * @return {@link CacheRestAction} - Type: {@link PrivateChannel}
      *         <br>Retrieves the PrivateChannel to use to directly message this User.
      *
      * @see    JDA#openPrivateChannelById(long)
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    RestAction<PrivateChannel> openPrivateChannel();
+    CacheRestAction<PrivateChannel> openPrivateChannel();
 
     /**
-     * Finds and collects all {@link Guild Guild} instances that contain this {@link User User} within the current {@link JDA JDA} instance.<br>
-     * <p>This method is a shortcut for {@link JDA#getMutualGuilds(User...) JDA.getMutualGuilds(User)}.</p>
+     * Finds and collects all {@link net.dv8tion.jda.api.entities.Guild Guild} instances that contain this {@link net.dv8tion.jda.api.entities.User User} within the current {@link net.dv8tion.jda.api.JDA JDA} instance.<br>
+     * <p>This method is a shortcut for {@link net.dv8tion.jda.api.JDA#getMutualGuilds(User...) JDA.getMutualGuilds(User)}.</p>
      *
      * @throws UnsupportedOperationException
      *         If this User was created with {@link #fromId(long)}
      *
-     * @return Immutable list of all {@link Guild Guilds} that this user is a member of.
+     * @return Immutable list of all {@link net.dv8tion.jda.api.entities.Guild Guilds} that this user is a member of.
      */
-    @NotNull
+    @Nonnull
     List<Guild> getMutualGuilds();
 
     /**
@@ -370,29 +370,29 @@ public interface User extends UserSnowflake
     boolean isSystem();
 
     /**
-     * Returns the {@link JDA JDA} instance of this User
+     * Returns the {@link net.dv8tion.jda.api.JDA JDA} instance of this User
      *
      * @throws UnsupportedOperationException
      *         If this User was created with {@link #fromId(long)}
      *
      * @return the corresponding JDA instance
      */
-    @NotNull
+    @Nonnull
     JDA getJDA();
 
     /**
-     * Returns the {@link UserFlag UserFlags} of this user.
+     * Returns the {@link net.dv8tion.jda.api.entities.User.UserFlag UserFlags} of this user.
      *
      * @throws UnsupportedOperationException
      *         If this User was created with {@link #fromId(long)}
      *
      * @return EnumSet containing the flags of the user.
      */
-    @NotNull
+    @Nonnull
     EnumSet<UserFlag> getFlags();
 
     /**
-     * Returns the bitmask representation of the {@link UserFlag UserFlags} of this user.
+     * Returns the bitmask representation of the {@link net.dv8tion.jda.api.entities.User.UserFlag UserFlags} of this user.
      *
      * @throws UnsupportedOperationException
      *         If this User was created with {@link #fromId(long)}
@@ -465,7 +465,7 @@ public interface User extends UserSnowflake
          * The automatically calculated color is not returned.
          * The accent color is not shown in the client if the user has set a banner.
          *
-         * @return Possibly-null {@link Color} containing the {@link User User} accent color.
+         * @return Possibly-null {@link java.awt.Color} containing the {@link User User} accent color.
          */
         @Nullable
         public Color getAccentColor()
@@ -527,7 +527,7 @@ public interface User extends UserSnowflake
         UNKNOWN(-1, "Unknown");
 
         /**
-         * Empty array of UserFlag enum, useful for optimized use in {@link Collection#toArray(Object[])}.
+         * Empty array of UserFlag enum, useful for optimized use in {@link java.util.Collection#toArray(Object[])}.
          */
         public static final UserFlag[] EMPTY_FLAGS = new UserFlag[0];
 
@@ -535,7 +535,7 @@ public interface User extends UserSnowflake
         private final int raw;
         private final String name;
 
-        UserFlag(int offset, @NotNull String name)
+        UserFlag(int offset, @Nonnull String name)
         {
             this.offset = offset;
             this.raw = 1 << offset;
@@ -547,7 +547,7 @@ public interface User extends UserSnowflake
          *
          * @return The readable name of this UserFlag.
          */
-        @NotNull
+        @Nonnull
         public String getName()
         {
             return this.name;
@@ -584,7 +584,7 @@ public interface User extends UserSnowflake
          *
          * @return UserFlag relating to the provided offset.
          */
-        @NotNull
+        @Nonnull
         public static UserFlag getFromOffset(int offset)
         {
             for (UserFlag flag : values())
@@ -604,7 +604,7 @@ public interface User extends UserSnowflake
          *
          * @return Possibly-empty EnumSet of UserFlags.
          */
-        @NotNull
+        @Nonnull
         public static EnumSet<UserFlag> getFlags(int flags)
         {
             final EnumSet<UserFlag> foundFlags = EnumSet.noneOf(UserFlag.class);
@@ -628,12 +628,12 @@ public interface User extends UserSnowflake
          * @param  flags
          *         The array of flags of which to form into the raw int representation.
          *
-         * @throws IllegalArgumentException
+         * @throws java.lang.IllegalArgumentException
          *         When the provided UserFlags are null.
          *
          * @return bitmask representing the provided flags.
          */
-        public static int getRaw(@NotNull UserFlag... flags){
+        public static int getRaw(@Nonnull UserFlag... flags){
             Checks.noneNull(flags, "UserFlags");
 
             int raw = 0;
@@ -654,14 +654,14 @@ public interface User extends UserSnowflake
          * @param  flags
          *         The flags to convert
          *
-         * @throws IllegalArgumentException
+         * @throws java.lang.IllegalArgumentException
          *         When the provided UserFLags are null.
          *
          * @return bitmask representing the provided flags.
          *
-         * @see EnumSet EnumSet
+         * @see java.util.EnumSet EnumSet
          */
-        public static int getRaw(@NotNull Collection<UserFlag> flags)
+        public static int getRaw(@Nonnull Collection<UserFlag> flags)
         {
             Checks.notNull(flags, "Flag Collection");
 

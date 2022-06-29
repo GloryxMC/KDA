@@ -18,13 +18,13 @@ package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.managers.channel.concrete.ThreadChannelManager;
 import net.dv8tion.jda.api.requests.RestAction;
+import net.dv8tion.jda.api.requests.restaction.CacheRestAction;
 import net.dv8tion.jda.api.utils.MiscUtil;
 import net.dv8tion.jda.internal.utils.Checks;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.time.OffsetDateTime;
 import java.util.FormattableFlags;
 import java.util.Formatter;
@@ -117,7 +117,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *
      * @return The parent channel of this thread.
      */
-    @NotNull
+    @Nonnull
     IThreadContainer getParentChannel();
 
     //todo-v5: document additional subclasses of GuildMessageChannel (VoiceChannels and ForumChannels, when needed)
@@ -131,7 +131,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @throws UnsupportedOperationException
      *         If the parent channel is not a {@link GuildMessageChannel}.
      */
-    @NotNull
+    @Nonnull
     default GuildMessageChannel getParentMessageChannel()
     {
         if (getParentChannel() instanceof GuildMessageChannel) {
@@ -142,7 +142,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
     }
 
     /**
-     * Attempts to get the {@link Message Message} from Discord's servers that started this thread.
+     * Attempts to get the {@link net.dv8tion.jda.api.entities.Message Message} from Discord's servers that started this thread.
      *
      * <p>The {@link Message#getMember() Message.getMember()} method will always return null for the resulting message.
      * To retrieve the member you can use {@code getGuild().retrieveMember(message.getAuthor())}.
@@ -150,13 +150,13 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * <p>The following {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} are possible:
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
-     *     <br>The request was attempted after the account lost access to the {@link Guild Guild}
+     *     <br>The request was attempted after the account lost access to the {@link net.dv8tion.jda.api.entities.Guild Guild}
      *         typically due to being kicked or removed, or after {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
-     *         was revoked in the {@link GuildMessageChannel GuildMessageChannel}</li>
+     *         was revoked in the {@link net.dv8tion.jda.api.entities.GuildMessageChannel GuildMessageChannel}</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
      *     <br>The request was attempted after the account lost {@link net.dv8tion.jda.api.Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}
-     *         in the {@link GuildMessageChannel GuildMessageChannel}.</li>
+     *         in the {@link net.dv8tion.jda.api.entities.GuildMessageChannel GuildMessageChannel}.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_MESSAGE UNKNOWN_MESSAGE}
      *     <br>The message has already been deleted.</li>
@@ -168,18 +168,18 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @throws net.dv8tion.jda.api.exceptions.AccountTypeException
      *         If the currently logged in account is not from {@link net.dv8tion.jda.api.AccountType#BOT AccountType.BOT}
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
-     *         If this is a {@link GuildMessageChannel GuildMessageChannel} and the logged in account does not have
+     *         If this is a {@link net.dv8tion.jda.api.entities.GuildMessageChannel GuildMessageChannel} and the logged in account does not have
      *         <ul>
      *             <li>{@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}</li>
      *             <li>{@link net.dv8tion.jda.api.Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}</li>
      *         </ul>
      * @throws UnsupportedOperationException
-     *         If the parent channel is not a {@link GuildMessageChannel GuildMessageChannel}.
+     *         If the parent channel is not a {@link net.dv8tion.jda.api.entities.GuildMessageChannel GuildMessageChannel}.
      *
-     * @return {@link RestAction RestAction} - Type: Message
+     * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: Message
      *         <br>The Message that started this thread
      */
-    @NotNull
+    @Nonnull
     RestAction<Message> retrieveParentMessage();
 
     /**
@@ -218,7 +218,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *
      * @see #retrieveThreadMembers()
      */
-    @NotNull
+    @Nonnull
     List<ThreadMember> getThreadMembers();
 
     /**
@@ -325,11 +325,11 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @throws IllegalArgumentException
      *         If provided with null
      *
-     * @return {@link RestAction} - Type: {@link ThreadMember}
+     * @return {@link CacheRestAction} - Type: {@link ThreadMember}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    default RestAction<ThreadMember> retrieveThreadMember(@NotNull Member member)
+    default CacheRestAction<ThreadMember> retrieveThreadMember(@Nonnull Member member)
     {
         Checks.notNull(member, "Member");
         return retrieveThreadMemberById(member.getIdLong());
@@ -347,11 +347,11 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @throws IllegalArgumentException
      *         If provided with null
      *
-     * @return {@link RestAction} - Type: {@link ThreadMember}
+     * @return {@link CacheRestAction} - Type: {@link ThreadMember}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    default RestAction<ThreadMember> retrieveThreadMember(@NotNull User user)
+    default CacheRestAction<ThreadMember> retrieveThreadMember(@Nonnull User user)
     {
         Checks.notNull(user, "User");
         return retrieveThreadMemberById(user.getIdLong());
@@ -371,11 +371,11 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @throws NumberFormatException
      *         If the provided id is not a snowflake
      *
-     * @return {@link RestAction} - Type: {@link ThreadMember}
+     * @return {@link CacheRestAction} - Type: {@link ThreadMember}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    default RestAction<ThreadMember> retrieveThreadMemberById(@NotNull String id)
+    default CacheRestAction<ThreadMember> retrieveThreadMemberById(@Nonnull String id)
     {
         return retrieveThreadMemberById(MiscUtil.parseSnowflake(id));
     }
@@ -389,11 +389,11 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @param  id
      *         The user id to load the thread-member from
      *
-     * @return {@link RestAction} - Type: {@link ThreadMember}
+     * @return {@link CacheRestAction} - Type: {@link ThreadMember}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    RestAction<ThreadMember> retrieveThreadMemberById(long id);
+    CacheRestAction<ThreadMember> retrieveThreadMemberById(long id);
 
     /**
      * Retrieves the {@link ThreadMember ThreadMembers} of this thread.
@@ -428,7 +428,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *
      * @return The {@link User} of the member who created this thread as a String.
      */
-    @NotNull
+    @Nonnull
     default String getOwnerId()
     {
         return Long.toUnsignedString(getOwnerIdLong());
@@ -512,7 +512,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *
      * @see ChannelField#AUTO_ARCHIVE_DURATION
      */
-    @NotNull
+    @Nonnull
     AutoArchiveDuration getAutoArchiveDuration();
 
     /**
@@ -522,7 +522,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *
      * @return The timestamp when this thread was created
      */
-    @NotNull
+    @Nonnull
     OffsetDateTime getTimeCreated();
 
     /**
@@ -530,7 +530,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *
      * @return The amount of time in seconds a ThreadMember must wait between sending messages.
      *
-     * @see ThreadChannelManager#setSlowmode(int)
+     * @see net.dv8tion.jda.api.managers.channel.concrete.ThreadChannelManager#setSlowmode(int)
      */
     int getSlowmode();
 
@@ -544,7 +544,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * <p>The following {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} are possible:
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
-     *     <br>The request was attempted after the account lost access to the {@link Guild Guild}
+     *     <br>The request was attempted after the account lost access to the {@link net.dv8tion.jda.api.entities.Guild Guild}
      *         typically due to being kicked or removed, or after access was lost to this ThreadChannel (either by losing access to the parent of a public ThreadChannel,
      *         or losing {@link net.dv8tion.jda.api.Permission#MANAGE_THREADS MANAGE_THREADS} to a private channel).</li>
      *
@@ -568,7 +568,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * <p>The following {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} are possible:
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
-     *     <br>The request was attempted after the account lost access to the {@link Guild Guild}
+     *     <br>The request was attempted after the account lost access to the {@link net.dv8tion.jda.api.entities.Guild Guild}
      *         typically due to being kicked or removed.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_CHANNEL UNKNOWN_CHANNEL}
@@ -595,9 +595,9 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>This can be caused by any of the following:
      *     <ul>
-     *         <li>The request was attempted after the account lost access to the {@link Guild Guild},
+     *         <li>The request was attempted after the account lost access to the {@link net.dv8tion.jda.api.entities.Guild Guild},
      *             typically due to being kicked or removed.</li>
-     *         <li>The user supplied is not a member of this ThreadChannel's {@link Guild Guild}</li>
+     *         <li>The user supplied is not a member of this ThreadChannel's {@link net.dv8tion.jda.api.entities.Guild Guild}</li>
      *         <li>The thread is not {@link #isInvitable() invitable}, and the current account does not have the {@link net.dv8tion.jda.api.Permission#MANAGE_THREADS MANAGE_THREADS} permission.</li>
      *     </ul>
      *     <br>
@@ -634,9 +634,9 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>This can be caused by any of the following:
      *     <ul>
-     *         <li>The request was attempted after the account lost access to the {@link Guild Guild},
+     *         <li>The request was attempted after the account lost access to the {@link net.dv8tion.jda.api.entities.Guild Guild},
      *             typically due to being kicked or removed.</li>
-     *         <li>The user supplied is not a member of this ThreadChannel's {@link Guild Guild}</li>
+     *         <li>The user supplied is not a member of this ThreadChannel's {@link net.dv8tion.jda.api.entities.Guild Guild}</li>
      *         <li>The thread is not {@link #isInvitable() invitable}, and the current account does not have the {@link net.dv8tion.jda.api.Permission#MANAGE_THREADS MANAGE_THREADS} permission.</li>
      *     </ul>
      *     <br>
@@ -664,7 +664,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @return {@link RestAction}
      */
     @CheckReturnValue
-    default RestAction<Void> addThreadMemberById(@NotNull String id)
+    default RestAction<Void> addThreadMemberById(@Nonnull String id)
     {
         return addThreadMemberById(MiscUtil.parseSnowflake(id));
     }
@@ -679,9 +679,9 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>This can be caused by any of the following:
      *     <ul>
-     *         <li>The request was attempted after the account lost access to the {@link Guild Guild},
+     *         <li>The request was attempted after the account lost access to the {@link net.dv8tion.jda.api.entities.Guild Guild},
      *             typically due to being kicked or removed.</li>
-     *         <li>The user supplied is not a member of this ThreadChannel's {@link Guild Guild}</li>
+     *         <li>The user supplied is not a member of this ThreadChannel's {@link net.dv8tion.jda.api.entities.Guild Guild}</li>
      *         <li>The thread is not {@link #isInvitable() invitable}, and the current account does not have the {@link net.dv8tion.jda.api.Permission#MANAGE_THREADS MANAGE_THREADS} permission.</li>
      *     </ul>
      *     <br>
@@ -703,7 +703,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @return {@link RestAction}
      */
     @CheckReturnValue
-    default RestAction<Void> addThreadMember(@NotNull User user)
+    default RestAction<Void> addThreadMember(@Nonnull User user)
     {
         Checks.notNull(user, "User");
         return addThreadMemberById(user.getIdLong());
@@ -719,9 +719,9 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>This can be caused by any of the following:
      *     <ul>
-     *         <li>The request was attempted after the account lost access to the {@link Guild Guild},
+     *         <li>The request was attempted after the account lost access to the {@link net.dv8tion.jda.api.entities.Guild Guild},
      *             typically due to being kicked or removed.</li>
-     *         <li>The user supplied is not a member of this ThreadChannel's {@link Guild Guild}</li>
+     *         <li>The user supplied is not a member of this ThreadChannel's {@link net.dv8tion.jda.api.entities.Guild Guild}</li>
      *         <li>The thread is not {@link #isInvitable() invitable}, and the current account does not have the {@link net.dv8tion.jda.api.Permission#MANAGE_THREADS MANAGE_THREADS} permission.</li>
      *     </ul>
      *     <br>
@@ -743,7 +743,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @return {@link RestAction}
      */
     @CheckReturnValue
-    default RestAction<Void> addThreadMember(@NotNull Member member)
+    default RestAction<Void> addThreadMember(@Nonnull Member member)
     {
         Checks.notNull(member, "Member");
         return addThreadMemberById(member.getIdLong());
@@ -757,9 +757,9 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * <p>The following {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} are possible:
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
-     *     <br>The request was attempted after the account lost access to the {@link Guild Guild}
+     *     <br>The request was attempted after the account lost access to the {@link net.dv8tion.jda.api.entities.Guild Guild}
      *         typically due to being kicked or removed, or the bot losing permissions to perform this action.
-     *         <br>This can also be caused if the user supplied is not a member of this ThreadChannel's {@link Guild Guild}</li>
+     *         <br>This can also be caused if the user supplied is not a member of this ThreadChannel's {@link net.dv8tion.jda.api.entities.Guild Guild}</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_CHANNEL UNKNOWN_CHANNEL}
      *     <br>The request was attempted after the channel was deleted.</li>
@@ -791,9 +791,9 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * <p>The following {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} are possible:
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
-     *     <br>The request was attempted after the account lost access to the {@link Guild Guild}
+     *     <br>The request was attempted after the account lost access to the {@link net.dv8tion.jda.api.entities.Guild Guild}
      *         typically due to being kicked or removed, or the bot losing permissions to perform this action.
-     *         <br>This can also be caused if the user supplied is not a member of this ThreadChannel's {@link Guild Guild}</li>
+     *         <br>This can also be caused if the user supplied is not a member of this ThreadChannel's {@link net.dv8tion.jda.api.entities.Guild Guild}</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_CHANNEL UNKNOWN_CHANNEL}
      *     <br>The request was attempted after the channel was deleted.</li>
@@ -818,7 +818,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @return {@link RestAction}
      */
     @CheckReturnValue
-    default RestAction<Void> removeThreadMemberById(@NotNull String id)
+    default RestAction<Void> removeThreadMemberById(@Nonnull String id)
     {
         return removeThreadMemberById(MiscUtil.parseSnowflake(id));
     }
@@ -831,9 +831,9 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * <p>The following {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} are possible:
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
-     *     <br>The request was attempted after the account lost access to the {@link Guild Guild}
+     *     <br>The request was attempted after the account lost access to the {@link net.dv8tion.jda.api.entities.Guild Guild}
      *         typically due to being kicked or removed, or the bot losing permissions to perform this action.
-     *         <br>This can also be caused if the user supplied is not a member of this ThreadChannel's {@link Guild Guild}</li>
+     *         <br>This can also be caused if the user supplied is not a member of this ThreadChannel's {@link net.dv8tion.jda.api.entities.Guild Guild}</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_CHANNEL UNKNOWN_CHANNEL}
      *     <br>The request was attempted after the channel was deleted.</li>
@@ -852,7 +852,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @return {@link RestAction}
      */
     @CheckReturnValue
-    default RestAction<Void> removeThreadMember(@NotNull User user)
+    default RestAction<Void> removeThreadMember(@Nonnull User user)
     {
         Checks.notNull(user, "User");
         return removeThreadMemberById(user.getId());
@@ -865,9 +865,9 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * <p>The following {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} are possible:
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
-     *     <br>The request was attempted after the account lost access to the {@link Guild Guild}
+     *     <br>The request was attempted after the account lost access to the {@link net.dv8tion.jda.api.entities.Guild Guild}
      *         typically due to being kicked or removed, or the bot losing permissions to perform this action.
-     *         <br>This can also be caused if the member supplied is not a member of this ThreadChannel's {@link Guild Guild}</li>
+     *         <br>This can also be caused if the member supplied is not a member of this ThreadChannel's {@link net.dv8tion.jda.api.entities.Guild Guild}</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_CHANNEL UNKNOWN_CHANNEL}
      *     <br>The request was attempted after the channel was deleted.</li>
@@ -888,14 +888,14 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @return {@link RestAction}
      */
     @CheckReturnValue
-    default RestAction<Void> removeThreadMember(@NotNull Member member)
+    default RestAction<Void> removeThreadMember(@Nonnull Member member)
     {
         Checks.notNull(member, "Member");
         return removeThreadMemberById(member.getIdLong());
     }
 
     @Override
-    @NotNull
+    @Nonnull
     ThreadChannelManager getManager();
 
     @Override
@@ -944,7 +944,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
             return minutes;
         }
 
-        @NotNull
+        @Nonnull
         public static AutoArchiveDuration fromKey(int minutes)
         {
             for (AutoArchiveDuration duration : values())
