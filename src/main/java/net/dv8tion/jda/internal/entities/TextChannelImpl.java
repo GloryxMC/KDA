@@ -16,65 +16,38 @@
 
 package net.dv8tion.jda.internal.entities;
 
-import gnu.trove.map.TLongObjectMap;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.channel.unions.DefaultGuildChannelUnion;
 import net.dv8tion.jda.api.managers.channel.concrete.TextChannelManager;
 import net.dv8tion.jda.api.requests.restaction.ChannelAction;
-import net.dv8tion.jda.api.utils.MiscUtil;
-import net.dv8tion.jda.internal.entities.mixin.channel.middleman.BaseGuildMessageChannelMixin;
 import net.dv8tion.jda.internal.managers.channel.concrete.TextChannelManagerImpl;
 import net.dv8tion.jda.internal.utils.Checks;
-import org.jetbrains.annotations.NotNull;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TextChannelImpl extends AbstractGuildChannelImpl<TextChannelImpl> implements TextChannel, BaseGuildMessageChannelMixin<TextChannelImpl>
+public class TextChannelImpl extends AbstractStandardGuildMessageChannelImpl<TextChannelImpl> implements
+        TextChannel,
+        DefaultGuildChannelUnion
 {
-    private final TLongObjectMap<PermissionOverride> overrides = MiscUtil.newLongMap();
-
-    private String topic;
-    private long parentCategoryId;
-    private long latestMessageId;
-    private int position;
     private int slowmode;
-    private boolean nsfw;
 
     public TextChannelImpl(long id, GuildImpl guild)
     {
         super(id, guild);
     }
 
-    @Nullable
-    @Override
-    public String getTopic()
-    {
-        return topic;
-    }
-
-    @Override
-    public boolean isNSFW()
-    {
-        return nsfw;
-    }
-
-    @NotNull
+    @Nonnull
     @Override
     public ChannelType getType()
     {
         return ChannelType.TEXT;
     }
 
-    @Override
-    public long getParentCategoryIdLong()
-    {
-        return parentCategoryId;
-    }
-
-    @NotNull
+    @Nonnull
     @Override
     public List<Member> getMembers()
     {
@@ -84,26 +57,14 @@ public class TextChannelImpl extends AbstractGuildChannelImpl<TextChannelImpl> i
     }
 
     @Override
-    public int getPositionRaw()
-    {
-        return position;
-    }
-
-    @Override
-    public long getLatestMessageIdLong()
-    {
-        return latestMessageId;
-    }
-
-    @Override
     public int getSlowmode()
     {
         return slowmode;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public ChannelAction<TextChannel> createCopy(@NotNull Guild guild)
+    public ChannelAction<TextChannel> createCopy(@Nonnull Guild guild)
     {
         Checks.notNull(guild, "Guild");
         ChannelAction<TextChannel> action = guild.createTextChannel(name).setNSFW(nsfw).setTopic(topic).setSlowmode(slowmode);
@@ -123,59 +84,24 @@ public class TextChannelImpl extends AbstractGuildChannelImpl<TextChannelImpl> i
         return action;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public TextChannelManager getManager()
     {
         return new TextChannelManagerImpl(this);
     }
 
-    @Override
-    public TLongObjectMap<PermissionOverride> getPermissionOverrideMap()
-    {
-        return overrides;
-    }
-
-    @Override
-    public TextChannelImpl setParentCategory(long parentCategoryId)
-    {
-        this.parentCategoryId = parentCategoryId;
-        return this;
-    }
-
-    @Override
-    public TextChannelImpl setPosition(int position)
-    {
-        getGuild().getTextChannelsView().clearCachedLists();
-        this.position = position;
-        return this;
-    }
-
-    @Override
-    public TextChannelImpl setTopic(String topic)
-    {
-        this.topic = topic;
-        return this;
-    }
-
-    @Override
-    public TextChannelImpl setNSFW(boolean nsfw)
-    {
-        this.nsfw = nsfw;
-        return this;
-    }
-
-    @Override
-    public TextChannelImpl setLatestMessageIdLong(long latestMessageId)
-    {
-        this.latestMessageId = latestMessageId;
-        return this;
-    }
-
     public TextChannelImpl setSlowmode(int slowmode)
     {
         this.slowmode = slowmode;
         return this;
+    }
+
+    // -- Abstract hooks --
+    @Override
+    protected void onPositionChange()
+    {
+        getGuild().getTextChannelsView().clearCachedLists();
     }
 
     // -- Object overrides --

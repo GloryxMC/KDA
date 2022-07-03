@@ -18,6 +18,7 @@ package net.dv8tion.jda.api.events.interaction.command;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 
 import org.jetbrains.annotations.NotNull;
@@ -50,8 +51,8 @@ public class SlashCommandInteractionEvent extends GenericCommandInteractionEvent
 
     @NotNull
     @Override
-    public MessageChannel getChannel()
+    public MessageChannelUnion getChannel()
     {
-        return interaction.getChannel();
+        return (MessageChannelUnion) interaction.getChannel();
     }
 }

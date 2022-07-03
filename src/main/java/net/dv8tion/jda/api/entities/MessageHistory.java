@@ -18,6 +18,7 @@ package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.exceptions.MissingAccessException;
 import net.dv8tion.jda.api.requests.Request;
@@ -34,17 +35,16 @@ import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.JDALogger;
 import org.apache.commons.collections4.map.ListOrderedMap;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 
 /**
- * Represents an access point to the {@link Message Message} history of a
- * {@link MessageChannel MessageChannel}.
+ * Represents an access point to the {@link net.dv8tion.jda.api.entities.Message Message} history of a
+ * {@link net.dv8tion.jda.api.entities.MessageChannel MessageChannel}.
  * <br><b>Note:</b> Message order is always in recent to past order. I.e: A message at index 0
  * of a list is more recent than a message at index 1.
  *
@@ -65,9 +65,9 @@ public class MessageHistory
      * Creates a new MessageHistory object.
      *
      * @param  channel
-     *         The {@link MessageChannel MessageChannel} to retrieval history from.
+     *         The {@link net.dv8tion.jda.api.entities.MessageChannel MessageChannel} to retrieval history from.
      */
-    public MessageHistory(@NotNull MessageChannel channel)
+    public MessageHistory(@Nonnull MessageChannel channel)
     {
         Checks.notNull(channel, "Channel");
         this.channel = channel;
@@ -89,14 +89,14 @@ public class MessageHistory
      *
      * @return The corresponding JDA instance
      */
-    @NotNull
+    @Nonnull
     public JDA getJDA()
     {
         return channel.getJDA();
     }
 
     /**
-     * The amount of retrieved {@link Message Messages}
+     * The amount of retrieved {@link net.dv8tion.jda.api.entities.Message Messages}
      * by this MessageHistory.
      * <br>This returns {@code 0} until any call to retrieve messages has completed.
      * See {@link #retrievePast(int)} and {@link #retrieveFuture(int)}!
@@ -119,15 +119,15 @@ public class MessageHistory
     }
 
     /**
-     * Returns the {@link MessageChannel MessageChannel} that this MessageHistory
+     * Returns the {@link net.dv8tion.jda.api.entities.MessageChannel MessageChannel} that this MessageHistory
      * is related to.
      *
      * @return The MessageChannel of this history.
      */
-    @NotNull
-    public MessageChannel getChannel()
+    @Nonnull
+    public MessageChannelUnion getChannel()
     {
-        return channel;
+        return (MessageChannelUnion) channel;
     }
 
     /**
@@ -137,13 +137,13 @@ public class MessageHistory
      * <br>This method has 2 modes of operation: initial retrieval and additional retrieval.
      * <ul>
      *     <li><b>Initial Retrieval</b>
-     *     <br>This mode is what is used when no {@link Message Messages} have been retrieved
+     *     <br>This mode is what is used when no {@link net.dv8tion.jda.api.entities.Message Messages} have been retrieved
      *         yet ({@link #getRetrievedHistory()}'s size is 0). Initial retrieval starts from the most recent message sent
      *         to the channel and retrieves backwards from there. So, if 50 messages are retrieved during this mode, the
      *         most recent 50 messages will be retrieved.</li>
      *
      *     <li><b>Additional Retrieval</b>
-     *     <br>This mode is used once some {@link Message Messages} have already been retrieved
+     *     <br>This mode is used once some {@link net.dv8tion.jda.api.entities.Message Messages} have already been retrieved
      *         from Discord and are stored in MessageHistory's history ({@link #getRetrievedHistory()}). When retrieving
      *         messages in this mode, MessageHistory will retrieve previous messages starting from the oldest message
      *         stored in MessageHistory.
@@ -156,32 +156,32 @@ public class MessageHistory
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_MESSAGE UNKNOWN_MESSAGE}
      *     <br>Can occur if retrieving in Additional Mode and the Message being used as the marker for the last retrieved
      *         Message was deleted. Currently, to fix this, you need to create a new
-     *         {@link MessageHistory MessageHistory} instance.</li>
+     *         {@link net.dv8tion.jda.api.entities.MessageHistory MessageHistory} instance.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>Can occur if the request for history retrieval was executed <i>after</i> JDA lost access to the Channel,
-     *         typically due to the account being removed from the {@link Guild Guild}.</li>
+     *         typically due to the account being removed from the {@link net.dv8tion.jda.api.entities.Guild Guild}.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
      *     <br>Can occur if the request for history retrieval was executed <i>after</i> JDA lost the
-     *         {@link Permission#MESSAGE_HISTORY} permission.</li>
+     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_HISTORY} permission.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_CHANNEL UNKNOWN_CHANNEL}
      *     <br>The send request was attempted after the channel was deleted.</li>
      * </ul>
      *
      * @param  amount
-     *         The amount of {@link Message Messages} to retrieve.
+     *         The amount of {@link net.dv8tion.jda.api.entities.Message Messages} to retrieve.
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *         The the {@code amount} is less than {@code 1} or greater than {@code 100}.
      *
-     * @return {@link RestAction RestAction} -
-     *         Type: {@link List List}{@literal <}{@link Message Message}{@literal >}
+     * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} -
+     *         Type: {@link java.util.List List}{@literal <}{@link net.dv8tion.jda.api.entities.Message Message}{@literal >}
      *         <br>Retrieved Messages are placed in a List and provided in order of most recent to oldest with most recent
      *         starting at index 0. If the list is empty, there were no more messages left to retrieve.
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     public RestAction<List<Message>> retrievePast(int amount)
     {
@@ -224,7 +224,7 @@ public class MessageHistory
      * using something like {@link MessageChannel#getHistoryAround(String, int)}.
      * <br>This method works in the same way as {@link #retrievePast(int)}'s Additional Retrieval mode.
      * <p>
-     * <b>Note:</b> This method can only be used after {@link Message Messages} have already
+     * <b>Note:</b> This method can only be used after {@link net.dv8tion.jda.api.entities.Message Messages} have already
      * been retrieved from Discord.
      * <p>
      * Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} include:
@@ -232,35 +232,35 @@ public class MessageHistory
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_MESSAGE UNKNOWN_MESSAGE}
      *     <br>Can occur if retrieving in Additional Mode and the Message being used as the marker for the last retrieved
      *         Message was deleted. Currently, to fix this, you need to create a new
-     *         {@link MessageHistory MessageHistory} instance.</li>
+     *         {@link net.dv8tion.jda.api.entities.MessageHistory MessageHistory} instance.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>Can occur if the request for history retrieval was executed <i>after</i> JDA lost access to the Channel,
-     *         typically due to the account being removed from the {@link Guild Guild}.</li>
+     *         typically due to the account being removed from the {@link net.dv8tion.jda.api.entities.Guild Guild}.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
      *     <br>Can occur if the request for history retrieval was executed <i>after</i> JDA lost the
-     *         {@link Permission#MESSAGE_HISTORY} permission.</li>
+     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_HISTORY} permission.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_CHANNEL UNKNOWN_CHANNEL}
      *     <br>The send request was attempted after the channel was deleted.</li>
      * </ul>
      *
      * @param  amount
-     *         The amount of {@link Message Messages} to retrieve.
+     *         The amount of {@link net.dv8tion.jda.api.entities.Message Messages} to retrieve.
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *         The the {@code amount} is less than {@code 1} or greater than {@code 100}.
-     * @throws IllegalStateException
+     * @throws java.lang.IllegalStateException
      *         If no messages have been retrieved by this MessageHistory.
      *
      *
-     * @return {@link RestAction RestAction} -
-     *         Type: {@link List List}{@literal <}{@link Message Message}{@literal >}
+     * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} -
+     *         Type: {@link java.util.List List}{@literal <}{@link net.dv8tion.jda.api.entities.Message Message}{@literal >}
      *         <br>Retrieved Messages are placed in a List and provided in order of most recent to oldest with most recent
      *         starting at index 0. If the list is empty, there were no more messages left to retrieve.
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     public RestAction<List<Message>> retrieveFuture(int amount)
     {
@@ -303,14 +303,14 @@ public class MessageHistory
     /**
      * The List of Messages, sorted starting from newest to oldest, of all message that have already been retrieved
      * from Discord with this MessageHistory object using the {@link #retrievePast(int)}, {@link #retrieveFuture(int)}, and
-     * {@link MessageChannel#getHistoryAround(String, int)} methods.
+     * {@link net.dv8tion.jda.api.entities.MessageChannel#getHistoryAround(String, int)} methods.
      *
      * <p>This will be empty if it was just created using {@link MessageChannel#getHistory()} or similar
      * methods. You first have to retrieve messages.
      *
      * @return An immutable List of Messages, sorted newest to oldest.
      */
-    @NotNull
+    @Nonnull
     public List<Message> getRetrievedHistory()
     {
         int size = size();
@@ -332,15 +332,15 @@ public class MessageHistory
      * @param  id
      *         The id of the requested Message.
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *         If the provided {@code id} is null or empty.
-     * @throws NumberFormatException
+     * @throws java.lang.NumberFormatException
      *         If the provided {@code id} cannot be parsed by {@link Long#parseLong(String)}
      *
      * @return Possibly-null Message with the same {@code id} as the one provided.
      */
     @Nullable
-    public Message getMessageById(@NotNull String id)
+    public Message getMessageById(@Nonnull String id)
     {
         return getMessageById(MiscUtil.parseSnowflake(id));
     }
@@ -365,11 +365,11 @@ public class MessageHistory
     }
 
     /**
-     * Constructs a {@link MessageHistory MessageHistory} with the initially retrieved history
+     * Constructs a {@link net.dv8tion.jda.api.entities.MessageHistory MessageHistory} with the initially retrieved history
      * of messages sent after the mentioned message ID (exclusive).
      * <br>The provided ID need not be valid!
      *
-     * <p>Alternatively you can use {@link MessageChannel#getHistoryAfter(String, int) MessageChannel.getHistoryAfter(...)}
+     * <p>Alternatively you can use {@link net.dv8tion.jda.api.entities.MessageChannel#getHistoryAfter(String, int) MessageChannel.getHistoryAfter(...)}
      *
      * <p><b>Example</b>
      * <br>{@code MessageHistory history = MessageHistory.getHistoryAfter(channel, messageId).limit(60).complete()}
@@ -383,26 +383,26 @@ public class MessageHistory
      * </code></pre>
      *
      * @param  channel
-     *         The {@link MessageChannel MessageChannel}
+     *         The {@link net.dv8tion.jda.api.entities.MessageChannel MessageChannel}
      * @param  messageId
      *         The pivot ID to use
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *         If any of the provided arguments is {@code null};
      *         Or if the provided messageId contains whitespace
-     * @throws InsufficientPermissionException
+     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If this is a TextChannel and the currently logged in account does not
-     *         have the permission {@link Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}
+     *         have the permission {@link net.dv8tion.jda.api.Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}
      *
-     * @return {@link MessageRetrieveAction MessageRetrieveAction}
+     * @return {@link net.dv8tion.jda.api.entities.MessageHistory.MessageRetrieveAction MessageRetrieveAction}
      *
-     * @see    MessageChannel#getHistoryAfter(String, int)  MessageChannel.getHistoryAfter(String, int)
-     * @see    MessageChannel#getHistoryAfter(long, int)    MessageChannel.getHistoryAfter(long, int)
-     * @see    MessageChannel#getHistoryAfter(Message, int) MessageChannel.getHistoryAfter(Message, int)
+     * @see    net.dv8tion.jda.api.entities.MessageChannel#getHistoryAfter(String, int)  MessageChannel.getHistoryAfter(String, int)
+     * @see    net.dv8tion.jda.api.entities.MessageChannel#getHistoryAfter(long, int)    MessageChannel.getHistoryAfter(long, int)
+     * @see    net.dv8tion.jda.api.entities.MessageChannel#getHistoryAfter(Message, int) MessageChannel.getHistoryAfter(Message, int)
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    public static MessageRetrieveAction getHistoryAfter(@NotNull MessageChannel channel, @NotNull String messageId)
+    public static MessageRetrieveAction getHistoryAfter(@Nonnull MessageChannel channel, @Nonnull String messageId)
     {
         checkArguments(channel, messageId);
         Route.CompiledRoute route = Route.Messages.GET_MESSAGE_HISTORY.compile(channel.getId()).withQueryParams("after", messageId);
@@ -410,11 +410,11 @@ public class MessageHistory
     }
 
     /**
-     * Constructs a {@link MessageHistory MessageHistory} with the initially retrieved history
+     * Constructs a {@link net.dv8tion.jda.api.entities.MessageHistory MessageHistory} with the initially retrieved history
      * of messages sent before the mentioned message ID (exclusive).
      * <br>The provided ID need not be valid!
      *
-     * <p>Alternatively you can use {@link MessageChannel#getHistoryBefore(String, int) MessageChannel.getHistoryBefore(...)}
+     * <p>Alternatively you can use {@link net.dv8tion.jda.api.entities.MessageChannel#getHistoryBefore(String, int) MessageChannel.getHistoryBefore(...)}
      *
      * <p><b>Example</b>
      * <br>{@code MessageHistory history = MessageHistory.getHistoryBefore(channel, messageId).limit(60).complete()}
@@ -428,26 +428,26 @@ public class MessageHistory
      * </code></pre>
      *
      * @param  channel
-     *         The {@link MessageChannel MessageChannel}
+     *         The {@link net.dv8tion.jda.api.entities.MessageChannel MessageChannel}
      * @param  messageId
      *         The pivot ID to use
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *         If any of the provided arguments is {@code null};
      *         Or if the provided messageId contains whitespace
-     * @throws InsufficientPermissionException
+     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If this is a TextChannel and the currently logged in account does not
-     *         have the permission {@link Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}
+     *         have the permission {@link net.dv8tion.jda.api.Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}
      *
-     * @return {@link MessageRetrieveAction MessageRetrieveAction}
+     * @return {@link net.dv8tion.jda.api.entities.MessageHistory.MessageRetrieveAction MessageRetrieveAction}
      *
-     * @see    MessageChannel#getHistoryBefore(String, int)  MessageChannel.getHistoryBefore(String, int)
-     * @see    MessageChannel#getHistoryBefore(long, int)    MessageChannel.getHistoryBefore(long, int)
-     * @see    MessageChannel#getHistoryBefore(Message, int) MessageChannel.getHistoryBefore(Message, int)
+     * @see    net.dv8tion.jda.api.entities.MessageChannel#getHistoryBefore(String, int)  MessageChannel.getHistoryBefore(String, int)
+     * @see    net.dv8tion.jda.api.entities.MessageChannel#getHistoryBefore(long, int)    MessageChannel.getHistoryBefore(long, int)
+     * @see    net.dv8tion.jda.api.entities.MessageChannel#getHistoryBefore(Message, int) MessageChannel.getHistoryBefore(Message, int)
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    public static MessageRetrieveAction getHistoryBefore(@NotNull MessageChannel channel, @NotNull String messageId)
+    public static MessageRetrieveAction getHistoryBefore(@Nonnull MessageChannel channel, @Nonnull String messageId)
     {
         checkArguments(channel, messageId);
         Route.CompiledRoute route = Route.Messages.GET_MESSAGE_HISTORY.compile(channel.getId()).withQueryParams("before", messageId);
@@ -455,11 +455,11 @@ public class MessageHistory
     }
 
     /**
-     * Constructs a {@link MessageHistory MessageHistory} with the initially retrieved history
+     * Constructs a {@link net.dv8tion.jda.api.entities.MessageHistory MessageHistory} with the initially retrieved history
      * of messages sent around the mentioned message ID (inclusive).
      * <br>The provided ID need not be valid!
      *
-     * <p>Alternatively you can use {@link MessageChannel#getHistoryAround(String, int) MessageChannel.getHistoryAround(...)}
+     * <p>Alternatively you can use {@link net.dv8tion.jda.api.entities.MessageChannel#getHistoryAround(String, int) MessageChannel.getHistoryAround(...)}
      *
      * <p><b>Example</b>
      * <br>{@code MessageHistory history = MessageHistory.getHistoryAround(channel, messageId).limit(60).complete()}
@@ -473,26 +473,26 @@ public class MessageHistory
      * </code></pre>
      *
      * @param  channel
-     *         The {@link MessageChannel MessageChannel}
+     *         The {@link net.dv8tion.jda.api.entities.MessageChannel MessageChannel}
      * @param  messageId
      *         The pivot ID to use
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *         If any of the provided arguments is {@code null};
      *         Or if the provided messageId contains whitespace
-     * @throws InsufficientPermissionException
+     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If this is a TextChannel and the currently logged in account does not
-     *         have the permission {@link Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}
+     *         have the permission {@link net.dv8tion.jda.api.Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}
      *
-     * @return {@link MessageRetrieveAction MessageRetrieveAction}
+     * @return {@link net.dv8tion.jda.api.entities.MessageHistory.MessageRetrieveAction MessageRetrieveAction}
      *
-     * @see    MessageChannel#getHistoryAround(String, int)  MessageChannel.getHistoryAround(String, int)
-     * @see    MessageChannel#getHistoryAround(long, int)    MessageChannel.getHistoryAround(long, int)
-     * @see    MessageChannel#getHistoryAround(Message, int) MessageChannel.getHistoryAround(Message, int)
+     * @see    net.dv8tion.jda.api.entities.MessageChannel#getHistoryAround(String, int)  MessageChannel.getHistoryAround(String, int)
+     * @see    net.dv8tion.jda.api.entities.MessageChannel#getHistoryAround(long, int)    MessageChannel.getHistoryAround(long, int)
+     * @see    net.dv8tion.jda.api.entities.MessageChannel#getHistoryAround(Message, int) MessageChannel.getHistoryAround(Message, int)
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    public static MessageRetrieveAction getHistoryAround(@NotNull MessageChannel channel, @NotNull String messageId)
+    public static MessageRetrieveAction getHistoryAround(@Nonnull MessageChannel channel, @Nonnull String messageId)
     {
         checkArguments(channel, messageId);
         Route.CompiledRoute route = Route.Messages.GET_MESSAGE_HISTORY.compile(channel.getId()).withQueryParams("around", messageId);
@@ -500,32 +500,32 @@ public class MessageHistory
     }
 
     /**
-     * Constructs a {@link MessageHistory MessageHistory} with the initially retrieved history
+     * Constructs a {@link net.dv8tion.jda.api.entities.MessageHistory MessageHistory} with the initially retrieved history
      * of messages sent.
      *
-     * <p>Alternatively you can use {@link MessageChannel#getHistoryFromBeginning(int) MessageChannel.getHistoryFromBeginning(...)}
+     * <p>Alternatively you can use {@link net.dv8tion.jda.api.entities.MessageChannel#getHistoryFromBeginning(int) MessageChannel.getHistoryFromBeginning(...)}
      *
      * <h4>Example</h4>
      * <br>{@code MessageHistory history = MessageHistory.getHistoryFromBeginning(channel).limit(60).complete()}
-     * <br>Will return a MessageHistory instance with the first 60 messages of the given {@link MessageChannel MessageChannel}.
+     * <br>Will return a MessageHistory instance with the first 60 messages of the given {@link net.dv8tion.jda.api.entities.MessageChannel MessageChannel}.
 
      *
      * @param  channel
-     *         The {@link MessageChannel MessageChannel}
+     *         The {@link net.dv8tion.jda.api.entities.MessageChannel MessageChannel}
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *         If the provided MessageChannel is {@code null};
-     * @throws InsufficientPermissionException
+     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If this is a TextChannel and the currently logged in account does not
-     *         have the permission {@link Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}
+     *         have the permission {@link net.dv8tion.jda.api.Permission#MESSAGE_HISTORY Permission.MESSAGE_HISTORY}
      *
-     * @return {@link MessageRetrieveAction MessageRetrieveAction}
+     * @return {@link net.dv8tion.jda.api.entities.MessageHistory.MessageRetrieveAction MessageRetrieveAction}
      *
-     * @see    MessageChannel#getHistoryFromBeginning(int)  MessageChannel.getHistoryFromBeginning(int)
+     * @see    net.dv8tion.jda.api.entities.MessageChannel#getHistoryFromBeginning(int)  MessageChannel.getHistoryFromBeginning(int)
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    public static MessageRetrieveAction getHistoryFromBeginning(@NotNull MessageChannel channel)
+    public static MessageRetrieveAction getHistoryFromBeginning(@Nonnull MessageChannel channel)
     {
         return getHistoryAfter(channel, "0");
     }
@@ -566,12 +566,12 @@ public class MessageHistory
          * @param  limit
          *         The limit to use, or {@code null} to use default 50
          *
-         * @throws IllegalArgumentException
+         * @throws java.lang.IllegalArgumentException
          *         If the provided limit is not between 1-100
          *
          * @return The current MessageRetrieveAction for chaining convenience
          */
-        @NotNull
+        @Nonnull
         @CheckReturnValue
         public MessageRetrieveAction limit(@Nullable Integer limit)
         {

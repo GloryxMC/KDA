@@ -17,17 +17,17 @@ package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.channel.unions.IPermissionContainerUnion;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 /**
- * Represents the specific {@link Member Member} or {@link Role Role}
+ * Represents the specific {@link net.dv8tion.jda.api.entities.Member Member} or {@link net.dv8tion.jda.api.entities.Role Role}
  * permission overrides that can be set for channels.
  *
  * @see IPermissionContainer#upsertPermissionOverride(IPermissionHolder)
@@ -41,7 +41,7 @@ public interface PermissionOverride extends ISnowflake
 {
     /**
      * This is the raw binary representation (as a base 10 long) of the permissions <b>allowed</b> by this override.
-     * <br>The long relates to the offsets used by each {@link Permission Permission}.
+     * <br>The long relates to the offsets used by each {@link net.dv8tion.jda.api.Permission Permission}.
      *
      * @return Never-negative long containing the binary representation of the allowed permissions of this override.
      */
@@ -49,7 +49,7 @@ public interface PermissionOverride extends ISnowflake
 
     /**
      * This is the raw binary representation (as a base 10 long) of the permissions <b>not affected</b> by this override.
-     * <br>The long relates to the offsets used by each {@link Permission Permission}.
+     * <br>The long relates to the offsets used by each {@link net.dv8tion.jda.api.Permission Permission}.
      *
      * @return Never-negative long containing the binary representation of the unaffected permissions of this override.
      */
@@ -57,55 +57,55 @@ public interface PermissionOverride extends ISnowflake
 
     /**
      * This is the raw binary representation (as a base 10 long) of the permissions <b>denied</b> by this override.
-     * <br>The long relates to the offsets used by each {@link Permission Permission}.
+     * <br>The long relates to the offsets used by each {@link net.dv8tion.jda.api.Permission Permission}.
      *
      * @return Never-negative long containing the binary representation of the denied permissions of this override.
      */
     long getDeniedRaw();
 
     /**
-     * EnumSet of all {@link Permission Permissions} that are specifically allowed by this override.
+     * EnumSet of all {@link net.dv8tion.jda.api.Permission Permissions} that are specifically allowed by this override.
      * <br><u>Changes to the returned set do not affect this entity directly.</u>
      *
-     * @return Possibly-empty set of allowed {@link Permission Permissions}.
+     * @return Possibly-empty set of allowed {@link net.dv8tion.jda.api.Permission Permissions}.
      */
-    @NotNull
+    @Nonnull
     EnumSet<Permission> getAllowed();
 
     /**
-     * EnumSet of all {@link Permission Permission} that are unaffected by this override.
+     * EnumSet of all {@link net.dv8tion.jda.api.Permission Permission} that are unaffected by this override.
      * <br><u>Changes to the returned set do not affect this entity directly.</u>
      *
-     * @return Possibly-empty set of unaffected {@link Permission Permissions}.
+     * @return Possibly-empty set of unaffected {@link net.dv8tion.jda.api.Permission Permissions}.
      */
-    @NotNull
+    @Nonnull
     EnumSet<Permission> getInherit();
 
     /**
-     * EnumSet of all {@link Permission Permissions} that are denied by this override.
+     * EnumSet of all {@link net.dv8tion.jda.api.Permission Permissions} that are denied by this override.
      * <br><u>Changes to the returned set do not affect this entity directly.</u>
      *
-     * @return Possibly-empty set of denied {@link Permission Permissions}.
+     * @return Possibly-empty set of denied {@link net.dv8tion.jda.api.Permission Permissions}.
      */
-    @NotNull
+    @Nonnull
     EnumSet<Permission> getDenied();
 
     /**
-     * The {@link JDA JDA} instance that this PermissionOverride is related to.
+     * The {@link net.dv8tion.jda.api.JDA JDA} instance that this PermissionOverride is related to.
      *
-     * @return Never-null {@link JDA JDA} instance.
+     * @return Never-null {@link net.dv8tion.jda.api.JDA JDA} instance.
      */
-    @NotNull
+    @Nonnull
     JDA getJDA();
 
     /**
-     * This method will return the {@link IPermissionHolder PermissionHolder} of this PermissionOverride.
-     * It can be used to get the general permissions of that PermissionHolder, no matter if it is a {@link Member Member} or a {@link Role Role}.
+     * This method will return the {@link net.dv8tion.jda.api.entities.IPermissionHolder PermissionHolder} of this PermissionOverride.
+     * It can be used to get the general permissions of that PermissionHolder, no matter if it is a {@link net.dv8tion.jda.api.entities.Member Member} or a {@link net.dv8tion.jda.api.entities.Role Role}.
      * <br>Similar to {@link #getMember()} this will return {@code null} if the member is not cached.
      *
      * <p>To get the concrete Member or Role, use {@link PermissionOverride#getMember()} or {@link PermissionOverride#getRole()}!
      *
-     * @return Possibly-null {@link IPermissionHolder IPermissionHolder} of this PermissionOverride.
+     * @return Possibly-null {@link net.dv8tion.jda.api.entities.IPermissionHolder IPermissionHolder} of this PermissionOverride.
      *
      * @see    PermissionOverride#getRole()
      * @see    PermissionOverride#getMember()
@@ -114,24 +114,24 @@ public interface PermissionOverride extends ISnowflake
     IPermissionHolder getPermissionHolder();
 
     /**
-     * If this PermissionOverride is an override dealing with a {@link Member Member}, then
-     * this method will return the related {@link Member Member} if the member is currently cached.
+     * If this PermissionOverride is an override dealing with a {@link net.dv8tion.jda.api.entities.Member Member}, then
+     * this method will return the related {@link net.dv8tion.jda.api.entities.Member Member} if the member is currently cached.
      * <br>Otherwise, this method returns {@code null}.
      * <br>Basically: if {@link PermissionOverride#isMemberOverride()} returns {@code false} or the member is not cached, this returns {@code null}.
      *
-     * @return Possibly-null related {@link Member Member}.
+     * @return Possibly-null related {@link net.dv8tion.jda.api.entities.Member Member}.
      */
     @Nullable
     Member getMember();
 
     /**
-     * If this PermissionOverride is an override dealing with a {@link Role Role}, then
-     * this method will return the related {@link Role Role}.
+     * If this PermissionOverride is an override dealing with a {@link net.dv8tion.jda.api.entities.Role Role}, then
+     * this method will return the related {@link net.dv8tion.jda.api.entities.Role Role}.
      * <br>Otherwise, this method returns {@code null}.
      * <br>Basically: if {@link PermissionOverride#isRoleOverride()}
      * returns {@code false}, this returns {@code null}.
      *
-     * @return Possibly-null related {@link Role}.
+     * @return Possibly-null related {@link net.dv8tion.jda.api.entities.Role}.
      */
     @Nullable
     Role getRole();
@@ -141,22 +141,22 @@ public interface PermissionOverride extends ISnowflake
      *
      * @return Never-null related {@link IPermissionContainer GuildChannel} that this override is part of.
      */
-    @NotNull
-    IPermissionContainer getChannel();
+    @Nonnull
+    IPermissionContainerUnion getChannel();
 
     /**
-     * The {@link Guild Guild} that the {@link GuildChannel GuildChannel}
-     * returned from {@link PermissionOverride#getChannel()} is a part of.
-     * By inference, this is the {@link Guild Guild} that this PermissionOverride is part of.
+     * The {@link net.dv8tion.jda.api.entities.Guild Guild} that the {@link GuildChannel GuildChannel}
+     * returned from {@link net.dv8tion.jda.api.entities.PermissionOverride#getChannel()} is a part of.
+     * By inference, this is the {@link net.dv8tion.jda.api.entities.Guild Guild} that this PermissionOverride is part of.
      *
-     * @return Never-null related {@link Guild Guild}.
+     * @return Never-null related {@link net.dv8tion.jda.api.entities.Guild Guild}.
      */
-    @NotNull
+    @Nonnull
     Guild getGuild();
 
     /**
      * Used to determine if this PermissionOverride relates to
-     * a specific {@link Member Member}.
+     * a specific {@link net.dv8tion.jda.api.entities.Member Member}.
      *
      * @return True if this override is a user override.
      */
@@ -164,14 +164,14 @@ public interface PermissionOverride extends ISnowflake
 
     /**
      * Used to determine if this PermissionOverride relates to
-     * a specific {@link Role Role}.
+     * a specific {@link net.dv8tion.jda.api.entities.Role Role}.
      *
      * @return True if this override is a role override.
      */
     boolean isRoleOverride();
 
     /**
-     * Returns the {@link PermissionOverrideAction PermissionOverrideAction} to modify this PermissionOverride.
+     * Returns the {@link net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction PermissionOverrideAction} to modify this PermissionOverride.
      * <br>In the PermissionOverrideAction you can modify the permissions of the override.
      * You modify multiple fields in one request by chaining setters before calling {@link net.dv8tion.jda.api.requests.RestAction#queue() RestAction.queue()}.
      *
@@ -179,11 +179,11 @@ public interface PermissionOverride extends ISnowflake
      * This getter is not thread-safe and would require guards by the user.
      *
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
-     *         If the currently logged in account does not have {@link Permission#MANAGE_PERMISSIONS Permission.MANAGE_PERMISSIONS}
+     *         If the currently logged in account does not have {@link net.dv8tion.jda.api.Permission#MANAGE_PERMISSIONS Permission.MANAGE_PERMISSIONS}
      *
      * @return The PermissionOverrideAction of this override.
      */
-    @NotNull
+    @Nonnull
     PermissionOverrideAction getManager();
 
     /**
@@ -202,11 +202,11 @@ public interface PermissionOverride extends ISnowflake
      * </ul>
      *
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
-     *         if we don't have the permission to {@link Permission#MANAGE_CHANNEL MANAGE_CHANNEL}
+     *         if we don't have the permission to {@link net.dv8tion.jda.api.Permission#MANAGE_CHANNEL MANAGE_CHANNEL}
      *
-     * @return {@link AuditableRestAction AuditableRestAction}
+     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     AuditableRestAction<Void> delete();
 }

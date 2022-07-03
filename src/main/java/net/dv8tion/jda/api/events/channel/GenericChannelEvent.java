@@ -21,15 +21,17 @@ import net.dv8tion.jda.api.entities.Channel;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildChannel;
+import net.dv8tion.jda.api.entities.channel.unions.ChannelUnion;
 import net.dv8tion.jda.api.events.Event;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 //TODO-v5: Docs
 public class GenericChannelEvent extends Event
 {
     protected final Channel channel;
 
-    public GenericChannelEvent(@NotNull JDA api, long responseNumber, Channel channel)
+    public GenericChannelEvent(@Nonnull JDA api, long responseNumber, Channel channel)
     {
         super(api, responseNumber);
 
@@ -47,7 +49,7 @@ public class GenericChannelEvent extends Event
         return getChannelType().isGuild();
     }
 
-    @NotNull
+    @Nonnull
     public ChannelType getChannelType()
     {
         return this.channel.getType();
@@ -58,10 +60,10 @@ public class GenericChannelEvent extends Event
         return getChannelType() == type;
     }
 
-    @NotNull
-    public Channel getChannel()
+    @Nonnull
+    public ChannelUnion getChannel()
     {
-        return this.channel;
+        return (ChannelUnion) this.channel;
     }
 
     /**
@@ -77,7 +79,7 @@ public class GenericChannelEvent extends Event
      * @see    #isFromType(ChannelType)
      * @see    #getChannelType()
      */
-    @NotNull
+    @Nonnull
     public Guild getGuild()
     {
         if (!isFromGuild())

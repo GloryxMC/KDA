@@ -38,7 +38,7 @@ import org.jetbrains.annotations.NotNull;
  * @see   JDA#getVoiceChannelsByName(String, boolean)
  * @see   JDA#getVoiceChannelById(long)
  */
-public interface VoiceChannel extends AudioChannel, ICategorizableChannel, ICopyableChannel, IPermissionContainer, IPositionableChannel, IInviteContainer
+public interface VoiceChannel extends AudioChannel, StandardGuildChannel
 {
     /**
      * The maximum amount of {@link Member Members} that can be in this

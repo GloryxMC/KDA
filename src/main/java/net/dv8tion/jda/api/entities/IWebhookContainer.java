@@ -1,53 +1,38 @@
+/*
+ * Copyright 2015 Austin Keener, Michael Ritter, Florian Spieß, and the JDA contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package net.dv8tion.jda.api.entities;
 
-import net.dv8tion.jda.api.managers.channel.middleman.BaseGuildMessageChannelManager;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
-import net.dv8tion.jda.api.requests.restaction.ChannelAction;
 import net.dv8tion.jda.api.requests.restaction.WebhookAction;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
-
+import javax.annotation.Nonnull;
 import java.util.List;
 
-
 /**
- * Represents a standard {@link Guild Guild} {@link MessageChannel MessageChannel}.
- * <br>These are the "<i>normal</i>" message channels that are present in the channel sidebar.
- * These are <b>not</b> {@link ThreadChannel ThreadChannels}.
+ * Represents a {@link GuildChannel} that is capable of utilizing <a href="https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks" target="_blank">webhooks</a>.
  *
- * @see GuildMessageChannel
- * @see TextChannel
- * @see NewsChannel
+ * Webhooks can be used to integrate third-party systems into Discord by way of sending information via messages.
  */
-public interface BaseGuildMessageChannel extends GuildMessageChannel, IThreadContainer, GuildChannel, ICategorizableChannel, ICopyableChannel, IPermissionContainer, IMemberContainer, IInviteContainer, IPositionableChannel
+public interface IWebhookContainer extends GuildChannel
 {
-    //TODO-v5: Docs
-    @Override
-    @NotNull
-    BaseGuildMessageChannelManager<?, ?> getManager();
-
-    /**
-     * The topic set for this TextChannel.
-     * <br>If no topic has been set, this returns null.
-     *
-     * @return Possibly-null String containing the topic of this TextChannel.
-     */
-    @Nullable
-    String getTopic();
-
-    /**
-     * Whether or not this channel is considered as "NSFW" (Not-Safe-For-Work)
-     *
-     * @return True, If this TextChannel is considered NSFW by the official Discord Client
-     */
-    boolean isNSFW();
-
-    /**
-     * Retrieves the {@link Webhook Webhooks} attached to this TextChannel.
+     /**
+     * Retrieves the {@link net.dv8tion.jda.api.entities.Webhook Webhooks} attached to this channel.
      *
      * <p>Possible ErrorResponses include:
      * <ul>
@@ -58,18 +43,18 @@ public interface BaseGuildMessageChannel extends GuildMessageChannel, IThreadCon
      *     <br>if we were removed from the guild</li>
      * </ul>
      *
-     * @return {@link RestAction} - Type: List{@literal <}{@link Webhook Webhook}{@literal >}
+     * @return {@link net.dv8tion.jda.api.requests.RestAction} - Type: List{@literal <}{@link net.dv8tion.jda.api.entities.Webhook Webhook}{@literal >}
      *         <br>Retrieved an immutable list of Webhooks attached to this channel
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     RestAction<List<Webhook>> retrieveWebhooks();
 
     /**
-     * Creates a new {@link Webhook Webhook}.
+     * Creates a new {@link net.dv8tion.jda.api.entities.Webhook Webhook}.
      *
      * <p>Possible {@link net.dv8tion.jda.api.requests.ErrorResponse ErrorResponses} caused by
-     * the returned {@link RestAction RestAction} include the following:
+     * the returned {@link net.dv8tion.jda.api.requests.RestAction RestAction} include the following:
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
      *     <br>The webhook could not be created due to a permission discrepancy</li>
@@ -93,18 +78,18 @@ public interface BaseGuildMessageChannel extends GuildMessageChannel, IThreadCon
      * @return A specific {@link WebhookAction WebhookAction}
      *         <br>This action allows to set fields for the new webhook before creating it
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    WebhookAction createWebhook(@NotNull String name);
+    WebhookAction createWebhook(@Nonnull String name);
 
     /**
-     * Deletes a {@link Webhook Webhook} attached to this channel
+     * Deletes a {@link net.dv8tion.jda.api.entities.Webhook Webhook} attached to this channel
      * by the {@code id} specified.
      *
      * <p>Possible ErrorResponses include:
      * <ul>
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_WEBHOOK}
-     *     <br>The provided id does not refer to a WebHook present in this TextChannel, either due
+     *     <br>The provided id does not refer to a WebHook present in this channel, either due
      *         to it not existing or having already been deleted.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_CHANNEL UNKNOWN_CHANNEL}
@@ -121,25 +106,15 @@ public interface BaseGuildMessageChannel extends GuildMessageChannel, IThreadCon
      * @param  id
      *         The not-null id for the target Webhook.
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *         If the provided {@code id} is {@code null} or empty.
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If the currently logged in account does not have
      *         {@link net.dv8tion.jda.api.Permission#MANAGE_WEBHOOKS Permission.MANAGE_WEBHOOKS} in this channel.
      *
-     * @return {@link AuditableRestAction AuditableRestAction}
+     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    AuditableRestAction<Void> deleteWebhookById(@NotNull String id);
-
-    @Override
-    @NotNull
-    @CheckReturnValue
-    ChannelAction<? extends BaseGuildMessageChannel> createCopy(@NotNull Guild guild);
-
-    @Override
-    @NotNull
-    @CheckReturnValue
-    ChannelAction<? extends BaseGuildMessageChannel> createCopy();
+    AuditableRestAction<Void> deleteWebhookById(@Nonnull String id);
 }

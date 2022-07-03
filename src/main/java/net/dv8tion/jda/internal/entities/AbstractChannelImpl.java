@@ -17,9 +17,12 @@
 package net.dv8tion.jda.internal.entities;
 
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.internal.JDAImpl;
 import net.dv8tion.jda.internal.entities.mixin.channel.middleman.ChannelMixin;
-import org.jetbrains.annotations.NotNull;
+import net.dv8tion.jda.internal.utils.Helpers;
+
+import javax.annotation.Nonnull;
 
 public abstract class AbstractChannelImpl<T extends AbstractChannelImpl<T>> implements ChannelMixin<T>
 {
@@ -34,7 +37,7 @@ public abstract class AbstractChannelImpl<T extends AbstractChannelImpl<T>> impl
         this.api = (JDAImpl) api;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public JDA getJDA()
     {
@@ -47,7 +50,7 @@ public abstract class AbstractChannelImpl<T extends AbstractChannelImpl<T>> impl
         return id;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getName()
     {
@@ -60,5 +63,91 @@ public abstract class AbstractChannelImpl<T extends AbstractChannelImpl<T>> impl
     {
         this.name = name;
         return (T) this;
+    }
+
+    // -- Union Hooks --
+
+    @Nonnull
+    public PrivateChannel asPrivateChannel()
+    {
+        return Helpers.safeChannelCast(this, PrivateChannel.class);
+    }
+
+    @Nonnull
+    public TextChannel asTextChannel()
+    {
+        return Helpers.safeChannelCast(this, TextChannel.class);
+    }
+
+    @Nonnull
+    public NewsChannel asNewsChannel()
+    {
+        return Helpers.safeChannelCast(this, NewsChannel.class);
+    }
+
+    @Nonnull
+    public VoiceChannel asVoiceChannel()
+    {
+        return Helpers.safeChannelCast(this, VoiceChannel.class);
+    }
+
+    @Nonnull
+    public StageChannel asStageChannel()
+    {
+        return Helpers.safeChannelCast(this, StageChannel.class);
+    }
+
+    @Nonnull
+    public ThreadChannel asThreadChannel()
+    {
+        return Helpers.safeChannelCast(this, ThreadChannel.class);
+    }
+
+    @Nonnull
+    public Category asCategory()
+    {
+        return Helpers.safeChannelCast(this, Category.class);
+    }
+
+    @Nonnull
+    public MessageChannel asMessageChannel()
+    {
+        return Helpers.safeChannelCast(this, MessageChannel.class);
+    }
+
+    @Nonnull
+    public AudioChannel asAudioChannel()
+    {
+        return Helpers.safeChannelCast(this, AudioChannel.class);
+    }
+
+    @Nonnull
+    public IThreadContainer asThreadContainer()
+    {
+        return Helpers.safeChannelCast(this, IThreadContainer.class);
+    }
+
+    @Nonnull
+    public GuildChannel asGuildChannel()
+    {
+        return Helpers.safeChannelCast(this, GuildChannel.class);
+    }
+
+    @Nonnull
+    public GuildMessageChannel asGuildMessageChannel()
+    {
+        return Helpers.safeChannelCast(this, GuildMessageChannel.class);
+    }
+
+    @Nonnull
+    public StandardGuildChannel asStandardGuildChannel()
+    {
+        return Helpers.safeChannelCast(this, StandardGuildChannel.class);
+    }
+
+    @Nonnull
+    public StandardGuildMessageChannel asStandardGuildMessageChannel()
+    {
+        return Helpers.safeChannelCast(this, StandardGuildMessageChannel.class);
     }
 }

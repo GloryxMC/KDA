@@ -16,12 +16,15 @@
 
 package net.dv8tion.jda.api.managers;
 
-import net.dv8tion.jda.api.entities.*;
-import org.jetbrains.annotations.NotNull;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Icon;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.Webhook;
+import net.dv8tion.jda.api.entities.channel.unions.IWebhookContainerUnion;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Manager providing functionality to update one or more fields for a {@link net.dv8tion.jda.api.entities.Webhook Webhook}.
@@ -65,7 +68,7 @@ public interface WebhookManager extends Manager<WebhookManager>
      *
      * @return WebhookManager for chaining convenience
      */
-    @NotNull
+    @Nonnull
     @Override
     WebhookManager reset(long fields);
 
@@ -86,7 +89,7 @@ public interface WebhookManager extends Manager<WebhookManager>
      *
      * @return WebhookManager for chaining convenience
      */
-    @NotNull
+    @Nonnull
     @Override
     WebhookManager reset(long... fields);
 
@@ -96,18 +99,18 @@ public interface WebhookManager extends Manager<WebhookManager>
      *
      * @return The target {@link net.dv8tion.jda.api.entities.Webhook Webhook}
      */
-    @NotNull
+    @Nonnull
     Webhook getWebhook();
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.BaseGuildMessageChannel BaseGuildMessageChannel} this Manager's
+     * The {@link net.dv8tion.jda.api.entities.IWebhookContainer channel} that this Manager's
      * {@link net.dv8tion.jda.api.entities.Webhook Webhook} is in.
      * <br>This is logically the same as calling {@code getWebhook().getChannel()}
      *
-     * @return The parent {@link net.dv8tion.jda.api.entities.BaseGuildMessageChannel BaseGuildMessageChannel}
+     * @return The parent {@link net.dv8tion.jda.api.entities.IWebhookContainer} instance.
      */
-    @NotNull
-    default BaseGuildMessageChannel getChannel()
+    @Nonnull
+    default IWebhookContainerUnion getChannel()
     {
         return getWebhook().getChannel();
     }
@@ -119,7 +122,7 @@ public interface WebhookManager extends Manager<WebhookManager>
      *
      * @return The parent {@link net.dv8tion.jda.api.entities.Guild Guild}
      */
-    @NotNull
+    @Nonnull
     default Guild getGuild()
     {
         return getWebhook().getGuild();
@@ -138,9 +141,9 @@ public interface WebhookManager extends Manager<WebhookManager>
      *
      * @return WebhookManager for chaining convenience
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    WebhookManager setName(@NotNull String name);
+    WebhookManager setName(@Nonnull String name);
 
     /**
      * Sets the <b><u>default avatar</u></b> of the selected {@link net.dv8tion.jda.api.entities.Webhook Webhook}.
@@ -152,7 +155,7 @@ public interface WebhookManager extends Manager<WebhookManager>
      *
      * @return WebhookManager for chaining convenience
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     WebhookManager setAvatar(@Nullable Icon icon);
 
@@ -173,7 +176,7 @@ public interface WebhookManager extends Manager<WebhookManager>
      *
      * @return WebhookManager for chaining convenience
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    WebhookManager setChannel(@NotNull TextChannel channel);
+    WebhookManager setChannel(@Nonnull TextChannel channel);
 }

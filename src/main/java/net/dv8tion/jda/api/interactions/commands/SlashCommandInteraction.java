@@ -16,23 +16,24 @@
 
 package net.dv8tion.jda.api.interactions.commands;
 
-import net.dv8tion.jda.api.entities.GuildMessageChannel;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import org.jetbrains.annotations.NotNull;
+import net.dv8tion.jda.api.entities.channel.unions.GuildMessageChannelUnion;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
+
+import javax.annotation.Nonnull;
 
 /**
  * Interaction with a slash command
  */
 public interface SlashCommandInteraction extends CommandInteraction
 {
-    @NotNull
+    @Nonnull
     @Override
-    MessageChannel getChannel();
+    MessageChannelUnion getChannel();
 
-    @NotNull
+    @Nonnull
     @Override
-    default GuildMessageChannel getGuildChannel()
+    default GuildMessageChannelUnion getGuildChannel()
     {
-        return (GuildMessageChannel) CommandInteraction.super.getGuildChannel();
+        return (GuildMessageChannelUnion) CommandInteraction.super.getGuildChannel();
     }
 }

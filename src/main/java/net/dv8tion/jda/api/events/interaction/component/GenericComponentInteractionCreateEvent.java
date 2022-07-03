@@ -18,7 +18,7 @@ package net.dv8tion.jda.api.events.interaction.component;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.events.interaction.GenericInteractionCreateEvent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.ActionComponent;
@@ -28,7 +28,8 @@ import net.dv8tion.jda.api.interactions.components.Modal;
 import net.dv8tion.jda.api.requests.restaction.interactions.MessageEditCallbackAction;
 import net.dv8tion.jda.api.requests.restaction.interactions.ModalCallbackAction;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Indicates that a {@link ComponentInteraction} was created in a channel.
@@ -42,41 +43,41 @@ public class GenericComponentInteractionCreateEvent extends GenericInteractionCr
 {
     private final ComponentInteraction interaction;
 
-    public GenericComponentInteractionCreateEvent(@NotNull JDA api, long responseNumber, @NotNull ComponentInteraction interaction)
+    public GenericComponentInteractionCreateEvent(@Nonnull JDA api, long responseNumber, @Nonnull ComponentInteraction interaction)
     {
         super(api, responseNumber, interaction);
         this.interaction = interaction;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public ComponentInteraction getInteraction()
     {
         return interaction;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public MessageChannel getChannel()
+    public MessageChannelUnion getChannel()
     {
-        return interaction.getChannel();
+        return (MessageChannelUnion) interaction.getChannel();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getComponentId()
     {
         return interaction.getComponentId();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public ActionComponent getComponent()
     {
         return interaction.getComponent();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public Message getMessage()
     {
@@ -89,37 +90,37 @@ public class GenericComponentInteractionCreateEvent extends GenericInteractionCr
         return interaction.getMessageIdLong();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public Component.Type getComponentType()
     {
         return interaction.getComponentType();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public MessageEditCallbackAction deferEdit()
     {
         return interaction.deferEdit();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public InteractionHook getHook()
     {
         return interaction.getHook();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public ReplyCallbackAction deferReply()
     {
         return interaction.deferReply();
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public ModalCallbackAction replyModal(@NotNull Modal modal)
+    public ModalCallbackAction replyModal(@Nonnull Modal modal)
     {
         return interaction.replyModal(modal);
     }

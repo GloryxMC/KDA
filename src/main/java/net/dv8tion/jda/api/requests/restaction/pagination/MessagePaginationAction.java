@@ -19,7 +19,9 @@ package net.dv8tion.jda.api.requests.restaction.pagination;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
-import org.jetbrains.annotations.NotNull;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
+
+import javax.annotation.Nonnull;
 
 /**
  * {@link PaginationAction PaginationAction} that paginates the message history endpoint.
@@ -65,7 +67,7 @@ public interface MessagePaginationAction extends PaginationAction<Message, Messa
      *
      * @return {@link net.dv8tion.jda.api.entities.ChannelType ChannelType}
      */
-    @NotNull
+    @Nonnull
     default ChannelType getType()
     {
         return getChannel().getType();
@@ -76,6 +78,6 @@ public interface MessagePaginationAction extends PaginationAction<Message, Messa
      *
      * @return The MessageChannel instance
      */
-    @NotNull
-    MessageChannel getChannel();
+    @Nonnull
+    MessageChannelUnion getChannel();
 }

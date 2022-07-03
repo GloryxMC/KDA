@@ -16,69 +16,40 @@
 
 package net.dv8tion.jda.internal.entities;
 
-import gnu.trove.map.TLongObjectMap;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.channel.unions.DefaultGuildChannelUnion;
 import net.dv8tion.jda.api.managers.channel.concrete.NewsChannelManager;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.ChannelAction;
-import net.dv8tion.jda.api.utils.MiscUtil;
 import net.dv8tion.jda.api.utils.data.DataObject;
-import net.dv8tion.jda.internal.entities.mixin.channel.middleman.BaseGuildMessageChannelMixin;
+import net.dv8tion.jda.internal.managers.channel.concrete.NewsChannelManagerImpl;
 import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
-import net.dv8tion.jda.internal.managers.channel.concrete.NewsChannelManagerImpl;
 import net.dv8tion.jda.internal.utils.Checks;
-import org.jetbrains.annotations.NotNull;
 
-import org.jetbrains.annotations.Nullable;
-
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NewsChannelImpl extends AbstractGuildChannelImpl<NewsChannelImpl> implements NewsChannel, BaseGuildMessageChannelMixin<NewsChannelImpl>
+public class NewsChannelImpl extends AbstractStandardGuildMessageChannelImpl<NewsChannelImpl>
+        implements NewsChannel,
+        DefaultGuildChannelUnion
 {
-    private final TLongObjectMap<PermissionOverride> overrides = MiscUtil.newLongMap();
-
-    private String topic;
-    private long parentCategoryId;
-    private long latestMessageId;
-    private int position;
-    private boolean nsfw;
-
     public NewsChannelImpl(long id, GuildImpl guild)
     {
         super(id, guild);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public ChannelType getType()
     {
         return ChannelType.NEWS;
     }
-    
-    @Nullable
-    @Override
-    public String getTopic()
-    {
-        return topic;
-    }
 
-    @Override
-    public boolean isNSFW()
-    {
-        return nsfw;
-    }
-
-    @Override
-    public long getParentCategoryIdLong()
-    {
-        return parentCategoryId;
-    }
-
-    @NotNull
+    @Nonnull
     @Override
     public List<Member> getMembers()
     {
@@ -87,21 +58,9 @@ public class NewsChannelImpl extends AbstractGuildChannelImpl<NewsChannelImpl> i
             .collect(Collectors.toList()));
     }
 
+    @Nonnull
     @Override
-    public int getPositionRaw()
-    {
-        return position;
-    }
-
-    @Override
-    public long getLatestMessageIdLong()
-    {
-        return latestMessageId;
-    }
-
-    @NotNull
-    @Override
-    public RestAction<Webhook.WebhookReference> follow(@NotNull String targetChannelId)
+    public RestAction<Webhook.WebhookReference> follow(@Nonnull String targetChannelId)
     {
         Checks.notNull(targetChannelId, "Target Channel ID");
 
@@ -113,9 +72,9 @@ public class NewsChannelImpl extends AbstractGuildChannelImpl<NewsChannelImpl> i
         });
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public ChannelAction<NewsChannel> createCopy(@NotNull Guild guild)
+    public ChannelAction<NewsChannel> createCopy(@Nonnull Guild guild)
     {
         Checks.notNull(guild, "Guild");
         ChannelAction<NewsChannel> action = guild.createNewsChannel(name).setNSFW(nsfw).setTopic(topic);
@@ -135,53 +94,18 @@ public class NewsChannelImpl extends AbstractGuildChannelImpl<NewsChannelImpl> i
         return action;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public NewsChannelManager getManager()
     {
         return new NewsChannelManagerImpl(this);
     }
 
+    // -- Abstract hooks --
     @Override
-    public TLongObjectMap<PermissionOverride> getPermissionOverrideMap()
-    {
-        return overrides;
-    }
-
-    @Override
-    public NewsChannelImpl setParentCategory(long parentCategoryId)
-    {
-        this.parentCategoryId = parentCategoryId;
-        return this;
-    }
-
-    @Override
-    public NewsChannelImpl setPosition(int position)
+    protected void onPositionChange()
     {
         getGuild().getNewsChannelView().clearCachedLists();
-        this.position = position;
-        return this;
-    }
-
-    @Override
-    public NewsChannelImpl setTopic(String topic)
-    {
-        this.topic = topic;
-        return this;
-    }
-
-    @Override
-    public NewsChannelImpl setNSFW(boolean nsfw)
-    {
-        this.nsfw = nsfw;
-        return this;
-    }
-
-    @Override
-    public NewsChannelImpl setLatestMessageIdLong(long latestMessageId)
-    {
-        this.latestMessageId = latestMessageId;
-        return this;
     }
 
     // -- Object Overrides --

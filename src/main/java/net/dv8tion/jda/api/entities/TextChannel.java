@@ -22,7 +22,7 @@ import net.dv8tion.jda.api.requests.restaction.ChannelAction;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Represents a standard Discord Text GuildChannel.
+ * Represents a Discord Text GuildChannel.
  * <br>Adds additional functionality and information for text channels in Discord,
  * on top of the common functionality present in other guild message channels.
  *
@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @see GuildChannel
  * @see MessageChannel
- * @see BaseGuildMessageChannel
+ * @see StandardGuildMessageChannel
  *
  * @see   Guild#getTextChannelCache()
  * @see   Guild#getTextChannels()
@@ -42,7 +42,7 @@ import org.jetbrains.annotations.NotNull;
  * @see   JDA#getTextChannelsByName(String, boolean)
  * @see   JDA#getTextChannelById(long)
  */
-public interface TextChannel extends BaseGuildMessageChannel
+public interface TextChannel extends StandardGuildMessageChannel
 {
     /**
      * The maximum duration of slowmode in seconds

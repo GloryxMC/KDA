@@ -18,10 +18,10 @@ package net.dv8tion.jda.api.managers.channel.concrete;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
-import net.dv8tion.jda.api.managers.channel.middleman.BaseGuildMessageChannelManager;
-import org.jetbrains.annotations.NotNull;
+import net.dv8tion.jda.api.managers.channel.middleman.StandardGuildMessageChannelManager;
 
 import javax.annotation.CheckReturnValue;
+import javax.annotation.Nonnull;
 
 /**
  * Manager providing functionality common for all {@link TextChannel TextChannels}.
@@ -38,7 +38,7 @@ import javax.annotation.CheckReturnValue;
  *
  * @see TextChannel#getManager()
  */
-public interface TextChannelManager extends BaseGuildMessageChannelManager<TextChannel, TextChannelManager>
+public interface TextChannelManager extends StandardGuildMessageChannelManager<TextChannel, TextChannelManager>
 {
     /**
      * Sets the <b><u>slowmode</u></b> of the selected {@link TextChannel TextChannel}.
@@ -61,7 +61,7 @@ public interface TextChannelManager extends BaseGuildMessageChannelManager<TextC
      *
      * @return ChannelManager for chaining convenience
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     TextChannelManager setSlowmode(int slowmode);
 
@@ -107,7 +107,7 @@ public interface TextChannelManager extends BaseGuildMessageChannelManager<TextC
      *
      * @see    Guild#getFeatures()
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    TextChannelManager setType(@NotNull ChannelType type);
+    TextChannelManager setType(@Nonnull ChannelType type);
 }

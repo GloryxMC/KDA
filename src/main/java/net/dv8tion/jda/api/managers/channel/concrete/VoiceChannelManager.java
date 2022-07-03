@@ -19,18 +19,16 @@ package net.dv8tion.jda.api.managers.channel.concrete;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
-import net.dv8tion.jda.api.managers.channel.attribute.ICategorizableChannelManager;
-import net.dv8tion.jda.api.managers.channel.attribute.IPositionableChannelManager;
 import net.dv8tion.jda.api.managers.channel.middleman.AudioChannelManager;
-import org.jetbrains.annotations.NotNull;
+import net.dv8tion.jda.api.managers.channel.middleman.StandardGuildChannelManager;
 
 import javax.annotation.CheckReturnValue;
+import javax.annotation.Nonnull;
 
 //TODO-v5: Docs
 public interface VoiceChannelManager extends
         AudioChannelManager<VoiceChannel, VoiceChannelManager>,
-        ICategorizableChannelManager<VoiceChannel, VoiceChannelManager>,
-        IPositionableChannelManager<VoiceChannel, VoiceChannelManager>
+        StandardGuildChannelManager<VoiceChannel, VoiceChannelManager>
 {
     /**
      * Sets the <b><u>user-limit</u></b> of the selected {@link VoiceChannel VoiceChannel}.
@@ -49,7 +47,7 @@ public interface VoiceChannelManager extends
      *
      * @return ChannelManager for chaining convenience
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     VoiceChannelManager setUserLimit(int userLimit);
 }

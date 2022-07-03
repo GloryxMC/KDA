@@ -18,8 +18,10 @@ package net.dv8tion.jda.api.events.guild.invite;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.channel.unions.GuildChannelUnion;
 import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Indicates that an {@link Invite} was created or deleted in a {@link Guild}.
@@ -37,7 +39,7 @@ public class GenericGuildInviteEvent extends GenericGuildEvent
     private final String code;
     private final GuildChannel channel;
 
-    public GenericGuildInviteEvent(@NotNull JDA api, long responseNumber, @NotNull String code, @NotNull GuildChannel channel)
+    public GenericGuildInviteEvent(@Nonnull JDA api, long responseNumber, @Nonnull String code, @Nonnull GuildChannel channel)
     {
         super(api, responseNumber, channel.getGuild());
         this.code = code;
@@ -50,7 +52,7 @@ public class GenericGuildInviteEvent extends GenericGuildEvent
      *
      * @return The invite code
      */
-    @NotNull
+    @Nonnull
     public String getCode()
     {
         return code;
@@ -62,7 +64,7 @@ public class GenericGuildInviteEvent extends GenericGuildEvent
      *
      * @return The invite url
      */
-    @NotNull
+    @Nonnull
     public String getUrl()
     {
         return "https://discord.gg/" + code;
@@ -73,10 +75,10 @@ public class GenericGuildInviteEvent extends GenericGuildEvent
      *
      * @return {@link GuildChannel}
      */
-    @NotNull
-    public GuildChannel getChannel()
+    @Nonnull
+    public GuildChannelUnion getChannel()
     {
-        return channel;
+        return (GuildChannelUnion) channel;
     }
 
     /**
@@ -84,104 +86,9 @@ public class GenericGuildInviteEvent extends GenericGuildEvent
      *
      * @return {@link ChannelType}
      */
-    @NotNull
+    @Nonnull
     public ChannelType getChannelType()
     {
         return channel.getType();
-    }
-
-    /**
-     * The {@link TextChannel} this invite points to.
-     *
-     * @throws IllegalStateException
-     *         If this did not happen in a channel of type {@link ChannelType#TEXT ChannelType.TEXT}
-     *
-     * @return {@link TextChannel}
-     *
-     * @see    #getChannel()
-     * @see    #getChannelType()
-     */
-    @NotNull
-    public TextChannel getTextChannel()
-    {
-        if (getChannelType() != ChannelType.TEXT)
-            throw new IllegalStateException("The channel is not of type TEXT");
-        return (TextChannel) getChannel();
-    }
-
-    /**
-     * The {@link NewsChannel} this invite points to.
-     *
-     * @throws IllegalStateException
-     *         If this did not happen in a channel of type {@link ChannelType#NEWS ChannelType.NEWS}
-     *
-     * @return {@link NewsChannel}
-     *
-     * @see    #getChannel()
-     * @see    #getChannelType()
-     */
-    @NotNull
-    public NewsChannel getNewsChannel()
-    {
-        if (getChannelType() != ChannelType.NEWS)
-            throw new IllegalStateException("The channel is not of type NEWS");
-        return (NewsChannel) getChannel();
-    }
-
-    /**
-     * The {@link VoiceChannel} this invite points to.
-     *
-     * @throws IllegalStateException
-     *         If this did not happen in a voice channel or stage channel
-     *
-     * @return {@link VoiceChannel}
-     *
-     * @see    #getChannel()
-     * @see    #getChannelType()
-     */
-    @NotNull
-    public VoiceChannel getVoiceChannel()
-    {
-        if (!(channel instanceof VoiceChannel))
-            throw new IllegalStateException("The channel is not of type VOICE or STAGE");
-        return (VoiceChannel) getChannel();
-    }
-
-    /**
-     * The {@link StageChannel} this invite points to.
-     *
-     * @throws IllegalStateException
-     *         If this did not happen in a channel of type {@link ChannelType#STAGE ChannelType.STAGE}
-     *
-     * @return {@link StageChannel}
-     *
-     * @see    #getChannel()
-     * @see    #getChannelType()
-     */
-    @NotNull
-    public StageChannel getStageChannel()
-    {
-        if (getChannelType() != ChannelType.STAGE)
-            throw new IllegalStateException("The channel is not of type STAGE");
-        return (StageChannel) getChannel();
-    }
-
-    /**
-     * The {@link Category} this invite points to.
-     *
-     * @throws IllegalStateException
-     *         If this did not happen in a channel of type {@link ChannelType#CATEGORY ChannelType.CATEGORY}
-     *
-     * @return {@link Category}
-     *
-     * @see    #getChannel()
-     * @see    #getChannelType()
-     */
-    @NotNull
-    public Category getCategory()
-    {
-        if (getChannelType() != ChannelType.CATEGORY)
-            throw new IllegalStateException("The channel is not of type CATEGORY");
-        return (Category) getChannel();
     }
 }

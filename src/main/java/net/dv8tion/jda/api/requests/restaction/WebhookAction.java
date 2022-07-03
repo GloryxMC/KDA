@@ -16,15 +16,14 @@
 
 package net.dv8tion.jda.api.requests.restaction;
 
-import net.dv8tion.jda.api.entities.BaseGuildMessageChannel;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Icon;
 import net.dv8tion.jda.api.entities.Webhook;
-import org.jetbrains.annotations.NotNull;
+import net.dv8tion.jda.api.entities.channel.unions.IWebhookContainerUnion;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
 
@@ -36,32 +35,32 @@ import java.util.function.BooleanSupplier;
  */
 public interface WebhookAction extends AuditableRestAction<Webhook>
 {
-    @NotNull
+    @Nonnull
     @Override
     WebhookAction setCheck(@Nullable BooleanSupplier checks);
 
-    @NotNull
+    @Nonnull
     @Override
-    WebhookAction timeout(long timeout, @NotNull TimeUnit unit);
+    WebhookAction timeout(long timeout, @Nonnull TimeUnit unit);
 
-    @NotNull
+    @Nonnull
     @Override
     WebhookAction deadline(long timestamp);
 
     /**
-     * The {@link net.dv8tion.jda.api.entities.BaseGuildMessageChannel BaseGuildMessageChannel} to create this webhook in.
+     * The {@link net.dv8tion.jda.api.entities.IWebhookContainer channel} to create this webhook in.
      *
      * @return The channel
      */
-    @NotNull
-    BaseGuildMessageChannel getChannel();
+    @Nonnull
+    IWebhookContainerUnion getChannel();
 
     /**
      * The {@link net.dv8tion.jda.api.entities.Guild Guild} to create this webhook in
      *
      * @return The guild
      */
-    @NotNull
+    @Nonnull
     default Guild getGuild()
     {
         return getChannel().getGuild();
@@ -78,9 +77,9 @@ public interface WebhookAction extends AuditableRestAction<Webhook>
      *
      * @return The current WebhookAction for chaining convenience.
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    WebhookAction setName(@NotNull String name);
+    WebhookAction setName(@Nonnull String name);
 
     /**
      * Sets the <b>Avatar</b> for the custom Webhook User
@@ -91,7 +90,7 @@ public interface WebhookAction extends AuditableRestAction<Webhook>
      *
      * @return The current WebhookAction for chaining convenience.
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     WebhookAction setAvatar(@Nullable Icon icon);
 }

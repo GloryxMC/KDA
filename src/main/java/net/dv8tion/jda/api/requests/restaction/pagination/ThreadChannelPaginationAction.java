@@ -19,8 +19,9 @@ package net.dv8tion.jda.api.requests.restaction.pagination;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.IThreadContainer;
 import net.dv8tion.jda.api.entities.ThreadChannel;
+import net.dv8tion.jda.api.entities.channel.unions.IThreadContainerUnion;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * {@link PaginationAction PaginationAction} that paginates the thread members endpoint.
@@ -59,15 +60,15 @@ import org.jetbrains.annotations.NotNull;
 public interface ThreadChannelPaginationAction extends PaginationAction<ThreadChannel, ThreadChannelPaginationAction>
 {
     //TODO-v5: Docs
-    @NotNull
-    IThreadContainer getChannel();
+    @Nonnull
+    IThreadContainerUnion getChannel();
 
     /**
      * The current target {@link net.dv8tion.jda.api.entities.Guild Guild} for this ThreadChannelPaginationAction.
      *
      * @return The never-null target Guild
      */
-    @NotNull
+    @Nonnull
     default Guild getGuild()
     {
         return getChannel().getGuild();

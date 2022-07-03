@@ -16,19 +16,19 @@
 
 package net.dv8tion.jda.api.interactions.commands.context;
 
-import net.dv8tion.jda.api.entities.GuildMessageChannel;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import org.jetbrains.annotations.NotNull;
+import net.dv8tion.jda.api.entities.channel.unions.GuildMessageChannelUnion;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Interaction with a message context menu command
  */
 public interface MessageContextInteraction extends ContextInteraction<Message>
 {
-    @NotNull
+    @Nonnull
     @Override
     default ContextTarget getTargetType()
     {
@@ -37,12 +37,12 @@ public interface MessageContextInteraction extends ContextInteraction<Message>
 
     @Nullable
     @Override
-    MessageChannel getChannel();
+    MessageChannelUnion getChannel();
 
-    @NotNull
+    @Nonnull
     @Override
-    default GuildMessageChannel getGuildChannel()
+    default GuildMessageChannelUnion getGuildChannel()
     {
-        return (GuildMessageChannel) ContextInteraction.super.getGuildChannel();
+        return (GuildMessageChannelUnion) ContextInteraction.super.getGuildChannel();
     }
 }

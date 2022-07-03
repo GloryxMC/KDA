@@ -17,16 +17,16 @@
 package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.channel.unions.IWebhookContainerUnion;
 import net.dv8tion.jda.api.managers.WebhookManager;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.regex.Pattern;
 
 /**
@@ -78,7 +78,7 @@ public interface Webhook extends ISnowflake
      *
      * @return The current JDA instance of this Webhook
      */
-    @NotNull
+    @Nonnull
     JDA getJDA();
 
     /**
@@ -87,7 +87,7 @@ public interface Webhook extends ISnowflake
      *
      * @return The {@link WebhookType}
      */
-    @NotNull
+    @Nonnull
     WebhookType getType();
 
     /**
@@ -99,7 +99,7 @@ public interface Webhook extends ISnowflake
     boolean isPartial();
 
     /**
-     * The {@link Guild Guild} instance
+     * The {@link net.dv8tion.jda.api.entities.Guild Guild} instance
      * for this Webhook.
      * <br>This is a shortcut for <code>{@link #getChannel()}.getGuild()</code>.
      *
@@ -108,26 +108,29 @@ public interface Webhook extends ISnowflake
      *
      * @return The current Guild of this Webhook
      */
-    @NotNull
+    @Nonnull
     Guild getGuild();
 
     /**
-     * The {@link BaseGuildMessageChannel BaseGuildMessageChannel} instance this Webhook is attached to.
+     * The {@link net.dv8tion.jda.api.entities.IWebhookContainer channel} instance this Webhook is attached to.
+     * Webhooks are created on specific channels so that they can interact with that channel.
+     * With regard to {@link ThreadChannel threads}, Webhooks are attached to their {@link IThreadContainer parent channel}
+     * and then the Webhooks can post to the {@link IThreadContainer parent} <i>and</i> the {@link ThreadChannel thread} too.
      *
      * @throws IllegalStateException
      *         If this webhooks {@link #isPartial() is partial}
      *
-     * @return The current TextChannel of this Webhook
+     * @return The current {@link IWebhookContainer channel} that this webhook is attached to.
      */
-    @NotNull
-    //TODO-v5: might be a problem exposing the Base class here as something like Threads could get Webhook support and break our stuff..
-    BaseGuildMessageChannel getChannel();
+    @Nonnull
+    //TODO-v5: Should we introduce StandardIWebhookContainer? (IWebhookContainer + StandardGuildChannel)
+    IWebhookContainerUnion getChannel();
 
     /**
      * The owner of this Webhook. This will be null for some Webhooks, such as those retrieved from Audit Logs.
      * <br>This requires the member to be cached. You can use {@link #getOwnerAsUser()} to get a reference to the user instead.
      *
-     * @return Possibly-null {@link Member Member} instance
+     * @return Possibly-null {@link net.dv8tion.jda.api.entities.Member Member} instance
      *         representing the owner of this Webhook.
      */
     @Nullable
@@ -137,7 +140,7 @@ public interface Webhook extends ISnowflake
      * The owner of this Webhook. This will be null for some Webhooks, such as those retrieved from Audit Logs.
      * <br>This can be non-null even when {@link #getOwner()} is null. {@link #getOwner()} requires the webhook to be local to this shard and in cache.
      *
-     * @return Possibly-null {@link User User} instance
+     * @return Possibly-null {@link net.dv8tion.jda.api.entities.User User} instance
      *         representing the owner of this Webhook.
      */
     @Nullable
@@ -146,19 +149,19 @@ public interface Webhook extends ISnowflake
     /**
      * The default User for this Webhook.
      *
-     * <p>The {@link User User} returned is always fake and cannot be interacted with.
+     * <p>The {@link net.dv8tion.jda.api.entities.User User} returned is always fake and cannot be interacted with.
      * <br>This User is used for all messages posted to the Webhook route (found in {@link #getUrl()}),
      * it holds the default references for the message authors of messages by this Webhook.
      *
      * <p>When {@code POST}ing to a Webhook route the name/avatar of this default user
      * can be overridden.
      *
-     * @return A fake {@link User User} instance
+     * @return A fake {@link net.dv8tion.jda.api.entities.User User} instance
      *         representing the default webhook user.
      *
      * @see    <a href="https://discord.com/developers/docs/resources/webhook#execute-webhook">Execute Webhook Docs</a>
      */
-    @NotNull
+    @Nonnull
     User getDefaultUser();
 
     /**
@@ -170,7 +173,7 @@ public interface Webhook extends ISnowflake
      *
      * @return The name of this Webhook
      */
-    @NotNull
+    @Nonnull
     String getName();
 
     /**
@@ -202,7 +205,7 @@ public interface Webhook extends ISnowflake
      *
      * @return The execution route for this Webhook.
      */
-    @NotNull
+    @Nonnull
     String getUrl();
 
     /**
@@ -241,10 +244,10 @@ public interface Webhook extends ISnowflake
      *         If the Webhook does not have a token, such as the Webhooks retrieved from Audit Logs and the currently
      *         logged in account does not have {@link net.dv8tion.jda.api.Permission#MANAGE_WEBHOOKS} in this channel.
      *
-     * @return {@link AuditableRestAction AuditableRestAction}
+     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      *         <br>The rest action to delete this Webhook.
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     AuditableRestAction<Void> delete();
 
@@ -273,18 +276,18 @@ public interface Webhook extends ISnowflake
      * @throws IllegalArgumentException
      *         If the provided token is null
      *
-     * @return {@link AuditableRestAction AuditableRestAction}
+     * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      *         <br>The rest action to delete this Webhook.
      *
      * @since  4.0.0
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    AuditableRestAction<Void> delete(@NotNull String token);
+    AuditableRestAction<Void> delete(@Nonnull String token);
 
     /**
      * The {@link WebhookManager WebhookManager} for this Webhook.
-     * <br>You can modify multiple fields in one request by chaining setters before calling {@link RestAction#queue() RestAction.queue()}.
+     * <br>You can modify multiple fields in one request by chaining setters before calling {@link net.dv8tion.jda.api.requests.RestAction#queue() RestAction.queue()}.
      *
      * <p>This is a lazy idempotent getter. The manager is retained after the first call.
      * This getter is not thread-safe and would require guards by the user.
@@ -294,7 +297,7 @@ public interface Webhook extends ISnowflake
      *
      * @return The {@link WebhookManager WebhookManager} for this Webhook
      */
-    @NotNull
+    @Nonnull
     WebhookManager getManager();
 
     /**
@@ -325,7 +328,7 @@ public interface Webhook extends ISnowflake
          *
          * @return The ID for the channel this webhook belongs to
          */
-        @NotNull
+        @Nonnull
         public String getChannelId()
         {
             return Long.toUnsignedString(channelId);
@@ -349,7 +352,7 @@ public interface Webhook extends ISnowflake
          *
          * @return {@link RestAction} - Type: {@link Webhook}
          */
-        @NotNull
+        @Nonnull
         @CheckReturnValue
         public RestAction<Webhook> resolve()
         {
@@ -384,7 +387,7 @@ public interface Webhook extends ISnowflake
          *
          * @return The channel name
          */
-        @NotNull
+        @Nonnull
         public String getName()
         {
             return name;
@@ -416,7 +419,7 @@ public interface Webhook extends ISnowflake
          *
          * @return The guild name
          */
-        @NotNull
+        @Nonnull
         public String getName()
         {
             return name;
