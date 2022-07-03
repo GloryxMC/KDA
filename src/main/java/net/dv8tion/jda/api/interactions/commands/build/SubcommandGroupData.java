@@ -16,17 +16,21 @@
 
 package net.dv8tion.jda.api.interactions.commands.build;
 
+import net.dv8tion.jda.api.interactions.DiscordLocale;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.localization.LocalizationMap;
 import net.dv8tion.jda.api.utils.data.DataArray;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.api.utils.data.SerializableData;
 import net.dv8tion.jda.internal.utils.Checks;
-import org.jetbrains.annotations.NotNull;
+import net.dv8tion.jda.internal.utils.localization.LocalizationUtils;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -37,6 +41,8 @@ public class SubcommandGroupData implements SerializableData
 {
     private final DataArray options = DataArray.empty();
     private String name, description;
+    private final LocalizationMap nameLocalizations = new LocalizationMap(this::checkName);
+    private final LocalizationMap descriptionLocalizations = new LocalizationMap(this::checkDescription);
 
     /**
      * Create an group builder.
@@ -53,7 +59,7 @@ public class SubcommandGroupData implements SerializableData
      *             <li>The description must be 1-100 characters long</li>
      *         </ul>
      */
-    public SubcommandGroupData(@NotNull String name, @NotNull String description)
+    public SubcommandGroupData(@Nonnull String name, @Nonnull String description)
     {
         Checks.notEmpty(name, "Name");
         Checks.notEmpty(description, "Description");
@@ -63,6 +69,20 @@ public class SubcommandGroupData implements SerializableData
         Checks.isLowercase(name, "Name");
         this.name = name;
         this.description = description;
+    }
+
+    protected void checkName(@Nonnull String name)
+    {
+        Checks.notEmpty(name, "Name");
+        Checks.notLonger(name, 32, "Name");
+        Checks.isLowercase(name, "Name");
+        Checks.matches(name, Checks.ALPHANUMERIC_WITH_DASH, "Name");
+    }
+
+    protected void checkDescription(@Nonnull String description)
+    {
+        Checks.notEmpty(description, "Description");
+        Checks.notLonger(description, 100, "Description");
     }
 
     /**
@@ -76,14 +96,61 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return The SubcommandGroupData instance, for chaining
      */
-    @NotNull
-    public SubcommandGroupData setName(@NotNull String name)
+    @Nonnull
+    public SubcommandGroupData setName(@Nonnull String name)
     {
-        Checks.notEmpty(name, "Name");
-        Checks.notLonger(name, 32, "Name");
-        Checks.isLowercase(name, "Name");
-        Checks.matches(name, Checks.ALPHANUMERIC_WITH_DASH, "Name");
+        checkName(name);
         this.name = name;
+        return this;
+    }
+
+    /**
+     * Sets a {@link DiscordLocale language-specific} localization of this subcommand group's name.
+     *
+     * @param  locale
+     *         The locale to associate the translated name with
+     *
+     * @param  name
+     *         The translated name to put
+     *
+     * @throws IllegalArgumentException
+     *         <ul>
+     *             <li>If the locale is null</li>
+     *             <li>If the name is null</li>
+     *             <li>If the locale is {@link DiscordLocale#UNKNOWN}</li>
+     *             <li>If the name does not pass the corresponding {@link #setName(String) name check}</li>
+     *         </ul>
+     *
+     * @return This builder instance, for chaining
+     */
+    @Nonnull
+    public SubcommandGroupData setNameLocalization(@Nonnull DiscordLocale locale, @Nonnull String name)
+    {
+        //Checks are done in LocalizationMap
+        nameLocalizations.setTranslation(locale, name);
+        return this;
+    }
+
+    /**
+     * Sets multiple {@link DiscordLocale language-specific} localizations of this subcommand group's name.
+     *
+     * @param  map
+     *         The map from which to transfer the translated names
+     *
+     * @throws IllegalArgumentException
+     *         <ul>
+     *             <li>If the map is null</li>
+     *             <li>If the map contains an {@link DiscordLocale#UNKNOWN} key</li>
+     *             <li>If the map contains a name which does not pass the corresponding {@link #setName(String) name check}</li>
+     *         </ul>
+     *
+     * @return This builder instance, for chaining
+     */
+    @Nonnull
+    public SubcommandGroupData setNameLocalizations(@Nonnull Map<DiscordLocale, String> map)
+    {
+        //Checks are done in LocalizationMap
+        nameLocalizations.setTranslations(map);
         return this;
     }
 
@@ -98,12 +165,61 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return The SubcommandGroupData instance, for chaining
      */
-    @NotNull
-    public SubcommandGroupData setDescription(@NotNull String description)
+    @Nonnull
+    public SubcommandGroupData setDescription(@Nonnull String description)
     {
-        Checks.notEmpty(description, "Description");
-        Checks.notLonger(description, 100, "Description");
+        checkDescription(description);
         this.description = description;
+        return this;
+    }
+
+    /**
+     * Sets a {@link DiscordLocale language-specific} localization of this subcommand group's description.
+     *
+     * @param  locale
+     *         The locale to associate the translated description with
+     *
+     * @param  description
+     *         The translated description to put
+     *
+     * @throws IllegalArgumentException
+     *         <ul>
+     *             <li>If the locale is null</li>
+     *             <li>If the description is null</li>
+     *             <li>If the locale is {@link DiscordLocale#UNKNOWN}</li>
+     *             <li>If the description does not pass the corresponding {@link #setDescription(String) description check}</li>
+     *         </ul>
+     *
+     * @return This builder instance, for chaining
+     */
+    @Nonnull
+    public SubcommandGroupData setDescriptionLocalization(@Nonnull DiscordLocale locale, @Nonnull String description)
+    {
+        //Checks are done in LocalizationMap
+        descriptionLocalizations.setTranslation(locale, description);
+        return this;
+    }
+
+    /**
+     * Sets multiple {@link DiscordLocale language-specific} localizations of this subcommand group's description.
+     *
+     * @param  map
+     *         The map from which to transfer the translated descriptions
+     *
+     * @throws IllegalArgumentException
+     *         <ul>
+     *             <li>If the map is null</li>
+     *             <li>If the map contains an {@link DiscordLocale#UNKNOWN} key</li>
+     *             <li>If the map contains a description which does not pass the corresponding {@link #setDescription(String) description check}</li>
+     *         </ul>
+     *
+     * @return This builder instance, for chaining
+     */
+    @Nonnull
+    public SubcommandGroupData setDescriptionLocalizations(@Nonnull Map<DiscordLocale, String> map)
+    {
+        //Checks are done in LocalizationMap
+        descriptionLocalizations.setTranslations(map);
         return this;
     }
 
@@ -112,10 +228,21 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return The name
      */
-    @NotNull
+    @Nonnull
     public String getName()
     {
         return name;
+    }
+
+    /**
+     * The localizations of this subcommand's name for {@link DiscordLocale various languages} group.
+     *
+     * @return The {@link LocalizationMap} containing the mapping from {@link DiscordLocale} to the localized name
+     */
+    @Nonnull
+    public LocalizationMap getNameLocalizations()
+    {
+        return nameLocalizations;
     }
 
     /**
@@ -123,10 +250,21 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return The description
      */
-    @NotNull
+    @Nonnull
     public String getDescription()
     {
         return description;
+    }
+
+    /**
+     * The localizations of this subcommand's description for {@link DiscordLocale various languages} group.
+     *
+     * @return The {@link LocalizationMap} containing the mapping from {@link DiscordLocale} to the localized description
+     */
+    @Nonnull
+    public LocalizationMap getDescriptionLocalizations()
+    {
+        return descriptionLocalizations;
     }
 
     /**
@@ -136,7 +274,7 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return Immutable list of {@link SubcommandData}
      */
-    @NotNull
+    @Nonnull
     public List<SubcommandData> getSubcommands()
     {
         return options.stream(DataArray::getObject)
@@ -155,8 +293,8 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return The SubcommandGroupData instance, for chaining
      */
-    @NotNull
-    public SubcommandGroupData addSubcommands(@NotNull SubcommandData... subcommands)
+    @Nonnull
+    public SubcommandGroupData addSubcommands(@Nonnull SubcommandData... subcommands)
     {
         Checks.noneNull(subcommands, "Subcommand");
         Checks.check(subcommands.length + options.length() <= 25, "Cannot have more than 25 subcommands in one group!");
@@ -181,21 +319,23 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return The SubcommandGroupData instance, for chaining
      */
-    @NotNull
-    public SubcommandGroupData addSubcommands(@NotNull Collection<? extends SubcommandData> subcommands)
+    @Nonnull
+    public SubcommandGroupData addSubcommands(@Nonnull Collection<? extends SubcommandData> subcommands)
     {
         Checks.noneNull(subcommands, "Subcommands");
         return addSubcommands(subcommands.toArray(new SubcommandData[0]));
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public DataObject toData()
     {
         return DataObject.empty()
                 .put("type", OptionType.SUB_COMMAND_GROUP.getKey())
                 .put("name", name)
+                .put("name_localizations", nameLocalizations)
                 .put("description", description)
+                .put("description_localizations", descriptionLocalizations)
                 .put("options", options);
     }
 
@@ -213,8 +353,8 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return The parsed SubcommandGroupData instance, which can be further configured through setters
      */
-    @NotNull
-    public static SubcommandGroupData fromData(@NotNull DataObject json)
+    @Nonnull
+    public static SubcommandGroupData fromData(@Nonnull DataObject json)
     {
         String name = json.getString("name");
         String description = json.getString("description");
@@ -224,6 +364,9 @@ public class SubcommandGroupData implements SerializableData
                         .map(SubcommandData::fromData)
                         .forEach(group::addSubcommands)
         );
+        group.setNameLocalizations(LocalizationUtils.mapFromProperty(json, "name_localizations"));
+        group.setDescriptionLocalizations(LocalizationUtils.mapFromProperty(json, "description_localizations"));
+
         return group;
     }
 
@@ -238,11 +381,13 @@ public class SubcommandGroupData implements SerializableData
      *
      * @return An instance of SubcommandGroupData
      */
-    @NotNull
-    public static SubcommandGroupData fromGroup(@NotNull Command.SubcommandGroup group)
+    @Nonnull
+    public static SubcommandGroupData fromGroup(@Nonnull Command.SubcommandGroup group)
     {
         Checks.notNull(group, "Subcommand Group");
         SubcommandGroupData data = new SubcommandGroupData(group.getName(), group.getDescription());
+        data.setNameLocalizations(group.getNameLocalizations().toMap());
+        data.setDescriptionLocalizations(group.getDescriptionLocalizations().toMap());
         group.getSubcommands()
                 .stream()
                 .map(SubcommandData::fromSubcommand)

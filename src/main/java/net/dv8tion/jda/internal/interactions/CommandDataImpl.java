@@ -16,6 +16,7 @@
 
 package net.dv8tion.jda.internal.interactions;
 
+import net.dv8tion.jda.api.interactions.DiscordLocale;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -23,13 +24,17 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData;
+import net.dv8tion.jda.api.interactions.commands.localization.LocalizationFunction;
+import net.dv8tion.jda.api.interactions.commands.localization.LocalizationMap;
 import net.dv8tion.jda.api.utils.data.DataArray;
 import net.dv8tion.jda.api.utils.data.DataObject;
+import net.dv8tion.jda.internal.interactions.command.localization.LocalizationMapper;
 import net.dv8tion.jda.internal.utils.Checks;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -37,6 +42,9 @@ public class CommandDataImpl implements SlashCommandData
 {
     protected final DataArray options = DataArray.empty();
     protected String name, description = "";
+    private LocalizationMapper localizationMapper;
+    private final LocalizationMap nameLocalizations = new LocalizationMap(this::checkName);
+    private final LocalizationMap descriptionLocalizations = new LocalizationMap(this::checkDescription);
 
     private boolean allowSubcommands = true;
     private boolean allowGroups = true;
@@ -47,14 +55,14 @@ public class CommandDataImpl implements SlashCommandData
 
     private final Command.Type type;
 
-    public CommandDataImpl(@NotNull String name, @NotNull String description)
+    public CommandDataImpl(@Nonnull String name, @Nonnull String description)
     {
         this.type = Command.Type.SLASH;
         setName(name);
         setDescription(description);
     }
 
-    public CommandDataImpl(@NotNull Command.Type type, @NotNull String name)
+    public CommandDataImpl(@Nonnull Command.Type type, @Nonnull String name)
     {
         this.type = type;
         Checks.notNull(type, "Command Type");
@@ -68,10 +76,29 @@ public class CommandDataImpl implements SlashCommandData
             throw new IllegalStateException("Cannot " + action + " for commands of type " + type);
     }
 
-    @NotNull
+    public void checkName(@Nonnull String name)
+    {
+        Checks.inRange(name, 1, MAX_NAME_LENGTH, "Name");
+        if (type == Command.Type.SLASH)
+        {
+            Checks.matches(name, Checks.ALPHANUMERIC_WITH_DASH, "Name");
+            Checks.isLowercase(name, "Name");
+        }
+    }
+
+    public void checkDescription(@Nonnull String description)
+    {
+        checkType(Command.Type.SLASH, "set description");
+        Checks.notEmpty(description, "Description");
+        Checks.notLonger(description, MAX_DESCRIPTION_LENGTH, "Description");
+    }
+
+    @Nonnull
     @Override
     public DataObject toData()
     {
+        if (localizationMapper != null) localizationMapper.localizeCommand(this, options);
+
         DataObject json = DataObject.empty()
                 .put("type", type.getId())
                 .put("name", name)
@@ -79,20 +106,23 @@ public class CommandDataImpl implements SlashCommandData
                 .put("dm_permission", !guildOnly)
                 .put("default_member_permissions", defaultMemberPermissions == DefaultMemberPermissions.ENABLED
                         ? null
-                        : Long.toUnsignedString(defaultMemberPermissions.getPermissionsRaw()));
+                        : Long.toUnsignedString(defaultMemberPermissions.getPermissionsRaw()))
+                .put("name_localizations", nameLocalizations)
+                .put("options", options);
         if (type == Command.Type.SLASH)
-            json.put("description", description);
+            json.put("description", description)
+                .put("description_localizations", descriptionLocalizations);
         return json;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public Command.Type getType()
     {
         return type;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public DefaultMemberPermissions getDefaultPermissions()
     {
@@ -119,7 +149,7 @@ public class CommandDataImpl implements SlashCommandData
                 .collect(Collectors.toList());
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public List<SubcommandGroupData> getSubcommandGroups()
     {
@@ -133,7 +163,7 @@ public class CommandDataImpl implements SlashCommandData
                 .collect(Collectors.toList());
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public CommandDataImpl setDefaultPermissions(@Nonnull DefaultMemberPermissions permissions)
     {
@@ -150,9 +180,9 @@ public class CommandDataImpl implements SlashCommandData
         return this;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandDataImpl addOptions(@NotNull OptionData... options)
+    public CommandDataImpl addOptions(@Nonnull OptionData... options)
     {
         Checks.noneNull(options, "Option");
         if (options.length == 0)
@@ -182,9 +212,9 @@ public class CommandDataImpl implements SlashCommandData
         return this;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandDataImpl addSubcommands(@NotNull SubcommandData... subcommands)
+    public CommandDataImpl addSubcommands(@Nonnull SubcommandData... subcommands)
     {
         Checks.noneNull(subcommands, "Subcommands");
         if (subcommands.length == 0)
@@ -205,9 +235,9 @@ public class CommandDataImpl implements SlashCommandData
         return this;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandDataImpl addSubcommandGroups(@NotNull SubcommandGroupData... groups)
+    public CommandDataImpl addSubcommandGroups(@Nonnull SubcommandGroupData... groups)
     {
         Checks.noneNull(groups, "SubcommandGroups");
         if (groups.length == 0)
@@ -228,46 +258,96 @@ public class CommandDataImpl implements SlashCommandData
         return this;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandDataImpl setName(@NotNull String name)
+    public CommandDataImpl setLocalizationFunction(@Nonnull LocalizationFunction localizationFunction) {
+        Checks.notNull(localizationFunction, "Localization function");
+
+        this.localizationMapper = LocalizationMapper.fromFunction(localizationFunction);
+        return this;
+    }
+
+    @Nonnull
+    @Override
+    public CommandDataImpl setName(@Nonnull String name)
     {
-        Checks.inRange(name, 1, 32, "Name");
-        if (type == Command.Type.SLASH)
-        {
-            Checks.matches(name, Checks.ALPHANUMERIC_WITH_DASH, "Name");
-            Checks.isLowercase(name, "Name");
-        }
+        checkName(name);
         this.name = name;
         return this;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public CommandDataImpl setDescription(@NotNull String description)
+    public CommandDataImpl setNameLocalization(@Nonnull DiscordLocale locale, @Nonnull String name)
     {
-        checkType(Command.Type.SLASH, "set description");
-        Checks.notEmpty(description, "Description");
-        Checks.notLonger(description, 100, "Description");
+        //Checks are done in LocalizationMap
+        nameLocalizations.setTranslation(locale, name);
+        return this;
+    }
+
+    @Nonnull
+    @Override
+    public CommandDataImpl setNameLocalizations(@Nonnull Map<DiscordLocale, String> map)
+    {
+        nameLocalizations.setTranslations(map);
+        return this;
+    }
+
+    @Nonnull
+    @Override
+    public CommandDataImpl setDescription(@Nonnull String description)
+    {
+        checkDescription(description);
         this.description = description;
         return this;
     }
 
-    @NotNull
+    @Nonnull
+    @Override
+    public CommandDataImpl setDescriptionLocalization(@Nonnull DiscordLocale locale, @Nonnull String description)
+    {
+        //Checks are done in LocalizationMap
+        descriptionLocalizations.setTranslation(locale, description);
+        return this;
+    }
+
+    @Nonnull
+    @Override
+    public CommandDataImpl setDescriptionLocalizations(@Nonnull Map<DiscordLocale, String> map)
+    {
+        descriptionLocalizations.setTranslations(map);
+        return this;
+    }
+
+    @Nonnull
     @Override
     public String getName()
     {
         return name;
     }
 
-    @NotNull
+    @Nonnull
+    @Override
+    public LocalizationMap getNameLocalizations()
+    {
+        return nameLocalizations;
+    }
+
+    @Nonnull
     @Override
     public String getDescription()
     {
         return description;
     }
 
-    @NotNull
+    @Nonnull
+    @Override
+    public LocalizationMap getDescriptionLocalizations()
+    {
+        return descriptionLocalizations;
+    }
+
+    @Nonnull
     @Override
     public List<OptionData> getOptions()
     {
