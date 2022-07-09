@@ -22,11 +22,11 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.Event;
+import net.dv8tion.jda.api.interactions.DiscordLocale;
 import net.dv8tion.jda.api.interactions.Interaction;
-import org.jetbrains.annotations.NotNull;
 
-import org.jetbrains.annotations.Nullable;
-import java.util.Locale;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Indicates that an {@link Interaction} was created.
@@ -42,7 +42,7 @@ public class GenericInteractionCreateEvent extends Event implements Interaction
 {
     private final Interaction interaction;
 
-    public GenericInteractionCreateEvent(@NotNull JDA api, long responseNumber, @NotNull Interaction interaction)
+    public GenericInteractionCreateEvent(@Nonnull JDA api, long responseNumber, @Nonnull Interaction interaction)
     {
         super(api, responseNumber);
         this.interaction = interaction;
@@ -54,13 +54,13 @@ public class GenericInteractionCreateEvent extends Event implements Interaction
      *
      * @return The {@link Interaction}
      */
-    @NotNull
+    @Nonnull
     public Interaction getInteraction()
     {
         return interaction;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getToken()
     {
@@ -87,16 +87,16 @@ public class GenericInteractionCreateEvent extends Event implements Interaction
         return interaction.getChannel();
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public Locale getUserLocale()
+    public DiscordLocale getUserLocale()
     {
         return interaction.getUserLocale();
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public Locale getGuildLocale()
+    public DiscordLocale getGuildLocale()
     {
         return interaction.getGuildLocale();
     }
@@ -108,7 +108,7 @@ public class GenericInteractionCreateEvent extends Event implements Interaction
         return interaction.getMember();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public User getUser()
     {
