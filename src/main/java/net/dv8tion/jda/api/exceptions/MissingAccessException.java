@@ -17,12 +17,14 @@
 package net.dv8tion.jda.api.exceptions;
 
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Channel;
+import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.GuildChannel;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Indicates that the user is missing the {@link Permission#VIEW_CHANNEL VIEW_CHANNEL}
- * or {@link Permission#VOICE_CONNECT VOICE_CONNECT} permission.
+ * Indicates that the user is missing the {@link Permission#VIEW_CHANNEL VIEW_CHANNEL},
+ * in addition to {@link Permission#VOICE_CONNECT VOICE_CONNECT} permission if {@link Channel#getType()} is an {@link ChannelType#isAudio() audio} type.
  *
  * @see   net.dv8tion.jda.api.entities.IPermissionHolder#hasAccess(GuildChannel)
  *

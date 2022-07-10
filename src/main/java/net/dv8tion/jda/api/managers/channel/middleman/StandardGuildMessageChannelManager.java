@@ -17,10 +17,11 @@
 package net.dv8tion.jda.api.managers.channel.middleman;
 
 import net.dv8tion.jda.api.entities.StandardGuildMessageChannel;
+import net.dv8tion.jda.api.managers.channel.attribute.IAgeRestrictedChannelManager;
 
 import javax.annotation.CheckReturnValue;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Manager providing functionality common for all {@link net.dv8tion.jda.api.entities.StandardGuildMessageChannel StandardGuildMessageChannels}.
@@ -39,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
  * @see StandardGuildMessageChannel#getManager()
  */
 public interface StandardGuildMessageChannelManager<T extends StandardGuildMessageChannel, M extends StandardGuildMessageChannelManager<T, M>>
-        extends StandardGuildChannelManager<T, M>
+        extends StandardGuildChannelManager<T, M>, IAgeRestrictedChannelManager<T, M>
 {
      /**
      * Sets the <b><u>topic</u></b> of the selected {@link StandardGuildMessageChannel channel}.
@@ -55,19 +56,7 @@ public interface StandardGuildMessageChannelManager<T extends StandardGuildMessa
      *
      * @return ChannelManager for chaining convenience
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     M setTopic(@Nullable String topic);
-
-    /**
-     * Sets the <b><u>nsfw flag</u></b> of the selected {@link StandardGuildMessageChannel channel}.
-     *
-     * @param  nsfw
-     *         The new nsfw flag for the selected {@link StandardGuildMessageChannel channel}.
-     *
-     * @return ChannelManager for chaining convenience
-     */
-    @NotNull
-    @CheckReturnValue
-    M setNSFW(boolean nsfw);
 }

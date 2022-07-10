@@ -136,6 +136,7 @@ public enum ChannelType
         switch (this)
         {
             case TEXT:
+            case VOICE:
             case NEWS:
             case PRIVATE:
             case GROUP:

@@ -17,37 +17,43 @@
 package net.dv8tion.jda.internal.entities;
 
 import gnu.trove.map.TLongObjectMap;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.managers.channel.concrete.VoiceChannelManager;
 import net.dv8tion.jda.api.requests.restaction.ChannelAction;
 import net.dv8tion.jda.api.utils.MiscUtil;
+import net.dv8tion.jda.internal.entities.mixin.channel.attribute.IWebhookContainerMixin;
 import net.dv8tion.jda.internal.entities.mixin.channel.middleman.AudioChannelMixin;
+import net.dv8tion.jda.internal.entities.mixin.channel.middleman.GuildMessageChannelMixin;
 import net.dv8tion.jda.internal.managers.channel.concrete.VoiceChannelManagerImpl;
 import net.dv8tion.jda.internal.utils.Checks;
-import org.jetbrains.annotations.NotNull;
 
-import org.jetbrains.annotations.Nullable;
-
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class VoiceChannelImpl extends AbstractStandardGuildChannelImpl<VoiceChannelImpl> implements
         VoiceChannel,
-        AudioChannelMixin<VoiceChannelImpl>
+        GuildMessageChannelMixin<VoiceChannelImpl>,
+        AudioChannelMixin<VoiceChannelImpl>,
+        IWebhookContainerMixin<VoiceChannelImpl>
 {
     private final TLongObjectMap<Member> connectedMembers = MiscUtil.newLongMap();
 
     private String region;
+    private long latestMessageId;
     private int bitrate;
     private int userLimit;
+    private boolean nsfw;
 
     public VoiceChannelImpl(long id, GuildImpl guild)
     {
         super(id, guild);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public ChannelType getType()
     {
@@ -73,16 +79,35 @@ public class VoiceChannelImpl extends AbstractStandardGuildChannelImpl<VoiceChan
         return userLimit;
     }
 
-    @NotNull
+    @Override
+    public boolean isNSFW()
+    {
+        return nsfw;
+    }
+
+    @Override
+    public boolean canTalk(@Nonnull Member member)
+    {
+        Checks.notNull(member, "Member");
+        return member.hasPermission(this, Permission.MESSAGE_SEND);
+    }
+
+    @Override
+    public long getLatestMessageIdLong()
+    {
+        return latestMessageId;
+    }
+
+    @Nonnull
     @Override
     public List<Member> getMembers()
     {
         return Collections.unmodifiableList(new ArrayList<>(connectedMembers.valueCollection()));
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public ChannelAction<VoiceChannel> createCopy(@NotNull Guild guild)
+    public ChannelAction<VoiceChannel> createCopy(@Nonnull Guild guild)
     {
         Checks.notNull(guild, "Guild");
         //TODO-v5: .setRegion here?
@@ -103,7 +128,7 @@ public class VoiceChannelImpl extends AbstractStandardGuildChannelImpl<VoiceChan
         return action;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public VoiceChannelManager getManager()
     {
@@ -115,7 +140,6 @@ public class VoiceChannelImpl extends AbstractStandardGuildChannelImpl<VoiceChan
     {
         return connectedMembers;
     }
-
 
     @Override
     public VoiceChannelImpl setBitrate(int bitrate)
@@ -137,7 +161,21 @@ public class VoiceChannelImpl extends AbstractStandardGuildChannelImpl<VoiceChan
         return this;
     }
 
+    public VoiceChannelImpl setNSFW(boolean nsfw)
+    {
+        this.nsfw = nsfw;
+        return this;
+    }
+
+    @Override
+    public VoiceChannelImpl setLatestMessageIdLong(long latestMessageId)
+    {
+        this.latestMessageId = latestMessageId;
+        return this;
+    }
+
     // -- Abstract Hooks --
+
     @Override
     protected void onPositionChange()
     {

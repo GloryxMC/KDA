@@ -9,9 +9,9 @@ import net.dv8tion.jda.api.requests.restaction.ChannelAction;
 import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
+import javax.annotation.Nonnull;
 
 /**
  * Represents {@link StandardGuildMessageChannel} that are News Channels.
@@ -24,7 +24,7 @@ import javax.annotation.CheckReturnValue;
  * Messages sent in this channel can be crossposted, at which point they will be sent (via webhook) to all subscribed channels.
  *
  * @see Message#getFlags()
- * @see Message.MessageFlag#CROSSPOSTED
+ * @see net.dv8tion.jda.api.entities.Message.MessageFlag#CROSSPOSTED
  */
 public interface NewsChannel extends StandardGuildMessageChannel
 {
@@ -54,9 +54,9 @@ public interface NewsChannel extends StandardGuildMessageChannel
      *
      * @since  4.2.1
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    RestAction<Webhook.WebhookReference> follow(@NotNull String targetChannelId);
+    RestAction<Webhook.WebhookReference> follow(@Nonnull String targetChannelId);
 
     /**
      * Subscribes to the crossposted messages in this channel.
@@ -81,7 +81,7 @@ public interface NewsChannel extends StandardGuildMessageChannel
      *
      * @since  4.2.1
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     default RestAction<Webhook.WebhookReference> follow(long targetChannelId)
     {
@@ -107,6 +107,8 @@ public interface NewsChannel extends StandardGuildMessageChannel
      * @param  targetChannel
      *         The target channel
      *
+     * @throws MissingAccessException
+     *         If the currently logged in account does not have {@link Member#hasAccess(GuildChannel) access} in the <b>target channel</b>.
      * @throws InsufficientPermissionException
      *         If the currently logged in account does not have {@link Permission#MANAGE_WEBHOOKS} in the <b>target channel</b>.
      * @throws IllegalArgumentException
@@ -116,14 +118,13 @@ public interface NewsChannel extends StandardGuildMessageChannel
      *
      * @since  4.2.1
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    default RestAction<Webhook.WebhookReference> follow(@NotNull TextChannel targetChannel)
+    default RestAction<Webhook.WebhookReference> follow(@Nonnull TextChannel targetChannel)
     {
         Checks.notNull(targetChannel, "Target Channel");
         Member selfMember = targetChannel.getGuild().getSelfMember();
-        if (!selfMember.hasAccess(targetChannel))
-            throw new MissingAccessException(targetChannel, Permission.VIEW_CHANNEL);
+        Checks.checkAccess(selfMember, targetChannel);
         if (!selfMember.hasPermission(targetChannel, Permission.MANAGE_WEBHOOKS))
             throw new InsufficientPermissionException(targetChannel, Permission.MANAGE_WEBHOOKS);
         return follow(targetChannel.getId());
@@ -139,13 +140,13 @@ public interface NewsChannel extends StandardGuildMessageChannel
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>The request was attempted after the account lost access to the
-     *         {@link Guild Guild}
-     *         typically due to being kicked or removed, or after {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
-     *         was revoked in the {@link TextChannel TextChannel}</li>
+     *         {@link net.dv8tion.jda.api.entities.Guild Guild}
+     *         typically due to being kicked or removed, or after {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
+     *         was revoked in the {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
      *     <br>The request was attempted after the account lost
-     *         {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in the TextChannel.</li>
+     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in the TextChannel.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_MESSAGE UNKNOWN_MESSAGE}
      *     <br>The provided {@code messageId} is unknown in this MessageChannel, either due to the id being invalid, or
@@ -158,23 +159,24 @@ public interface NewsChannel extends StandardGuildMessageChannel
      * @param  messageId
      *         The messageId to crosspost
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *         If provided {@code messageId} is {@code null} or empty.
-     * @throws InsufficientPermissionException
+     * @throws MissingAccessException
+     *         If the currently logged in account does not have {@link Member#hasAccess(GuildChannel) access} in this channel.
+     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If the currently logged in account does not have
-     *         {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} in this channel.
+     *         {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} in this channel.
      *
-     * @return {@link RestAction} - Type: {@link Message}
+     * @return {@link net.dv8tion.jda.api.requests.RestAction} - Type: {@link Message}
      *
      * @since  4.2.1
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    default RestAction<Message> crosspostMessageById(@NotNull String messageId)
+    default RestAction<Message> crosspostMessageById(@Nonnull String messageId)
     {
         Checks.isSnowflake(messageId);
-        if (!getGuild().getSelfMember().hasAccess(this))
-            throw new MissingAccessException(this, Permission.VIEW_CHANNEL);
+        Checks.checkAccess(getGuild().getSelfMember(), this);
         Route.CompiledRoute route = Route.Messages.CROSSPOST_MESSAGE.compile(getId(), messageId);
         return new RestActionImpl<>(getJDA(), route,
                 (response, request) -> request.getJDA().getEntityBuilder().createMessageWithChannel(response.getObject(), this, false));
@@ -190,13 +192,13 @@ public interface NewsChannel extends StandardGuildMessageChannel
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_ACCESS MISSING_ACCESS}
      *     <br>The request was attempted after the account lost access to the
-     *         {@link Guild Guild}
-     *         typically due to being kicked or removed, or after {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
-     *         was revoked in the {@link TextChannel TextChannel}</li>
+     *         {@link net.dv8tion.jda.api.entities.Guild Guild}
+     *         typically due to being kicked or removed, or after {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL}
+     *         was revoked in the {@link net.dv8tion.jda.api.entities.TextChannel TextChannel}</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS}
      *     <br>The request was attempted after the account lost
-     *         {@link Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in the TextChannel.</li>
+     *         {@link net.dv8tion.jda.api.Permission#MESSAGE_MANAGE Permission.MESSAGE_MANAGE} in the TextChannel.</li>
      *
      *     <li>{@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_MESSAGE UNKNOWN_MESSAGE}
      *     <br>The provided {@code messageId} is unknown in this MessageChannel, either due to the id being invalid, or
@@ -209,33 +211,33 @@ public interface NewsChannel extends StandardGuildMessageChannel
      * @param  messageId
      *         The messageId to crosspost
      *
-     * @throws InsufficientPermissionException
+     * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If the currently logged in account does not have
-     *         {@link Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} in this channel.
+     *         {@link net.dv8tion.jda.api.Permission#VIEW_CHANNEL Permission.VIEW_CHANNEL} in this channel.
      *
-     * @return {@link RestAction} - Type: {@link Message}
+     * @return {@link net.dv8tion.jda.api.requests.RestAction} - Type: {@link Message}
      *
      * @since  4.2.1
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
     default RestAction<Message> crosspostMessageById(long messageId)
     {
         return crosspostMessageById(Long.toUnsignedString(messageId));
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    ChannelAction<NewsChannel> createCopy(@NotNull Guild guild);
+    ChannelAction<NewsChannel> createCopy(@Nonnull Guild guild);
 
-    @NotNull
+    @Nonnull
     @Override
     default ChannelAction<NewsChannel> createCopy()
     {
         return createCopy(getGuild());
     }
 
-    @NotNull
+    @Nonnull
     @Override
     NewsChannelManager getManager();
 }

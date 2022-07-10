@@ -17,10 +17,12 @@
 package net.dv8tion.jda.internal.requests.restaction.pagination;
 
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.GuildChannel;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
-import net.dv8tion.jda.api.exceptions.MissingAccessException;
 import net.dv8tion.jda.api.exceptions.ParsingException;
 import net.dv8tion.jda.api.requests.Request;
 import net.dv8tion.jda.api.requests.Response;
@@ -28,8 +30,9 @@ import net.dv8tion.jda.api.requests.restaction.pagination.MessagePaginationActio
 import net.dv8tion.jda.api.utils.data.DataArray;
 import net.dv8tion.jda.internal.entities.EntityBuilder;
 import net.dv8tion.jda.internal.requests.Route;
-import org.jetbrains.annotations.NotNull;
+import net.dv8tion.jda.internal.utils.Checks;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,21 +47,19 @@ public class MessagePaginationActionImpl
     {
         super(channel.getJDA(), Route.Messages.GET_MESSAGE_HISTORY.compile(channel.getId()), 1, 100, 100);
 
-        //TODO-v5: Fix permissions here.
-        if (channel.getType() == ChannelType.TEXT)
+        if (channel instanceof GuildChannel)
         {
-            TextChannel textChannel = (TextChannel) channel;
-            Member selfMember = textChannel.getGuild().getSelfMember();
-            if (!selfMember.hasAccess(textChannel))
-                throw new MissingAccessException(textChannel, Permission.VIEW_CHANNEL);
-            if (!selfMember.hasPermission(textChannel, Permission.MESSAGE_HISTORY))
-                throw new InsufficientPermissionException(textChannel, Permission.MESSAGE_HISTORY);
+            GuildChannel guildChannel = (GuildChannel) channel;
+            Member selfMember = guildChannel.getGuild().getSelfMember();
+            Checks.checkAccess(selfMember, guildChannel);
+            if (!selfMember.hasPermission(guildChannel, Permission.MESSAGE_HISTORY))
+                throw new InsufficientPermissionException(guildChannel, Permission.MESSAGE_HISTORY);
         }
 
         this.channel = channel;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public MessageChannelUnion getChannel()
     {
