@@ -88,8 +88,8 @@ public class MessageActionImpl extends RestActionImpl<Message> implements Messag
     public MessageActionImpl(JDA api, String messageId, MessageChannel channel)
     {
         super(api, messageId != null
-                ? Route.Messages.EDIT_MESSAGE.compile(channel.getId(), messageId)
-                : Route.Messages.SEND_MESSAGE.compile(channel.getId()));
+            ? Route.Messages.EDIT_MESSAGE.compile(channel.getId(), messageId)
+            : Route.Messages.SEND_MESSAGE.compile(channel.getId()));
         this.content = new StringBuilder();
         this.channel = channel;
         this.messageId = messageId;
@@ -98,10 +98,10 @@ public class MessageActionImpl extends RestActionImpl<Message> implements Messag
     public MessageActionImpl(JDA api, String messageId, MessageChannel channel, StringBuilder contentBuilder)
     {
         super(api, messageId != null
-                ? Route.Messages.EDIT_MESSAGE.compile(channel.getId(), messageId)
-                : Route.Messages.SEND_MESSAGE.compile(channel.getId()));
+            ? Route.Messages.EDIT_MESSAGE.compile(channel.getId(), messageId)
+            : Route.Messages.SEND_MESSAGE.compile(channel.getId()));
         Checks.check(contentBuilder.length() <= Message.MAX_CONTENT_LENGTH,
-                "Cannot build a Message with more than %d characters. Please limit your input.", Message.MAX_CONTENT_LENGTH);
+            "Cannot build a Message with more than %d characters. Please limit your input.", Message.MAX_CONTENT_LENGTH);
         this.content = contentBuilder;
         this.channel = channel;
         this.messageId = messageId;
@@ -156,9 +156,9 @@ public class MessageActionImpl extends RestActionImpl<Message> implements Messag
     public boolean isEmpty()
     {
         return !isEdit() // PATCH can be technically empty since you can update stuff like components or remove embeds etc
-                && Helpers.isBlank(content)
-                && (embeds == null || embeds.isEmpty() || !hasPermission(Permission.MESSAGE_EMBED_LINKS))
-                && stickers == null;
+            && Helpers.isBlank(content)
+            && (embeds == null || embeds.isEmpty() || !hasPermission(Permission.MESSAGE_EMBED_LINKS))
+            && stickers == null;
     }
 
     @Override
@@ -257,9 +257,9 @@ public class MessageActionImpl extends RestActionImpl<Message> implements Messag
     {
         Checks.noneNull(embeds, "MessageEmbeds");
         embeds.forEach(embed ->
-                Checks.check(embed.isSendable(),
-                        "Provided Message contains an empty embed or an embed with a length greater than %d characters, which is the max for bot accounts!",
-                        MessageEmbed.EMBED_MAX_LENGTH_BOT)
+            Checks.check(embed.isSendable(),
+                "Provided Message contains an empty embed or an embed with a length greater than %d characters, which is the max for bot accounts!",
+                MessageEmbed.EMBED_MAX_LENGTH_BOT)
         );
         Checks.check(embeds.size() <= Message.MAX_EMBED_COUNT, "Cannot have more than %d embeds in a message!", Message.MAX_EMBED_COUNT);
         Checks.check(embeds.stream().mapToInt(MessageEmbed::getLength).sum() <= MessageEmbed.EMBED_MAX_LENGTH_BOT, "The sum of all MessageEmbeds may not exceed %d!", MessageEmbed.EMBED_MAX_LENGTH_BOT);
@@ -401,8 +401,8 @@ public class MessageActionImpl extends RestActionImpl<Message> implements Messag
         Checks.noneNull(rows, "ActionRows");
 
         Checks.checkComponents("Some components are incompatible with Messages",
-                rows,
-                component -> component.getType().isMessageCompatible());
+            rows,
+            component -> component.getType().isMessageCompatible());
 
         if (components == null)
             components = new ArrayList<>();
@@ -432,16 +432,16 @@ public class MessageActionImpl extends RestActionImpl<Message> implements Messag
 
         Checks.noneNull(stickers, "Stickers");
         Checks.check(stickers.size() <= Message.MAX_STICKER_COUNT,
-                "Cannot send more than %d stickers in a message!", Message.MAX_STICKER_COUNT);
+                     "Cannot send more than %d stickers in a message!", Message.MAX_STICKER_COUNT);
         for (StickerSnowflake sticker : stickers)
         {
             if (sticker instanceof GuildSticker)
             {
                 GuildSticker guildSticker = (GuildSticker) sticker;
                 Checks.check(guildSticker.isAvailable(),
-                        "Cannot use unavailable sticker. The guild may have lost the boost level required to use this sticker!");
+                    "Cannot use unavailable sticker. The guild may have lost the boost level required to use this sticker!");
                 Checks.check(guildSticker.getGuildIdLong() == guildChannel.getGuild().getIdLong(),
-                        "Sticker must be from the same guild. Cross-guild sticker posting is not supported!");
+                    "Sticker must be from the same guild. Cross-guild sticker posting is not supported!");
             }
         }
 
@@ -526,13 +526,9 @@ public class MessageActionImpl extends RestActionImpl<Message> implements Messag
 
     protected RequestBody asMultipart()
     {
-        // TODO: Handle file edits differently
-        MultipartBody.Builder builder = AttachedFile.createMultipartBody(files, null);
-        if (messageReference != 0L || components != null || retainedAttachments != null || !isEmpty())
-            builder.addFormDataPart("payload_json", getJSON().toString());
-        // clear remaining resources, they will be closed after being sent
-        files.clear();
-        return builder.build();
+        MultipartBody.Builder body = AttachedFile.createMultipartBody(files, null);
+        body.addFormDataPart("payload_json", getJSON().toString());
+        return body.build();
     }
 
     @SuppressWarnings("deprecation")
@@ -544,6 +540,17 @@ public class MessageActionImpl extends RestActionImpl<Message> implements Messag
     protected DataObject getJSON()
     {
         final DataObject obj = DataObject.empty();
+        DataArray attachments = DataArray.empty();
+        if (retainedAttachments != null)
+        {
+            retainedAttachments.stream()
+                    .map(id -> DataObject.empty().put("id", id))
+                    .forEach(attachments::add);
+        }
+
+        for (int i = 0; i < files.size(); i++)
+            attachments.add(files.get(i).toAttachmentData(i));
+
         if (override)
         {
             if (embeds == null)
@@ -562,13 +569,7 @@ public class MessageActionImpl extends RestActionImpl<Message> implements Messag
                 obj.put("components", DataArray.empty());
             else
                 obj.put("components", DataArray.fromCollection(components));
-            if (retainedAttachments != null)
-                obj.put("attachments", DataArray.fromCollection(retainedAttachments.stream()
-                        .map(id -> DataObject.empty()
-                                .put("id", id))
-                        .collect(Collectors.toList())));
-            else
-                obj.put("attachments", DataArray.empty());
+            obj.put("attachments", attachments);
         }
         else
         {
@@ -582,19 +583,18 @@ public class MessageActionImpl extends RestActionImpl<Message> implements Messag
                 obj.put("components", DataArray.fromCollection(components));
             if (stickers != null)
                 obj.put("sticker_ids", DataArray.fromCollection(stickers));
-            if (retainedAttachments != null)
-                obj.put("attachments", DataArray.fromCollection(retainedAttachments.stream()
-                        .map(id -> DataObject.empty()
-                                .put("id", id))
-                        .collect(Collectors.toList())));
+            if (retainedAttachments != null || !attachments.isEmpty())
+                obj.put("attachments", attachments);
         }
+
         if (messageReference != 0)
         {
             obj.put("message_reference", DataObject.empty()
-                    .put("message_id", messageReference)
-                    .put("channel_id", channel.getId())
-                    .put("fail_if_not_exists", failOnInvalidReply));
+                .put("message_id", messageReference)
+                .put("channel_id", channel.getId())
+                .put("fail_if_not_exists", failOnInvalidReply));
         }
+
         obj.put("tts", tts);
         obj.put("allowed_mentions", allowedMentions);
         return obj;
