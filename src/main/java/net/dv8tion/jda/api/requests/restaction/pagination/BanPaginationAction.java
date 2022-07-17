@@ -40,6 +40,7 @@ import org.jetbrains.annotations.NotNull;
  *         if (reason.equals(ban.getReason())) {
  *             guild.unban(ban.getUser()).queue();
  *         }
+ *         return true; // continues iterating if this returns true
  *     });
  * }
  * }</pre>
