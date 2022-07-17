@@ -18,7 +18,7 @@ package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.utils.MiscUtil;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import java.util.Formattable;
 import java.util.FormattableFlags;
 import java.util.Formatter;
@@ -26,8 +26,8 @@ import java.util.Formatter;
 /**
  * Marks a mentionable entity.
  *
- * <h2>Formattable</h2>
- * This interface extends {@link Formattable Formattable} and can be used with a {@link Formatter Formatter}
+ * <p><b>Formattable</b><br>
+ * This interface extends {@link java.util.Formattable Formattable} and can be used with a {@link java.util.Formatter Formatter}
  * such as used by {@link String#format(String, Object...) String.format(String, Object...)}
  * or {@link java.io.PrintStream#printf(String, Object...) PrintStream.printf(String, Object...)}.
  *
@@ -44,7 +44,7 @@ import java.util.Formatter;
  *              (Example: {@code %.20s})</li>
  * </ul>
  *
- * <p>More information on formatting syntax can be found in the {@link Formatter format syntax documentation}!
+ * <p>More information on formatting syntax can be found in the {@link java.util.Formatter format syntax documentation}!
  * <br><b>Note</b>: Some implementations also support the <b>alternative</b> flag.
  *
  * @since 3.0
@@ -53,11 +53,11 @@ public interface IMentionable extends Formattable, ISnowflake
 {
     /**
      * Retrieve a Mention for this Entity.
-     * For the public {@link Role Role} (@everyone), this will return the literal string {@code "@everyone"}.
+     * For the public {@link net.dv8tion.jda.api.entities.Role Role} (@everyone), this will return the literal string {@code "@everyone"}.
      *
      * @return A resolvable mention.
      */
-    @NotNull
+    @Nonnull
     String getAsMention();
 
     @Override

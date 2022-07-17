@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * <p>Can be used to track invite deletion for moderation purposes.
  *
- * <h2>Requirements</h2>
+ * <p><b>Requirements</b><br>
  *
  * <p>This event requires the {@link net.dv8tion.jda.api.requests.GatewayIntent#GUILD_INVITES GUILD_INVITES} intent to be enabled.
  * <br>This event will only fire for invites deleted in channels where you can {@link net.dv8tion.jda.api.Permission#MANAGE_CHANNEL MANAGE_CHANNEL}.

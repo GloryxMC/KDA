@@ -21,10 +21,13 @@ import net.dv8tion.jda.api.interactions.ModalInteraction;
 import net.dv8tion.jda.api.utils.data.SerializableData;
 import net.dv8tion.jda.internal.interactions.component.ModalImpl;
 import net.dv8tion.jda.internal.utils.Checks;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import java.util.*;
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Represents a Discord Modal
@@ -32,7 +35,7 @@ import java.util.*;
  * <p>Replying to an interaction with a modal will open an interactive popout on the User's Discord client.
  * This is similar to the ban modal where you can input a ban reason.
   *
-  * <h2>Example</h2>
+  * <p><b>Example</b><br>
  * <pre>{@code
  * public void onSlashCommandInteraction(@Nonnull SlashCommandInteractionEvent event)
  * {
@@ -87,7 +90,7 @@ public interface Modal extends SerializableData
      *
      * @see    ModalInteraction#getModalId()
      */
-    @NotNull
+    @Nonnull
     String getId();
 
     /**
@@ -95,7 +98,7 @@ public interface Modal extends SerializableData
      *
      * @return The title of this modal
      */
-    @NotNull
+    @Nonnull
     String getTitle();
 
     /**
@@ -103,7 +106,7 @@ public interface Modal extends SerializableData
      *
      * @return List of ActionRows
      */
-    @NotNull
+    @Nonnull
     List<ActionRow> getActionRows();
 
     /**
@@ -112,7 +115,7 @@ public interface Modal extends SerializableData
      *
      * @return The {@link Modal.Builder} used to create the modal
      */
-    @NotNull
+    @Nonnull
     default Modal.Builder createCopy()
     {
         return new Builder(getId(), getTitle())
@@ -136,9 +139,9 @@ public interface Modal extends SerializableData
      *
      * @return {@link Builder Builder} instance to customize this modal further
      */
-    @NotNull
+    @Nonnull
     @CheckReturnValue
-    static Modal.Builder create(@NotNull String customId, @NotNull String title)
+    static Modal.Builder create(@Nonnull String customId, @Nonnull String title)
     {
         return new Modal.Builder(customId, title);
     }
@@ -152,7 +155,7 @@ public interface Modal extends SerializableData
         private String id;
         private String title;
 
-        protected Builder(@NotNull String customId, @NotNull String title)
+        protected Builder(@Nonnull String customId, @Nonnull String title)
         {
             setId(customId);
             setTitle(title);
@@ -169,8 +172,8 @@ public interface Modal extends SerializableData
          *
          * @return The same builder instance for chaining
          */
-        @NotNull
-        public Builder setId(@NotNull String customId)
+        @Nonnull
+        public Builder setId(@Nonnull String customId)
         {
             Checks.notBlank(customId, "ID");
             Checks.notLonger(customId, MAX_ID_LENGTH, "ID");
@@ -189,8 +192,8 @@ public interface Modal extends SerializableData
          *
          * @return The same builder instance for chaining
          */
-        @NotNull
-        public Builder setTitle(@NotNull String title)
+        @Nonnull
+        public Builder setTitle(@Nonnull String title)
         {
             Checks.notBlank(title, "Title");
             Checks.notLonger(title, MAX_TITLE_LENGTH, "Title");
@@ -214,8 +217,8 @@ public interface Modal extends SerializableData
          *
          * @see    ActionRow#isModalCompatible()
          */
-        @NotNull
-        public Builder addActionRows(@NotNull ActionRow... actionRows)
+        @Nonnull
+        public Builder addActionRows(@Nonnull ActionRow... actionRows)
         {
             Checks.noneNull(actionRows, "Action Rows");
             return addActionRows(Arrays.asList(actionRows));
@@ -237,8 +240,8 @@ public interface Modal extends SerializableData
          *
          * @see    ActionRow#isModalCompatible()
          */
-        @NotNull
-        public Builder addActionRows(@NotNull Collection<? extends ActionRow> actionRows)
+        @Nonnull
+        public Builder addActionRows(@Nonnull Collection<? extends ActionRow> actionRows)
         {
             Checks.noneNull(actionRows, "Components");
 
@@ -266,8 +269,8 @@ public interface Modal extends SerializableData
          *
          * @see    ItemComponent#isModalCompatible()
          */
-        @NotNull
-        public Builder addActionRow(@NotNull Collection<? extends ItemComponent> components)
+        @Nonnull
+        public Builder addActionRow(@Nonnull Collection<? extends ItemComponent> components)
         {
             return addActionRows(ActionRow.of(components));
         }
@@ -288,8 +291,8 @@ public interface Modal extends SerializableData
          *
          * @see    ItemComponent#isModalCompatible()
          */
-        @NotNull
-        public Builder addActionRow(@NotNull ItemComponent... components)
+        @Nonnull
+        public Builder addActionRow(@Nonnull ItemComponent... components)
         {
             return addActionRows(ActionRow.of(components));
         }
@@ -299,7 +302,7 @@ public interface Modal extends SerializableData
          *
          * @return A modifiable list of all components
          */
-        @NotNull
+        @Nonnull
         public List<ActionRow> getActionRows()
         {
             return components;
@@ -310,7 +313,7 @@ public interface Modal extends SerializableData
          *
          * @return the title
          */
-        @NotNull
+        @Nonnull
         public String getTitle()
         {
             return title;
@@ -321,7 +324,7 @@ public interface Modal extends SerializableData
          *
          * @return the id
          */
-        @NotNull
+        @Nonnull
         public String getId()
         {
             return id;
@@ -338,7 +341,7 @@ public interface Modal extends SerializableData
          *
          * @return A Modal
          */
-        @NotNull
+        @Nonnull
         public Modal build()
         {
             Checks.check(!components.isEmpty(), "Cannot make a modal without components!");
