@@ -77,7 +77,7 @@ public class MessageEditCallbackActionImpl extends DeferrableCallbackActionImpl 
 
     private boolean isEmpty()
     {
-        return content == null && embeds == null && components == null && files.isEmpty();
+        return content == null && embeds == null && components == null && !isFileUpdate && files.isEmpty();
     }
 
     @Override
@@ -153,6 +153,7 @@ public class MessageEditCallbackActionImpl extends DeferrableCallbackActionImpl 
             name = "SPOILER_" + name;
 
         files.add(FileUpload.fromData(data, name));
+        isFileUpdate = true;
         return this;
     }
 
@@ -168,6 +169,7 @@ public class MessageEditCallbackActionImpl extends DeferrableCallbackActionImpl 
         ids.stream()
            .map(AttachedFile::fromAttachment)
            .forEach(this.files::add);
+        isFileUpdate = true;
         return this;
     }
 
