@@ -17,6 +17,7 @@
 package net.dv8tion.jda.api.events.interaction;
 
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.ModalInteraction;
@@ -24,8 +25,9 @@ import net.dv8tion.jda.api.interactions.components.Modal;
 import net.dv8tion.jda.api.interactions.modals.ModalMapping;
 import net.dv8tion.jda.api.requests.restaction.interactions.MessageEditCallbackAction;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -41,48 +43,55 @@ public class ModalInteractionEvent extends GenericInteractionCreateEvent impleme
 {
     private final ModalInteraction interaction;
 
-    public ModalInteractionEvent(@NotNull JDA api, long responseNumber, @NotNull ModalInteraction interaction)
+    public ModalInteractionEvent(@Nonnull JDA api, long responseNumber, @Nonnull ModalInteraction interaction)
     {
         super(api, responseNumber, interaction);
         this.interaction = interaction;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public ModalInteraction getInteraction()
     {
         return interaction;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getModalId()
     {
         return interaction.getModalId();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public List<ModalMapping> getValues()
     {
         return interaction.getValues();
     }
 
-    @NotNull
+    @Nullable
+    @Override
+    public Message getMessage()
+    {
+        return interaction.getMessage();
+    }
+
+    @Nonnull
     @Override
     public ReplyCallbackAction deferReply()
     {
         return interaction.deferReply();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public InteractionHook getHook()
     {
         return interaction.getHook();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public MessageEditCallbackAction deferEdit()
     {

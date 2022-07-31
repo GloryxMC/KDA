@@ -16,6 +16,7 @@
 
 package net.dv8tion.jda.internal.interactions;
 
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.interactions.ModalInteraction;
 import net.dv8tion.jda.api.interactions.modals.ModalMapping;
@@ -26,8 +27,8 @@ import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
 import net.dv8tion.jda.internal.requests.restaction.interactions.MessageEditCallbackActionImpl;
 import net.dv8tion.jda.internal.requests.restaction.interactions.ReplyCallbackActionImpl;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +37,7 @@ public class ModalInteractionImpl extends DeferrableInteractionImpl implements M
 {
     private final String modalId;
     private final List<ModalMapping> mappings;
+    private final Message message;
 
     public ModalInteractionImpl(JDAImpl api, DataObject object)
     {
@@ -49,30 +51,39 @@ public class ModalInteractionImpl extends DeferrableInteractionImpl implements M
                 .flatMap(dataArray -> dataArray.stream(DataArray::getObject))
                 .map(ModalMapping::new)
                 .collect(Collectors.toList());
+        this.message = object.optObject("message")
+                .map(o -> api.getEntityBuilder().createMessageWithChannel(o, getMessageChannel(), false))
+                .orElse(null);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getModalId()
     {
         return modalId;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public List<ModalMapping> getValues()
     {
         return Collections.unmodifiableList(mappings);
     }
 
-    @NotNull
+    @Override
+    public Message getMessage()
+    {
+        return message;
+    }
+
+    @Nonnull
     @Override
     public ReplyCallbackAction deferReply()
     {
         return new ReplyCallbackActionImpl(hook);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public MessageEditCallbackAction deferEdit()
     {
