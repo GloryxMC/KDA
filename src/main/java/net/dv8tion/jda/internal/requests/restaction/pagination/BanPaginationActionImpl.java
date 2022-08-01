@@ -19,12 +19,13 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.requests.Request;
 import net.dv8tion.jda.api.requests.Response;
 import net.dv8tion.jda.api.requests.restaction.pagination.BanPaginationAction;
+import net.dv8tion.jda.api.requests.restaction.pagination.PaginationAction;
 import net.dv8tion.jda.api.utils.data.DataArray;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.entities.EntityBuilder;
 import net.dv8tion.jda.internal.requests.Route;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,10 +40,22 @@ public class BanPaginationActionImpl
     {
         super(guild.getJDA(), Route.Guilds.GET_BANS.compile(guild.getId()), 1, 1000, 1000);
         this.guild = guild;
+        this.lastKey = Long.MAX_VALUE;
     }
 
+    @Nonnull
     @Override
-    @NotNull
+    public BanPaginationAction order(@Nonnull PaginationAction.PaginationOrder order)
+    {
+        if (order == PaginationOrder.BACKWARD && lastKey == 0)
+            lastKey = Long.MAX_VALUE;
+        else if (order == PaginationOrder.FORWARD && lastKey == Long.MAX_VALUE)
+            lastKey = 0;
+        return super.order(order);
+    }
+
+    @Nonnull
+    @Override
     public Guild getGuild()
     {
         return guild;
