@@ -22,10 +22,9 @@ import net.dv8tion.jda.api.entities.ApplicationInfo;
 import net.dv8tion.jda.api.entities.ApplicationTeam;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.internal.utils.Checks;
-import org.jetbrains.annotations.NotNull;
 
-import org.jetbrains.annotations.Nullable;
-
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -38,6 +37,7 @@ public class ApplicationInfoImpl implements ApplicationInfo
     private final boolean doesBotRequireCodeGrant;
     private final boolean isBotPublic;
     private final long id;
+    private final long flags;
     private final String iconId;
     private final String description;
     private final String termsOfServiceUrl;
@@ -51,7 +51,7 @@ public class ApplicationInfoImpl implements ApplicationInfo
     private final List<String> defaultAuthUrlScopes;
     private String scopes = "bot";
 
-    public ApplicationInfoImpl(JDA api, String description, boolean doesBotRequireCodeGrant, String iconId, long id,
+    public ApplicationInfoImpl(JDA api, String description, boolean doesBotRequireCodeGrant, String iconId, long id, long flags,
             boolean isBotPublic, String name, String termsOfServiceUrl, String privacyPolicyUrl, User owner, ApplicationTeam team,
             List<String> tags, String customAuthUrl, long defaultAuthUrlPerms, List<String> defaultAuthUrlScopes)
     {
@@ -60,6 +60,7 @@ public class ApplicationInfoImpl implements ApplicationInfo
         this.doesBotRequireCodeGrant = doesBotRequireCodeGrant;
         this.iconId = iconId;
         this.id = id;
+        this.flags = flags;
         this.isBotPublic = isBotPublic;
         this.name = name;
         this.termsOfServiceUrl = termsOfServiceUrl;
@@ -84,7 +85,7 @@ public class ApplicationInfoImpl implements ApplicationInfo
         return obj instanceof ApplicationInfoImpl && this.id == ((ApplicationInfoImpl) obj).id;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getDescription()
     {
@@ -116,16 +117,16 @@ public class ApplicationInfoImpl implements ApplicationInfo
                 : "https://cdn.discordapp.com/app-icons/" + this.id + '/' + this.iconId + ".png";
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public ApplicationTeam getTeam()
     {
         return team;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public ApplicationInfo setRequiredScopes(@NotNull Collection<String> scopes)
+    public ApplicationInfo setRequiredScopes(@Nonnull Collection<String> scopes)
     {
         Checks.noneNull(scopes, "Scopes");
         this.scopes = String.join("+", scopes);
@@ -145,7 +146,7 @@ public class ApplicationInfoImpl implements ApplicationInfo
         return this.id;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getInviteUrl(final String guildId, final Collection<Permission> permissions)
     {
@@ -165,21 +166,21 @@ public class ApplicationInfoImpl implements ApplicationInfo
         return builder.toString();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public JDA getJDA()
     {
         return this.api;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getName()
     {
         return this.name;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public User getOwner()
     {
@@ -198,7 +199,7 @@ public class ApplicationInfoImpl implements ApplicationInfo
         return this.isBotPublic;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public List<String> getTags()
     {
@@ -212,7 +213,7 @@ public class ApplicationInfoImpl implements ApplicationInfo
         return customAuthUrl;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public EnumSet<Permission> getPermissions()
     {
@@ -225,7 +226,13 @@ public class ApplicationInfoImpl implements ApplicationInfo
         return defaultAuthUrlPerms;
     }
 
-    @NotNull
+    @Override
+    public long getFlagsRaw()
+    {
+        return flags;
+    }
+
+    @Nonnull
     @Override
     public List<String> getScopes()
     {
