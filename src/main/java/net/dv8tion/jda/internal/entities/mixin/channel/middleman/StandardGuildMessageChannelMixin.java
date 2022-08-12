@@ -21,8 +21,7 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.StandardGuildMessageChannel;
 import net.dv8tion.jda.internal.entities.mixin.channel.attribute.IThreadContainerMixin;
 import net.dv8tion.jda.internal.entities.mixin.channel.attribute.IWebhookContainerMixin;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public interface StandardGuildMessageChannelMixin<T extends StandardGuildMessageChannelMixin<T>> extends
         StandardGuildMessageChannel,
@@ -33,7 +32,7 @@ public interface StandardGuildMessageChannelMixin<T extends StandardGuildMessage
 {
     // ---- Default implementations of interface ----
     @Override
-    default boolean canTalk(@Nonnull Member member)
+    default boolean canTalk(@NotNull Member member)
     {
         if (!getGuild().equals(member.getGuild()))
             throw new IllegalArgumentException("Provided Member is not from the Guild that this channel is part of.");

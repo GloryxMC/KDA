@@ -23,10 +23,11 @@ import net.dv8tion.jda.api.entities.channel.unions.DefaultGuildChannelUnion;
 import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 import net.dv8tion.jda.api.utils.ImageProxy;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import java.awt.*;
 import java.time.Duration;
 import java.time.OffsetDateTime;
@@ -66,7 +67,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @return {@link net.dv8tion.jda.api.entities.User User}
      */
-    @Nonnull
+    @NotNull
     User getUser();
 
     /**
@@ -74,7 +75,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @return {@link net.dv8tion.jda.api.entities.Guild Guild}
      */
-    @Nonnull
+    @NotNull
     Guild getGuild();
 
     /**
@@ -82,7 +83,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @return The current JDA instance.
      */
-    @Nonnull
+    @NotNull
     JDA getJDA();
 
     /**
@@ -96,7 +97,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @return The time at which this user has joined the guild.
      */
-    @Nonnull
+    @NotNull
     OffsetDateTime getTimeJoined();
 
     /**
@@ -172,7 +173,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @return Immutable list of {@link Activity Activities} for the user
      */
-    @Nonnull
+    @NotNull
     List<Activity> getActivities();
 
     /**
@@ -183,7 +184,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @return The current {@link net.dv8tion.jda.api.OnlineStatus OnlineStatus} of the {@link net.dv8tion.jda.api.entities.User User}.
      */
-    @Nonnull
+    @NotNull
     OnlineStatus getOnlineStatus();
 
     /**
@@ -206,8 +207,8 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @since  4.0.0
      */
-    @Nonnull
-    OnlineStatus getOnlineStatus(@Nonnull ClientType type);
+    @NotNull
+    OnlineStatus getOnlineStatus(@NotNull ClientType type);
 
     /**
      * A Set of all active {@link net.dv8tion.jda.api.entities.ClientType ClientTypes} of this Member.
@@ -225,7 +226,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @since  4.0.0
      */
-    @Nonnull
+    @NotNull
     EnumSet<ClientType> getActiveClients();
 
     /**
@@ -244,7 +245,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @return The Nickname of this Member or the Username if no Nickname is present.
      */
-    @Nonnull
+    @NotNull
     String getEffectiveName();
 
     /**
@@ -290,7 +291,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @return Never-null String containing the {@link net.dv8tion.jda.api.entities.Member} avatar url.
      */
-    @Nonnull
+    @NotNull
     default String getEffectiveAvatarUrl()
     {
         String avatarUrl = getAvatarUrl();
@@ -304,7 +305,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @see    #getEffectiveAvatarUrl()
      */
-    @Nonnull
+    @NotNull
     default ImageProxy getEffectiveAvatar()
     {
         final ImageProxy avatar = getAvatar();
@@ -328,7 +329,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      * @see    Guild#removeRoleFromMember(UserSnowflake, Role)
      * @see    Guild#modifyMemberRoles(Member, Collection, Collection)
      */
-    @Nonnull
+    @NotNull
     List<Role> getRoles();
 
     /**
@@ -367,7 +368,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @return True, if this Member is able to interact with the specified Member
      */
-    boolean canInteract(@Nonnull Member member);
+    boolean canInteract(@NotNull Member member);
 
     /**
      * Whether this Member can interact with the provided {@link net.dv8tion.jda.api.entities.Role Role}
@@ -385,7 +386,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @return True, if this member is able to interact with the specified Role
      */
-    boolean canInteract(@Nonnull Role role);
+    boolean canInteract(@NotNull Role role);
 
     /**
      * Whether this Member can interact with the provided {@link RichCustomEmoji}
@@ -401,7 +402,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @return True, if this Member is able to interact with the specified emoji
      */
-    boolean canInteract(@Nonnull RichCustomEmoji emoji);
+    boolean canInteract(@NotNull RichCustomEmoji emoji);
 
     /**
      * Checks whether this member is the owner of its related {@link net.dv8tion.jda.api.entities.Guild Guild}.
@@ -475,7 +476,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @since  4.0.0
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default AuditableRestAction<Void> ban(int delDays)
     {
@@ -524,7 +525,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @since  4.0.0
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default AuditableRestAction<Void> ban(int delDays, @Nullable String reason)
     {
@@ -558,7 +559,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @since  4.0.0
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default AuditableRestAction<Void> kick()
     {
@@ -597,7 +598,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @since  4.0.0
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default AuditableRestAction<Void> kick(@Nullable String reason)
     {
@@ -636,9 +637,9 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AuditableRestAction<Void> timeoutFor(long amount, @Nonnull TimeUnit unit)
+    default AuditableRestAction<Void> timeoutFor(long amount, @NotNull TimeUnit unit)
     {
         return getGuild().timeoutFor(this, amount, unit);
     }
@@ -673,9 +674,9 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default AuditableRestAction<Void> timeoutFor(@Nonnull Duration duration)
+    default AuditableRestAction<Void> timeoutFor(@NotNull Duration duration)
     {
         return getGuild().timeoutFor(this, duration);
     }
@@ -709,7 +710,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default AuditableRestAction<Void> timeoutUntil(@Nullable TemporalAccessor temporal)
     {
@@ -734,7 +735,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default AuditableRestAction<Void> removeTimeout()
     {
@@ -773,7 +774,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @since  4.0.0
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default AuditableRestAction<Void> mute(boolean mute)
     {
@@ -811,7 +812,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @since  4.0.0
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default AuditableRestAction<Void> deafen(boolean deafen)
     {
@@ -855,7 +856,7 @@ public interface Member extends IMentionable, IPermissionHolder, UserSnowflake
      *
      * @since  4.0.0
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default AuditableRestAction<Void> modifyNickname(@Nullable String nickname)
     {

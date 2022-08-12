@@ -26,7 +26,7 @@ import net.dv8tion.jda.api.utils.data.DataArray;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.utils.Checks;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 import java.util.Stack;
 import java.util.StringJoiner;
@@ -63,8 +63,8 @@ public class LocalizationMapper
      *
      * @see ResourceBundleLocalizationFunction
      */
-    @Nonnull
-    public static LocalizationMapper fromFunction(@Nonnull LocalizationFunction localizationFunction) {
+    @NotNull
+    public static LocalizationMapper fromFunction(@NotNull LocalizationFunction localizationFunction) {
         return new LocalizationMapper(localizationFunction);
     }
 

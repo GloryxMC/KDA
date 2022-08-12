@@ -19,9 +19,9 @@ package net.dv8tion.jda.api.managers.channel.concrete;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.managers.channel.middleman.StandardGuildMessageChannelManager;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 
 /**
  * Manager providing functionality common for all {@link TextChannel TextChannels}.
@@ -61,7 +61,7 @@ public interface TextChannelManager extends StandardGuildMessageChannelManager<T
      *
      * @return ChannelManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     TextChannelManager setSlowmode(int slowmode);
 
@@ -107,7 +107,7 @@ public interface TextChannelManager extends StandardGuildMessageChannelManager<T
      *
      * @see    Guild#getFeatures()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    TextChannelManager setType(@Nonnull ChannelType type);
+    TextChannelManager setType(@NotNull ChannelType type);
 }

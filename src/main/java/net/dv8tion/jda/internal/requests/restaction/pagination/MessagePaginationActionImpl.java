@@ -31,8 +31,8 @@ import net.dv8tion.jda.api.utils.data.DataArray;
 import net.dv8tion.jda.internal.entities.EntityBuilder;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -59,7 +59,7 @@ public class MessagePaginationActionImpl
         this.channel = channel;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageChannelUnion getChannel()
     {

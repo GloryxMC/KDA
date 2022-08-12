@@ -65,10 +65,10 @@ import net.dv8tion.jda.internal.utils.cache.MemberCacheViewImpl;
 import net.dv8tion.jda.internal.utils.cache.SnowflakeCacheViewImpl;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.map.CaseInsensitiveMap;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
@@ -1357,7 +1357,7 @@ public class EntityBuilder
         return role;
     }
 
-    public ReceivedMessage createMessageWithChannel(DataObject json, @Nonnull MessageChannel channel, boolean modifyCache)
+    public ReceivedMessage createMessageWithChannel(DataObject json, @NotNull MessageChannel channel, boolean modifyCache)
     {
         // Use channel directly if message is from a known guild channel
         if (channel instanceof GuildMessageChannel)
@@ -1416,7 +1416,7 @@ public class EntityBuilder
         return channel;
     }
 
-    private ReceivedMessage createMessage0(DataObject jsonObject, @Nonnull MessageChannel channel, boolean modifyCache)
+    private ReceivedMessage createMessage0(DataObject jsonObject, @NotNull MessageChannel channel, boolean modifyCache)
     {
         MessageType type = MessageType.fromId(jsonObject.getInt("type"));
         if (type == MessageType.UNKNOWN)

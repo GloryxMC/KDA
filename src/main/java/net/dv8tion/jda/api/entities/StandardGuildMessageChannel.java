@@ -19,10 +19,11 @@ package net.dv8tion.jda.api.entities;
 import net.dv8tion.jda.api.entities.channel.attribute.IAgeRestrictedChannel;
 import net.dv8tion.jda.api.managers.channel.middleman.StandardGuildMessageChannelManager;
 import net.dv8tion.jda.api.requests.restaction.ChannelAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a standard {@link GuildMessageChannel} which are the "<i>normal</i>" message channels that are present in the channel sidebar.
@@ -38,7 +39,7 @@ import javax.annotation.Nullable;
  */
 public interface StandardGuildMessageChannel extends StandardGuildChannel, GuildMessageChannel, IThreadContainer, IWebhookContainer, IAgeRestrictedChannel
 {
-    @Nonnull
+    @NotNull
     @Override
     StandardGuildMessageChannelManager<?, ?> getManager();
 
@@ -52,12 +53,12 @@ public interface StandardGuildMessageChannel extends StandardGuildChannel, Guild
     String getTopic();
 
     @Override
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    ChannelAction<? extends StandardGuildMessageChannel> createCopy(@Nonnull Guild guild);
+    ChannelAction<? extends StandardGuildMessageChannel> createCopy(@NotNull Guild guild);
 
     @Override
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     ChannelAction<? extends StandardGuildMessageChannel> createCopy();
 }

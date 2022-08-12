@@ -33,10 +33,11 @@ import net.dv8tion.jda.api.utils.data.DataType;
 import net.dv8tion.jda.internal.interactions.command.CommandImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.localization.LocalizationUtils;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -58,7 +59,7 @@ public interface Command extends ISnowflake
      *
      * @return {@link RestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RestAction<Void> delete();
 
@@ -71,7 +72,7 @@ public interface Command extends ISnowflake
      *
      * @return {@link CommandEditAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     CommandEditAction editCommand();
 
@@ -92,16 +93,16 @@ public interface Command extends ISnowflake
      *
      * @return {@link RestAction} - Type: {@link List} of {@link IntegrationPrivilege}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    RestAction<List<IntegrationPrivilege>> retrievePrivileges(@Nonnull Guild guild);
+    RestAction<List<IntegrationPrivilege>> retrievePrivileges(@NotNull Guild guild);
 
     /**
      * Returns the {@link JDA JDA} instance of this Command
      *
      * @return the corresponding JDA instance
      */
-    @Nonnull
+    @NotNull
     JDA getJDA();
 
     /**
@@ -109,7 +110,7 @@ public interface Command extends ISnowflake
      *
      * @return The command type
      */
-    @Nonnull
+    @NotNull
     Type getType();
 
     /**
@@ -117,7 +118,7 @@ public interface Command extends ISnowflake
      *
      * @return The name
      */
-    @Nonnull
+    @NotNull
     String getName();
 
     /**
@@ -125,7 +126,7 @@ public interface Command extends ISnowflake
      *
      * @return The {@link LocalizationMap} containing the mapping from {@link DiscordLocale} to the localized name
      */
-    @Nonnull
+    @NotNull
     LocalizationMap getNameLocalizations();
 
     /**
@@ -133,7 +134,7 @@ public interface Command extends ISnowflake
      *
      * @return The description, empty for context menu commands
      */
-    @Nonnull
+    @NotNull
     String getDescription();
 
     /**
@@ -141,7 +142,7 @@ public interface Command extends ISnowflake
      *
      * @return The {@link LocalizationMap} containing the mapping from {@link DiscordLocale} to the localized description
      */
-    @Nonnull
+    @NotNull
     LocalizationMap getDescriptionLocalizations();
 
     /**
@@ -149,7 +150,7 @@ public interface Command extends ISnowflake
      *
      * @return Immutable list of command options
      */
-    @Nonnull
+    @NotNull
     List<Option> getOptions();
 
     /**
@@ -157,7 +158,7 @@ public interface Command extends ISnowflake
      *
      * @return Immutable list of subcommands
      */
-    @Nonnull
+    @NotNull
     List<Subcommand> getSubcommands();
 
     /**
@@ -165,7 +166,7 @@ public interface Command extends ISnowflake
      *
      * @return Immutable list of subcommand groups
      */
-    @Nonnull
+    @NotNull
     List<SubcommandGroup> getSubcommandGroups();
 
     /**
@@ -180,7 +181,7 @@ public interface Command extends ISnowflake
      *
      * @return The application id
      */
-    @Nonnull
+    @NotNull
     default String getApplicationId()
     {
         return Long.toUnsignedString(getApplicationIdLong());
@@ -204,7 +205,7 @@ public interface Command extends ISnowflake
      *
      * @see #getVersion()
      */
-    @Nonnull
+    @NotNull
     default OffsetDateTime getTimeModified()
     {
         return TimeUtil.getTimeCreated(getVersion());
@@ -216,7 +217,7 @@ public interface Command extends ISnowflake
      *
      * @return The DefaultMemberPermissions of this command.
      */
-    @Nonnull
+    @NotNull
     DefaultMemberPermissions getDefaultPermissions();
 
     /**
@@ -252,7 +253,7 @@ public interface Command extends ISnowflake
          *
          * @return The type or {@link #UNKNOWN}
          */
-        @Nonnull
+        @NotNull
         public static Type fromId(int id)
         {
             for (Type type : values())
@@ -311,7 +312,7 @@ public interface Command extends ISnowflake
          *         If the name is null, empty, or not between 1-{@value #MAX_NAME_LENGTH} characters long,
          *         as defined by {@link #MAX_NAME_LENGTH}
          */
-        public Choice(@Nonnull String name, long value)
+        public Choice(@NotNull String name, long value)
         {
             setName(name);
             setIntValue(value);
@@ -329,7 +330,7 @@ public interface Command extends ISnowflake
          *         If the name is null, empty, or not between 1-{@value #MAX_NAME_LENGTH} characters long,
          *         as defined by {@link #MAX_NAME_LENGTH}
          */
-        public Choice(@Nonnull String name, double value)
+        public Choice(@NotNull String name, double value)
         {
             setName(name);
             setDoubleValue(value);
@@ -352,7 +353,7 @@ public interface Command extends ISnowflake
          *         </ul>
          *
          */
-        public Choice(@Nonnull String name, @Nonnull String value)
+        public Choice(@NotNull String name, @NotNull String value)
         {
             setName(name);
             setStringValue(value);
@@ -369,7 +370,7 @@ public interface Command extends ISnowflake
          * @throws net.dv8tion.jda.api.exceptions.ParsingException
          *         If the data is not formatted correctly or missing required parameters
          */
-        public Choice(@Nonnull DataObject json)
+        public Choice(@NotNull DataObject json)
         {
             Checks.notNull(json, "DataObject");
             this.name = json.getString("name");
@@ -394,7 +395,7 @@ public interface Command extends ISnowflake
          *
          * @return The choice name
          */
-        @Nonnull
+        @NotNull
         public String getName()
         {
             return name;
@@ -412,7 +413,7 @@ public interface Command extends ISnowflake
          *
          * @return The Choice instance, for chaining
          */
-        public Choice setName(@Nonnull String name)
+        public Choice setName(@NotNull String name)
         {
             checkName(name);
             this.name = name;
@@ -424,7 +425,7 @@ public interface Command extends ISnowflake
          *
          * @return The {@link LocalizationMap} containing the mapping from {@link DiscordLocale} to the localized name
          */
-        @Nonnull
+        @NotNull
         public LocalizationMap getNameLocalizations()
         {
             return nameLocalizations;
@@ -449,8 +450,8 @@ public interface Command extends ISnowflake
          *
          * @return This builder instance, for chaining
          */
-        @Nonnull
-        public Choice setNameLocalization(@Nonnull DiscordLocale locale, @Nonnull String name)
+        @NotNull
+        public Choice setNameLocalization(@NotNull DiscordLocale locale, @NotNull String name)
         {
             nameLocalizations.setTranslation(locale, name);
             return this;
@@ -471,8 +472,8 @@ public interface Command extends ISnowflake
          *
          * @return This builder instance, for chaining
          */
-        @Nonnull
-        public Choice setNameLocalizations(@Nonnull Map<DiscordLocale, String> map)
+        @NotNull
+        public Choice setNameLocalizations(@NotNull Map<DiscordLocale, String> map)
         {
             //Checks are done in LocalizationMap
             nameLocalizations.setTranslations(map);
@@ -504,7 +505,7 @@ public interface Command extends ISnowflake
          *
          * @return The String value
          */
-        @Nonnull
+        @NotNull
         public String getAsString()
         {
             return stringValue;
@@ -515,7 +516,7 @@ public interface Command extends ISnowflake
          *
          * @return The option type of this choice
          */
-        @Nonnull
+        @NotNull
         public OptionType getType()
         {
             return type;
@@ -558,7 +559,7 @@ public interface Command extends ISnowflake
             this.type = OptionType.NUMBER;
         }
 
-        private void setStringValue(@Nonnull String value)
+        private void setStringValue(@NotNull String value)
         {
             Checks.notLonger(value, MAX_STRING_VALUE_LENGTH, "Choice string value");
             this.doubleValue = Double.NaN;
@@ -567,13 +568,13 @@ public interface Command extends ISnowflake
             this.type = OptionType.STRING;
         }
 
-        private void checkName(@Nonnull String name)
+        private void checkName(@NotNull String name)
         {
             Checks.notEmpty(name, "Choice name");
             Checks.notLonger(name, MAX_NAME_LENGTH, "Choice name");
         }
 
-        @Nonnull
+        @NotNull
         public DataObject toData(OptionType optionType)
         {
             final Object value;
@@ -608,7 +609,7 @@ public interface Command extends ISnowflake
         private Number minValue;
         private Number maxValue;
 
-        public Option(@Nonnull DataObject json)
+        public Option(@NotNull DataObject json)
         {
             this.name = json.getString("name");
             this.nameLocalizations = LocalizationUtils.unmodifiableFromProperty(json, "name_localizations");
@@ -634,7 +635,7 @@ public interface Command extends ISnowflake
          *
          * @return The name
          */
-        @Nonnull
+        @NotNull
         public String getName()
         {
             return name;
@@ -645,7 +646,7 @@ public interface Command extends ISnowflake
          *
          * @return The {@link LocalizationMap} containing the mapping from {@link DiscordLocale} to the localized name
          */
-        @Nonnull
+        @NotNull
         public LocalizationMap getNameLocalizations()
         {
             return nameLocalizations;
@@ -656,7 +657,7 @@ public interface Command extends ISnowflake
          *
          * @return The description
          */
-        @Nonnull
+        @NotNull
         public String getDescription()
         {
             return description;
@@ -667,7 +668,7 @@ public interface Command extends ISnowflake
          *
          * @return The {@link LocalizationMap} containing the mapping from {@link DiscordLocale} to the localized description
          */
-        @Nonnull
+        @NotNull
         public LocalizationMap getDescriptionLocalizations()
         {
             return descriptionLocalizations;
@@ -708,7 +709,7 @@ public interface Command extends ISnowflake
          *
          * @return The type
          */
-        @Nonnull
+        @NotNull
         public OptionType getType()
         {
             return OptionType.fromKey(type);
@@ -720,7 +721,7 @@ public interface Command extends ISnowflake
          *
          * @return Immutable {@link Set} of {@link ChannelType}
          */
-        @Nonnull
+        @NotNull
         public Set<ChannelType> getChannelTypes()
         {
             return channelTypes;
@@ -758,7 +759,7 @@ public interface Command extends ISnowflake
          *
          * @return Immutable {@link List} of {@link Choice}
          */
-        @Nonnull
+        @NotNull
         public List<Choice> getChoices()
         {
             return choices;
@@ -818,7 +819,7 @@ public interface Command extends ISnowflake
          *
          * @return The name
          */
-        @Nonnull
+        @NotNull
         public String getName()
         {
             return name;
@@ -829,7 +830,7 @@ public interface Command extends ISnowflake
          *
          * @return The {@link LocalizationMap} containing the mapping from {@link DiscordLocale} to the localized name
          */
-        @Nonnull
+        @NotNull
         public LocalizationMap getNameLocalizations()
         {
             return nameLocalizations;
@@ -840,7 +841,7 @@ public interface Command extends ISnowflake
          *
          * @return The description
          */
-        @Nonnull
+        @NotNull
         public String getDescription()
         {
             return description;
@@ -851,7 +852,7 @@ public interface Command extends ISnowflake
          *
          * @return The {@link LocalizationMap} containing the mapping from {@link DiscordLocale} to the localized description
          */
-        @Nonnull
+        @NotNull
         public LocalizationMap getDescriptionLocalizations()
         {
             return descriptionLocalizations;
@@ -862,7 +863,7 @@ public interface Command extends ISnowflake
          *
          * @return Immutable list of Options
          */
-        @Nonnull
+        @NotNull
         public List<Option> getOptions()
         {
             return options;
@@ -916,7 +917,7 @@ public interface Command extends ISnowflake
          *
          * @return The name
          */
-        @Nonnull
+        @NotNull
         public String getName()
         {
             return name;
@@ -927,7 +928,7 @@ public interface Command extends ISnowflake
          *
          * @return The {@link LocalizationMap} containing the mapping from {@link DiscordLocale} to the localized name
          */
-        @Nonnull
+        @NotNull
         public LocalizationMap getNameLocalizations()
         {
             return nameLocalizations;
@@ -938,7 +939,7 @@ public interface Command extends ISnowflake
          *
          * @return The description
          */
-        @Nonnull
+        @NotNull
         public String getDescription()
         {
             return description;
@@ -949,7 +950,7 @@ public interface Command extends ISnowflake
          *
          * @return The {@link LocalizationMap} containing the mapping from {@link DiscordLocale} to the localized description
          */
-        @Nonnull
+        @NotNull
         public LocalizationMap getDescriptionLocalizations()
         {
             return descriptionLocalizations;
@@ -960,7 +961,7 @@ public interface Command extends ISnowflake
          *
          * @return Immutable {@link List} of {@link Subcommand}
          */
-        @Nonnull
+        @NotNull
         public List<Subcommand> getSubcommands()
         {
             return subcommands;

@@ -17,8 +17,8 @@
 package net.dv8tion.jda.api.interactions;
 
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Locale;
 
 /**
@@ -77,7 +77,7 @@ public enum DiscordLocale
      *
      * @return The locale tag
      */
-    @Nonnull
+    @NotNull
     public String getLocale()
     {
         return locale;
@@ -88,7 +88,7 @@ public enum DiscordLocale
      *
      * @return The English language name
      */
-    @Nonnull
+    @NotNull
     public String getLanguageName()
     {
         return languageName;
@@ -99,7 +99,7 @@ public enum DiscordLocale
      *
      * @return The native language name
      */
-    @Nonnull
+    @NotNull
     public String getNativeName()
     {
         return nativeName;
@@ -116,8 +116,8 @@ public enum DiscordLocale
      *
      * @return The DiscordLocale constant or {@link #UNKNOWN}
      */
-    @Nonnull
-    public static DiscordLocale from(@Nonnull String localeTag)
+    @NotNull
+    public static DiscordLocale from(@NotNull String localeTag)
     {
         Checks.notNull(localeTag, "Locale tag");
 
@@ -143,8 +143,8 @@ public enum DiscordLocale
      *
      * @return The DiscordLocale constant or {@link #UNKNOWN}
      */
-    @Nonnull
-    public static DiscordLocale from(@Nonnull Locale locale)
+    @NotNull
+    public static DiscordLocale from(@NotNull Locale locale)
     {
         Checks.notNull(locale, "Locale");
 

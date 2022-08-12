@@ -32,10 +32,11 @@ import net.dv8tion.jda.internal.requests.CompletedRestAction;
 import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import javax.security.auth.login.LoginException;
 import java.util.*;
 import java.util.function.Function;
@@ -66,7 +67,7 @@ public interface ShardManager extends IGuildChannelContainer
      * @throws java.lang.IllegalArgumentException
      *         If either listeners or one of it's objects is {@code null}.
      */
-    default void addEventListener(@Nonnull final Object... listeners)
+    default void addEventListener(@NotNull final Object... listeners)
     {
         Checks.noneNull(listeners, "listeners");
         this.getShardCache().forEach(jda -> jda.addEventListener(listeners));
@@ -81,7 +82,7 @@ public interface ShardManager extends IGuildChannelContainer
      * @throws java.lang.IllegalArgumentException
      *         If either listeners or one of it's objects is {@code null}.
      */
-    default void removeEventListener(@Nonnull final Object... listeners)
+    default void removeEventListener(@NotNull final Object... listeners)
     {
         Checks.noneNull(listeners, "listeners");
         this.getShardCache().forEach(jda -> jda.removeEventListener(listeners));
@@ -100,7 +101,7 @@ public interface ShardManager extends IGuildChannelContainer
      * @throws java.lang.IllegalArgumentException
      *         If the provided listener provider or any of the listeners or provides are {@code null}.
      */
-    default void addEventListeners(@Nonnull final IntFunction<Object> eventListenerProvider)
+    default void addEventListeners(@NotNull final IntFunction<Object> eventListenerProvider)
     {
         Checks.notNull(eventListenerProvider, "event listener provider");
         this.getShardCache().forEach(jda ->
@@ -122,7 +123,7 @@ public interface ShardManager extends IGuildChannelContainer
      * @throws java.lang.IllegalArgumentException
      *         If the provided event listeners provider is {@code null}.
      */
-    default void removeEventListeners(@Nonnull final IntFunction<Collection<Object>> eventListenerProvider)
+    default void removeEventListeners(@NotNull final IntFunction<Collection<Object>> eventListenerProvider)
     {
         Checks.notNull(eventListenerProvider, "event listener provider");
         this.getShardCache().forEach(jda ->
@@ -143,7 +144,7 @@ public interface ShardManager extends IGuildChannelContainer
      * @throws java.lang.IllegalArgumentException
      *         If the provided listener provider is {@code null}.
      */
-    default void removeEventListenerProvider(@Nonnull IntFunction<Object> eventListenerProvider)
+    default void removeEventListenerProvider(@NotNull IntFunction<Object> eventListenerProvider)
     {
     }
 
@@ -180,7 +181,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return {@link EnumSet} of active gateway intents
      */
-    @Nonnull
+    @NotNull
     default EnumSet<GatewayIntent> getGatewayIntents()
     {
         //noinspection ConstantConditions
@@ -199,7 +200,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return The Application registry for this bot.
      */
-    @Nonnull
+    @NotNull
     default RestAction<ApplicationInfo> retrieveApplicationInfo()
     {
         return this.getShardCache().stream()
@@ -233,7 +234,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView}
      */
-    @Nonnull
+    @NotNull
     default SnowflakeCacheView<Category> getCategoryCache()
     {
         return CacheView.allSnowflakes(() -> this.getShardCache().stream().map(JDA::getCategoryCache));
@@ -271,7 +272,7 @@ public interface ShardManager extends IGuildChannelContainer
      *         our cache.
      */
     @Nullable
-    default RichCustomEmoji getEmojiById(@Nonnull final String id)
+    default RichCustomEmoji getEmojiById(@NotNull final String id)
     {
         return this.getEmojiCache().getElementById(id);
     }
@@ -283,7 +284,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return Unified {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView}
      */
-    @Nonnull
+    @NotNull
     default SnowflakeCacheView<RichCustomEmoji> getEmojiCache()
     {
         return CacheView.allSnowflakes(() -> this.getShardCache().stream().map(JDA::getEmojiCache));
@@ -305,7 +306,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return An immutable list of custom emojis (which may or may not be available to usage).
      */
-    @Nonnull
+    @NotNull
     default List<RichCustomEmoji> getEmojis()
     {
         return this.getEmojiCache().asList();
@@ -327,8 +328,8 @@ public interface ShardManager extends IGuildChannelContainer
      * @return Possibly-empty list of all the {@link RichCustomEmoji RichCustomEmojis} that all have the same
      *         name as the provided name.
      */
-    @Nonnull
-    default List<RichCustomEmoji> getEmojisByName(@Nonnull final String name, final boolean ignoreCase)
+    @NotNull
+    default List<RichCustomEmoji> getEmojisByName(@NotNull final String name, final boolean ignoreCase)
     {
         return this.getEmojiCache().getElementsByName(name, ignoreCase);
     }
@@ -358,7 +359,7 @@ public interface ShardManager extends IGuildChannelContainer
      * @return Possibly-null {@link net.dv8tion.jda.api.entities.Guild Guild} with matching id.
      */
     @Nullable
-    default Guild getGuildById(@Nonnull final String id)
+    default Guild getGuildById(@NotNull final String id)
     {
         return getGuildById(MiscUtil.parseSnowflake(id));
     }
@@ -374,8 +375,8 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return Possibly-empty list of all the {@link net.dv8tion.jda.api.entities.Guild Guilds} that all have the same name as the provided name.
      */
-    @Nonnull
-    default List<Guild> getGuildsByName(@Nonnull final String name, final boolean ignoreCase)
+    @NotNull
+    default List<Guild> getGuildsByName(@NotNull final String name, final boolean ignoreCase)
     {
         return this.getGuildCache().getElementsByName(name, ignoreCase);
     }
@@ -386,7 +387,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView}
      */
-    @Nonnull
+    @NotNull
     default SnowflakeCacheView<Guild> getGuildCache()
     {
         return CacheView.allSnowflakes(() -> this.getShardCache().stream().map(JDA::getGuildCache));
@@ -404,7 +405,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return Possibly-empty list of all the {@link net.dv8tion.jda.api.entities.Guild Guilds} that this account is connected to.
      */
-    @Nonnull
+    @NotNull
     default List<Guild> getGuilds()
     {
         return this.getGuildCache().asList();
@@ -418,8 +419,8 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return Unmodifiable list of all {@link net.dv8tion.jda.api.entities.Guild Guild} instances which have all {@link net.dv8tion.jda.api.entities.User Users} in them.
      */
-    @Nonnull
-    default List<Guild> getMutualGuilds(@Nonnull final Collection<User> users)
+    @NotNull
+    default List<Guild> getMutualGuilds(@NotNull final Collection<User> users)
     {
         Checks.noneNull(users, "users");
         return Collections.unmodifiableList(
@@ -437,8 +438,8 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return Unmodifiable list of all {@link net.dv8tion.jda.api.entities.Guild Guild} instances which have all {@link net.dv8tion.jda.api.entities.User Users} in them.
      */
-    @Nonnull
-    default List<Guild> getMutualGuilds(@Nonnull final User... users)
+    @NotNull
+    default List<Guild> getMutualGuilds(@NotNull final User... users)
     {
         Checks.notNull(users, "users");
         return this.getMutualGuilds(Arrays.asList(users));
@@ -467,9 +468,9 @@ public interface ShardManager extends IGuildChannelContainer
      * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: {@link net.dv8tion.jda.api.entities.User User}
      *         <br>On request, gets the User with id matching provided id from Discord.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<User> retrieveUserById(@Nonnull String id)
+    default RestAction<User> retrieveUserById(@NotNull String id)
     {
         return retrieveUserById(MiscUtil.parseSnowflake(id));
     }
@@ -495,7 +496,7 @@ public interface ShardManager extends IGuildChannelContainer
      * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: {@link net.dv8tion.jda.api.entities.User User}
      *         <br>On request, gets the User with id matching provided id from Discord.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default RestAction<User> retrieveUserById(long id)
     {
@@ -539,7 +540,7 @@ public interface ShardManager extends IGuildChannelContainer
      * @return The {@link net.dv8tion.jda.api.entities.User} for the discord tag or null if no user has the provided tag
      */
     @Nullable
-    default User getUserByTag(@Nonnull String tag)
+    default User getUserByTag(@NotNull String tag)
     {
         return getShardCache().applyStream(stream ->
             stream.map(jda -> jda.getUserByTag(tag))
@@ -572,7 +573,7 @@ public interface ShardManager extends IGuildChannelContainer
      * @return The {@link net.dv8tion.jda.api.entities.User} for the discord tag or null if no user has the provided tag
      */
     @Nullable
-    default User getUserByTag(@Nonnull String username, @Nonnull String discriminator)
+    default User getUserByTag(@NotNull String username, @NotNull String discriminator)
     {
         return getShardCache().applyStream(stream ->
             stream.map(jda -> jda.getUserByTag(username, discriminator))
@@ -592,7 +593,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return Possibly-empty list of all {@link net.dv8tion.jda.api.entities.PrivateChannel PrivateChannels}.
      */
-    @Nonnull
+    @NotNull
     default List<PrivateChannel> getPrivateChannels()
     {
         return this.getPrivateChannelCache().asList();
@@ -628,7 +629,7 @@ public interface ShardManager extends IGuildChannelContainer
      * @return Possibly-null {@link net.dv8tion.jda.api.entities.Role Role} for the specified ID
      */
     @Nullable
-    default Role getRoleById(@Nonnull final String id)
+    default Role getRoleById(@NotNull final String id)
     {
         return this.getRoleCache().getElementById(id);
     }
@@ -639,7 +640,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return Unified {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView}
      */
-    @Nonnull
+    @NotNull
     default SnowflakeCacheView<Role> getRoleCache()
     {
         return CacheView.allSnowflakes(() -> this.getShardCache().stream().map(JDA::getRoleCache));
@@ -657,7 +658,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return Immutable List of all visible Roles
      */
-    @Nonnull
+    @NotNull
     default List<Role> getRoles()
     {
         return this.getRoleCache().asList();
@@ -675,15 +676,15 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return Immutable List of all Roles matching the parameters provided.
      */
-    @Nonnull
-    default List<Role> getRolesByName(@Nonnull final String name, final boolean ignoreCase)
+    @NotNull
+    default List<Role> getRolesByName(@NotNull final String name, final boolean ignoreCase)
     {
         return this.getRoleCache().getElementsByName(name, ignoreCase);
     }
 
     @Nullable
     @Override
-    default <T extends Channel> T getChannelById(@Nonnull Class<T> type, long id)
+    default <T extends Channel> T getChannelById(@NotNull Class<T> type, long id)
     {
         Checks.notNull(type, "Class");
         Channel channel = getPrivateChannelById(id);
@@ -722,7 +723,7 @@ public interface ShardManager extends IGuildChannelContainer
      * @return Possibly-null {@link net.dv8tion.jda.api.entities.PrivateChannel PrivateChannel} with matching id.
      */
     @Nullable
-    default PrivateChannel getPrivateChannelById(@Nonnull final String id)
+    default PrivateChannel getPrivateChannelById(@NotNull final String id)
     {
         return this.getPrivateChannelCache().getElementById(id);
     }
@@ -733,7 +734,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView}
      */
-    @Nonnull
+    @NotNull
     default SnowflakeCacheView<PrivateChannel> getPrivateChannelCache()
     {
         return CacheView.allSnowflakes(() -> this.getShardCache().stream().map(JDA::getPrivateChannelCache));
@@ -754,7 +755,7 @@ public interface ShardManager extends IGuildChannelContainer
     }
 
     @Nullable
-    default GuildChannel getGuildChannelById(@Nonnull ChannelType type, long id)
+    default GuildChannel getGuildChannelById(@NotNull ChannelType type, long id)
     {
         Checks.notNull(type, "ChannelType");
         GuildChannel channel;
@@ -768,33 +769,33 @@ public interface ShardManager extends IGuildChannelContainer
         return null;
     }
 
-    @Nonnull
+    @NotNull
     default SnowflakeCacheView<TextChannel> getTextChannelCache()
     {
         return CacheView.allSnowflakes(() -> this.getShardCache().stream().map(JDA::getTextChannelCache));
     }
 
-    @Nonnull
+    @NotNull
     default SnowflakeCacheView<VoiceChannel> getVoiceChannelCache()
     {
         return CacheView.allSnowflakes(() -> this.getShardCache().stream().map(JDA::getVoiceChannelCache));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     default SnowflakeCacheView<StageChannel> getStageChannelCache()
     {
         return CacheView.allSnowflakes(() -> this.getShardCache().stream().map(JDA::getStageChannelCache));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     default SnowflakeCacheView<ThreadChannel> getThreadChannelCache()
     {
         return CacheView.allSnowflakes(() -> this.getShardCache().stream().map(JDA::getThreadChannelCache));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     default SnowflakeCacheView<NewsChannel> getNewsChannelCache()
     {
@@ -828,7 +829,7 @@ public interface ShardManager extends IGuildChannelContainer
      *         {@code null} if no shard has the given id
      */
     @Nullable
-    default JDA getShardById(@Nonnull final String id)
+    default JDA getShardById(@NotNull final String id)
     {
         return this.getShardCache().getElementById(id);
     }
@@ -839,7 +840,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return Unified {@link ShardCacheView ShardCacheView}
      */
-    @Nonnull
+    @NotNull
     ShardCacheView getShardCache();
 
     /**
@@ -852,7 +853,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return An immutable list of all managed {@link net.dv8tion.jda.api.JDA JDA} instances.
      */
-    @Nonnull
+    @NotNull
     default List<JDA> getShards()
     {
         return this.getShardCache().asList();
@@ -880,7 +881,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return All current shard statuses.
      */
-    @Nonnull
+    @NotNull
     default Map<JDA, Status> getStatuses()
     {
         return Collections.unmodifiableMap(this.getShardCache().stream()
@@ -912,7 +913,7 @@ public interface ShardManager extends IGuildChannelContainer
      * @return Possibly-null {@link net.dv8tion.jda.api.entities.User User} with matching id.
      */
     @Nullable
-    default User getUserById(@Nonnull final String id)
+    default User getUserById(@NotNull final String id)
     {
         return this.getUserCache().getElementById(id);
     }
@@ -923,7 +924,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return {@link net.dv8tion.jda.api.utils.cache.SnowflakeCacheView SnowflakeCacheView}
      */
-    @Nonnull
+    @NotNull
     default SnowflakeCacheView<User> getUserCache()
     {
         return CacheView.allSnowflakes(() -> this.getShardCache().stream().map(JDA::getUserCache));
@@ -945,7 +946,7 @@ public interface ShardManager extends IGuildChannelContainer
      *
      * @return List of all {@link net.dv8tion.jda.api.entities.User Users} that are visible to JDA.
      */
-    @Nonnull
+    @NotNull
     default List<User> getUsers()
     {
         return this.getUserCache().asList();
@@ -1036,7 +1037,7 @@ public interface ShardManager extends IGuildChannelContainer
      * @param idleProvider
      *        Provider for a boolean
      */
-    default void setIdleProvider(@Nonnull final IntFunction<Boolean> idleProvider)
+    default void setIdleProvider(@NotNull final IntFunction<Boolean> idleProvider)
     {
         this.getShardCache().forEach(jda -> jda.getPresence().setIdle(idleProvider.apply(jda.getShardInfo().getShardId())));
     }

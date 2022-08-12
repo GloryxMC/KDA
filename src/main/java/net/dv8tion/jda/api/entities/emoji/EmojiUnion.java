@@ -16,7 +16,7 @@
 
 package net.dv8tion.jda.api.entities.emoji;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents possible {@link Emoji} types.
@@ -34,7 +34,7 @@ public interface EmojiUnion extends Emoji
      *
      * @return The {@link UnicodeEmoji}
      */
-    @Nonnull
+    @NotNull
     UnicodeEmoji asUnicode();
 
     /**
@@ -45,6 +45,6 @@ public interface EmojiUnion extends Emoji
      *
      * @return The {@link CustomEmoji}
      */
-    @Nonnull
+    @NotNull
     CustomEmoji asCustom();
 }

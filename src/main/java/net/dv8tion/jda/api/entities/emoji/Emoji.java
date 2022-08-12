@@ -24,8 +24,8 @@ import net.dv8tion.jda.internal.entities.emoji.CustomEmojiImpl;
 import net.dv8tion.jda.internal.entities.emoji.UnicodeEmojiImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.EncodingUtil;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Formattable;
 import java.util.FormattableFlags;
 import java.util.Formatter;
@@ -65,8 +65,8 @@ public interface Emoji extends SerializableData, Formattable
      *
      * @return The new emoji instance
      */
-    @Nonnull
-    static UnicodeEmoji fromUnicode(@Nonnull String code)
+    @NotNull
+    static UnicodeEmoji fromUnicode(@NotNull String code)
     {
         Checks.notEmpty(code, "Unicode");
         if (code.startsWith("U+") || code.startsWith("u+"))
@@ -95,8 +95,8 @@ public interface Emoji extends SerializableData, Formattable
      *
      * @return The new emoji instance
      */
-    @Nonnull
-    static CustomEmoji fromCustom(@Nonnull String name, long id, boolean animated)
+    @NotNull
+    static CustomEmoji fromCustom(@NotNull String name, long id, boolean animated)
     {
         Checks.notEmpty(name, "Name");
         return new CustomEmojiImpl(name, id, animated);
@@ -113,8 +113,8 @@ public interface Emoji extends SerializableData, Formattable
      *
      * @return The new emoji instance
      */
-    @Nonnull
-    static CustomEmoji fromCustom(@Nonnull CustomEmoji emoji)
+    @NotNull
+    static CustomEmoji fromCustom(@NotNull CustomEmoji emoji)
     {
         Checks.notNull(emoji, "Emoji");
         return fromCustom(emoji.getName(), emoji.getIdLong(), emoji.isAnimated());
@@ -147,8 +147,8 @@ public interface Emoji extends SerializableData, Formattable
      *
      * @return The emoji instance
      */
-    @Nonnull
-    static EmojiUnion fromFormatted(@Nonnull String code)
+    @NotNull
+    static EmojiUnion fromFormatted(@NotNull String code)
     {
         Checks.notEmpty(code, "Formatting Code");
         Matcher matcher = Message.MentionType.EMOJI.getPattern().matcher(code);
@@ -168,8 +168,8 @@ public interface Emoji extends SerializableData, Formattable
      *
      * @return The emoji instance
      */
-    @Nonnull
-    static EmojiUnion fromData(@Nonnull DataObject emoji)
+    @NotNull
+    static EmojiUnion fromData(@NotNull DataObject emoji)
     {
         Checks.notNull(emoji, "Emoji Data");
         if (emoji.isNull("id"))
@@ -183,7 +183,7 @@ public interface Emoji extends SerializableData, Formattable
      *
      * @return The {@link Type}
      */
-    @Nonnull
+    @NotNull
     Type getType();
 
     /**
@@ -192,7 +192,7 @@ public interface Emoji extends SerializableData, Formattable
      *
      * @return The unicode or custom name
      */
-    @Nonnull
+    @NotNull
     String getName();
 
     /**
@@ -202,7 +202,7 @@ public interface Emoji extends SerializableData, Formattable
      *
      * @return The unicode if it is an emoji, or the name and id in the format {@code <name>:<id>}
      */
-    @Nonnull
+    @NotNull
     String getAsReactionCode();
 
     /**
@@ -211,7 +211,7 @@ public interface Emoji extends SerializableData, Formattable
      *
      * @return The formatted message string
      */
-    @Nonnull
+    @NotNull
     String getFormatted();
 
     @Override

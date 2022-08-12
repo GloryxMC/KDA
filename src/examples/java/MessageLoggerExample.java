@@ -27,7 +27,7 @@ import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -135,7 +135,7 @@ public class MessageLoggerExample extends ListenerAdapter
     // This overrides the method called onMessageReceived in the ListenerAdapter class
     // Your IDE (such as intellij or eclipse) can automatically generate this override for you, by simply typing "onMessage" and auto-completing it!
     @Override
-    public void onMessageReceived(@Nonnull MessageReceivedEvent event)
+    public void onMessageReceived(@NotNull MessageReceivedEvent event)
     {
         // The user who sent the message
         User author = event.getAuthor();
@@ -182,7 +182,7 @@ public class MessageLoggerExample extends ListenerAdapter
     }
 
     @Override
-    public void onMessageReactionAdd(@Nonnull MessageReactionAddEvent event)
+    public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event)
     {
         if (event.getEmoji().equals(HEART))
             System.out.println("A user loved a message!");

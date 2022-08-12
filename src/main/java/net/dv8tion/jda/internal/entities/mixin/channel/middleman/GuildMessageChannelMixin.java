@@ -31,9 +31,9 @@ import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.requests.restaction.MessageActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.EncodingUtil;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.Collection;
 
 public interface GuildMessageChannelMixin<T extends GuildMessageChannelMixin<T>> extends
@@ -43,9 +43,9 @@ public interface GuildMessageChannelMixin<T extends GuildMessageChannelMixin<T>>
         MessageChannelMixin<T>
 {
     // ---- Default implementations of interface ----
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> deleteMessagesByIds(@Nonnull Collection<String> messageIds)
+    default RestAction<Void> deleteMessagesByIds(@NotNull Collection<String> messageIds)
     {
         checkPermission(Permission.MESSAGE_MANAGE, "Must have MESSAGE_MANAGE in order to bulk delete messages in this channel regardless of author.");
 
@@ -59,9 +59,9 @@ public interface GuildMessageChannelMixin<T extends GuildMessageChannelMixin<T>>
         return bulkDeleteMessages(messageIds);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    default RestAction<Void> removeReactionById(@Nonnull String messageId, @Nonnull Emoji emoji, @Nonnull User user)
+    default RestAction<Void> removeReactionById(@NotNull String messageId, @NotNull Emoji emoji, @NotNull User user)
     {
         Checks.isSnowflake(messageId, "Message ID");
         Checks.notNull(emoji, "Emoji");
@@ -82,9 +82,9 @@ public interface GuildMessageChannelMixin<T extends GuildMessageChannelMixin<T>>
         return new RestActionImpl<>(getJDA(), route);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    default RestAction<Void> clearReactionsById(@Nonnull String messageId)
+    default RestAction<Void> clearReactionsById(@NotNull String messageId)
     {
         Checks.isSnowflake(messageId, "Message ID");
 
@@ -94,9 +94,9 @@ public interface GuildMessageChannelMixin<T extends GuildMessageChannelMixin<T>>
         return new RestActionImpl<>(getJDA(), route);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    default RestAction<Void> clearReactionsById(@Nonnull String messageId, @Nonnull Emoji emoji)
+    default RestAction<Void> clearReactionsById(@NotNull String messageId, @NotNull Emoji emoji)
     {
         Checks.notNull(messageId, "Message ID");
         Checks.notNull(emoji, "Emoji");
@@ -108,9 +108,9 @@ public interface GuildMessageChannelMixin<T extends GuildMessageChannelMixin<T>>
         return new RestActionImpl<>(getJDA(), route);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    default MessageAction sendStickers(@Nonnull Collection<? extends StickerSnowflake> stickers)
+    default MessageAction sendStickers(@NotNull Collection<? extends StickerSnowflake> stickers)
     {
         checkCanAccessChannel();
         checkCanSendMessage();
