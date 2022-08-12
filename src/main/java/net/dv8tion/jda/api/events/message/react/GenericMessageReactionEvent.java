@@ -23,10 +23,11 @@ import net.dv8tion.jda.api.entities.emoji.EmojiUnion;
 import net.dv8tion.jda.api.events.message.GenericMessageEvent;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.internal.requests.CompletedRestAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Indicates that a MessageReaction was added/removed.
@@ -49,8 +50,8 @@ public class GenericMessageReactionEvent extends GenericMessageEvent
     protected Member member;
     protected MessageReaction reaction;
 
-    public GenericMessageReactionEvent(@Nonnull JDA api, long responseNumber, @Nullable User user,
-                                       @Nullable Member member, @Nonnull MessageReaction reaction, long userId)
+    public GenericMessageReactionEvent(@NotNull JDA api, long responseNumber, @Nullable User user,
+                                       @Nullable Member member, @NotNull MessageReaction reaction, long userId)
     {
         super(api, responseNumber, reaction.getMessageIdLong(), reaction.getChannel());
         this.userId = userId;
@@ -64,7 +65,7 @@ public class GenericMessageReactionEvent extends GenericMessageEvent
      *
      * @return The user id
      */
-    @Nonnull
+    @NotNull
     public String getUserId()
     {
         return Long.toUnsignedString(userId);
@@ -120,7 +121,7 @@ public class GenericMessageReactionEvent extends GenericMessageEvent
      *
      * @return The MessageReaction
      */
-    @Nonnull
+    @NotNull
     public MessageReaction getReaction()
     {
         return reaction;
@@ -131,7 +132,7 @@ public class GenericMessageReactionEvent extends GenericMessageEvent
      *
      * @return The Emoji instance
      */
-    @Nonnull
+    @NotNull
     public EmojiUnion getEmoji()
     {
         return reaction.getEmoji();
@@ -145,7 +146,7 @@ public class GenericMessageReactionEvent extends GenericMessageEvent
      *
      * @since  4.2.1
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public RestAction<User> retrieveUser()
     {
@@ -170,7 +171,7 @@ public class GenericMessageReactionEvent extends GenericMessageEvent
      *
      * @since  4.2.1
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public RestAction<Member> retrieveMember()
     {
@@ -192,7 +193,7 @@ public class GenericMessageReactionEvent extends GenericMessageEvent
      *
      * @since  4.2.1
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     public RestAction<Message> retrieveMessage()
     {

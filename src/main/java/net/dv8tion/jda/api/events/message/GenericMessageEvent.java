@@ -21,8 +21,7 @@ import net.dv8tion.jda.api.entities.channel.unions.GuildMessageChannelUnion;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.internal.utils.Helpers;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Indicates that a {@link net.dv8tion.jda.api.entities.Message Message} was created/deleted/changed.
@@ -43,7 +42,7 @@ public abstract class GenericMessageEvent extends Event
     protected final long messageId;
     protected final MessageChannel channel;
 
-    public GenericMessageEvent(@Nonnull JDA api, long responseNumber, long messageId, @Nonnull MessageChannel channel)
+    public GenericMessageEvent(@NotNull JDA api, long responseNumber, long messageId, @NotNull MessageChannel channel)
     {
         super(api, responseNumber);
         this.messageId = messageId;
@@ -55,7 +54,7 @@ public abstract class GenericMessageEvent extends Event
      *
      * @return The MessageChannel
      */
-    @Nonnull
+    @NotNull
     public MessageChannelUnion getChannel()
     {
         return (MessageChannelUnion) channel;
@@ -72,7 +71,7 @@ public abstract class GenericMessageEvent extends Event
      *
      * @return The GuildMessageChannel
      */
-    @Nonnull
+    @NotNull
     public GuildMessageChannelUnion getGuildChannel()
     {
         if (!isFromGuild())
@@ -85,7 +84,7 @@ public abstract class GenericMessageEvent extends Event
      *
      * @return The id for this message
      */
-    @Nonnull
+    @NotNull
     public String getMessageId()
     {
         return Long.toUnsignedString(messageId);
@@ -109,7 +108,7 @@ public abstract class GenericMessageEvent extends Event
      *
      * @return True, if the message is from the specified channel type
      */
-    public boolean isFromType(@Nonnull ChannelType type)
+    public boolean isFromType(@NotNull ChannelType type)
     {
         return channel.getType() == type;
     }
@@ -130,7 +129,7 @@ public abstract class GenericMessageEvent extends Event
      *
      * @return The ChannelType
      */
-    @Nonnull
+    @NotNull
     public ChannelType getChannelType()
     {
         return channel.getType();
@@ -150,7 +149,7 @@ public abstract class GenericMessageEvent extends Event
      * @see    #isFromType(ChannelType)
      * @see    #getChannelType()
      */
-    @Nonnull
+    @NotNull
     public Guild getGuild()
     {
         if (!isFromGuild())
@@ -165,7 +164,7 @@ public abstract class GenericMessageEvent extends Event
      *
      * @return A String representing the jump-to URL for the message
      */
-    @Nonnull
+    @NotNull
     public String getJumpUrl()
     {
         return Helpers.format(Message.JUMP_URL, isFromGuild() ? getGuild().getId() : "@me", getChannel().getId(), getMessageId());

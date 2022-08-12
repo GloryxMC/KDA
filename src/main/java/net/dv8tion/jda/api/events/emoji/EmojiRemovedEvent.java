@@ -19,7 +19,7 @@ package net.dv8tion.jda.api.events.emoji;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Indicates that a {@link RichCustomEmoji Custom Emoji} was removed from a Guild.
@@ -33,7 +33,7 @@ import javax.annotation.Nonnull;
  */
 public class EmojiRemovedEvent extends GenericEmojiEvent
 {
-    public EmojiRemovedEvent(@Nonnull JDA api, long responseNumber, @Nonnull RichCustomEmoji emoji)
+    public EmojiRemovedEvent(@NotNull JDA api, long responseNumber, @NotNull RichCustomEmoji emoji)
     {
         super(api, responseNumber, emoji);
     }

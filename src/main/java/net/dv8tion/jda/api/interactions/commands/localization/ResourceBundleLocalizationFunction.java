@@ -18,8 +18,8 @@ package net.dv8tion.jda.api.interactions.commands.localization;
 
 import net.dv8tion.jda.api.interactions.DiscordLocale;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -39,9 +39,9 @@ public class ResourceBundleLocalizationFunction implements LocalizationFunction
         this.bundles = bundles;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public Map<DiscordLocale, String> apply(@Nonnull String localizationKey)
+    public Map<DiscordLocale, String> apply(@NotNull String localizationKey)
     {
         final Map<DiscordLocale, String> map = new HashMap<>();
         for (Bundle bundle : bundles)
@@ -82,8 +82,8 @@ public class ResourceBundleLocalizationFunction implements LocalizationFunction
      *
      * @return The new builder
      */
-    @Nonnull
-    public static Builder fromBundle(@Nonnull ResourceBundle resourceBundle, @Nonnull DiscordLocale locale)
+    @NotNull
+    public static Builder fromBundle(@NotNull ResourceBundle resourceBundle, @NotNull DiscordLocale locale)
     {
         return new Builder()
                 .addBundle(resourceBundle, locale);
@@ -118,8 +118,8 @@ public class ResourceBundleLocalizationFunction implements LocalizationFunction
      *
      * @return The new builder
      */
-    @Nonnull
-    public static Builder fromBundles(@Nonnull String baseName, @Nonnull DiscordLocale... locales)
+    @NotNull
+    public static Builder fromBundles(@NotNull String baseName, @NotNull DiscordLocale... locales)
     {
         return new Builder().addBundles(baseName, locales);
     }
@@ -129,7 +129,7 @@ public class ResourceBundleLocalizationFunction implements LocalizationFunction
      *
      * @return The empty builder
      */
-    @Nonnull
+    @NotNull
     public static Builder empty()
     {
         return new Builder();
@@ -170,8 +170,8 @@ public class ResourceBundleLocalizationFunction implements LocalizationFunction
          *
          * @see #fromBundle(ResourceBundle, DiscordLocale)
          */
-        @Nonnull
-        public Builder addBundle(@Nonnull ResourceBundle resourceBundle, @Nonnull DiscordLocale locale)
+        @NotNull
+        public Builder addBundle(@NotNull ResourceBundle resourceBundle, @NotNull DiscordLocale locale)
         {
             Checks.notNull(resourceBundle, "Resource bundle");
             Checks.notNull(locale, "Locale");
@@ -203,8 +203,8 @@ public class ResourceBundleLocalizationFunction implements LocalizationFunction
          * @return This builder for chaining convenience
          * @see #fromBundles(String, DiscordLocale...)
          */
-        @Nonnull
-        public Builder addBundles(@Nonnull String baseName, @Nonnull DiscordLocale... locales)
+        @NotNull
+        public Builder addBundles(@NotNull String baseName, @NotNull DiscordLocale... locales)
         {
             Checks.notNull(baseName, "Base name");
             Checks.noneNull(locales, "Locale");
@@ -224,7 +224,7 @@ public class ResourceBundleLocalizationFunction implements LocalizationFunction
          *
          * @return The new {@link ResourceBundleLocalizationFunction}
          */
-        @Nonnull
+        @NotNull
         public ResourceBundleLocalizationFunction build()
         {
             return new ResourceBundleLocalizationFunction(bundles);

@@ -10,9 +10,9 @@ import net.dv8tion.jda.api.exceptions.MissingAccessException;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.MessageAction;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -45,7 +45,7 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @return True, if the specified member is able to read and send messages in this channel
      */
-    boolean canTalk(@Nonnull Member member);
+    boolean canTalk(@NotNull Member member);
 
     /**
      * Attempts to remove the reaction from a message represented by the specified {@code messageId}
@@ -97,9 +97,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @return {@link net.dv8tion.jda.api.requests.RestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    RestAction<Void> removeReactionById(@Nonnull String messageId, @Nonnull Emoji emoji, @Nonnull User user);
+    RestAction<Void> removeReactionById(@NotNull String messageId, @NotNull Emoji emoji, @NotNull User user);
 
     /**
      * Attempts to remove the reaction from a message represented by the specified {@code messageId}
@@ -151,9 +151,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @return {@link net.dv8tion.jda.api.requests.RestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> removeReactionById(long messageId, @Nonnull Emoji emoji, @Nonnull User user)
+    default RestAction<Void> removeReactionById(long messageId, @NotNull Emoji emoji, @NotNull User user)
     {
         return removeReactionById(Long.toUnsignedString(messageId), emoji, user);
     }
@@ -201,9 +201,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * @see    #deleteMessagesByIds(Collection)
      * @see    #purgeMessages(List)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> deleteMessages(@Nonnull Collection<Message> messages)
+    default RestAction<Void> deleteMessages(@NotNull Collection<Message> messages)
     {
         Checks.notEmpty(messages, "Messages collection");
 
@@ -258,9 +258,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      * @see    #deleteMessages(Collection)
      * @see    #purgeMessagesById(List)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    RestAction<Void> deleteMessagesByIds(@Nonnull Collection<String> messageIds);
+    RestAction<Void> deleteMessagesByIds(@NotNull Collection<String> messageIds);
 
     /**
      * Attempts to remove all reactions from a message with the specified {@code messageId} in this TextChannel
@@ -293,9 +293,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    RestAction<Void> clearReactionsById(@Nonnull String messageId);
+    RestAction<Void> clearReactionsById(@NotNull String messageId);
 
     /**
      * Attempts to remove all reactions from a message with the specified {@code messageId} in this TextChannel
@@ -326,7 +326,7 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default RestAction<Void> clearReactionsById(long messageId)
     {
@@ -361,9 +361,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @return {@link RestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    RestAction<Void> clearReactionsById(@Nonnull String messageId, @Nonnull Emoji emoji);
+    RestAction<Void> clearReactionsById(@NotNull String messageId, @NotNull Emoji emoji);
 
     /**
      * Removes all reactions for the specified emoji.
@@ -393,9 +393,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @return {@link RestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Void> clearReactionsById(long messageId, @Nonnull Emoji emoji)
+    default RestAction<Void> clearReactionsById(long messageId, @NotNull Emoji emoji)
     {
         return clearReactionsById(Long.toUnsignedString(messageId), emoji);
     }
@@ -427,9 +427,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @see    Sticker#fromId(long)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    MessageAction sendStickers(@Nonnull Collection<? extends StickerSnowflake> stickers);
+    MessageAction sendStickers(@NotNull Collection<? extends StickerSnowflake> stickers);
 
     /**
      * Send up to 3 stickers in this channel.
@@ -458,9 +458,9 @@ public interface GuildMessageChannel extends GuildChannel, MessageChannel
      *
      * @see    Sticker#fromId(long)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default MessageAction sendStickers(@Nonnull StickerSnowflake... stickers)
+    default MessageAction sendStickers(@NotNull StickerSnowflake... stickers)
     {
         Checks.notEmpty(stickers, "Stickers");
         return sendStickers(Arrays.asList(stickers));

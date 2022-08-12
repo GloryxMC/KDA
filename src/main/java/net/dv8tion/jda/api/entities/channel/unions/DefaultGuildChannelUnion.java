@@ -17,8 +17,7 @@
 package net.dv8tion.jda.api.entities.channel.unions;
 
 import net.dv8tion.jda.api.entities.*;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A specialized union representing all channel types that can be used for the "default" channel for
@@ -58,7 +57,7 @@ public interface DefaultGuildChannelUnion extends StandardGuildChannel
      *
      * @return The channel as a {@link TextChannel}
      */
-    @Nonnull
+    @NotNull
     TextChannel asTextChannel();
 
     /**
@@ -80,7 +79,7 @@ public interface DefaultGuildChannelUnion extends StandardGuildChannel
      *
      * @return The channel as a {@link NewsChannel}
      */
-    @Nonnull
+    @NotNull
     NewsChannel asNewsChannel();
 
     //TODO: add asForumChannel() (I think ForumChannels can be the default?)
@@ -121,6 +120,6 @@ public interface DefaultGuildChannelUnion extends StandardGuildChannel
      *
      * @return The channel as a {@link StandardGuildMessageChannel}
      */
-    @Nonnull
+    @NotNull
     StandardGuildMessageChannel asStandardGuildMessageChannel();
 }

@@ -9,9 +9,9 @@ import net.dv8tion.jda.api.requests.restaction.ChannelAction;
 import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 
 /**
  * Represents {@link StandardGuildMessageChannel} that are News Channels.
@@ -54,9 +54,9 @@ public interface NewsChannel extends StandardGuildMessageChannel
      *
      * @since  4.2.1
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    RestAction<Webhook.WebhookReference> follow(@Nonnull String targetChannelId);
+    RestAction<Webhook.WebhookReference> follow(@NotNull String targetChannelId);
 
     /**
      * Subscribes to the crossposted messages in this channel.
@@ -81,7 +81,7 @@ public interface NewsChannel extends StandardGuildMessageChannel
      *
      * @since  4.2.1
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default RestAction<Webhook.WebhookReference> follow(long targetChannelId)
     {
@@ -118,9 +118,9 @@ public interface NewsChannel extends StandardGuildMessageChannel
      *
      * @since  4.2.1
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Webhook.WebhookReference> follow(@Nonnull TextChannel targetChannel)
+    default RestAction<Webhook.WebhookReference> follow(@NotNull TextChannel targetChannel)
     {
         Checks.notNull(targetChannel, "Target Channel");
         Member selfMember = targetChannel.getGuild().getSelfMember();
@@ -171,9 +171,9 @@ public interface NewsChannel extends StandardGuildMessageChannel
      *
      * @since  4.2.1
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default RestAction<Message> crosspostMessageById(@Nonnull String messageId)
+    default RestAction<Message> crosspostMessageById(@NotNull String messageId)
     {
         Checks.isSnowflake(messageId);
         Checks.checkAccess(getGuild().getSelfMember(), this);
@@ -219,25 +219,25 @@ public interface NewsChannel extends StandardGuildMessageChannel
      *
      * @since  4.2.1
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default RestAction<Message> crosspostMessageById(long messageId)
     {
         return crosspostMessageById(Long.toUnsignedString(messageId));
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    ChannelAction<NewsChannel> createCopy(@Nonnull Guild guild);
+    ChannelAction<NewsChannel> createCopy(@NotNull Guild guild);
 
-    @Nonnull
+    @NotNull
     @Override
     default ChannelAction<NewsChannel> createCopy()
     {
         return createCopy(getGuild());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     NewsChannelManager getManager();
 }

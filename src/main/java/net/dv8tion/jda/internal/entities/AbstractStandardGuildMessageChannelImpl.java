@@ -17,8 +17,7 @@
 package net.dv8tion.jda.internal.entities;
 
 import net.dv8tion.jda.internal.entities.mixin.channel.middleman.StandardGuildMessageChannelMixin;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractStandardGuildMessageChannelImpl<T extends AbstractStandardGuildMessageChannelImpl<T>> extends AbstractStandardGuildChannelImpl<T>
         implements StandardGuildMessageChannelMixin<T>

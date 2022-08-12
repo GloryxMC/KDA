@@ -18,8 +18,7 @@ package net.dv8tion.jda.api.events.emoji.update;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Indicates that the name of a {@link RichCustomEmoji Custom Emoji} changed.
@@ -39,7 +38,7 @@ public class EmojiUpdateNameEvent extends GenericEmojiUpdateEvent<String>
 {
     public static final String IDENTIFIER = "name";
 
-    public EmojiUpdateNameEvent(@Nonnull JDA api, long responseNumber, @Nonnull RichCustomEmoji emoji, @Nonnull String oldName)
+    public EmojiUpdateNameEvent(@NotNull JDA api, long responseNumber, @NotNull RichCustomEmoji emoji, @NotNull String oldName)
     {
         super(api, responseNumber, emoji, oldName, emoji.getName(), IDENTIFIER);
     }
@@ -49,7 +48,7 @@ public class EmojiUpdateNameEvent extends GenericEmojiUpdateEvent<String>
      *
      * @return The old name
      */
-    @Nonnull
+    @NotNull
     public String getOldName()
     {
         return getOldValue();
@@ -60,20 +59,20 @@ public class EmojiUpdateNameEvent extends GenericEmojiUpdateEvent<String>
      *
      * @return The new name
      */
-    @Nonnull
+    @NotNull
     public String getNewName()
     {
         return getNewValue();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getOldValue()
     {
         return super.getOldValue();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getNewValue()
     {

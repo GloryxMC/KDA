@@ -25,7 +25,7 @@ import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.entities.EntityBuilder;
 import net.dv8tion.jda.internal.requests.Route;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,9 +43,9 @@ public class BanPaginationActionImpl
         this.lastKey = Long.MAX_VALUE;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public BanPaginationAction order(@Nonnull PaginationAction.PaginationOrder order)
+    public BanPaginationAction order(@NotNull PaginationAction.PaginationOrder order)
     {
         if (order == PaginationOrder.BACKWARD && lastKey == 0)
             lastKey = Long.MAX_VALUE;
@@ -54,7 +54,7 @@ public class BanPaginationActionImpl
         return super.order(order);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Guild getGuild()
     {

@@ -18,7 +18,7 @@ package net.dv8tion.jda.api.entities.emoji;
 
 import net.dv8tion.jda.api.utils.data.DataObject;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents a standard unicode emoji such as 😃 (client alias: {@code :smiley:}).
@@ -36,17 +36,17 @@ public interface UnicodeEmoji extends Emoji
      *
      * @return String containing the codepoint representation of the emoji
      */
-    @Nonnull
+    @NotNull
     String getAsCodepoints();
 
-    @Nonnull
+    @NotNull
     @Override
     default Type getType()
     {
         return Type.UNICODE;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     default String getFormatted()
     {

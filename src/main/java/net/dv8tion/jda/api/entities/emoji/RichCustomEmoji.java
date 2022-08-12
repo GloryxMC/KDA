@@ -23,10 +23,11 @@ import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 import net.dv8tion.jda.api.requests.restaction.CacheRestAction;
 import net.dv8tion.jda.internal.utils.PermissionUtil;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 /**
@@ -52,7 +53,7 @@ public interface RichCustomEmoji extends CustomEmoji
      *
      * @return Guild of this emoji
      */
-    @Nonnull
+    @NotNull
     Guild getGuild();
 
     /**
@@ -61,7 +62,7 @@ public interface RichCustomEmoji extends CustomEmoji
      *
      * @return An immutable list of the roles this emoji is active for (all roles if empty)
      */
-    @Nonnull
+    @NotNull
     List<Role> getRoles();
 
     /**
@@ -94,7 +95,7 @@ public interface RichCustomEmoji extends CustomEmoji
      *
      * @return The JDA instance of this emoji
      */
-    @Nonnull
+    @NotNull
     JDA getJDA();
 
     /**
@@ -127,7 +128,7 @@ public interface RichCustomEmoji extends CustomEmoji
      *
      * @see    #getOwner()
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     CacheRestAction<User> retrieveOwner();
 
@@ -154,7 +155,7 @@ public interface RichCustomEmoji extends CustomEmoji
      * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      *         The RestAction to delete this emoji.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     AuditableRestAction<Void> delete();
 
@@ -171,7 +172,7 @@ public interface RichCustomEmoji extends CustomEmoji
      *
      * @return The CustomEmojiManager for this emoji
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     CustomEmojiManager getManager();
 

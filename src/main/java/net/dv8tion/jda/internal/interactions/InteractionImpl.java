@@ -16,8 +16,8 @@
 
 package net.dv8tion.jda.internal.interactions;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
@@ -117,7 +117,7 @@ public class InteractionImpl implements Interaction
         return type;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getToken()
     {
@@ -138,13 +138,13 @@ public class InteractionImpl implements Interaction
         return channel;
     }
 
-    @Nonnull
+    @NotNull
     public DiscordLocale getUserLocale()
     {
         return userLocale;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public User getUser()
     {
@@ -158,7 +158,7 @@ public class InteractionImpl implements Interaction
         return member;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JDA getJDA()
     {

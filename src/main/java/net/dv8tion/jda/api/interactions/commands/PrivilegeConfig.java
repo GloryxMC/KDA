@@ -21,9 +21,10 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.SelfUser;
 import net.dv8tion.jda.api.interactions.commands.privileges.IntegrationPrivilege;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class PrivilegeConfig
     private final Guild guild;
     private final Map<String, List<IntegrationPrivilege>> privileges;
 
-    public PrivilegeConfig(@Nonnull Guild guild, @Nonnull Map<String, List<IntegrationPrivilege>> privileges)
+    public PrivilegeConfig(@NotNull Guild guild, @NotNull Map<String, List<IntegrationPrivilege>> privileges)
     {
         this.guild = guild;
         this.privileges = Collections.unmodifiableMap(privileges);
@@ -51,7 +52,7 @@ public class PrivilegeConfig
      *
      * @return Guild in which this PrivilegeConfig is applied in.
      */
-    @Nonnull
+    @NotNull
     public Guild getGuild()
     {
         return guild;
@@ -62,7 +63,7 @@ public class PrivilegeConfig
      *
      * @return The JDA-instance.
      */
-    @Nonnull
+    @NotNull
     public JDA getJDA()
     {
         return guild.getJDA();
@@ -99,7 +100,7 @@ public class PrivilegeConfig
      * @return Immutable List containing all IntegrationPrivileges that have been applied to the command with the given id in this guild.
      */
     @Nullable
-    public List<IntegrationPrivilege> getCommandPrivileges(@Nonnull String id)
+    public List<IntegrationPrivilege> getCommandPrivileges(@NotNull String id)
     {
         Checks.notNull(id, "Id");
         return privileges.get(id);
@@ -121,7 +122,7 @@ public class PrivilegeConfig
      * @return Immutable List containing all IntegrationPrivileges that have been applied to the command in this guild.
      */
     @Nullable
-    public List<IntegrationPrivilege> getCommandPrivileges(@Nonnull Command command)
+    public List<IntegrationPrivilege> getCommandPrivileges(@NotNull Command command)
     {
         Checks.notNull(command, "Command");
         return privileges.get(command.getId());
@@ -135,7 +136,7 @@ public class PrivilegeConfig
      *
      * @return Unmodifiable Map containing all privileges on this guild.
      */
-    @Nonnull
+    @NotNull
     public Map<String, List<IntegrationPrivilege>> getAsMap()
     {
         return privileges;

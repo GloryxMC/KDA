@@ -27,9 +27,9 @@ import net.dv8tion.jda.internal.entities.emoji.RichCustomEmojiImpl;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.utils.Checks;
 import okhttp3.RequestBody;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -49,14 +49,14 @@ public class CustomEmojiManagerImpl extends ManagerBase<CustomEmojiManager> impl
             checkPermissions();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RichCustomEmoji getEmoji()
     {
         return emoji;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public CustomEmojiManagerImpl reset(long fields)
@@ -69,7 +69,7 @@ public class CustomEmojiManagerImpl extends ManagerBase<CustomEmojiManager> impl
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public CustomEmojiManagerImpl reset(long... fields)
@@ -78,7 +78,7 @@ public class CustomEmojiManagerImpl extends ManagerBase<CustomEmojiManager> impl
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public CustomEmojiManagerImpl reset()
@@ -89,10 +89,10 @@ public class CustomEmojiManagerImpl extends ManagerBase<CustomEmojiManager> impl
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
-    public CustomEmojiManagerImpl setName(@Nonnull String name)
+    public CustomEmojiManagerImpl setName(@NotNull String name)
     {
         Checks.notBlank(name, "Name");
         name = name.trim();
@@ -102,7 +102,7 @@ public class CustomEmojiManagerImpl extends ManagerBase<CustomEmojiManager> impl
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @CheckReturnValue
     public CustomEmojiManagerImpl setRoles(Set<Role> roles)

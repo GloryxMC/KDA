@@ -21,8 +21,8 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.api.interactions.commands.privileges.IntegrationPrivilege;
 import net.dv8tion.jda.api.interactions.commands.privileges.PrivilegeTargetType;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,8 +37,8 @@ public abstract class GenericPrivilegeUpdateEvent extends GenericGuildEvent
     private final long applicationId;
     private final List<IntegrationPrivilege> privileges;
 
-    public GenericPrivilegeUpdateEvent(@Nonnull JDA api, long responseNumber, @Nonnull Guild guild,
-                                       long targetId, long applicationId, @Nonnull List<IntegrationPrivilege> privileges)
+    public GenericPrivilegeUpdateEvent(@NotNull JDA api, long responseNumber, @NotNull Guild guild,
+                                       long targetId, long applicationId, @NotNull List<IntegrationPrivilege> privileges)
     {
         super(api, responseNumber, guild);
         this.targetId = targetId;
@@ -57,7 +57,7 @@ public abstract class GenericPrivilegeUpdateEvent extends GenericGuildEvent
      *
      * @return The target type.
      */
-    @Nonnull
+    @NotNull
     public abstract PrivilegeTargetType getTargetType();
 
     /**
@@ -83,7 +83,7 @@ public abstract class GenericPrivilegeUpdateEvent extends GenericGuildEvent
      *
      * @see #getTargetType()
      */
-    @Nonnull
+    @NotNull
     public String getTargetId()
     {
         return Long.toUnsignedString(targetId);
@@ -104,7 +104,7 @@ public abstract class GenericPrivilegeUpdateEvent extends GenericGuildEvent
      *
      * @return id of the application of which privileges have been changed.
      */
-    @Nonnull
+    @NotNull
     public String getApplicationId()
     {
         return Long.toUnsignedString(applicationId);
@@ -115,7 +115,7 @@ public abstract class GenericPrivilegeUpdateEvent extends GenericGuildEvent
      *
      * @return Unmodifiable list containing the new IntegrationPrivileges.
      */
-    @Nonnull
+    @NotNull
     public List<IntegrationPrivilege> getPrivileges()
     {
         return privileges;

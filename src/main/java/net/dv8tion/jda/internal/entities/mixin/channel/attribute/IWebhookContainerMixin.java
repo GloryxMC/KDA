@@ -33,7 +33,7 @@ import net.dv8tion.jda.internal.requests.restaction.AuditableRestActionImpl;
 import net.dv8tion.jda.internal.requests.restaction.WebhookActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,7 +45,7 @@ public interface IWebhookContainerMixin<T extends IWebhookContainerMixin<T>> ext
         GuildChannelMixin<T>
 {
     // ---- Default implementations of interface ----
-    @Nonnull
+    @NotNull
     @Override
     default RestAction<List<Webhook>> retrieveWebhooks()
     {
@@ -75,9 +75,9 @@ public interface IWebhookContainerMixin<T extends IWebhookContainerMixin<T>> ext
         });
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    default WebhookAction createWebhook(@Nonnull String name)
+    default WebhookAction createWebhook(@NotNull String name)
     {
         Checks.notBlank(name, "Webhook name");
         name = name.trim();
@@ -89,9 +89,9 @@ public interface IWebhookContainerMixin<T extends IWebhookContainerMixin<T>> ext
         return new WebhookActionImpl(getJDA(), this, name);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    default AuditableRestAction<Void> deleteWebhookById(@Nonnull String id)
+    default AuditableRestAction<Void> deleteWebhookById(@NotNull String id)
     {
         Checks.isSnowflake(id, "Webhook ID");
 

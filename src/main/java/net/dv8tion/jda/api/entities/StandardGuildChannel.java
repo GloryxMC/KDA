@@ -18,9 +18,9 @@ package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.managers.channel.middleman.StandardGuildChannelManager;
 import net.dv8tion.jda.api.requests.restaction.ChannelAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 
 /**
  * Represents a standard {@link GuildChannel} which are the "<i>normal</i>" channels that are present in the channel sidebar.
@@ -36,17 +36,17 @@ import javax.annotation.Nonnull;
  */
 public interface StandardGuildChannel extends GuildChannel, IPermissionContainer, IPositionableChannel, ICopyableChannel, IMemberContainer, IInviteContainer, ICategorizableChannel
 {
-    @Nonnull
+    @NotNull
     @Override
     StandardGuildChannelManager<?, ?> getManager();
 
     @Override
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    ChannelAction<? extends StandardGuildChannel> createCopy(@Nonnull Guild guild);
+    ChannelAction<? extends StandardGuildChannel> createCopy(@NotNull Guild guild);
 
     @Override
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     ChannelAction<? extends StandardGuildChannel> createCopy();
 }

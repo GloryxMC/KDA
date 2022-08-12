@@ -28,8 +28,8 @@ import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.localization.LocalizationUtils;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -39,27 +39,27 @@ import java.util.Map;
  */
 public interface SlashCommandData extends CommandData
 {
-    @Nonnull
+    @NotNull
     @Override
-    SlashCommandData setLocalizationFunction(@Nonnull LocalizationFunction localizationFunction);
+    SlashCommandData setLocalizationFunction(@NotNull LocalizationFunction localizationFunction);
 
-    @Nonnull
+    @NotNull
     @Override
-    SlashCommandData setName(@Nonnull String name);
+    SlashCommandData setName(@NotNull String name);
 
-    @Nonnull
+    @NotNull
     @Override
-    SlashCommandData setNameLocalization(@Nonnull DiscordLocale locale, @Nonnull String name);
+    SlashCommandData setNameLocalization(@NotNull DiscordLocale locale, @NotNull String name);
 
-    @Nonnull
+    @NotNull
     @Override
-    SlashCommandData setNameLocalizations(@Nonnull Map<DiscordLocale, String> map);
+    SlashCommandData setNameLocalizations(@NotNull Map<DiscordLocale, String> map);
 
-    @Nonnull
+    @NotNull
     @Override
-    SlashCommandData setDefaultPermissions(@Nonnull DefaultMemberPermissions permission);
+    SlashCommandData setDefaultPermissions(@NotNull DefaultMemberPermissions permission);
 
-    @Nonnull
+    @NotNull
     @Override
     SlashCommandData setGuildOnly(boolean guildOnly);
 
@@ -74,8 +74,8 @@ public interface SlashCommandData extends CommandData
      *
      * @return The builder, for chaining
      */
-    @Nonnull
-    SlashCommandData setDescription(@Nonnull String description);
+    @NotNull
+    SlashCommandData setDescription(@NotNull String description);
 
     /**
      * Sets a {@link DiscordLocale language-specific} localizations of this command's description.
@@ -96,8 +96,8 @@ public interface SlashCommandData extends CommandData
      *
      * @return This builder instance, for chaining
      */
-    @Nonnull
-    SlashCommandData setDescriptionLocalization(@Nonnull DiscordLocale locale, @Nonnull String description);
+    @NotNull
+    SlashCommandData setDescriptionLocalization(@NotNull DiscordLocale locale, @NotNull String description);
 
     /**
      * Sets multiple {@link DiscordLocale language-specific} localizations of this command's description.
@@ -114,15 +114,15 @@ public interface SlashCommandData extends CommandData
      *
      * @return This builder instance, for chaining
      */
-    @Nonnull
-    SlashCommandData setDescriptionLocalizations(@Nonnull Map<DiscordLocale, String> map);
+    @NotNull
+    SlashCommandData setDescriptionLocalizations(@NotNull Map<DiscordLocale, String> map);
 
     /**
      * The configured description
      *
      * @return The description
      */
-    @Nonnull
+    @NotNull
     String getDescription();
 
     /**
@@ -130,7 +130,7 @@ public interface SlashCommandData extends CommandData
      *
      * @return The {@link LocalizationMap} containing the mapping from {@link DiscordLocale} to the localized description
      */
-    @Nonnull
+    @NotNull
     LocalizationMap getDescriptionLocalizations();
 
     /**
@@ -140,7 +140,7 @@ public interface SlashCommandData extends CommandData
      *
      * @return Immutable list of {@link SubcommandData}
      */
-    @Nonnull
+    @NotNull
     List<SubcommandData> getSubcommands();
 
     /**
@@ -150,7 +150,7 @@ public interface SlashCommandData extends CommandData
      *
      * @return Immutable list of {@link SubcommandGroupData}
      */
-    @Nonnull
+    @NotNull
     List<SubcommandGroupData> getSubcommandGroups();
 
     /**
@@ -158,7 +158,7 @@ public interface SlashCommandData extends CommandData
      *
      * @return Immutable list of {@link OptionData}
      */
-    @Nonnull
+    @NotNull
     List<OptionData> getOptions();
 
     /**
@@ -181,8 +181,8 @@ public interface SlashCommandData extends CommandData
      *
      * @return The builder instance, for chaining
      */
-    @Nonnull
-    SlashCommandData addOptions(@Nonnull OptionData... options);
+    @NotNull
+    SlashCommandData addOptions(@NotNull OptionData... options);
 
     /**
      * Adds up to 25 options to this command.
@@ -204,8 +204,8 @@ public interface SlashCommandData extends CommandData
      *
      * @return The builder instance, for chaining
      */
-    @Nonnull
-    default SlashCommandData addOptions(@Nonnull Collection<? extends OptionData> options)
+    @NotNull
+    default SlashCommandData addOptions(@NotNull Collection<? extends OptionData> options)
     {
         Checks.noneNull(options, "Option");
         return addOptions(options.toArray(new OptionData[0]));
@@ -242,8 +242,8 @@ public interface SlashCommandData extends CommandData
      *
      * @return The builder instance, for chaining
      */
-    @Nonnull
-    default SlashCommandData addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description, boolean required, boolean autoComplete)
+    @NotNull
+    default SlashCommandData addOption(@NotNull OptionType type, @NotNull String name, @NotNull String description, boolean required, boolean autoComplete)
     {
         return addOptions(new OptionData(type, name, description)
                 .setRequired(required)
@@ -277,8 +277,8 @@ public interface SlashCommandData extends CommandData
      *
      * @return The builder instance, for chaining
      */
-    @Nonnull
-    default SlashCommandData addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description, boolean required)
+    @NotNull
+    default SlashCommandData addOption(@NotNull OptionType type, @NotNull String name, @NotNull String description, boolean required)
     {
         return addOption(type, name, description, required, false);
     }
@@ -309,8 +309,8 @@ public interface SlashCommandData extends CommandData
      *
      * @return The builder instance, for chaining
      */
-    @Nonnull
-    default SlashCommandData addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description)
+    @NotNull
+    default SlashCommandData addOption(@NotNull OptionType type, @NotNull String name, @NotNull String description)
     {
         return addOption(type, name, description, false);
     }
@@ -327,8 +327,8 @@ public interface SlashCommandData extends CommandData
      *
      * @return The builder instance, for chaining
      */
-    @Nonnull
-    SlashCommandData addSubcommands(@Nonnull SubcommandData... subcommands);
+    @NotNull
+    SlashCommandData addSubcommands(@NotNull SubcommandData... subcommands);
 
     /**
      * Add up to 25 {@link SubcommandData Subcommands} to this command.
@@ -342,8 +342,8 @@ public interface SlashCommandData extends CommandData
      *
      * @return The builder instance, for chaining
      */
-    @Nonnull
-    default SlashCommandData addSubcommands(@Nonnull Collection<? extends SubcommandData> subcommands)
+    @NotNull
+    default SlashCommandData addSubcommands(@NotNull Collection<? extends SubcommandData> subcommands)
     {
         Checks.noneNull(subcommands, "Subcommands");
         return addSubcommands(subcommands.toArray(new SubcommandData[0]));
@@ -361,8 +361,8 @@ public interface SlashCommandData extends CommandData
      *
      * @return The builder instance, for chaining
      */
-    @Nonnull
-    SlashCommandData addSubcommandGroups(@Nonnull SubcommandGroupData... groups);
+    @NotNull
+    SlashCommandData addSubcommandGroups(@NotNull SubcommandGroupData... groups);
 
     /**
      * Add up to 25 {@link SubcommandGroupData Subcommand-Groups} to this command.
@@ -376,8 +376,8 @@ public interface SlashCommandData extends CommandData
      *
      * @return The builder instance, for chaining
      */
-    @Nonnull
-    default SlashCommandData addSubcommandGroups(@Nonnull Collection<? extends SubcommandGroupData> groups)
+    @NotNull
+    default SlashCommandData addSubcommandGroups(@NotNull Collection<? extends SubcommandGroupData> groups)
     {
         Checks.noneNull(groups, "SubcommandGroups");
         return addSubcommandGroups(groups.toArray(new SubcommandGroupData[0]));
@@ -394,8 +394,8 @@ public interface SlashCommandData extends CommandData
      *
      * @return An instance of SlashCommandData
      */
-    @Nonnull
-    static SlashCommandData fromCommand(@Nonnull Command command)
+    @NotNull
+    static SlashCommandData fromCommand(@NotNull Command command)
     {
         Checks.notNull(command, "Command");
         if (command.getType() != Command.Type.SLASH)
@@ -439,8 +439,8 @@ public interface SlashCommandData extends CommandData
      * @see    CommandData#fromData(DataObject)
      * @see    Commands#fromList(Collection)
      */
-    @Nonnull
-    static SlashCommandData fromData(@Nonnull DataObject object)
+    @NotNull
+    static SlashCommandData fromData(@NotNull DataObject object)
     {
         Checks.notNull(object, "DataObject");
         String name = object.getString("name");

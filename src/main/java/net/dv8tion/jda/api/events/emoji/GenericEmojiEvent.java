@@ -20,8 +20,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 import net.dv8tion.jda.api.events.Event;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Indicates that a {@link RichCustomEmoji Custom Emoji} was created/removed/updated.
@@ -37,7 +36,7 @@ public abstract class GenericEmojiEvent extends Event
 {
     protected final RichCustomEmoji emoji;
 
-    public GenericEmojiEvent(@Nonnull JDA api, long responseNumber, @Nonnull RichCustomEmoji emoji)
+    public GenericEmojiEvent(@NotNull JDA api, long responseNumber, @NotNull RichCustomEmoji emoji)
     {
         super(api, responseNumber);
         this.emoji = emoji;
@@ -48,7 +47,7 @@ public abstract class GenericEmojiEvent extends Event
      *
      * @return The origin Guild
      */
-    @Nonnull
+    @NotNull
     public Guild getGuild()
     {
         return emoji.getGuild();
@@ -59,7 +58,7 @@ public abstract class GenericEmojiEvent extends Event
      *
      * @return The emoji
      */
-    @Nonnull
+    @NotNull
     public RichCustomEmoji getEmoji()
     {
         return emoji;

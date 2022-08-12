@@ -33,8 +33,8 @@ import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.requests.restaction.CommandEditActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.localization.LocalizationUtils;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -94,7 +94,7 @@ public class CommandImpl implements Command
         ).orElse(Collections.emptyList());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RestAction<Void> delete()
     {
@@ -108,7 +108,7 @@ public class CommandImpl implements Command
         return new RestActionImpl<>(api, route);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CommandEditAction editCommand()
     {
@@ -116,72 +116,72 @@ public class CommandImpl implements Command
         return guild == null ? new CommandEditActionImpl(api, getId()) : new CommandEditActionImpl(guild, getId());
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public RestAction<List<IntegrationPrivilege>> retrievePrivileges(@Nonnull Guild guild)
+    public RestAction<List<IntegrationPrivilege>> retrievePrivileges(@NotNull Guild guild)
     {
         checkSelfUser("Cannot retrieve privileges for a command from another bot!");
         Checks.notNull(guild, "Guild");
         return guild.retrieveIntegrationPrivilegesById(id);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JDA getJDA()
     {
         return api;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Command.Type getType()
     {
         return type;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getName()
     {
         return name;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public LocalizationMap getNameLocalizations()
     {
         return nameLocalizations;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getDescription()
     {
         return description;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public LocalizationMap getDescriptionLocalizations()
     {
         return descriptionLocalizations;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<Command.Option> getOptions()
     {
         return options;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<Command.Subcommand> getSubcommands()
     {
         return subcommands;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<Command.SubcommandGroup> getSubcommandGroups()
     {
@@ -200,7 +200,7 @@ public class CommandImpl implements Command
         return version;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public DefaultMemberPermissions getDefaultPermissions()
     {

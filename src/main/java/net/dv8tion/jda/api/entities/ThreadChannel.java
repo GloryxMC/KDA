@@ -23,10 +23,11 @@ import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.CacheRestAction;
 import net.dv8tion.jda.api.utils.MiscUtil;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import java.time.OffsetDateTime;
 import java.util.FormattableFlags;
 import java.util.Formatter;
@@ -119,7 +120,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *
      * @return The parent channel of this thread.
      */
-    @Nonnull
+    @NotNull
     IThreadContainerUnion getParentChannel();
 
     //todo-v5: document additional subclasses of GuildMessageChannel (VoiceChannels and ForumChannels, when needed)
@@ -133,7 +134,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @throws UnsupportedOperationException
      *         If the parent channel is not a {@link GuildMessageChannel}.
      */
-    @Nonnull
+    @NotNull
     default GuildMessageChannelUnion getParentMessageChannel()
     {
         if (getParentChannel() instanceof GuildMessageChannel) {
@@ -181,7 +182,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @return {@link net.dv8tion.jda.api.requests.RestAction RestAction} - Type: Message
      *         <br>The Message that started this thread
      */
-    @Nonnull
+    @NotNull
     RestAction<Message> retrieveParentMessage();
 
     /**
@@ -220,7 +221,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *
      * @see #retrieveThreadMembers()
      */
-    @Nonnull
+    @NotNull
     List<ThreadMember> getThreadMembers();
 
     /**
@@ -329,9 +330,9 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *
      * @return {@link CacheRestAction} - Type: {@link ThreadMember}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default CacheRestAction<ThreadMember> retrieveThreadMember(@Nonnull Member member)
+    default CacheRestAction<ThreadMember> retrieveThreadMember(@NotNull Member member)
     {
         Checks.notNull(member, "Member");
         return retrieveThreadMemberById(member.getIdLong());
@@ -351,9 +352,9 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *
      * @return {@link CacheRestAction} - Type: {@link ThreadMember}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default CacheRestAction<ThreadMember> retrieveThreadMember(@Nonnull User user)
+    default CacheRestAction<ThreadMember> retrieveThreadMember(@NotNull User user)
     {
         Checks.notNull(user, "User");
         return retrieveThreadMemberById(user.getIdLong());
@@ -375,9 +376,9 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *
      * @return {@link CacheRestAction} - Type: {@link ThreadMember}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default CacheRestAction<ThreadMember> retrieveThreadMemberById(@Nonnull String id)
+    default CacheRestAction<ThreadMember> retrieveThreadMemberById(@NotNull String id)
     {
         return retrieveThreadMemberById(MiscUtil.parseSnowflake(id));
     }
@@ -393,7 +394,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *
      * @return {@link CacheRestAction} - Type: {@link ThreadMember}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     CacheRestAction<ThreadMember> retrieveThreadMemberById(long id);
 
@@ -430,7 +431,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *
      * @return The {@link User} of the member who created this thread as a String.
      */
-    @Nonnull
+    @NotNull
     default String getOwnerId()
     {
         return Long.toUnsignedString(getOwnerIdLong());
@@ -514,7 +515,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *
      * @see ChannelField#AUTO_ARCHIVE_DURATION
      */
-    @Nonnull
+    @NotNull
     AutoArchiveDuration getAutoArchiveDuration();
 
     /**
@@ -524,7 +525,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      *
      * @return The timestamp when this thread was created
      */
-    @Nonnull
+    @NotNull
     OffsetDateTime getTimeCreated();
 
     /**
@@ -666,7 +667,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @return {@link RestAction}
      */
     @CheckReturnValue
-    default RestAction<Void> addThreadMemberById(@Nonnull String id)
+    default RestAction<Void> addThreadMemberById(@NotNull String id)
     {
         return addThreadMemberById(MiscUtil.parseSnowflake(id));
     }
@@ -705,7 +706,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @return {@link RestAction}
      */
     @CheckReturnValue
-    default RestAction<Void> addThreadMember(@Nonnull User user)
+    default RestAction<Void> addThreadMember(@NotNull User user)
     {
         Checks.notNull(user, "User");
         return addThreadMemberById(user.getIdLong());
@@ -745,7 +746,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @return {@link RestAction}
      */
     @CheckReturnValue
-    default RestAction<Void> addThreadMember(@Nonnull Member member)
+    default RestAction<Void> addThreadMember(@NotNull Member member)
     {
         Checks.notNull(member, "Member");
         return addThreadMemberById(member.getIdLong());
@@ -820,7 +821,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @return {@link RestAction}
      */
     @CheckReturnValue
-    default RestAction<Void> removeThreadMemberById(@Nonnull String id)
+    default RestAction<Void> removeThreadMemberById(@NotNull String id)
     {
         return removeThreadMemberById(MiscUtil.parseSnowflake(id));
     }
@@ -854,7 +855,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @return {@link RestAction}
      */
     @CheckReturnValue
-    default RestAction<Void> removeThreadMember(@Nonnull User user)
+    default RestAction<Void> removeThreadMember(@NotNull User user)
     {
         Checks.notNull(user, "User");
         return removeThreadMemberById(user.getId());
@@ -890,14 +891,14 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
      * @return {@link RestAction}
      */
     @CheckReturnValue
-    default RestAction<Void> removeThreadMember(@Nonnull Member member)
+    default RestAction<Void> removeThreadMember(@NotNull Member member)
     {
         Checks.notNull(member, "Member");
         return removeThreadMemberById(member.getIdLong());
     }
 
     @Override
-    @Nonnull
+    @NotNull
     ThreadChannelManager getManager();
 
     @Override
@@ -946,7 +947,7 @@ public interface ThreadChannel extends GuildMessageChannel, IMemberContainer
             return minutes;
         }
 
-        @Nonnull
+        @NotNull
         public static AutoArchiveDuration fromKey(int minutes)
         {
             for (AutoArchiveDuration duration : values())

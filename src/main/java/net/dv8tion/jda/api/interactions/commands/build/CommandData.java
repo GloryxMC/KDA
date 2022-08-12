@@ -26,8 +26,8 @@ import net.dv8tion.jda.api.utils.data.SerializableData;
 import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.localization.LocalizationUtils;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Map;
 
@@ -61,8 +61,8 @@ public interface CommandData extends SerializableData
      *
      * @return The builder instance, for chaining
      */
-    @Nonnull
-    CommandData setLocalizationFunction(@Nonnull LocalizationFunction localizationFunction);
+    @NotNull
+    CommandData setLocalizationFunction(@NotNull LocalizationFunction localizationFunction);
 
     /**
      * Configure the command name.
@@ -75,8 +75,8 @@ public interface CommandData extends SerializableData
      *
      * @return The builder instance, for chaining
      */
-    @Nonnull
-    CommandData setName(@Nonnull String name);
+    @NotNull
+    CommandData setName(@NotNull String name);
 
     /**
      * Sets a {@link DiscordLocale language-specific} localization of this command's name.
@@ -97,8 +97,8 @@ public interface CommandData extends SerializableData
      *
      * @return This builder instance, for chaining
      */
-    @Nonnull
-    CommandData setNameLocalization(@Nonnull DiscordLocale locale, @Nonnull String name);
+    @NotNull
+    CommandData setNameLocalization(@NotNull DiscordLocale locale, @NotNull String name);
 
     /**
      * Sets multiple {@link DiscordLocale language-specific} localizations of this command's name.
@@ -115,8 +115,8 @@ public interface CommandData extends SerializableData
      *
      * @return This builder instance, for chaining
      */
-    @Nonnull
-    CommandData setNameLocalizations(@Nonnull Map<DiscordLocale, String> map);
+    @NotNull
+    CommandData setNameLocalizations(@NotNull Map<DiscordLocale, String> map);
 
     /**
      * Sets the {@link net.dv8tion.jda.api.Permission Permissions} that a user must have in a specific channel to be able to use this command.
@@ -131,8 +131,8 @@ public interface CommandData extends SerializableData
      * @see DefaultMemberPermissions#ENABLED
      * @see DefaultMemberPermissions#DISABLED
      */
-    @Nonnull
-    CommandData setDefaultPermissions(@Nonnull DefaultMemberPermissions permission);
+    @NotNull
+    CommandData setDefaultPermissions(@NotNull DefaultMemberPermissions permission);
 
     /**
      * Sets whether this command is only usable in a guild (Default: false).
@@ -143,7 +143,7 @@ public interface CommandData extends SerializableData
      *
      * @return The builder instance, for chaining
      */
-    @Nonnull
+    @NotNull
     CommandData setGuildOnly(boolean guildOnly);
 
     /**
@@ -151,7 +151,7 @@ public interface CommandData extends SerializableData
      *
      * @return The command name
      */
-    @Nonnull
+    @NotNull
     String getName();
 
     /**
@@ -159,7 +159,7 @@ public interface CommandData extends SerializableData
      *
      * @return The {@link LocalizationMap} containing the mapping from {@link DiscordLocale} to the localized name
      */
-    @Nonnull
+    @NotNull
     LocalizationMap getNameLocalizations();
 
     /**
@@ -167,7 +167,7 @@ public interface CommandData extends SerializableData
      *
      * @return The {@link Command.Type}
      */
-    @Nonnull
+    @NotNull
     Command.Type getType();
 
     /**
@@ -179,7 +179,7 @@ public interface CommandData extends SerializableData
      * @see    DefaultMemberPermissions#ENABLED
      * @see    DefaultMemberPermissions#DISABLED
      */
-    @Nonnull
+    @NotNull
     DefaultMemberPermissions getDefaultPermissions();
 
     /**
@@ -203,8 +203,8 @@ public interface CommandData extends SerializableData
      *
      * @see    SlashCommandData#fromCommand(Command)
      */
-    @Nonnull
-    static CommandData fromCommand(@Nonnull Command command)
+    @NotNull
+    static CommandData fromCommand(@NotNull Command command)
     {
         Checks.notNull(command, "Command");
         if (command.getType() != Command.Type.SLASH)
@@ -236,8 +236,8 @@ public interface CommandData extends SerializableData
      * @see    SlashCommandData#fromData(DataObject)
      * @see    Commands#fromList(Collection)
      */
-    @Nonnull
-    static CommandData fromData(@Nonnull DataObject object)
+    @NotNull
+    static CommandData fromData(@NotNull DataObject object)
     {
         Checks.notNull(object, "DataObject");
         String name = object.getString("name");

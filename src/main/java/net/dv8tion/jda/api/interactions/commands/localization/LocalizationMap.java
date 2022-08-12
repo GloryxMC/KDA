@@ -21,10 +21,10 @@ import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.api.utils.data.SerializableData;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.JDALogger;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +41,7 @@ public class LocalizationMap implements SerializableData
     protected final Map<DiscordLocale, String> map = new HashMap<>();
     private final Consumer<String> checkConsumer;
 
-    public LocalizationMap(@Nonnull Consumer<String> checkConsumer)
+    public LocalizationMap(@NotNull Consumer<String> checkConsumer)
     {
         this.checkConsumer = checkConsumer;
     }
@@ -52,7 +52,7 @@ public class LocalizationMap implements SerializableData
         this.map.put(locale, translation);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public DataObject toData()
     {
@@ -78,7 +78,7 @@ public class LocalizationMap implements SerializableData
      *             <li>If the localized string does not pass the corresponding attribute check</li>
      *         </ul>
      */
-    public void setTranslation(@Nonnull DiscordLocale locale, @Nonnull String localizedString)
+    public void setTranslation(@NotNull DiscordLocale locale, @NotNull String localizedString)
     {
         Checks.notNull(locale, "Locale");
         Checks.notNull(localizedString, "Localized string");
@@ -100,7 +100,7 @@ public class LocalizationMap implements SerializableData
      *             <li>If the map contains a localized string which does not pass the corresponding attribute check</li>
      *         </ul>
      */
-    public void setTranslations(@Nonnull Map<DiscordLocale, String> map)
+    public void setTranslations(@NotNull Map<DiscordLocale, String> map)
     {
         Checks.notNull(map, "Map");
 
@@ -120,7 +120,7 @@ public class LocalizationMap implements SerializableData
      * @return Possibly-null localized string
      */
     @Nullable
-    public String get(@Nonnull DiscordLocale locale)
+    public String get(@NotNull DiscordLocale locale)
     {
         Checks.notNull(locale, "Locale");
 
@@ -133,7 +133,7 @@ public class LocalizationMap implements SerializableData
      *
      * @return The unmodifiable map of this LocalizationMap
      */
-    @Nonnull
+    @NotNull
     public Map<DiscordLocale, String> toMap()
     {
         return Collections.unmodifiableMap(map);

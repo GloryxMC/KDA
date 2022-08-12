@@ -20,10 +20,12 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Icon;
 import net.dv8tion.jda.api.entities.Webhook;
 import net.dv8tion.jda.api.entities.channel.unions.IWebhookContainerUnion;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
+
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
 
@@ -35,15 +37,15 @@ import java.util.function.BooleanSupplier;
  */
 public interface WebhookAction extends AuditableRestAction<Webhook>
 {
-    @Nonnull
+    @NotNull
     @Override
     WebhookAction setCheck(@Nullable BooleanSupplier checks);
 
-    @Nonnull
+    @NotNull
     @Override
-    WebhookAction timeout(long timeout, @Nonnull TimeUnit unit);
+    WebhookAction timeout(long timeout, @NotNull TimeUnit unit);
 
-    @Nonnull
+    @NotNull
     @Override
     WebhookAction deadline(long timestamp);
 
@@ -52,7 +54,7 @@ public interface WebhookAction extends AuditableRestAction<Webhook>
      *
      * @return The channel
      */
-    @Nonnull
+    @NotNull
     IWebhookContainerUnion getChannel();
 
     /**
@@ -60,7 +62,7 @@ public interface WebhookAction extends AuditableRestAction<Webhook>
      *
      * @return The guild
      */
-    @Nonnull
+    @NotNull
     default Guild getGuild()
     {
         return getChannel().getGuild();
@@ -77,9 +79,9 @@ public interface WebhookAction extends AuditableRestAction<Webhook>
      *
      * @return The current WebhookAction for chaining convenience.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    WebhookAction setName(@Nonnull String name);
+    WebhookAction setName(@NotNull String name);
 
     /**
      * Sets the <b>Avatar</b> for the custom Webhook User
@@ -90,7 +92,7 @@ public interface WebhookAction extends AuditableRestAction<Webhook>
      *
      * @return The current WebhookAction for chaining convenience.
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     WebhookAction setAvatar(@Nullable Icon icon);
 }

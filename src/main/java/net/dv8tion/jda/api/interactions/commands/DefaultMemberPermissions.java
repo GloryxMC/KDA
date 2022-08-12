@@ -18,9 +18,9 @@ package net.dv8tion.jda.api.interactions.commands;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -76,8 +76,8 @@ public class DefaultMemberPermissions
      *
      * @return DefaultMemberPermissions instance with the predefined permissions
      */
-    @Nonnull
-    public static DefaultMemberPermissions enabledFor(@Nonnull Collection<Permission> permissions)
+    @NotNull
+    public static DefaultMemberPermissions enabledFor(@NotNull Collection<Permission> permissions)
     {
         Checks.noneNull(permissions, "Permissions");
         if (permissions.isEmpty())
@@ -99,8 +99,8 @@ public class DefaultMemberPermissions
      *
      * @return DefaultMemberPermissions instance with the predefined permissions
      */
-    @Nonnull
-    public static DefaultMemberPermissions enabledFor(@Nonnull Permission... permissions)
+    @NotNull
+    public static DefaultMemberPermissions enabledFor(@NotNull Permission... permissions)
     {
         return enabledFor(Arrays.asList(permissions));
     }
@@ -115,7 +115,7 @@ public class DefaultMemberPermissions
      *
      * @return DefaultMemberPermissions instance with the predefined permissions
      */
-    @Nonnull
+    @NotNull
     public static DefaultMemberPermissions enabledFor(long permissions)
     {
         return new DefaultMemberPermissions(permissions);
