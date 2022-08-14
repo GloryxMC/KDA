@@ -24,6 +24,7 @@ import net.dv8tion.jda.api.requests.restaction.MessageAction;
 import net.dv8tion.jda.internal.entities.DataMessage;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.Helpers;
+import net.gloryx.kda.markdown.component.EmbedComponent;
 import org.jetbrains.annotations.NotNull;
 
 import org.jetbrains.annotations.Nullable;
@@ -45,7 +46,7 @@ public class MessageBuilder implements Appendable
 {
     protected final StringBuilder builder = new StringBuilder();
 
-    protected final List<MessageEmbed> embeds = new ArrayList<>();
+    protected final List<EmbedComponent> embeds = new ArrayList<>();
     protected final List<LayoutComponent> components = new ArrayList<>();
     protected final List<StickerSnowflake> stickers = new ArrayList<>();
     protected boolean isTTS = false;
@@ -68,7 +69,7 @@ public class MessageBuilder implements Appendable
         {
             isTTS = message.isTTS();
             builder.append(message.getContentRaw());
-            List<MessageEmbed> embeds = message.getEmbeds();
+            List<EmbedComponent> embeds = message.getEmbeds();
             if (embeds != null)
                 embeds.stream().filter(it -> it.getType() == EmbedType.RICH).forEach(this.embeds::add);
             components.addAll(message.getActionRows());
@@ -114,7 +115,7 @@ public class MessageBuilder implements Appendable
             this.embeds.add(builder.build());
     }
 
-    public MessageBuilder(@Nullable MessageEmbed embed)
+    public MessageBuilder(@Nullable EmbedComponent embed)
     {
         if (embed != null)
             this.embeds.add(embed);
@@ -138,50 +139,50 @@ public class MessageBuilder implements Appendable
     }
 
     /**
-     * Adds up to {@value Message#MAX_EMBED_COUNT} {@link net.dv8tion.jda.api.entities.MessageEmbed MessageEmbeds} to the Message. Embeds can be built using
+     * Adds up to {@value Message#MAX_EMBED_COUNT} {@link EmbedComponent MessageEmbeds} to the Message. Embeds can be built using
      * the {@link net.dv8tion.jda.api.EmbedBuilder} and offer specialized formatting.
      *
      * @param  embeds
      *         the embeds to add, or empty array to remove
      *
      * @throws java.lang.IllegalArgumentException
-     *         If any of the provided MessageEmbeds is null or not sendable according to {@link net.dv8tion.jda.api.entities.MessageEmbed#isSendable() MessageEmbed.isSendable()}!
-     *         The sum of all {@link MessageEmbed#getLength()} must not be greater than {@link MessageEmbed#EMBED_MAX_LENGTH_BOT}!
+     *         If any of the provided MessageEmbeds is null or not sendable according to {@link EmbedComponent#isSendable() MessageEmbed.isSendable()}!
+     *         The sum of all {@link EmbedComponent#getLength()} must not be greater than {@link EmbedComponent#EMBED_MAX_LENGTH_BOT}!
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
     @NotNull
-    public MessageBuilder setEmbeds(@NotNull MessageEmbed... embeds)
+    public MessageBuilder setEmbeds(@NotNull EmbedComponent... embeds)
     {
         Checks.noneNull(embeds, "MessageEmbeds");
         return setEmbeds(Arrays.asList(embeds));
     }
 
     /**
-     * Adds up to {@value Message#MAX_EMBED_COUNT} {@link net.dv8tion.jda.api.entities.MessageEmbed MessageEmbeds} to the Message. Embeds can be built using
+     * Adds up to {@value Message#MAX_EMBED_COUNT} {@link EmbedComponent MessageEmbeds} to the Message. Embeds can be built using
      * the {@link net.dv8tion.jda.api.EmbedBuilder} and offer specialized formatting.
      *
      * @param  embeds
      *         the embeds to add, or empty list to remove
      *
      * @throws java.lang.IllegalArgumentException
-     *         If any of the provided MessageEmbeds is null or not sendable according to {@link net.dv8tion.jda.api.entities.MessageEmbed#isSendable() MessageEmbed.isSendable()}!
-     *         The sum of all {@link MessageEmbed#getLength()} must not be greater than {@link MessageEmbed#EMBED_MAX_LENGTH_BOT}!
+     *         If any of the provided MessageEmbeds is null or not sendable according to {@link EmbedComponent#isSendable() MessageEmbed.isSendable()}!
+     *         The sum of all {@link EmbedComponent#getLength()} must not be greater than {@link EmbedComponent#EMBED_MAX_LENGTH_BOT}!
      *
      * @return The MessageBuilder instance. Useful for chaining.
      */
     @NotNull
-    public MessageBuilder setEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
+    public MessageBuilder setEmbeds(@NotNull Collection<? extends EmbedComponent> embeds)
     {
 
         Checks.noneNull(embeds, "MessageEmbeds");
         embeds.forEach(embed ->
             Checks.check(embed.isSendable(),
                 "Provided Message contains an empty embed or an embed with a length greater than %d characters, which is the max for bot accounts!",
-                MessageEmbed.EMBED_MAX_LENGTH_BOT)
+                EmbedComponent.EMBED_MAX_LENGTH_BOT)
         );
         Checks.check(embeds.size() <= Message.MAX_EMBED_COUNT, "Cannot have more than %d embeds in a message!", Message.MAX_EMBED_COUNT);
-        Checks.check(embeds.stream().mapToInt(MessageEmbed::getLength).sum() <= MessageEmbed.EMBED_MAX_LENGTH_BOT, "The sum of all MessageEmbeds may not exceed %d!", MessageEmbed.EMBED_MAX_LENGTH_BOT);
+        Checks.check(embeds.stream().mapToInt(EmbedComponent::getLength).sum() <= EmbedComponent.EMBED_MAX_LENGTH_BOT, "The sum of all MessageEmbeds may not exceed %d!", EmbedComponent.EMBED_MAX_LENGTH_BOT);
         this.embeds.clear();
         this.embeds.addAll(embeds);
         return this;
@@ -1073,7 +1074,7 @@ public class MessageBuilder implements Appendable
      * @throws java.lang.IllegalStateException
      *         <ul>
      *             <li>If you attempt to build() an empty Message ({@link #length()} is {@code 0} and no
-     *             {@link net.dv8tion.jda.api.entities.MessageEmbed} was provided to {@link #setEmbeds(MessageEmbed...)} </li>
+     *             {@link EmbedComponent} was provided to {@link #setEmbeds(EmbedComponent...)} </li>
      *             <li>If you attempt to build() a Message with more than 2000 characters of content.</li>
      *         </ul>
      *

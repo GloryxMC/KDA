@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.events.Event
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.requests.restaction.MessageAction
 import net.gloryx.kda.*
+import net.gloryx.kda.markdown.component.EmbedComponent
 import java.util.concurrent.TimeoutException
 import java.util.regex.Pattern
 
@@ -46,12 +47,12 @@ class Context(
      * @return[MessageAction]
      */
     fun reply(
-            content: String? = SendDefaults.content,
-            embed: MessageEmbed? = null,
-            embeds: Embeds = SendDefaults.embeds,
-            components: Components = SendDefaults.components,
-            file: NamedFile? = null,
-            files: Files = emptyList(),
+        content: String? = SendDefaults.content,
+        embed: EmbedComponent? = null,
+        embeds: Embeds = SendDefaults.embeds,
+        components: Components = SendDefaults.components,
+        file: NamedFile? = null,
+        files: Files = emptyList(),
     ) = message.reply_(content, embed, embeds, components, file, files)
 
 
@@ -70,12 +71,12 @@ class Context(
      * @return[MessageAction]
      */
     suspend fun sendPrivate(
-            content: String? = SendDefaults.content,
-            embed: MessageEmbed? = null,
-            embeds: Embeds = SendDefaults.embeds,
-            components: Components = SendDefaults.components,
-            file: NamedFile? = null,
-            files: Files = emptyList(),
+        content: String? = SendDefaults.content,
+        embed: EmbedComponent? = null,
+        embeds: Embeds = SendDefaults.embeds,
+        components: Components = SendDefaults.components,
+        file: NamedFile? = null,
+        files: Files = emptyList(),
     ): MessageAction = author.openPrivateChannel().await().send(content, embed, embeds, components, file, files)
 
     /**
@@ -93,12 +94,12 @@ class Context(
      * @return[MessageAction]
      */
     fun send(
-            content: String? = SendDefaults.content,
-            embed: MessageEmbed? = null,
-            embeds: Embeds = SendDefaults.embeds,
-            components: Components = SendDefaults.components,
-            file: NamedFile? = null,
-            files: Files = emptyList(),
+        content: String? = SendDefaults.content,
+        embed: EmbedComponent? = null,
+        embeds: Embeds = SendDefaults.embeds,
+        components: Components = SendDefaults.components,
+        file: NamedFile? = null,
+        files: Files = emptyList(),
     ): MessageAction = messageChannel.send(content, embed, embeds, components, file, files)
 
     /**
@@ -194,9 +195,6 @@ class Context(
             }
         }
 
-        for (emote in message.mentions.emotes) {
-            content = content.replace(emote.asMention, ":${emote.name}:")
-        }
 
         return content
     }

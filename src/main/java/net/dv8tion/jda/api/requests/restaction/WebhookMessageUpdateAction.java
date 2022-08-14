@@ -17,7 +17,7 @@
 package net.dv8tion.jda.api.requests.restaction;
 
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.gloryx.kda.markdown.component.EmbedComponent;
 import net.dv8tion.jda.api.interactions.components.ActionComponent;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.ItemComponent;
@@ -63,7 +63,7 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
     WebhookMessageUpdateAction<T> setContent(@Nullable String content);
 
     /**
-     * Set the {@link MessageEmbed MessageEmbeds} for the message
+     * Set the {@link EmbedComponent MessageEmbeds} for the message
      *
      * @param  embeds
      *         The message embeds
@@ -75,10 +75,10 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      */
     @NotNull
     @CheckReturnValue
-    WebhookMessageUpdateAction<T> setEmbeds(@NotNull Collection<? extends MessageEmbed> embeds); // Doesn't work on ephemeral messages!
+    WebhookMessageUpdateAction<T> setEmbeds(@NotNull Collection<? extends EmbedComponent> embeds); // Doesn't work on ephemeral messages!
 
     /**
-     * Set the {@link MessageEmbed MessageEmbeds} for the message
+     * Set the {@link EmbedComponent MessageEmbeds} for the message
      *
      * @param  embeds
      *         The message embeds
@@ -90,7 +90,7 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      */
     @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<T> setEmbeds(@NotNull MessageEmbed... embeds)
+    default WebhookMessageUpdateAction<T> setEmbeds(@NotNull EmbedComponent... embeds)
     {
         Checks.noneNull(embeds, "MessageEmbeds");
         return setEmbeds(Arrays.asList(embeds));

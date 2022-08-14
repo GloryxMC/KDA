@@ -17,7 +17,7 @@
 package net.dv8tion.jda.api.requests.restaction;
 
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.gloryx.kda.markdown.component.EmbedComponent;
 import net.dv8tion.jda.api.interactions.components.ActionComponent;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.ItemComponent;
@@ -134,7 +134,7 @@ public interface WebhookMessageAction<T> extends RestAction<T>, AllowedMentions<
     WebhookMessageAction<T> setTTS(boolean tts);
 
     /**
-     * Add {@link MessageEmbed MessageEmbeds} to this message
+     * Add {@link EmbedComponent MessageEmbeds} to this message
      *
      * @param  embeds
      *         The message embeds to add
@@ -146,10 +146,10 @@ public interface WebhookMessageAction<T> extends RestAction<T>, AllowedMentions<
      */
     @NotNull
     @CheckReturnValue
-    WebhookMessageAction<T> addEmbeds(@NotNull Collection<? extends MessageEmbed> embeds); // Doesn't work on ephemeral messages!
+    WebhookMessageAction<T> addEmbeds(@NotNull Collection<? extends EmbedComponent> embeds); // Doesn't work on ephemeral messages!
 
     /**
-     * Add {@link MessageEmbed MessageEmbeds} to this message
+     * Add {@link EmbedComponent MessageEmbeds} to this message
      *
      * @param  embed
      *         The first message embed to add
@@ -163,9 +163,9 @@ public interface WebhookMessageAction<T> extends RestAction<T>, AllowedMentions<
      */
     @NotNull
     @CheckReturnValue
-    default WebhookMessageAction<T> addEmbeds(@NotNull MessageEmbed embed, @NotNull MessageEmbed... other)
+    default WebhookMessageAction<T> addEmbeds(@NotNull EmbedComponent embed, @NotNull EmbedComponent... other)
     {
-        ArrayList<MessageEmbed> embeds = new ArrayList<>();
+        ArrayList<EmbedComponent> embeds = new ArrayList<>();
         embeds.add(embed);
         Collections.addAll(embeds, other);
         return addEmbeds(embeds);
@@ -410,9 +410,9 @@ public interface WebhookMessageAction<T> extends RestAction<T>, AllowedMentions<
      *         The Message to apply settings from
      *
      * @throws java.lang.IllegalArgumentException
-     *         If the message contains a {@link net.dv8tion.jda.api.entities.MessageEmbed MessageEmbed}
+     *         If the message contains a {@link EmbedComponent MessageEmbed}
      *         that exceeds the sendable character limit,
-     *         see {@link net.dv8tion.jda.api.entities.MessageEmbed#isSendable() MessageEmbed.isSendable()}
+     *         see {@link EmbedComponent#isSendable() MessageEmbed.isSendable()}
      *
      * @return The same message action, for chaining convenience
      */

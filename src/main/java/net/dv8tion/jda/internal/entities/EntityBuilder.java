@@ -28,7 +28,8 @@ import net.dv8tion.jda.api.entities.Guild.ExplicitContentLevel;
 import net.dv8tion.jda.api.entities.Guild.NotificationLevel;
 import net.dv8tion.jda.api.entities.Guild.Timeout;
 import net.dv8tion.jda.api.entities.Guild.VerificationLevel;
-import net.dv8tion.jda.api.entities.MessageEmbed.*;
+import net.gloryx.kda.markdown.component.EmbedComponent;
+import net.gloryx.kda.markdown.component.EmbedComponent.*;
 import net.dv8tion.jda.api.entities.emoji.EmojiUnion;
 import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 import net.dv8tion.jda.api.entities.sticker.*;
@@ -1455,7 +1456,7 @@ public class EntityBuilder
         // Message accessories
         MessageChannel tmpChannel = channel; // because java
         final List<Message.Attachment> attachments = map(jsonObject, "attachments",   this::createMessageAttachment);
-        final List<MessageEmbed>       embeds      = map(jsonObject, "embeds",        this::createMessageEmbed);
+        final List<EmbedComponent>       embeds      = map(jsonObject, "embeds",        this::createMessageEmbed);
         final List<MessageReaction>    reactions   = map(jsonObject, "reactions",     (obj) -> createMessageReaction(tmpChannel, id, obj));
         final List<StickerItem>        stickers    = map(jsonObject, "sticker_items", this::createStickerItem);
 
@@ -1626,7 +1627,7 @@ public class EntityBuilder
         return new Message.Attachment(id, url, proxyUrl, filename, contentType, description, size, height, width, ephemeral, getJDA());
     }
 
-    public MessageEmbed createMessageEmbed(DataObject content)
+    public EmbedComponent createMessageEmbed(DataObject content)
     {
         if (content.isNull("type"))
             throw new IllegalStateException("Encountered embed object with missing/null type field for Json: " + content);
@@ -1728,11 +1729,11 @@ public class EntityBuilder
                 color, thumbnail, provider, author, video, footer, image, fields);
     }
 
-    public static MessageEmbed createMessageEmbed(String url, String title, String description, EmbedType type, OffsetDateTime timestamp,
-                                           int color, Thumbnail thumbnail, Provider siteProvider, AuthorInfo author,
-                                           VideoInfo videoInfo, Footer footer, ImageInfo image, List<Field> fields)
+    public static EmbedComponent createMessageEmbed(String url, String title, String description, EmbedType type, OffsetDateTime timestamp,
+                                                    int color, Thumbnail thumbnail, Provider siteProvider, AuthorInfo author,
+                                                    VideoInfo videoInfo, Footer footer, ImageInfo image, List<Field> fields)
     {
-        return new MessageEmbed(url, title, description, type, timestamp,
+        return new EmbedComponent(url, title, description, type, timestamp,
             color, thumbnail, siteProvider, author, videoInfo, footer, image, fields);
     }
 

@@ -24,6 +24,7 @@ import net.dv8tion.jda.api.requests.restaction.WebhookMessageAction;
 import net.dv8tion.jda.api.requests.restaction.WebhookMessageUpdateAction;
 import net.dv8tion.jda.api.utils.AttachmentOption;
 import net.dv8tion.jda.internal.utils.Checks;
+import net.gloryx.kda.markdown.component.EmbedComponent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
@@ -126,16 +127,16 @@ public interface WebhookClient<T>
      * </ul>
      *
      * @param  embeds
-     *         {@link MessageEmbed MessageEmbeds} to use (up to {@value Message#MAX_EMBED_COUNT} in total)
+     *         {@link EmbedComponent MessageEmbeds} to use (up to {@value Message#MAX_EMBED_COUNT} in total)
      *
      * @throws IllegalArgumentException
-     *         If any of the embeds are null, more than {@value Message#MAX_EMBED_COUNT}, or longer than {@link MessageEmbed#EMBED_MAX_LENGTH_BOT}.
+     *         If any of the embeds are null, more than {@value Message#MAX_EMBED_COUNT}, or longer than {@link EmbedComponent#EMBED_MAX_LENGTH_BOT}.
      *
      * @return {@link WebhookMessageAction}
      */
     @NotNull
     @CheckReturnValue
-    WebhookMessageAction<T> sendMessageEmbeds(@NotNull Collection<? extends MessageEmbed> embeds);
+    WebhookMessageAction<T> sendMessageEmbeds(@NotNull Collection<? extends EmbedComponent> embeds);
 
     /**
      * Send a message to this webhook.
@@ -149,22 +150,22 @@ public interface WebhookClient<T>
      * </ul>
      *
      * @param  embed
-     *         {@link MessageEmbed} to use
+     *         {@link EmbedComponent} to use
      * @param  embeds
-     *         Additional {@link MessageEmbed MessageEmbeds} to use (up to {@value Message#MAX_EMBED_COUNT} in total)
+     *         Additional {@link EmbedComponent MessageEmbeds} to use (up to {@value Message#MAX_EMBED_COUNT} in total)
      *
      * @throws IllegalArgumentException
-     *         If any of the embeds are null, more than {@value Message#MAX_EMBED_COUNT}, or longer than {@link MessageEmbed#EMBED_MAX_LENGTH_BOT}.
+     *         If any of the embeds are null, more than {@value Message#MAX_EMBED_COUNT}, or longer than {@link EmbedComponent#EMBED_MAX_LENGTH_BOT}.
      *
      * @return {@link WebhookMessageAction}
      */
     @NotNull
     @CheckReturnValue
-    default WebhookMessageAction<T> sendMessageEmbeds(@NotNull MessageEmbed embed, @NotNull MessageEmbed... embeds)
+    default WebhookMessageAction<T> sendMessageEmbeds(@NotNull EmbedComponent embed, @NotNull EmbedComponent... embeds)
     {
         Checks.notNull(embed, "MessageEmbeds");
         Checks.noneNull(embeds, "MessageEmbeds");
-        List<MessageEmbed> embedList = new ArrayList<>();
+        List<EmbedComponent> embedList = new ArrayList<>();
         embedList.add(embed);
         Collections.addAll(embedList, embeds);
         return sendMessageEmbeds(embedList);
@@ -572,7 +573,7 @@ public interface WebhookClient<T>
      * @param  messageId
      *         The message id. For interactions this supports {@code "@original"} to edit the source message of the interaction.
      * @param  embeds
-     *         {@link MessageEmbed MessageEmbeds} to use (up to {@value Message#MAX_EMBED_COUNT} in total)
+     *         {@link EmbedComponent MessageEmbeds} to use (up to {@value Message#MAX_EMBED_COUNT} in total)
      *
      * @throws IllegalArgumentException
      *         If the provided embeds are null, or more than {@value Message#MAX_EMBED_COUNT}
@@ -581,7 +582,7 @@ public interface WebhookClient<T>
      */
     @NotNull
     @CheckReturnValue
-    WebhookMessageUpdateAction<T> editMessageEmbedsById(@NotNull String messageId, @NotNull Collection<? extends MessageEmbed> embeds);
+    WebhookMessageUpdateAction<T> editMessageEmbedsById(@NotNull String messageId, @NotNull Collection<? extends EmbedComponent> embeds);
 
     /**
      * Edit an existing message sent by this webhook.
@@ -599,7 +600,7 @@ public interface WebhookClient<T>
      * @param  messageId
      *         The message id. For interactions this supports {@code "@original"} to edit the source message of the interaction.
      * @param  embeds
-     *         {@link MessageEmbed MessageEmbeds} to use (up to {@value Message#MAX_EMBED_COUNT} in total)
+     *         {@link EmbedComponent MessageEmbeds} to use (up to {@value Message#MAX_EMBED_COUNT} in total)
      *
      * @throws IllegalArgumentException
      *         If the provided embeds are null, or more than {@value Message#MAX_EMBED_COUNT}
@@ -608,7 +609,7 @@ public interface WebhookClient<T>
      */
     @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<T> editMessageEmbedsById(long messageId, @NotNull Collection<? extends MessageEmbed> embeds)
+    default WebhookMessageUpdateAction<T> editMessageEmbedsById(long messageId, @NotNull Collection<? extends EmbedComponent> embeds)
     {
         return editMessageEmbedsById(Long.toUnsignedString(messageId), embeds);
     }
@@ -629,7 +630,7 @@ public interface WebhookClient<T>
      * @param  messageId
      *         The message id. For interactions this supports {@code "@original"} to edit the source message of the interaction.
      * @param  embeds
-     *         The new {@link MessageEmbed MessageEmbeds} to use
+     *         The new {@link EmbedComponent MessageEmbeds} to use
      *
      * @throws IllegalArgumentException
      *         If the provided embeds are null, or more than 10
@@ -638,7 +639,7 @@ public interface WebhookClient<T>
      */
     @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<T> editMessageEmbedsById(@NotNull String messageId, @NotNull MessageEmbed... embeds)
+    default WebhookMessageUpdateAction<T> editMessageEmbedsById(@NotNull String messageId, @NotNull EmbedComponent... embeds)
     {
         Checks.noneNull(embeds, "MessageEmbeds");
         return editMessageEmbedsById(messageId, Arrays.asList(embeds));
@@ -660,7 +661,7 @@ public interface WebhookClient<T>
      * @param  messageId
      *         The message id. For interactions this supports {@code "@original"} to edit the source message of the interaction.
      * @param  embeds
-     *         The new {@link MessageEmbed MessageEmbeds} to use
+     *         The new {@link EmbedComponent MessageEmbeds} to use
      *
      * @throws IllegalArgumentException
      *         If the provided embeds are null, or more than 10
@@ -669,7 +670,7 @@ public interface WebhookClient<T>
      */
     @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<T> editMessageEmbedsById(long messageId, @NotNull MessageEmbed... embeds)
+    default WebhookMessageUpdateAction<T> editMessageEmbedsById(long messageId, @NotNull EmbedComponent... embeds)
     {
         return editMessageEmbedsById(Long.toUnsignedString(messageId), embeds);
     }

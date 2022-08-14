@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.MessageBuilder
 import net.dv8tion.jda.api.entities.Message
-import net.dv8tion.jda.api.entities.MessageEmbed
+import net.gloryx.kda.markdown.component.EmbedComponent
 import net.dv8tion.jda.api.entities.Role
 import net.dv8tion.jda.api.entities.User
 import net.dv8tion.jda.api.interactions.components.ActionRow
@@ -338,52 +338,52 @@ class CacheFlagAccumulator(private val builder: JDABuilder) {
 }
 
 inline fun Message(
-        content: String? = null,
-        embed: MessageEmbed? = null,
-        embeds: Embeds? = null,
-        components: Components? = null,
-        nonce: String? = null,
-        tts: Boolean = false,
-        allowedMentionTypes: Collection<Message.MentionType>? = null,
-        mentionUsers: Collection<Long>? = null,
-        mentionRoles: Collection<Long>? = null,
-        builder: InlineMessage.() -> Unit = {},
+    content: String? = null,
+    embed: EmbedComponent? = null,
+    embeds: Embeds? = null,
+    components: Components? = null,
+    nonce: String? = null,
+    tts: Boolean = false,
+    allowedMentionTypes: Collection<Message.MentionType>? = null,
+    mentionUsers: Collection<Long>? = null,
+    mentionRoles: Collection<Long>? = null,
+    builder: InlineMessage.() -> Unit = {},
 ): Message {
     return MessageBuilder(content, embed, embeds, components, nonce, tts, allowedMentionTypes, mentionUsers, mentionRoles, builder).build()
 }
 
 inline fun Embed(
-        description: String? = null,
-        title: String? = null,
-        url: String? = null,
-        color: Int? = null,
-        footerText: String? = null,
-        footerIcon: String? = null,
-        authorName: String? = null,
-        authorIcon: String? = null,
-        authorUrl: String? = null,
-        timestamp: TemporalAccessor? = null,
-        image: String? = null,
-        thumbnail: String? = null,
-        fields: Collection<MessageEmbed.Field> = emptyList(),
-        builder: InlineEmbed.() -> Unit = {},
-): MessageEmbed {
+    description: String? = null,
+    title: String? = null,
+    url: String? = null,
+    color: Int? = null,
+    footerText: String? = null,
+    footerIcon: String? = null,
+    authorName: String? = null,
+    authorIcon: String? = null,
+    authorUrl: String? = null,
+    timestamp: TemporalAccessor? = null,
+    image: String? = null,
+    thumbnail: String? = null,
+    fields: Collection<EmbedComponent.Field> = emptyList(),
+    builder: InlineEmbed.() -> Unit = {},
+): EmbedComponent {
     return EmbedBuilder(description, title, url, color, footerText, footerIcon,
             authorName, authorIcon, authorUrl, timestamp, image, thumbnail, fields, builder
     ).build()
 }
 
 inline fun MessageBuilder(
-        content: String? = null,
-        embed: MessageEmbed? = null,
-        embeds: Embeds? = null,
-        components: Components? = null,
-        nonce: String? = null,
-        tts: Boolean = false,
-        allowedMentionTypes: Collection<Message.MentionType>? = null,
-        mentionUsers: Collection<Long>? = null,
-        mentionRoles: Collection<Long>? = null,
-        builder: InlineMessage.() -> Unit = {}
+    content: String? = null,
+    embed: EmbedComponent? = null,
+    embeds: Embeds? = null,
+    components: Components? = null,
+    nonce: String? = null,
+    tts: Boolean = false,
+    allowedMentionTypes: Collection<Message.MentionType>? = null,
+    mentionUsers: Collection<Long>? = null,
+    mentionRoles: Collection<Long>? = null,
+    builder: InlineMessage.() -> Unit = {}
 ): InlineMessage {
     return MessageBuilder().run {
         setContent(content)
@@ -402,20 +402,20 @@ inline fun MessageBuilder(
 }
 
 inline fun EmbedBuilder(
-        description: String? = null,
-        title: String? = null,
-        url: String? = null,
-        color: Int? = null,
-        footerText: String? = null,
-        footerIcon: String? = null,
-        authorName: String? = null,
-        authorIcon: String? = null,
-        authorUrl: String? = null,
-        timestamp: TemporalAccessor? = null,
-        image: String? = null,
-        thumbnail: String? = null,
-        fields: Collection<MessageEmbed.Field> = emptyList(),
-        builder: InlineEmbed.() -> Unit = {}
+    description: String? = null,
+    title: String? = null,
+    url: String? = null,
+    color: Int? = null,
+    footerText: String? = null,
+    footerIcon: String? = null,
+    authorName: String? = null,
+    authorIcon: String? = null,
+    authorUrl: String? = null,
+    timestamp: TemporalAccessor? = null,
+    image: String? = null,
+    thumbnail: String? = null,
+    fields: Collection<EmbedComponent.Field> = emptyList(),
+    builder: InlineEmbed.() -> Unit = {}
 ): InlineEmbed {
     return EmbedBuilder().run {
         setDescription(description)
@@ -434,7 +434,7 @@ inline fun EmbedBuilder(
 class InlineMessage(val builder: MessageBuilder) {
     constructor(message: Message) : this(MessageBuilder(message))
 
-    internal val configuredEmbeds = mutableListOf<MessageEmbed>()
+    internal val configuredEmbeds = mutableListOf<EmbedComponent>()
     internal val configuredComponents = mutableListOf<LayoutComponent>()
 
     fun build() = builder
@@ -449,7 +449,7 @@ class InlineMessage(val builder: MessageBuilder) {
         }
 
     @Deprecated("You should use the embeds property instead, which accepts a collection of embeds", ReplaceWith("embeds"), DeprecationLevel.ERROR)
-    var embed: MessageEmbed? = null
+    var embed: EmbedComponent? = null
         set(value) {
             configuredEmbeds.clear()
             value?.let(configuredEmbeds::add)
@@ -523,7 +523,7 @@ class InlineMessage(val builder: MessageBuilder) {
 }
 
 class InlineEmbed(val builder: EmbedBuilder) {
-    constructor(embed: MessageEmbed) : this(EmbedBuilder(embed))
+    constructor(embed: EmbedComponent) : this(EmbedBuilder(embed))
 
     fun build() = builder.build()
 
@@ -608,19 +608,19 @@ class InlineEmbed(val builder: EmbedBuilder) {
 }
 
 class EmbedAccumulator(private val builder: InlineMessage) {
-    operator fun plusAssign(embeds: Collection<MessageEmbed>) {
+    operator fun plusAssign(embeds: Collection<EmbedComponent>) {
         builder.configuredEmbeds += embeds
     }
 
-    operator fun plusAssign(embed: MessageEmbed) {
+    operator fun plusAssign(embed: EmbedComponent) {
         builder.configuredEmbeds += embed
     }
 
-    operator fun minusAssign(embeds: Collection<MessageEmbed>) {
+    operator fun minusAssign(embeds: Collection<EmbedComponent>) {
         builder.configuredEmbeds -= embeds.toSet()
     }
 
-    operator fun minusAssign(embed: MessageEmbed) {
+    operator fun minusAssign(embed: EmbedComponent) {
         builder.configuredEmbeds -= embed
     }
 }

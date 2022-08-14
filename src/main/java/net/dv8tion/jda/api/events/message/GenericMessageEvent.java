@@ -21,7 +21,9 @@ import net.dv8tion.jda.api.entities.channel.unions.GuildMessageChannelUnion;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.internal.utils.Helpers;
+import net.gloryx.commons.ExceptionsKt;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Indicates that a {@link net.dv8tion.jda.api.entities.Message Message} was created/deleted/changed.
@@ -181,4 +183,12 @@ public abstract class GenericMessageEvent extends Event
     {
         return getChannelType().isThread();
     }
+
+
+    @Nullable
+    public TextChannel getTextChannel() { return ExceptionsKt.try_(() -> getChannel().asTextChannel()); }
+
+
+    @Nullable
+    public PrivateChannel getPrivateChannel() { return ExceptionsKt.try_(() -> getChannel().asPrivateChannel()); }
 }
