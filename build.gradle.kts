@@ -87,6 +87,7 @@ configure<SourceSetContainer> {
 repositories {
     mavenLocal()
     mavenCentral()
+    maven("https://dev.gloryx.net/main")
 }
 
 dependencies {
@@ -108,6 +109,14 @@ dependencies {
 
     //Collections Utility
     api("org.apache.commons:commons-collections4:4.4")
+
+    //Adventure
+    api("net.kyori:adventure:4.11.0")
+
+    //Gloryx Commons
+    api("net.gloryx:commons:0.1.52")
+    implementation("com.electronwill.night-config:core:3.6.5")
+    implementation("com.electronwill.night-config:hocon:3.6.5")
 
     //we use this only together with opus-java
     // if that dependency is excluded it also doesn't need jna anymore

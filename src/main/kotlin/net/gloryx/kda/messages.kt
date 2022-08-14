@@ -1,5 +1,6 @@
 package net.gloryx.kda
 
+import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageChannel
 import net.dv8tion.jda.api.entities.MessageEmbed
@@ -13,6 +14,7 @@ import net.dv8tion.jda.api.requests.restaction.WebhookMessageUpdateAction
 import net.dv8tion.jda.api.requests.restaction.interactions.MessageEditCallbackAction
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction
 import net.dv8tion.jda.internal.requests.restaction.MessageActionImpl
+import net.gloryx.commons.try_
 
 /**
  * Defaults used for edit message extensions provided by this module.
@@ -460,3 +462,6 @@ fun Message.reply_(
         file: NamedFile? = null,
         files: Files = emptyList(),
 ) = channel.send(content, embed, embeds, components, file, files).reference(this)
+
+
+val Message.guildOrNull: Guild? get() = try_ { guild }
