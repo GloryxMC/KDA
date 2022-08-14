@@ -17,7 +17,7 @@
 package net.dv8tion.jda.api.interactions.callbacks;
 
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.gloryx.kda.markdown.component.EmbedComponent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.LayoutComponent;
@@ -190,7 +190,7 @@ public interface IMessageEditCallback extends IDeferrableCallback
      * <br>When the acknowledgement is sent after the interaction expired, you will receive {@link net.dv8tion.jda.api.requests.ErrorResponse#UNKNOWN_INTERACTION ErrorResponse.UNKNOWN_INTERACTION}.
      *
      * @param  embeds
-     *         The new {@link MessageEmbed MessageEmbeds}
+     *         The new {@link EmbedComponent MessageEmbeds}
      *
      * @throws IllegalArgumentException
      *         If any of the provided embeds is null
@@ -199,7 +199,7 @@ public interface IMessageEditCallback extends IDeferrableCallback
      */
     @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction editMessageEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
+    default MessageEditCallbackAction editMessageEmbeds(@NotNull Collection<? extends EmbedComponent> embeds)
     {
         Checks.noneNull(embeds, "MessageEmbed");
         return deferEdit().setEmbeds(embeds);
@@ -224,7 +224,7 @@ public interface IMessageEditCallback extends IDeferrableCallback
      */
     @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction editMessageEmbeds(@NotNull MessageEmbed... embeds)
+    default MessageEditCallbackAction editMessageEmbeds(@NotNull EmbedComponent... embeds)
     {
         Checks.noneNull(embeds, "MessageEmbed");
         return deferEdit().setEmbeds(embeds);

@@ -17,7 +17,7 @@
 package net.dv8tion.jda.api.requests.restaction.interactions;
 
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.gloryx.kda.markdown.component.EmbedComponent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.ActionComponent;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
@@ -73,7 +73,7 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
     MessageEditCallbackAction setContent(@Nullable final String content);
 
     /**
-     * Set the {@link MessageEmbed MessageEmbeds} for the message
+     * Set the {@link EmbedComponent MessageEmbeds} for the message
      *
      * @param  embeds
      *         The message embeds
@@ -85,14 +85,14 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      */
     @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction setEmbeds(@NotNull MessageEmbed... embeds)
+    default MessageEditCallbackAction setEmbeds(@NotNull EmbedComponent... embeds)
     {
         Checks.noneNull(embeds, "MessageEmbed");
         return setEmbeds(Arrays.asList(embeds));
     }
 
     /**
-     * Set the {@link MessageEmbed MessageEmbeds} for the message
+     * Set the {@link EmbedComponent MessageEmbeds} for the message
      *
      * @param  embeds
      *         The message embeds
@@ -104,7 +104,7 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      */
     @NotNull
     @CheckReturnValue
-    MessageEditCallbackAction setEmbeds(@NotNull Collection<? extends MessageEmbed> embeds);
+    MessageEditCallbackAction setEmbeds(@NotNull Collection<? extends EmbedComponent> embeds);
 
     /**
      * Set the action rows for the message.

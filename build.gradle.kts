@@ -87,6 +87,7 @@ configure<SourceSetContainer> {
 repositories {
     mavenLocal()
     mavenCentral()
+    maven("https://dev.gloryx.net/main")
 }
 
 dependencies {
@@ -108,6 +109,16 @@ dependencies {
 
     //Collections Utility
     api("org.apache.commons:commons-collections4:4.4")
+
+    //Adventure
+    api("net.kyori:adventure-key:4.11.0")
+
+    //Gloryx Commons
+    api("net.gloryx:commons:0.1.52-SNAPSHOT") {
+        exclude(mapOf("group" to "net.kyori"))
+    }
+    implementation("com.electronwill.night-config:core:3.6.5")
+    implementation("com.electronwill.night-config:hocon:3.6.5")
 
     //we use this only together with opus-java
     // if that dependency is excluded it also doesn't need jna anymore
@@ -368,11 +379,11 @@ fun generatePom(pom: Pom) {
     pom.packaging = "jar"
     pom.name.set(project.name)
     pom.description.set("Java wrapper for the popular chat & VOIP service: Discord https://discord.com")
-    pom.url.set("https://github.com/DV8FromTheWorld/JDA")
+    pom.url.set("https://github.com/GloryxMC/KDA")
     pom.scm {
-        url.set("https://github.com/DV8FromTheWorld/JDA")
-        connection.set("scm:git:git://github.com/DV8FromTheWorld/JDA")
-        developerConnection.set("scm:git:ssh:git@github.com:DV8FromTheWorld/JDA")
+        url.set("https://github.com/GloryxMC/KDA")
+        connection.set("scm:git:git://github.com/GloryxMC/KDA")
+        developerConnection.set("scm:git:ssh:git@github.com:GloryxMC/KDA")
     }
     pom.licenses {
         license {

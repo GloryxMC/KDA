@@ -2,16 +2,11 @@ package net.gloryx.kda
 
 import net.dv8tion.jda.api.entities.User
 import net.dv8tion.jda.api.entities.*
+import net.gloryx.commons.kotlinlove.BackedReference
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import kotlin.reflect.KProperty
 
-open class BackedReference<T>(private var entity: T, private val update: (T) -> T?) {
-    operator fun getValue(thisRef: Any?, prop: KProperty<*>): T {
-        entity = update(entity) ?: entity
-        return entity
-    }
-}
 
 fun User.ref() = BackedReference(this) {
     jda.getUserById(this.idLong)
@@ -37,7 +32,6 @@ fun PrivateChannel.ref() = BackedReference(this) {
 fun <T : GuildChannel> T.ref() = BackedReference(this) {
     jda.getGuildChannelById(type, idLong) as T
 }
-
 // Example Usage:
 
 /*

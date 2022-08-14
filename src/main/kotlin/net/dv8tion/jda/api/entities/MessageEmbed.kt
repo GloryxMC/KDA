@@ -291,6 +291,9 @@ data class MessageEmbed(
         return result
     }
 
+    fun head(title: String? = this.title, description: String? = this.description) = copy(title = title, description = description)
+    fun field(name: String = "", value: String = "", inline: Boolean = false) = copy(fields = fields + Field(name, value, inline))
+
     /**
      * Represents the information Discord provided about a thumbnail image that should be
      * displayed with an embed message.

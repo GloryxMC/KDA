@@ -30,6 +30,7 @@ import net.dv8tion.jda.api.requests.restaction.MessageAction;
 import net.dv8tion.jda.api.requests.restaction.ThreadChannelAction;
 import net.dv8tion.jda.api.requests.restaction.pagination.ReactionPaginationAction;
 import net.dv8tion.jda.internal.utils.Helpers;
+import net.gloryx.kda.markdown.component.EmbedComponent;
 import org.jetbrains.annotations.NotNull;
 
 import org.jetbrains.annotations.Nullable;
@@ -250,7 +251,7 @@ public abstract class AbstractMessage implements Message
 
     @NotNull
     @Override
-    public List<MessageEmbed> getEmbeds()
+    public List<EmbedComponent> getEmbeds()
     {
         unsupported();
         return null;
@@ -290,7 +291,7 @@ public abstract class AbstractMessage implements Message
 
     @NotNull
     @Override
-    public MessageAction editMessageEmbeds(@NotNull Collection<? extends MessageEmbed> newContent)
+    public MessageAction editMessageEmbeds(@NotNull Collection<? extends EmbedComponent> newContent)
     {
         unsupported();
         return null;

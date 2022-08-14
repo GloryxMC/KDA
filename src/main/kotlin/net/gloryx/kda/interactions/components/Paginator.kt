@@ -20,7 +20,7 @@ import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.entities.Emoji
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageChannel
-import net.dv8tion.jda.api.entities.MessageEmbed
+import net.gloryx.kda.markdown.component.EmbedComponent
 import net.dv8tion.jda.api.events.GenericEvent
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
 import net.dv8tion.jda.api.exceptions.ErrorHandler
@@ -83,7 +83,7 @@ class Paginator internal constructor(private val nonce: String, private val ttl:
         pageCache.addAll(page)
     }
 
-    fun addPages(vararg page: MessageEmbed) {
+    fun addPages(vararg page: EmbedComponent) {
         addPages(*page.map { Message(embed=it) }.toTypedArray())
     }
 
@@ -126,7 +126,7 @@ fun paginator(vararg pages: Message, expireAfter: Duration): Paginator {
     return Paginator(Base64.getEncoder().encodeToString(nonce), expireAfter).also { it.addPages(*pages) }
 }
 
-fun paginator(vararg pages: MessageEmbed, expireAfter: Duration): Paginator
+fun paginator(vararg pages: EmbedComponent, expireAfter: Duration): Paginator
     = paginator(*pages.map { Message(embed=it) }.toTypedArray(), expireAfter=expireAfter)
 
 fun MessageChannel.sendPaginator(paginator: Paginator)
@@ -144,7 +144,7 @@ fun MessageChannel.sendPaginator(
     filter: (ButtonInteraction) -> Boolean = {true}
 ) = sendPaginator(paginator(*pages, expireAfter=expireAfter).filterBy(filter))
 fun MessageChannel.sendPaginator(
-    vararg pages: MessageEmbed,
+    vararg pages: EmbedComponent,
     expireAfter: Duration,
     filter: (ButtonInteraction) -> Boolean = {true}
 ) = sendPaginator(paginator(*pages, expireAfter=expireAfter).filterBy(filter))
@@ -155,7 +155,7 @@ fun InteractionHook.sendPaginator(
     filter: (ButtonInteraction) -> Boolean = {true}
 ) = sendPaginator(paginator(*pages, expireAfter=expireAfter).filterBy(filter))
 fun InteractionHook.sendPaginator(
-    vararg pages: MessageEmbed,
+    vararg pages: EmbedComponent,
     expireAfter: Duration,
     filter: (ButtonInteraction) -> Boolean = {true}
 ) = sendPaginator(paginator(*pages, expireAfter=expireAfter).filterBy(filter))
@@ -166,7 +166,7 @@ fun IReplyCallback.replyPaginator(
     filter: (ButtonInteraction) -> Boolean = {true}
 ) = replyPaginator(paginator(*pages, expireAfter=expireAfter).filterBy(filter))
 fun IReplyCallback.replyPaginator(
-    vararg pages: MessageEmbed,
+    vararg pages: EmbedComponent,
     expireAfter: Duration,
     filter: (ButtonInteraction) -> Boolean = {true}
 ) = replyPaginator(paginator(*pages, expireAfter=expireAfter).filterBy(filter))

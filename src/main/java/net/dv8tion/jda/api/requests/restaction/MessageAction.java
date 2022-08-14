@@ -19,7 +19,7 @@ package net.dv8tion.jda.api.requests.restaction;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.gloryx.kda.markdown.component.EmbedComponent;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.entities.sticker.GuildSticker;
 import net.dv8tion.jda.api.entities.sticker.Sticker;
@@ -84,11 +84,11 @@ import java.util.stream.Collectors;
  *
  * @see    Message#editMessage(Message)
  * @see    Message#editMessage(CharSequence)
- * @see    Message#editMessageEmbeds(MessageEmbed...)
+ * @see    Message#editMessageEmbeds(EmbedComponent...)
  * @see    Message#editMessageFormat(String, Object...)
  * @see    net.dv8tion.jda.api.entities.MessageChannel#sendMessage(Message)
  * @see    net.dv8tion.jda.api.entities.MessageChannel#sendMessage(CharSequence)
- * @see    net.dv8tion.jda.api.entities.MessageChannel#sendMessageEmbeds(MessageEmbed, MessageEmbed...)
+ * @see    net.dv8tion.jda.api.entities.MessageChannel#sendMessageEmbeds(EmbedComponent, EmbedComponent...)
  * @see    net.dv8tion.jda.api.entities.MessageChannel#sendMessageFormat(String, Object...)
  * @see    net.dv8tion.jda.api.entities.MessageChannel#sendFile(File, AttachmentOption...)
  * @see    net.dv8tion.jda.api.entities.MessageChannel#sendFile(File, String, AttachmentOption...)
@@ -235,9 +235,9 @@ public interface MessageAction extends RestAction<Message>, Appendable, AllowedM
      *         The nullable Message to apply settings from
      *
      * @throws java.lang.IllegalArgumentException
-     *         If the message contains a {@link net.dv8tion.jda.api.entities.MessageEmbed MessageEmbed}
+     *         If the message contains a {@link EmbedComponent MessageEmbed}
      *         that exceeds the sendable character limit,
-     *         see {@link net.dv8tion.jda.api.entities.MessageEmbed#isSendable() MessageEmbed.isSendable()}
+     *         see {@link EmbedComponent#isSendable() MessageEmbed.isSendable()}
      *
      * @return Updated MessageAction for chaining convenience
      */
@@ -427,44 +427,44 @@ public interface MessageAction extends RestAction<Message>, Appendable, AllowedM
     MessageAction content(@Nullable final String content);
 
     /**
-     * Sets up to {@value Message#MAX_EMBED_COUNT} {@link net.dv8tion.jda.api.entities.MessageEmbed MessageEmbeds}
+     * Sets up to {@value Message#MAX_EMBED_COUNT} {@link EmbedComponent MessageEmbeds}
      * that should be used for this Message.
      * Refer to {@link net.dv8tion.jda.api.EmbedBuilder EmbedBuilder} for more information.
      *
      * @param  embeds
-     *         The {@link net.dv8tion.jda.api.entities.MessageEmbed MessageEmbeds} that should
+     *         The {@link EmbedComponent MessageEmbeds} that should
      *         be attached to this message, {@code Collections.emptyList()} to use no embed.
      *
      * @throws java.lang.IllegalArgumentException
      *         If any of the provided MessageEmbeds is not sendable according to
-     *         {@link net.dv8tion.jda.api.entities.MessageEmbed#isSendable() MessageEmbed.isSendable()}!
+     *         {@link EmbedComponent#isSendable() MessageEmbed.isSendable()}!
      *         If the provided MessageEmbed is an unknown implementation this operation will fail as we are unable to deserialize it.
      *
      * @return Updated MessageAction for chaining convenience
      */
     @NotNull
     @CheckReturnValue
-    MessageAction setEmbeds(@NotNull Collection<? extends MessageEmbed> embeds);
+    MessageAction setEmbeds(@NotNull Collection<? extends EmbedComponent> embeds);
 
     /**
-     * Sets up to {@value Message#MAX_EMBED_COUNT} {@link net.dv8tion.jda.api.entities.MessageEmbed MessageEmbeds}
+     * Sets up to {@value Message#MAX_EMBED_COUNT} {@link EmbedComponent MessageEmbeds}
      * that should be used for this Message.
      * Refer to {@link net.dv8tion.jda.api.EmbedBuilder EmbedBuilder} for more information.
      *
      * @param  embeds
-     *         The {@link net.dv8tion.jda.api.entities.MessageEmbed MessageEmbeds} that should
+     *         The {@link EmbedComponent MessageEmbeds} that should
      *         be attached to this message, {@code Collections.emptyList()} to use no embed.
      *
      * @throws java.lang.IllegalArgumentException
      *         If any of the provided MessageEmbeds is not sendable according to
-     *         {@link net.dv8tion.jda.api.entities.MessageEmbed#isSendable() MessageEmbed.isSendable()}!
+     *         {@link EmbedComponent#isSendable() MessageEmbed.isSendable()}!
      *         If the provided MessageEmbed is an unknown implementation this operation will fail as we are unable to deserialize it.
      *
      * @return Updated MessageAction for chaining convenience
      */
     @NotNull
     @CheckReturnValue
-    default MessageAction setEmbeds(@NotNull MessageEmbed... embeds)
+    default MessageAction setEmbeds(@NotNull EmbedComponent... embeds)
     {
         Checks.noneNull(embeds, "MessageEmbeds");
         return setEmbeds(Arrays.asList(embeds));

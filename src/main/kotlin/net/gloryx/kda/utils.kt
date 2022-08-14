@@ -1,7 +1,7 @@
 package net.gloryx.kda
 
 import net.gloryx.kda.interactions.components.row
-import net.dv8tion.jda.api.entities.MessageEmbed
+import net.gloryx.kda.markdown.component.EmbedComponent
 import net.dv8tion.jda.api.interactions.components.ActionRow
 import net.dv8tion.jda.api.interactions.components.ItemComponent
 import net.dv8tion.jda.api.interactions.components.LayoutComponent
@@ -10,7 +10,7 @@ import java.io.File
 import java.io.InputStream
 
 typealias Components = Collection<LayoutComponent>
-typealias Embeds = Collection<MessageEmbed>
+typealias Embeds = Collection<EmbedComponent>
 typealias Files = Collection<NamedFile>
 
 /**

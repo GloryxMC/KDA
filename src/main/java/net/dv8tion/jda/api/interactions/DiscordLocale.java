@@ -26,47 +26,45 @@ import java.util.Locale;
  *
  * <p>Based off <a href="https://discord.com/developers/docs/reference#locales" target="_blank">Discord's locale list</a>
  */
-public enum DiscordLocale
-{
-    BULGARIAN           ("bg",      "Bulgarian",             "български"),
-    CHINESE_CHINA       ("zh-CN",   "Chinese, China",        "中文"),
-    CHINESE_TAIWAN      ("zh-TW",   "Chinese, Taiwan",       "繁體中文"),
-    CROATIAN            ("hr",      "Croatian",              "Hrvatski"),
-    CZECH               ("cs",      "Czech",                 "Čeština"),
-    DANISH              ("da",      "Danish",                "Dansk"),
-    DUTCH               ("nl",      "Dutch",                 "Nederlands"),
-    ENGLISH_UK          ("en-GB",   "English, UK",           "English, UK"),
-    ENGLISH_US          ("en-US",   "English, US",           "English, US"),
-    FINNISH             ("fi",      "Finnish",               "Suomi"),
-    FRENCH              ("fr",      "French",                "Français"),
-    GERMAN              ("de",      "German",                "Deutsch"),
-    GREEK               ("el",      "Greek",                 "Ελληνικά"),
-    HINDI               ("hi",      "Hindi",                 "हिन्दी"),
-    HUNGARIAN           ("hu",      "Hungarian",             "Magyar"),
-    ITALIAN             ("it",      "Italian",               "Italiano"),
-    JAPANESE            ("ja",      "Japanese",              "日本語"),
-    KOREAN              ("ko",      "Korean",                "한국어"),
-    LITHUANIAN          ("lt",      "Lithuanian",            "Lietuviškai"),
-    NORWEGIAN           ("no",      "Norwegian",             "Norsk"),
-    POLISH              ("pl",      "Polish",                "Polski"),
-    PORTUGUESE_BRAZILIAN("pt-BR",   "Portuguese, Brazilian", "Português do Brasil"),
-    ROMANIAN_ROMANIA    ("ro",      "Romanian, Romania",     "Română"),
-    RUSSIAN             ("ru",      "Russian",               "Pусский"),
-    SPANISH             ("es-ES",   "Spanish",               "Español"),
-    SWEDISH             ("sv-SE",   "Swedish",               "Svenska"),
-    THAI                ("th",      "Thai",                  "ไทย"),
-    TURKISH             ("tr",      "Turkish",               "Türkçe"),
-    UKRAINIAN           ("uk",      "Ukrainian",             "Українська"),
-    VIETNAMESE          ("vi",      "Vietnamese",            "Tiếng Việt"),
+public enum DiscordLocale {
+    BULGARIAN("bg", "Bulgarian", "български"),
+    CHINESE_CHINA("zh-CN", "Chinese, China", "中文"),
+    CHINESE_TAIWAN("zh-TW", "Chinese, Taiwan", "繁體中文"),
+    CROATIAN("hr", "Croatian", "Hrvatski"),
+    CZECH("cs", "Czech", "Čeština"),
+    DANISH("da", "Danish", "Dansk"),
+    DUTCH("nl", "Dutch", "Nederlands"),
+    ENGLISH_UK("en-GB", "English, UK", "English, UK"),
+    ENGLISH_US("en-US", "English, US", "English, US"),
+    FINNISH("fi", "Finnish", "Suomi"),
+    FRENCH("fr", "French", "Français"),
+    GERMAN("de", "German", "Deutsch"),
+    GREEK("el", "Greek", "Ελληνικά"),
+    HINDI("hi", "Hindi", "हिन्दी"),
+    HUNGARIAN("hu", "Hungarian", "Magyar"),
+    ITALIAN("it", "Italian", "Italiano"),
+    JAPANESE("ja", "Japanese", "日本語"),
+    KOREAN("ko", "Korean", "한국어"),
+    LITHUANIAN("lt", "Lithuanian", "Lietuviškai"),
+    NORWEGIAN("no", "Norwegian", "Norsk"),
+    POLISH("pl", "Polish", "Polski"),
+    PORTUGUESE_BRAZILIAN("pt-BR", "Portuguese, Brazilian", "Português do Brasil"),
+    ROMANIAN_ROMANIA("ro", "Romanian, Romania", "Română"),
+    RUSSIAN("ru", "Russian", "Pусский"),
+    SPANISH("es-ES", "Spanish", "Español"),
+    SWEDISH("sv-SE", "Swedish", "Svenska"),
+    THAI("th", "Thai", "ไทย"),
+    TURKISH("tr", "Turkish", "Türkçe"),
+    UKRAINIAN("uk", "Ukrainian", "Українська"),
+    VIETNAMESE("vi", "Vietnamese", "Tiếng Việt"),
 
-    UNKNOWN             ("unknown", "Unknown",               "Unknown");
+    UNKNOWN("unknown", "Unknown", "Unknown");
 
     private final String locale;
     private final String languageName;
     private final String nativeName;
 
-    DiscordLocale(String locale, String languageName, String nativeName)
-    {
+    DiscordLocale(String locale, String languageName, String nativeName) {
         this.locale = locale;
         this.languageName = languageName;
         this.nativeName = nativeName;
@@ -78,8 +76,7 @@ public enum DiscordLocale
      * @return The locale tag
      */
     @NotNull
-    public String getLocale()
-    {
+    public String getLocale() {
         return locale;
     }
 
@@ -89,8 +86,7 @@ public enum DiscordLocale
      * @return The English language name
      */
     @NotNull
-    public String getLanguageName()
-    {
+    public String getLanguageName() {
         return languageName;
     }
 
@@ -100,31 +96,28 @@ public enum DiscordLocale
      * @return The native language name
      */
     @NotNull
-    public String getNativeName()
-    {
+    public String getNativeName() {
         return nativeName;
+    }
+
+    @NotNull
+    public Locale getJava() {
+        return Locale.forLanguageTag(locale);
     }
 
     /**
      * Converts the provided locale tag (such as {@code en-GB} or {@code fr}) to the enum constant
      *
-     * @param  localeTag
-     *         The locale tag
-     *
-     * @throws IllegalArgumentException
-     *         If the locale tag is null
-     *
+     * @param localeTag The locale tag
      * @return The DiscordLocale constant or {@link #UNKNOWN}
+     * @throws IllegalArgumentException If the locale tag is null
      */
     @NotNull
-    public static DiscordLocale from(@NotNull String localeTag)
-    {
+    public static DiscordLocale from(@NotNull String localeTag) {
         Checks.notNull(localeTag, "Locale tag");
 
-        for (DiscordLocale discordLocale : values())
-        {
-            if (discordLocale.locale.equals(localeTag))
-            {
+        for (DiscordLocale discordLocale : values()) {
+            if (discordLocale.locale.equals(localeTag)) {
                 return discordLocale;
             }
         }
@@ -135,17 +128,12 @@ public enum DiscordLocale
     /**
      * Converts the provided {@link Locale} to the enum constant
      *
-     * @param  locale
-     *         The locale
-     *
-     * @throws IllegalArgumentException
-     *         If the locale is null
-     *
+     * @param locale The locale
      * @return The DiscordLocale constant or {@link #UNKNOWN}
+     * @throws IllegalArgumentException If the locale is null
      */
     @NotNull
-    public static DiscordLocale from(@NotNull Locale locale)
-    {
+    public static DiscordLocale from(@NotNull Locale locale) {
         Checks.notNull(locale, "Locale");
 
         return from(locale.toLanguageTag());

@@ -17,7 +17,7 @@
 package net.dv8tion.jda.internal.entities;
 
 import net.dv8tion.jda.api.entities.MessageActivity;
-import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.gloryx.kda.markdown.component.EmbedComponent;
 import net.dv8tion.jda.api.entities.MessageType;
 import net.dv8tion.jda.api.entities.sticker.StickerSnowflake;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
@@ -35,10 +35,10 @@ public class DataMessage extends AbstractMessage
     private final String[] mentionedRoles;
     private final String[] mentionedUsers;
     private final LayoutComponent[] components;
-    private Collection<? extends MessageEmbed> embeds;
+    private Collection<? extends EmbedComponent> embeds;
     private Collection<? extends StickerSnowflake> stickers;
 
-    public DataMessage(boolean tts, String content, String nonce, Collection<? extends MessageEmbed> embeds,
+    public DataMessage(boolean tts, String content, String nonce, Collection<? extends EmbedComponent> embeds,
                        EnumSet<MentionType> allowedMentions, String[] mentionedUsers, String[] mentionedRoles,
                        LayoutComponent[] components, Collection<? extends StickerSnowflake> stickers)
     {
@@ -51,7 +51,7 @@ public class DataMessage extends AbstractMessage
         this.stickers = stickers;
     }
 
-    public DataMessage(boolean tts, String content, String nonce, Collection<? extends MessageEmbed> embeds)
+    public DataMessage(boolean tts, String content, String nonce, Collection<? extends EmbedComponent> embeds)
     {
         this(tts, content, nonce, embeds, null, new String[0], new String[0], new LayoutComponent[0], Collections.emptyList());
     }
@@ -104,7 +104,7 @@ public class DataMessage extends AbstractMessage
         return String.format("DataMessage(%.30s)", getContentRaw());
     }
 
-    public DataMessage setEmbeds(Collection<? extends MessageEmbed> embeds)
+    public DataMessage setEmbeds(Collection<? extends EmbedComponent> embeds)
     {
         this.embeds = embeds;
         return this;
@@ -112,7 +112,7 @@ public class DataMessage extends AbstractMessage
 
     @NotNull
     @Override
-    public List<MessageEmbed> getEmbeds()
+    public List<EmbedComponent> getEmbeds()
     {
         return embeds == null ? Collections.emptyList() : new ArrayList<>(embeds);
     }

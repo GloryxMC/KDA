@@ -32,6 +32,7 @@ import net.dv8tion.jda.api.utils.TimeUtil;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
+import net.gloryx.kda.markdown.component.EmbedComponent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
@@ -129,7 +130,7 @@ public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends
 
     @NotNull
     @CheckReturnValue
-    default MessageAction sendMessageEmbeds(@NotNull MessageEmbed embed, @NotNull MessageEmbed... other)
+    default MessageAction sendMessageEmbeds(@NotNull EmbedComponent embed, @NotNull EmbedComponent... other)
     {
         checkCanAccessChannel();
         checkCanSendMessage();
@@ -139,7 +140,7 @@ public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends
 
     @NotNull
     @CheckReturnValue
-    default MessageAction sendMessageEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
+    default MessageAction sendMessageEmbeds(@NotNull Collection<? extends EmbedComponent> embeds)
     {
         checkCanAccessChannel();
         checkCanSendMessage();
@@ -320,7 +321,7 @@ public interface MessageChannelMixin<T extends MessageChannelMixin<T>> extends
 
     @NotNull
     @CheckReturnValue
-    default MessageAction editMessageEmbedsById(@NotNull String messageId, @NotNull Collection<? extends MessageEmbed> newEmbeds)
+    default MessageAction editMessageEmbedsById(@NotNull String messageId, @NotNull Collection<? extends EmbedComponent> newEmbeds)
     {
         checkCanAccessChannel();
         checkCanSendMessage();
