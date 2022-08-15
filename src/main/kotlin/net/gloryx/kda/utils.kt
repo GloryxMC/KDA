@@ -1,7 +1,7 @@
 package net.gloryx.kda
 
-import net.gloryx.kda.interactions.components.row
 import net.dv8tion.jda.api.entities.MessageEmbed
+import net.gloryx.kda.interactions.components.row
 import net.dv8tion.jda.api.interactions.components.ActionRow
 import net.dv8tion.jda.api.interactions.components.ItemComponent
 import net.dv8tion.jda.api.interactions.components.LayoutComponent

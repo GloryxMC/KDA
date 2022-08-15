@@ -17,7 +17,7 @@
 package net.gloryx.kda.interactions.components
 
 import net.dv8tion.jda.api.JDA
-import net.dv8tion.jda.api.entities.Emoji
+import net.dv8tion.jda.api.entities.emoji.Emoji
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageChannel
 import net.dv8tion.jda.api.entities.MessageEmbed
@@ -146,7 +146,7 @@ fun MessageChannel.sendPaginator(
 fun MessageChannel.sendPaginator(
     vararg pages: MessageEmbed,
     expireAfter: Duration,
-    filter: (ButtonInteraction) -> Boolean = {true}
+    filter: (ButtonInteraction) -> Boolean = { true }
 ) = sendPaginator(paginator(*pages, expireAfter=expireAfter).filterBy(filter))
 
 fun InteractionHook.sendPaginator(
@@ -157,7 +157,7 @@ fun InteractionHook.sendPaginator(
 fun InteractionHook.sendPaginator(
     vararg pages: MessageEmbed,
     expireAfter: Duration,
-    filter: (ButtonInteraction) -> Boolean = {true}
+    filter: (ButtonInteraction) -> Boolean = { true }
 ) = sendPaginator(paginator(*pages, expireAfter=expireAfter).filterBy(filter))
 
 fun IReplyCallback.replyPaginator(
@@ -168,5 +168,5 @@ fun IReplyCallback.replyPaginator(
 fun IReplyCallback.replyPaginator(
     vararg pages: MessageEmbed,
     expireAfter: Duration,
-    filter: (ButtonInteraction) -> Boolean = {true}
+    filter: (ButtonInteraction) -> Boolean = { true }
 ) = replyPaginator(paginator(*pages, expireAfter=expireAfter).filterBy(filter))

@@ -16,7 +16,7 @@
 
 package net.dv8tion.jda.api.requests.restaction.interactions;
 
-import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.gloryx.kda.markdown.component.EmbedComponent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.ActionComponent;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
@@ -59,7 +59,7 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
     ReplyCallbackAction closeResources();
 
     /**
-     * Add {@link MessageEmbed MessageEmbeds} for the message
+     * Add {@link EmbedComponent MessageEmbeds} for the message
      *
      * @param  embeds
      *         The message embeds to add
@@ -71,14 +71,14 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      */
     @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction addEmbeds(@NotNull MessageEmbed... embeds)
+    default ReplyCallbackAction addEmbeds(@NotNull EmbedComponent... embeds)
     {
         Checks.noneNull(embeds, "MessageEmbed");
         return addEmbeds(Arrays.asList(embeds));
     }
 
     /**
-     * Add {@link MessageEmbed MessageEmbeds} for the message
+     * Add {@link EmbedComponent MessageEmbeds} for the message
      *
      * @param  embeds
      *         The message embeds to add
@@ -90,7 +90,7 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      */
     @NotNull
     @CheckReturnValue
-    ReplyCallbackAction addEmbeds(@NotNull Collection<? extends MessageEmbed> embeds);
+    ReplyCallbackAction addEmbeds(@NotNull Collection<? extends EmbedComponent> embeds);
 
     /**
      * Add a single {@link ActionRow} to the message.

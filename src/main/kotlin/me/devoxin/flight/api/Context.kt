@@ -46,12 +46,12 @@ class Context(
      * @return[MessageAction]
      */
     fun reply(
-            content: String? = SendDefaults.content,
-            embed: MessageEmbed? = null,
-            embeds: Embeds = SendDefaults.embeds,
-            components: Components = SendDefaults.components,
-            file: NamedFile? = null,
-            files: Files = emptyList(),
+        content: String? = SendDefaults.content,
+        embed: MessageEmbed? = null,
+        embeds: Embeds = SendDefaults.embeds,
+        components: Components = SendDefaults.components,
+        file: NamedFile? = null,
+        files: Files = emptyList(),
     ) = message.reply_(content, embed, embeds, components, file, files)
 
 
@@ -70,12 +70,12 @@ class Context(
      * @return[MessageAction]
      */
     suspend fun sendPrivate(
-            content: String? = SendDefaults.content,
-            embed: MessageEmbed? = null,
-            embeds: Embeds = SendDefaults.embeds,
-            components: Components = SendDefaults.components,
-            file: NamedFile? = null,
-            files: Files = emptyList(),
+        content: String? = SendDefaults.content,
+        embed: MessageEmbed? = null,
+        embeds: Embeds = SendDefaults.embeds,
+        components: Components = SendDefaults.components,
+        file: NamedFile? = null,
+        files: Files = emptyList(),
     ): MessageAction = author.openPrivateChannel().await().send(content, embed, embeds, components, file, files)
 
     /**
@@ -93,12 +93,12 @@ class Context(
      * @return[MessageAction]
      */
     fun send(
-            content: String? = SendDefaults.content,
-            embed: MessageEmbed? = null,
-            embeds: Embeds = SendDefaults.embeds,
-            components: Components = SendDefaults.components,
-            file: NamedFile? = null,
-            files: Files = emptyList(),
+        content: String? = SendDefaults.content,
+        embed: MessageEmbed? = null,
+        embeds: Embeds = SendDefaults.embeds,
+        components: Components = SendDefaults.components,
+        file: NamedFile? = null,
+        files: Files = emptyList(),
     ): MessageAction = messageChannel.send(content, embed, embeds, components, file, files)
 
     /**
@@ -194,9 +194,6 @@ class Context(
             }
         }
 
-        for (emote in message.mentions.emotes) {
-            content = content.replace(emote.asMention, ":${emote.name}:")
-        }
 
         return content
     }

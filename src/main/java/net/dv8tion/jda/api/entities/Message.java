@@ -53,10 +53,9 @@ import net.dv8tion.jda.internal.utils.IOUtil;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
 import java.io.*;
 import java.time.OffsetDateTime;
 import java.util.*;
@@ -590,7 +589,7 @@ public interface Message extends ISnowflake, Formattable
     List<Attachment> getAttachments();
 
     /**
-     * An immutable list of {@link net.dv8tion.jda.api.entities.MessageEmbed MessageEmbeds} that are part of this Message.
+     * An immutable list of {@link MessageEmbed MessageEmbeds} that are part of this Message.
      *
      * <p><b>Requires {@link net.dv8tion.jda.api.requests.GatewayIntent#MESSAGE_CONTENT GatewayIntent.MESSAGE_CONTENT}</b>
      *
@@ -760,7 +759,7 @@ public interface Message extends ISnowflake, Formattable
     MessageAction editMessage(@NotNull CharSequence newContent);
 
     /**
-     * Edits this Message's content to the provided {@link net.dv8tion.jda.api.entities.MessageEmbed MessageEmbeds}.
+     * Edits this Message's content to the provided {@link MessageEmbed MessageEmbeds}.
      * <br><b>Messages can only be edited by the account that sent them!</b>.
      *
      * <p>This message instance will not be updated by this operation, please use the response message instead.
@@ -787,7 +786,7 @@ public interface Message extends ISnowflake, Formattable
      * @throws java.lang.IllegalStateException
      *         If the message attempting to be edited was not created by the currently logged in account
      * @throws IllegalArgumentException
-     *         if any of the passed-in embeds is {@code null} or not {@link net.dv8tion.jda.api.entities.MessageEmbed#isSendable() sendable}.
+     *         if any of the passed-in embeds is {@code null} or not {@link MessageEmbed#isSendable() sendable}.
      *
      * @return {@link MessageAction MessageAction}
      *         <br>The {@link net.dv8tion.jda.api.entities.Message Message} with the updated content
@@ -797,7 +796,7 @@ public interface Message extends ISnowflake, Formattable
     MessageAction editMessageEmbeds(@NotNull Collection<? extends MessageEmbed> embeds);
 
     /**
-     * Edits this Message's content to the provided {@link net.dv8tion.jda.api.entities.MessageEmbed MessageEmbeds}.
+     * Edits this Message's content to the provided {@link MessageEmbed MessageEmbeds}.
      * <br><b>Messages can only be edited by the account that sent them!</b>.
      *
      * <p>This message instance will not be updated by this operation, please use the response message instead.
@@ -824,7 +823,7 @@ public interface Message extends ISnowflake, Formattable
      * @throws java.lang.IllegalStateException
      *         If the message attempting to be edited was not created by the currently logged in account
      * @throws IllegalArgumentException
-     *         if any of the passed-in embeds is {@code null} or not {@link net.dv8tion.jda.api.entities.MessageEmbed#isSendable() sendable}.
+     *         if any of the passed-in embeds is {@code null} or not {@link MessageEmbed#isSendable() sendable}.
      *
      * @return {@link MessageAction MessageAction}
      *         <br>The {@link net.dv8tion.jda.api.entities.Message Message} with the updated content
@@ -1026,7 +1025,7 @@ public interface Message extends ISnowflake, Formattable
      *         <ul>
      *             <li>If the message attempting to be edited was not created by the currently logged in account</li>
      *             <li>If the message contains a MessageEmbed that is not
-     *                 {@link net.dv8tion.jda.api.entities.MessageEmbed#isSendable() sendable}</li>
+     *                 {@link MessageEmbed#isSendable() sendable}</li>
      *         </ul>
      *
      * @return {@link MessageAction MessageAction}

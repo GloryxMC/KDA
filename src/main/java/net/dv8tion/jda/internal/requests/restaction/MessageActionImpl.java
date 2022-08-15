@@ -41,6 +41,7 @@ import net.dv8tion.jda.internal.utils.AllowedMentionsImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.Helpers;
 import net.dv8tion.jda.internal.utils.IOUtil;
+import net.gloryx.kda.markdown.component.EmbedComponent;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -66,7 +67,7 @@ public class MessageActionImpl extends RestActionImpl<Message> implements Messag
     protected final AllowedMentionsImpl allowedMentions = new AllowedMentionsImpl();
     protected List<ActionRow> components;
     protected List<String> retainedAttachments;
-    protected List<MessageEmbed> embeds = null;
+    protected List<EmbedComponent> embeds = null;
     protected List<String> stickers = null;
     protected String nonce = null;
     protected boolean tts = false, override = false;
@@ -176,7 +177,7 @@ public class MessageActionImpl extends RestActionImpl<Message> implements Messag
     {
         if (message == null || message.getType().isSystem())
             return this;
-        final List<MessageEmbed> embeds = message.getEmbeds();
+        final List<EmbedComponent> embeds = message.getEmbeds();
         if (embeds != null && !embeds.isEmpty())
             setEmbeds(embeds.stream().filter(e -> e != null && e.getType() == EmbedType.RICH).collect(Collectors.toList()));
         files.clear();
@@ -254,16 +255,16 @@ public class MessageActionImpl extends RestActionImpl<Message> implements Messag
 
     @NotNull
     @Override
-    public MessageActionImpl setEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
+    public MessageActionImpl setEmbeds(@NotNull Collection<? extends EmbedComponent> embeds)
     {
         Checks.noneNull(embeds, "MessageEmbeds");
         embeds.forEach(embed ->
             Checks.check(embed.isSendable(),
                 "Provided Message contains an empty embed or an embed with a length greater than %d characters, which is the max for bot accounts!",
-                MessageEmbed.EMBED_MAX_LENGTH_BOT)
+                EmbedComponent.EMBED_MAX_LENGTH_BOT)
         );
         Checks.check(embeds.size() <= Message.MAX_EMBED_COUNT, "Cannot have more than %d embeds in a message!", Message.MAX_EMBED_COUNT);
-        Checks.check(embeds.stream().mapToInt(MessageEmbed::getLength).sum() <= MessageEmbed.EMBED_MAX_LENGTH_BOT, "The sum of all MessageEmbeds may not exceed %d!", MessageEmbed.EMBED_MAX_LENGTH_BOT);
+        Checks.check(embeds.stream().mapToInt(EmbedComponent::getLength).sum() <= EmbedComponent.EMBED_MAX_LENGTH_BOT, "The sum of all MessageEmbeds may not exceed %d!", EmbedComponent.EMBED_MAX_LENGTH_BOT);
         if (this.embeds == null)
             this.embeds = new ArrayList<>();
         this.embeds.clear();

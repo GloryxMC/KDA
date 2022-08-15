@@ -79,13 +79,13 @@ private inline fun <T> T.applyIf(check: Boolean, func: (T) -> Unit) {
  * @return[MessageEditCallbackAction]
  */
 fun IMessageEditCallback.editMessage_(
-        content: String? = null,
-        embed: MessageEmbed? = null,
-        embeds: Embeds? = null,
-        components: Components? = null,
-        file: NamedFile? = null,
-        files: Files? = null,
-        replace: Boolean = MessageEditDefaults.replace
+    content: String? = null,
+    embed: MessageEmbed? = null,
+    embeds: Embeds? = null,
+    components: Components? = null,
+    file: NamedFile? = null,
+    files: Files? = null,
+    replace: Boolean = MessageEditDefaults.replace
 ): MessageEditCallbackAction = deferEdit().apply {
     content.applyIf(replace) {
         setContent(it)
@@ -130,14 +130,14 @@ fun IMessageEditCallback.editMessage_(
  * @return[WebhookMessageUpdateAction]
  */
 fun InteractionHook.editMessage(
-        id: String = "@original",
-        content: String? = null,
-        embed: MessageEmbed? = null,
-        embeds: Embeds? = null,
-        components: Components? = null,
-        file: NamedFile? = null,
-        files: Files? = null,
-        replace: Boolean = MessageEditDefaults.replace,
+    id: String = "@original",
+    content: String? = null,
+    embed: MessageEmbed? = null,
+    embeds: Embeds? = null,
+    components: Components? = null,
+    file: NamedFile? = null,
+    files: Files? = null,
+    replace: Boolean = MessageEditDefaults.replace,
 ): WebhookMessageUpdateAction<Message> = editMessageById(id, "tmp").apply {
     setContent(null)
     content.applyIf(replace) {
@@ -183,14 +183,14 @@ fun InteractionHook.editMessage(
  * @return[MessageAction]
  */
 fun MessageChannel.editMessage(
-        id: String,
-        content: String? = null,
-        embed: MessageEmbed? = null,
-        embeds: Embeds? = null,
-        components: Components? = null,
-        file: NamedFile? = null,
-        files: Files? = null,
-        replace: Boolean = MessageEditDefaults.replace,
+    id: String,
+    content: String? = null,
+    embed: MessageEmbed? = null,
+    embeds: Embeds? = null,
+    components: Components? = null,
+    file: NamedFile? = null,
+    files: Files? = null,
+    replace: Boolean = MessageEditDefaults.replace,
 ): MessageAction = MessageActionImpl(jda, id, this).apply {
     override(replace)
 
@@ -236,13 +236,13 @@ fun MessageChannel.editMessage(
  * @return[MessageAction]
  */
 fun Message.edit(
-        content: String? = null,
-        embed: MessageEmbed? = null,
-        embeds: Embeds? = null,
-        components: Components? = null,
-        file: NamedFile? = null,
-        files: Files? = null,
-        replace: Boolean = MessageEditDefaults.replace,
+    content: String? = null,
+    embed: MessageEmbed? = null,
+    embeds: Embeds? = null,
+    components: Components? = null,
+    file: NamedFile? = null,
+    files: Files? = null,
+    replace: Boolean = MessageEditDefaults.replace,
 ) = channel.editMessage(id, content, embed, embeds, components, file, files, replace).reference(this)
 // Defaults for keyword arguments
 /**
@@ -328,13 +328,13 @@ fun <T> WebhookMessageAction<T>.addFiles(files: Files) = apply {
  * @see  [IReplyCallback.deferReply]
  */
 fun IReplyCallback.reply_(
-        content: String? = SendDefaults.content,
-        embed: MessageEmbed? = null,
-        embeds: Embeds = SendDefaults.embeds,
-        components: Components = SendDefaults.components,
-        file: NamedFile? = null,
-        files: Files = emptyList(),
-        ephemeral: Boolean = SendDefaults.ephemeral,
+    content: String? = SendDefaults.content,
+    embed: MessageEmbed? = null,
+    embeds: Embeds = SendDefaults.embeds,
+    components: Components = SendDefaults.components,
+    file: NamedFile? = null,
+    files: Files = emptyList(),
+    ephemeral: Boolean = SendDefaults.ephemeral,
 ): ReplyCallbackAction = deferReply().apply {
     setContent(content)
     setEphemeral(ephemeral)
@@ -373,13 +373,13 @@ fun IReplyCallback.reply_(
  * @see  [InteractionHook.sendMessage]
  */
 fun InteractionHook.send(
-        content: String? = SendDefaults.content,
-        embed: MessageEmbed? = null,
-        embeds: Embeds = SendDefaults.embeds,
-        components: Components = SendDefaults.components,
-        file: NamedFile? = null,
-        files: Files = emptyList(),
-        ephemeral: Boolean = SendDefaults.ephemeral,
+    content: String? = SendDefaults.content,
+    embed: MessageEmbed? = null,
+    embeds: Embeds = SendDefaults.embeds,
+    components: Components = SendDefaults.components,
+    file: NamedFile? = null,
+    files: Files = emptyList(),
+    ephemeral: Boolean = SendDefaults.ephemeral,
 ): WebhookMessageAction<Message> = sendMessage("tmp").apply {
     setContent(content)
     setEphemeral(ephemeral)
@@ -415,12 +415,12 @@ fun InteractionHook.send(
  * @return[MessageAction]
  */
 fun MessageChannel.send(
-        content: String? = SendDefaults.content,
-        embed: MessageEmbed? = null,
-        embeds: Embeds = SendDefaults.embeds,
-        components: Components = SendDefaults.components,
-        file: NamedFile? = null,
-        files: Files = emptyList(),
+    content: String? = SendDefaults.content,
+    embed: MessageEmbed? = null,
+    embeds: Embeds = SendDefaults.embeds,
+    components: Components = SendDefaults.components,
+    file: NamedFile? = null,
+    files: Files = emptyList(),
 ): MessageAction = sendMessage("tmp").apply {
     content(content)
 
@@ -455,12 +455,12 @@ fun MessageChannel.send(
  * @return[MessageAction]
  */
 fun Message.reply_(
-        content: String? = SendDefaults.content,
-        embed: MessageEmbed? = null,
-        embeds: Embeds = SendDefaults.embeds,
-        components: Components = SendDefaults.components,
-        file: NamedFile? = null,
-        files: Files = emptyList(),
+    content: String? = SendDefaults.content,
+    embed: MessageEmbed? = null,
+    embeds: Embeds = SendDefaults.embeds,
+    components: Components = SendDefaults.components,
+    file: NamedFile? = null,
+    files: Files = emptyList(),
 ) = channel.send(content, embed, embeds, components, file, files).reference(this)
 
 

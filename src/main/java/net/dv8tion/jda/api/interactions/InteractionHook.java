@@ -18,7 +18,7 @@ package net.dv8tion.jda.api.interactions;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.gloryx.kda.markdown.component.EmbedComponent;
 import net.dv8tion.jda.api.entities.WebhookClient;
 import net.dv8tion.jda.api.interactions.callbacks.IMessageEditCallback;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
@@ -242,7 +242,7 @@ public interface InteractionHook extends WebhookClient<Message>
      * </ul>
      *
      * @param  embeds
-     *         {@link MessageEmbed MessageEmbeds} to use (up to {@value Message#MAX_EMBED_COUNT} in total)
+     *         {@link EmbedComponent MessageEmbeds} to use (up to {@value Message#MAX_EMBED_COUNT} in total)
      *
      * @throws IllegalArgumentException
      *         If the provided embeds are null, or more than {@value Message#MAX_EMBED_COUNT}
@@ -251,7 +251,7 @@ public interface InteractionHook extends WebhookClient<Message>
      */
     @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<Message> editOriginalEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
+    default WebhookMessageUpdateAction<Message> editOriginalEmbeds(@NotNull Collection<? extends EmbedComponent> embeds)
     {
         return editMessageEmbedsById("@original", embeds);
     }
@@ -272,7 +272,7 @@ public interface InteractionHook extends WebhookClient<Message>
      * </ul>
      *
      * @param  embeds
-     *         The new {@link MessageEmbed MessageEmbeds} to use
+     *         The new {@link EmbedComponent MessageEmbeds} to use
      *
      * @throws IllegalArgumentException
      *         If the provided embeds are null, or more than 10
@@ -281,7 +281,7 @@ public interface InteractionHook extends WebhookClient<Message>
      */
     @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<Message> editOriginalEmbeds(@NotNull MessageEmbed... embeds)
+    default WebhookMessageUpdateAction<Message> editOriginalEmbeds(@NotNull EmbedComponent... embeds)
     {
         return editMessageEmbedsById("@original", embeds);
     }

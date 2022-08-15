@@ -18,7 +18,7 @@ package net.dv8tion.jda.internal.requests.restaction;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.gloryx.kda.markdown.component.EmbedComponent;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.requests.Request;
 import net.dv8tion.jda.api.requests.Response;
@@ -50,7 +50,7 @@ public class WebhookMessageUpdateActionImpl<T>
 
     private int set = 0;
     private final List<ActionRow> components = new ArrayList<>();
-    private final List<MessageEmbed> embeds = new ArrayList<>();
+    private final List<EmbedComponent> embeds = new ArrayList<>();
     private final List<AttachedFile> attachments = new ArrayList<>();
     private final Function<DataObject, T> transformer;
     private String content;
@@ -74,16 +74,16 @@ public class WebhookMessageUpdateActionImpl<T>
 
     @NotNull
     @Override
-    public WebhookMessageUpdateAction<T> setEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
+    public WebhookMessageUpdateAction<T> setEmbeds(@NotNull Collection<? extends EmbedComponent> embeds)
     {
         Checks.noneNull(embeds, "MessageEmbeds");
         embeds.forEach(embed ->
             Checks.check(embed.isSendable(),
                 "Provided Message contains an empty embed or an embed with a length greater than %d characters, which is the max for bot accounts!",
-                MessageEmbed.EMBED_MAX_LENGTH_BOT)
+                EmbedComponent.EMBED_MAX_LENGTH_BOT)
         );
         Checks.check(embeds.size() <= Message.MAX_EMBED_COUNT, "Cannot have more than %d embeds in a message!", Message.MAX_EMBED_COUNT);
-        Checks.check(embeds.stream().mapToInt(MessageEmbed::getLength).sum() <= MessageEmbed.EMBED_MAX_LENGTH_BOT, "The sum of all MessageEmbeds may not exceed %d!", MessageEmbed.EMBED_MAX_LENGTH_BOT);
+        Checks.check(embeds.stream().mapToInt(EmbedComponent::getLength).sum() <= EmbedComponent.EMBED_MAX_LENGTH_BOT, "The sum of all MessageEmbeds may not exceed %d!", EmbedComponent.EMBED_MAX_LENGTH_BOT);
         this.embeds.clear();
         this.embeds.addAll(embeds);
         set |= EMBEDS;
