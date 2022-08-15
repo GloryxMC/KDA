@@ -261,7 +261,7 @@ data class MessageEmbed(
                     fieldsArray
                             .add(
                                     DataObject.empty()
-                                            .put("name", field!!.name)
+                                            .put("name", field.name)
                                             .put("value", field.value)
                                             .put("inline", field.isInline)
                             )

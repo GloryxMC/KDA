@@ -20,7 +20,7 @@ import net.dv8tion.jda.api.entities.channel.attribute.IAgeRestrictedChannel;
 import net.dv8tion.jda.api.managers.channel.ChannelManager;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public interface IAgeRestrictedChannelManager<T extends IAgeRestrictedChannel, M extends IAgeRestrictedChannelManager<T, M>>
         extends ChannelManager<T, M>
@@ -33,7 +33,7 @@ public interface IAgeRestrictedChannelManager<T extends IAgeRestrictedChannel, M
      *
      * @return ChannelManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     M setNSFW(boolean nsfw);
 }

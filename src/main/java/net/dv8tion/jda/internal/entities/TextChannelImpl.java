@@ -23,8 +23,8 @@ import net.dv8tion.jda.api.managers.channel.concrete.TextChannelManager;
 import net.dv8tion.jda.api.requests.restaction.ChannelAction;
 import net.dv8tion.jda.internal.managers.channel.concrete.TextChannelManagerImpl;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,14 +40,14 @@ public class TextChannelImpl extends AbstractStandardGuildMessageChannelImpl<Tex
         super(id, guild);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ChannelType getType()
     {
         return ChannelType.TEXT;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<Member> getMembers()
     {
@@ -62,9 +62,9 @@ public class TextChannelImpl extends AbstractStandardGuildMessageChannelImpl<Tex
         return slowmode;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ChannelAction<TextChannel> createCopy(@Nonnull Guild guild)
+    public ChannelAction<TextChannel> createCopy(@NotNull Guild guild)
     {
         Checks.notNull(guild, "Guild");
         ChannelAction<TextChannel> action = guild.createTextChannel(name).setNSFW(nsfw).setTopic(topic).setSlowmode(slowmode);
@@ -84,7 +84,7 @@ public class TextChannelImpl extends AbstractStandardGuildMessageChannelImpl<Tex
         return action;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public TextChannelManager getManager()
     {

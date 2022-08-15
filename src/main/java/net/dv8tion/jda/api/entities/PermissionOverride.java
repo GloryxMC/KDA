@@ -20,10 +20,11 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.channel.unions.IPermissionContainerUnion;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 
 /**
@@ -69,7 +70,7 @@ public interface PermissionOverride extends ISnowflake
      *
      * @return Possibly-empty set of allowed {@link net.dv8tion.jda.api.Permission Permissions}.
      */
-    @Nonnull
+    @NotNull
     EnumSet<Permission> getAllowed();
 
     /**
@@ -78,7 +79,7 @@ public interface PermissionOverride extends ISnowflake
      *
      * @return Possibly-empty set of unaffected {@link net.dv8tion.jda.api.Permission Permissions}.
      */
-    @Nonnull
+    @NotNull
     EnumSet<Permission> getInherit();
 
     /**
@@ -87,7 +88,7 @@ public interface PermissionOverride extends ISnowflake
      *
      * @return Possibly-empty set of denied {@link net.dv8tion.jda.api.Permission Permissions}.
      */
-    @Nonnull
+    @NotNull
     EnumSet<Permission> getDenied();
 
     /**
@@ -95,7 +96,7 @@ public interface PermissionOverride extends ISnowflake
      *
      * @return Never-null {@link net.dv8tion.jda.api.JDA JDA} instance.
      */
-    @Nonnull
+    @NotNull
     JDA getJDA();
 
     /**
@@ -141,7 +142,7 @@ public interface PermissionOverride extends ISnowflake
      *
      * @return Never-null related {@link IPermissionContainer GuildChannel} that this override is part of.
      */
-    @Nonnull
+    @NotNull
     IPermissionContainerUnion getChannel();
 
     /**
@@ -151,7 +152,7 @@ public interface PermissionOverride extends ISnowflake
      *
      * @return Never-null related {@link net.dv8tion.jda.api.entities.Guild Guild}.
      */
-    @Nonnull
+    @NotNull
     Guild getGuild();
 
     /**
@@ -183,7 +184,7 @@ public interface PermissionOverride extends ISnowflake
      *
      * @return The PermissionOverrideAction of this override.
      */
-    @Nonnull
+    @NotNull
     PermissionOverrideAction getManager();
 
     /**
@@ -206,7 +207,7 @@ public interface PermissionOverride extends ISnowflake
      *
      * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     AuditableRestAction<Void> delete();
 }

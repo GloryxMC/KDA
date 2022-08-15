@@ -253,7 +253,7 @@ public interface RoleAction extends AuditableRestAction<Role>
      * @see    net.dv8tion.jda.api.entities.emoji.Emoji#fromUnicode(String) Emoji.fromUnicode(String)
      * @see    UnicodeEmoji
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default RoleAction setIcon(@Nullable UnicodeEmoji emoji)
     {

@@ -22,9 +22,9 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.managers.channel.attribute.IAgeRestrictedChannelManager;
 import net.dv8tion.jda.api.managers.channel.middleman.AudioChannelManager;
 import net.dv8tion.jda.api.managers.channel.middleman.StandardGuildChannelManager;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 
 //TODO-v5: Docs
 public interface VoiceChannelManager extends
@@ -49,7 +49,7 @@ public interface VoiceChannelManager extends
      *
      * @return ChannelManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     VoiceChannelManager setUserLimit(int userLimit);
 }

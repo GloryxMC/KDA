@@ -20,7 +20,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.ISnowflake;
 import net.dv8tion.jda.internal.utils.Helpers;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 /**
@@ -39,7 +39,7 @@ public class IntegrationPrivilege implements ISnowflake
     private final boolean enabled;
     private final long id;
 
-    public IntegrationPrivilege(@Nonnull Guild guild, @Nonnull Type type, boolean enabled, long id)
+    public IntegrationPrivilege(@NotNull Guild guild, @NotNull Type type, boolean enabled, long id)
     {
         this.guild = guild;
         this.type = type;
@@ -78,7 +78,7 @@ public class IntegrationPrivilege implements ISnowflake
      *
      * @return The target {@link Type}
      */
-    @Nonnull
+    @NotNull
     public Type getType()
     {
         return type;
@@ -89,7 +89,7 @@ public class IntegrationPrivilege implements ISnowflake
      *
      * @return the guild in which this IntegrationPrivilege was created in.
      */
-    @Nonnull
+    @NotNull
     public Guild getGuild()
     {
         return guild;
@@ -163,7 +163,7 @@ public class IntegrationPrivilege implements ISnowflake
          *
          * @return The Type constant, or {@link #UNKNOWN} if there is no known representation
          */
-        @Nonnull
+        @NotNull
         public static Type fromKey(int key)
         {
             for (Type type : values())

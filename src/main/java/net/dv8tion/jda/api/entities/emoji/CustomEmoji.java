@@ -19,8 +19,8 @@ package net.dv8tion.jda.api.entities.emoji;
 import net.dv8tion.jda.api.entities.IMentionable;
 import net.dv8tion.jda.api.utils.ImageProxy;
 import net.dv8tion.jda.api.utils.data.DataObject;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Formatter;
 
 /**
@@ -41,7 +41,7 @@ public interface CustomEmoji extends Emoji, IMentionable
     /** Template for {@link #getImageUrl()} */
     String ICON_URL = "https://cdn.discordapp.com/emojis/%s.%s";
 
-    @Nonnull
+    @NotNull
     @Override
     default Type getType()
     {
@@ -61,7 +61,7 @@ public interface CustomEmoji extends Emoji, IMentionable
      *
      * @return Discord CDN link to the emoji's image
      */
-    @Nonnull
+    @NotNull
     default String getImageUrl()
     {
         return String.format(ICON_URL, getId(), isAnimated() ? "gif" : "png");
@@ -74,7 +74,7 @@ public interface CustomEmoji extends Emoji, IMentionable
      *
      * @see    #getImageUrl()
      */
-    @Nonnull
+    @NotNull
     default ImageProxy getImage()
     {
         return new ImageProxy(getImageUrl());
@@ -88,14 +88,14 @@ public interface CustomEmoji extends Emoji, IMentionable
      *
      * @see    <a href="https://discord.com/developers/docs/resources/channel#message-formatting">Message Formatting</a>
      */
-    @Nonnull
+    @NotNull
     @Override
     default String getAsMention()
     {
         return (isAnimated() ? "<a:" : "<:") + getName() + ":" + getId() + ">";
     }
 
-    @Nonnull
+    @NotNull
     @Override
     default String getFormatted()
     {

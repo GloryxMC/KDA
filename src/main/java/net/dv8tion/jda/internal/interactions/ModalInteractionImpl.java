@@ -27,8 +27,8 @@ import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
 import net.dv8tion.jda.internal.requests.restaction.interactions.MessageEditCallbackActionImpl;
 import net.dv8tion.jda.internal.requests.restaction.interactions.ReplyCallbackActionImpl;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,14 +56,14 @@ public class ModalInteractionImpl extends DeferrableInteractionImpl implements M
                 .orElse(null);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getModalId()
     {
         return modalId;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<ModalMapping> getValues()
     {
@@ -76,21 +76,21 @@ public class ModalInteractionImpl extends DeferrableInteractionImpl implements M
         return message;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ReplyCallbackAction deferReply()
     {
         return new ReplyCallbackActionImpl(hook);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public MessageEditCallbackAction deferEdit()
     {
         return new MessageEditCallbackActionImpl(hook);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     @SuppressWarnings("ConstantConditions")
     public MessageChannelUnion getChannel()

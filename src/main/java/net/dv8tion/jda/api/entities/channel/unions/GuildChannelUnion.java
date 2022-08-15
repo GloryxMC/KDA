@@ -17,8 +17,7 @@
 package net.dv8tion.jda.api.entities.channel.unions;
 
 import net.dv8tion.jda.api.entities.*;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A union representing all channel types that implement {@link GuildChannel}.
@@ -56,7 +55,7 @@ public interface GuildChannelUnion extends GuildChannel
      *
      * @return The channel as a {@link TextChannel}
      */
-    @Nonnull
+    @NotNull
     TextChannel asTextChannel();
 
     /**
@@ -78,7 +77,7 @@ public interface GuildChannelUnion extends GuildChannel
      *
      * @return The channel as a {@link NewsChannel}
      */
-    @Nonnull
+    @NotNull
     NewsChannel asNewsChannel();
 
     /**
@@ -100,7 +99,7 @@ public interface GuildChannelUnion extends GuildChannel
      *
      * @return The channel as a {@link ThreadChannel}
      */
-    @Nonnull
+    @NotNull
     ThreadChannel asThreadChannel();
 
     /**
@@ -122,7 +121,7 @@ public interface GuildChannelUnion extends GuildChannel
      *
      * @return The channel as a {@link VoiceChannel}
      */
-    @Nonnull
+    @NotNull
     VoiceChannel asVoiceChannel();
 
     /**
@@ -144,7 +143,7 @@ public interface GuildChannelUnion extends GuildChannel
      *
      * @return The channel as a {@link StageChannel}
      */
-    @Nonnull
+    @NotNull
     StageChannel asStageChannel();
 
     /**
@@ -166,7 +165,7 @@ public interface GuildChannelUnion extends GuildChannel
      *
      * @return The channel as a {@link Category}
      */
-    @Nonnull
+    @NotNull
     Category asCategory();
 
     /**
@@ -189,7 +188,7 @@ public interface GuildChannelUnion extends GuildChannel
      *
      * @return The channel as a {@link GuildMessageChannel}
      */
-    @Nonnull
+    @NotNull
     GuildMessageChannel asGuildMessageChannel();
 
     /**
@@ -211,7 +210,7 @@ public interface GuildChannelUnion extends GuildChannel
      *
      * @return The channel as a {@link AudioChannel}
      */
-    @Nonnull
+    @NotNull
     AudioChannel asAudioChannel();
 
     /**
@@ -250,7 +249,7 @@ public interface GuildChannelUnion extends GuildChannel
      *
      * @return The channel as a {@link StandardGuildChannel}
      */
-    @Nonnull
+    @NotNull
     StandardGuildChannel asStandardGuildChannel();
 
     /**
@@ -269,6 +268,6 @@ public interface GuildChannelUnion extends GuildChannel
      *
      * @return The channel as a {@link StandardGuildMessageChannel}
      */
-    @Nonnull
+    @NotNull
     StandardGuildMessageChannel asStandardGuildMessageChannel();
 }

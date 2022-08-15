@@ -21,8 +21,8 @@ import net.dv8tion.jda.api.entities.emoji.EmojiUnion;
 import net.dv8tion.jda.api.entities.emoji.UnicodeEmoji;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.utils.EncodingUtil;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public class UnicodeEmojiImpl implements UnicodeEmoji, EmojiUnion
@@ -34,28 +34,28 @@ public class UnicodeEmojiImpl implements UnicodeEmoji, EmojiUnion
         this.name = name;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getName()
     {
         return name;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getAsReactionCode()
     {
         return name;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getAsCodepoints()
     {
         return EncodingUtil.encodeCodepoints(name);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public DataObject toData()
     {
@@ -84,14 +84,14 @@ public class UnicodeEmojiImpl implements UnicodeEmoji, EmojiUnion
         return "UnicodeEmoji(" + getAsCodepoints() + ')';
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public UnicodeEmoji asUnicode()
     {
         return this;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CustomEmoji asCustom()
     {

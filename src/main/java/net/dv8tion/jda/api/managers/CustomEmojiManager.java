@@ -19,10 +19,12 @@ package net.dv8tion.jda.api.managers;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Set;
 
 /**
@@ -64,7 +66,7 @@ public interface CustomEmojiManager extends Manager<CustomEmojiManager>
      *
      * @return CustomEmojiManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @Override
     CustomEmojiManager reset(long fields);
 
@@ -84,7 +86,7 @@ public interface CustomEmojiManager extends Manager<CustomEmojiManager>
      *
      * @return CustomEmojiManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @Override
     CustomEmojiManager reset(long... fields);
 
@@ -95,7 +97,7 @@ public interface CustomEmojiManager extends Manager<CustomEmojiManager>
      *
      * @return The parent {@link net.dv8tion.jda.api.entities.Guild Guild}
      */
-    @Nonnull
+    @NotNull
     default Guild getGuild()
     {
         return getEmoji().getGuild();
@@ -106,7 +108,7 @@ public interface CustomEmojiManager extends Manager<CustomEmojiManager>
      *
      * @return The target emoji
      */
-    @Nonnull
+    @NotNull
     RichCustomEmoji getEmoji();
 
     /**
@@ -125,9 +127,9 @@ public interface CustomEmojiManager extends Manager<CustomEmojiManager>
      *
      * @return CustomEmojiManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    CustomEmojiManager setName(@Nonnull String name);
+    CustomEmojiManager setName(@NotNull String name);
 
     /**
      * Sets the <b><u>restriction roles</u></b> of the selected {@link RichCustomEmoji}.
@@ -144,7 +146,7 @@ public interface CustomEmojiManager extends Manager<CustomEmojiManager>
      *
      * @return CustomEmojiManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     CustomEmojiManager setRoles(@Nullable Set<Role> roles);
 }

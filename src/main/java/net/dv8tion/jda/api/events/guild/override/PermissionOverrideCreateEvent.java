@@ -17,11 +17,9 @@
 package net.dv8tion.jda.api.events.guild.override;
 
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.IPermissionContainer;
 import net.dv8tion.jda.api.entities.PermissionOverride;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Indicates that a {@link PermissionOverride} in a {@link IPermissionContainer guild channel} has been created.
@@ -30,7 +28,7 @@ import javax.annotation.Nonnull;
  */
 public class PermissionOverrideCreateEvent extends GenericPermissionOverrideEvent
 {
-    public PermissionOverrideCreateEvent(@Nonnull JDA api, long responseNumber, @Nonnull IPermissionContainer channel, @Nonnull PermissionOverride override)
+    public PermissionOverrideCreateEvent(@NotNull JDA api, long responseNumber, @NotNull IPermissionContainer channel, @NotNull PermissionOverride override)
     {
         super(api, responseNumber, channel, override);
     }

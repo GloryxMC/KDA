@@ -19,9 +19,9 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
 import net.dv8tion.jda.internal.handle.SocketHandler;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Top-level event type
@@ -46,7 +46,7 @@ public abstract class Event implements GenericEvent
      *
      * @see   #Event(net.dv8tion.jda.api.JDA)
      */
-    public Event(@Nonnull JDA api, long responseNumber)
+    public Event(@NotNull JDA api, long responseNumber)
     {
         this.api = api;
         this.responseNumber = responseNumber;
@@ -60,12 +60,12 @@ public abstract class Event implements GenericEvent
      * @param api
      *        Current JDA instance
      */
-    public Event(@Nonnull JDA api)
+    public Event(@NotNull JDA api)
     {
         this(api, api.getResponseTotal());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JDA getJDA()
     {

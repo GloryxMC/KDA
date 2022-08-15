@@ -22,9 +22,9 @@ import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.interactions.command.localization.UnmodifiableLocalizationMap;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.JDALogger;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
-import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +33,8 @@ public class LocalizationUtils
 {
     public static final Logger LOG = JDALogger.getLog(LocalizationUtils.class);
 
-    @Nonnull
-    public static Map<DiscordLocale, String> mapFromData(@Nonnull DataObject data)
+    @NotNull
+    public static Map<DiscordLocale, String> mapFromData(@NotNull DataObject data)
     {
         Checks.notNull(data, "Data");
 
@@ -55,16 +55,16 @@ public class LocalizationUtils
         return map;
     }
 
-    @Nonnull
-    public static Map<DiscordLocale, String> mapFromProperty(@Nonnull DataObject json, @Nonnull String localizationProperty)
+    @NotNull
+    public static Map<DiscordLocale, String> mapFromProperty(@NotNull DataObject json, @NotNull String localizationProperty)
     {
         return json.optObject(localizationProperty)
                 .map(LocalizationUtils::mapFromData)
                 .orElse(Collections.emptyMap());
     }
 
-    @Nonnull
-    public static LocalizationMap unmodifiableFromProperty(@Nonnull DataObject json, @Nonnull String localizationProperty)
+    @NotNull
+    public static LocalizationMap unmodifiableFromProperty(@NotNull DataObject json, @NotNull String localizationProperty)
     {
         return new UnmodifiableLocalizationMap(mapFromProperty(json, localizationProperty));
     }

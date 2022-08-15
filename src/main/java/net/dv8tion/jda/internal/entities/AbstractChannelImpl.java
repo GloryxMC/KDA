@@ -21,8 +21,7 @@ import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.internal.JDAImpl;
 import net.dv8tion.jda.internal.entities.mixin.channel.middleman.ChannelMixin;
 import net.dv8tion.jda.internal.utils.Helpers;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractChannelImpl<T extends AbstractChannelImpl<T>> implements ChannelMixin<T>
 {
@@ -37,7 +36,7 @@ public abstract class AbstractChannelImpl<T extends AbstractChannelImpl<T>> impl
         this.api = (JDAImpl) api;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JDA getJDA()
     {
@@ -50,7 +49,7 @@ public abstract class AbstractChannelImpl<T extends AbstractChannelImpl<T>> impl
         return id;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getName()
     {
@@ -67,85 +66,85 @@ public abstract class AbstractChannelImpl<T extends AbstractChannelImpl<T>> impl
 
     // -- Union Hooks --
 
-    @Nonnull
+    @NotNull
     public PrivateChannel asPrivateChannel()
     {
         return Helpers.safeChannelCast(this, PrivateChannel.class);
     }
 
-    @Nonnull
+    @NotNull
     public TextChannel asTextChannel()
     {
         return Helpers.safeChannelCast(this, TextChannel.class);
     }
 
-    @Nonnull
+    @NotNull
     public NewsChannel asNewsChannel()
     {
         return Helpers.safeChannelCast(this, NewsChannel.class);
     }
 
-    @Nonnull
+    @NotNull
     public VoiceChannel asVoiceChannel()
     {
         return Helpers.safeChannelCast(this, VoiceChannel.class);
     }
 
-    @Nonnull
+    @NotNull
     public StageChannel asStageChannel()
     {
         return Helpers.safeChannelCast(this, StageChannel.class);
     }
 
-    @Nonnull
+    @NotNull
     public ThreadChannel asThreadChannel()
     {
         return Helpers.safeChannelCast(this, ThreadChannel.class);
     }
 
-    @Nonnull
+    @NotNull
     public Category asCategory()
     {
         return Helpers.safeChannelCast(this, Category.class);
     }
 
-    @Nonnull
+    @NotNull
     public MessageChannel asMessageChannel()
     {
         return Helpers.safeChannelCast(this, MessageChannel.class);
     }
 
-    @Nonnull
+    @NotNull
     public AudioChannel asAudioChannel()
     {
         return Helpers.safeChannelCast(this, AudioChannel.class);
     }
 
-    @Nonnull
+    @NotNull
     public IThreadContainer asThreadContainer()
     {
         return Helpers.safeChannelCast(this, IThreadContainer.class);
     }
 
-    @Nonnull
+    @NotNull
     public GuildChannel asGuildChannel()
     {
         return Helpers.safeChannelCast(this, GuildChannel.class);
     }
 
-    @Nonnull
+    @NotNull
     public GuildMessageChannel asGuildMessageChannel()
     {
         return Helpers.safeChannelCast(this, GuildMessageChannel.class);
     }
 
-    @Nonnull
+    @NotNull
     public StandardGuildChannel asStandardGuildChannel()
     {
         return Helpers.safeChannelCast(this, StandardGuildChannel.class);
     }
 
-    @Nonnull
+    @NotNull
     public StandardGuildMessageChannel asStandardGuildMessageChannel()
     {
         return Helpers.safeChannelCast(this, StandardGuildMessageChannel.class);

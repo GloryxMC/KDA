@@ -24,12 +24,12 @@ import net.dv8tion.jda.api.entities.Guild.VerificationLevel;
 import net.dv8tion.jda.api.entities.ISnowflake;
 import net.dv8tion.jda.api.interactions.DiscordLocale;
 import net.dv8tion.jda.api.utils.ImageProxy;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * POJO for the guild information provided by a template.
@@ -80,7 +80,7 @@ public class TemplateGuild implements ISnowflake
      *
      * @return The guild's name
      */
-    @Nonnull
+    @NotNull
     public String getName()
     {
         return this.name;
@@ -144,7 +144,7 @@ public class TemplateGuild implements ISnowflake
      *
      * @return the verification level of the guild
      */
-    @Nonnull
+    @NotNull
     public VerificationLevel getVerificationLevel()
     {
         return this.verificationLevel;
@@ -155,7 +155,7 @@ public class TemplateGuild implements ISnowflake
      *
      * @return the notification level of the guild
      */
-    @Nonnull
+    @NotNull
     public NotificationLevel getDefaultNotificationLevel()
     {
         return this.notificationLevel;
@@ -166,7 +166,7 @@ public class TemplateGuild implements ISnowflake
      *
      * @return the explicit content level of the guild
      */
-    @Nonnull
+    @NotNull
     public ExplicitContentLevel getExplicitContentLevel()
     {
         return this.explicitContentLevel;
@@ -177,7 +177,7 @@ public class TemplateGuild implements ISnowflake
      *
      * @return The preferred {@link DiscordLocale} for this guild
      */
-    @Nonnull
+    @NotNull
     public DiscordLocale getLocale()
     {
         return this.locale;
@@ -188,7 +188,7 @@ public class TemplateGuild implements ISnowflake
      *
      * @return the afk timeout for this guild
      */
-    @Nonnull
+    @NotNull
     public Timeout getAfkTimeout()
     {
         return this.afkTimeout;
@@ -226,7 +226,7 @@ public class TemplateGuild implements ISnowflake
      *
      * @return An immutable List of {@link net.dv8tion.jda.api.entities.templates.TemplateRole Roles}.
      */
-    @Nonnull
+    @NotNull
     public List<TemplateRole> getRoles()
     {
         return this.roles;
@@ -237,7 +237,7 @@ public class TemplateGuild implements ISnowflake
      *
      * @return An immutable List of {@link net.dv8tion.jda.api.entities.templates.TemplateChannel Channels}.
      */
-    @Nonnull
+    @NotNull
     public List<TemplateChannel> getChannels()
     {
         return this.channels;

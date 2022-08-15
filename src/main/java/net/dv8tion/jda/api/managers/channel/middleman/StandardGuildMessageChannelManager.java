@@ -18,10 +18,11 @@ package net.dv8tion.jda.api.managers.channel.middleman;
 
 import net.dv8tion.jda.api.entities.StandardGuildMessageChannel;
 import net.dv8tion.jda.api.managers.channel.attribute.IAgeRestrictedChannelManager;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Manager providing functionality common for all {@link net.dv8tion.jda.api.entities.StandardGuildMessageChannel StandardGuildMessageChannels}.
@@ -56,7 +57,7 @@ public interface StandardGuildMessageChannelManager<T extends StandardGuildMessa
      *
      * @return ChannelManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     M setTopic(@Nullable String topic);
 }

@@ -21,7 +21,7 @@ import net.gloryx.kda.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.dv8tion.jda.api.JDA
-import net.dv8tion.jda.api.entities.Emoji
+import net.dv8tion.jda.api.entities.emoji.Emoji
 import net.dv8tion.jda.api.entities.User
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
 import net.dv8tion.jda.api.interactions.components.buttons.Button

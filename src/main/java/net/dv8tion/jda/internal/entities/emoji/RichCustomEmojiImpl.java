@@ -37,8 +37,8 @@ import net.dv8tion.jda.internal.requests.DeferredRestAction;
 import net.dv8tion.jda.internal.requests.RestActionImpl;
 import net.dv8tion.jda.internal.requests.Route;
 import net.dv8tion.jda.internal.requests.restaction.AuditableRestActionImpl;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -66,21 +66,21 @@ public class RichCustomEmojiImpl implements RichCustomEmoji, EmojiUnion
         this.roles = ConcurrentHashMap.newKeySet();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Type getType()
     {
         return Type.CUSTOM;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getAsReactionCode()
     {
         return name + ":" + id;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public DataObject toData()
     {
@@ -90,7 +90,7 @@ public class RichCustomEmojiImpl implements RichCustomEmoji, EmojiUnion
                 .put("id", id);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public GuildImpl getGuild()
     {
@@ -100,14 +100,14 @@ public class RichCustomEmojiImpl implements RichCustomEmoji, EmojiUnion
         return guild;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public List<Role> getRoles()
     {
         return Collections.unmodifiableList(new ArrayList<>(roles));
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getName()
     {
@@ -132,7 +132,7 @@ public class RichCustomEmojiImpl implements RichCustomEmoji, EmojiUnion
         return id;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JDAImpl getJDA()
     {
@@ -145,7 +145,7 @@ public class RichCustomEmojiImpl implements RichCustomEmoji, EmojiUnion
         return owner;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CacheRestAction<User> retrieveOwner()
     {
@@ -164,7 +164,7 @@ public class RichCustomEmojiImpl implements RichCustomEmoji, EmojiUnion
         });
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CustomEmojiManager getManager()
     {
@@ -177,7 +177,7 @@ public class RichCustomEmojiImpl implements RichCustomEmoji, EmojiUnion
         return animated;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public AuditableRestAction<Void> delete()
     {
@@ -263,14 +263,14 @@ public class RichCustomEmojiImpl implements RichCustomEmoji, EmojiUnion
         return copy;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public UnicodeEmoji asUnicode()
     {
         throw new IllegalStateException("Cannot convert CustomEmoji to UnicodeEmoji!");
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CustomEmoji asCustom()
     {

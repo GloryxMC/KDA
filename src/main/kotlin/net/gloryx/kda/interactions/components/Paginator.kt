@@ -17,7 +17,7 @@
 package net.gloryx.kda.interactions.components
 
 import net.dv8tion.jda.api.JDA
-import net.dv8tion.jda.api.entities.Emoji
+import net.dv8tion.jda.api.entities.emoji.Emoji
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageChannel
 import net.dv8tion.jda.api.entities.MessageEmbed

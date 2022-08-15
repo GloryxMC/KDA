@@ -98,7 +98,7 @@ public interface CommandEditAction extends RestAction<Command>
      *
      * @return The CommandEditAction instance, for chaining
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     CommandEditAction setGuildOnly(boolean guildOnly);
 
@@ -117,7 +117,7 @@ public interface CommandEditAction extends RestAction<Command>
      */
     @NotNull
     @CheckReturnValue
-    CommandEditAction setDefaultPermissions(@Nonnull DefaultMemberPermissions permission);
+    CommandEditAction setDefaultPermissions(@NotNull DefaultMemberPermissions permission);
 
     /**
      * Configure the description

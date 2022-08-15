@@ -18,7 +18,7 @@ package net.dv8tion.jda.api.entities.channel.unions;
 
 import net.dv8tion.jda.api.entities.*;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A union representing all channel types that implement {@link MessageChannel}.
@@ -54,7 +54,7 @@ public interface MessageChannelUnion extends MessageChannel
      *
      * @return The channel as a {@link PrivateChannel}
      */
-    @Nonnull
+    @NotNull
     PrivateChannel asPrivateChannel();
 
     /**
@@ -76,7 +76,7 @@ public interface MessageChannelUnion extends MessageChannel
      *
      * @return The channel as a {@link TextChannel}
      */
-    @Nonnull
+    @NotNull
     TextChannel asTextChannel();
 
     /**
@@ -98,7 +98,7 @@ public interface MessageChannelUnion extends MessageChannel
      *
      * @return The channel as a {@link NewsChannel}
      */
-    @Nonnull
+    @NotNull
     NewsChannel asNewsChannel();
 
     /**
@@ -120,7 +120,7 @@ public interface MessageChannelUnion extends MessageChannel
      *
      * @return The channel as a {@link ThreadChannel}
      */
-    @Nonnull
+    @NotNull
     ThreadChannel asThreadChannel();
 
     /**
@@ -142,7 +142,7 @@ public interface MessageChannelUnion extends MessageChannel
      *
      * @return The channel as a {@link VoiceChannel}
      */
-    @Nonnull
+    @NotNull
     VoiceChannel asVoiceChannel();
 
     /**
@@ -163,7 +163,7 @@ public interface MessageChannelUnion extends MessageChannel
      *
      * @return The channel as a {@link IThreadContainer}
      */
-    @Nonnull
+    @NotNull
     IThreadContainer asThreadContainer();
 
     /**
@@ -190,6 +190,6 @@ public interface MessageChannelUnion extends MessageChannel
      *
      * @return The channel as a {@link GuildMessageChannel}
      */
-    @Nonnull
+    @NotNull
     GuildMessageChannel asGuildMessageChannel();
 }

@@ -18,7 +18,7 @@ package net.dv8tion.jda.api.entities.channel.unions;
 
 import net.dv8tion.jda.api.entities.*;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A union representing all channel types that implement {@link IWebhookContainer}.
@@ -52,7 +52,7 @@ public interface IWebhookContainerUnion extends IWebhookContainer
      *
      * @return The channel as a {@link TextChannel}
      */
-    @Nonnull
+    @NotNull
     TextChannel asTextChannel();
 
     /**
@@ -74,7 +74,7 @@ public interface IWebhookContainerUnion extends IWebhookContainer
      *
      * @return The channel as a {@link NewsChannel}
      */
-    @Nonnull
+    @NotNull
     NewsChannel asNewsChannel();
 
     //TODO: Add asForumChannel
@@ -97,7 +97,7 @@ public interface IWebhookContainerUnion extends IWebhookContainer
      *
      * @return The channel as a {@link IThreadContainer}
      */
-    @Nonnull
+    @NotNull
     IThreadContainer asThreadContainer();
 
     /**
@@ -119,7 +119,7 @@ public interface IWebhookContainerUnion extends IWebhookContainer
      *
      * @return The channel as a {@link VoiceChannel}
      */
-    @Nonnull
+    @NotNull
     VoiceChannel asVoiceChannel();
 
     /**
@@ -145,7 +145,7 @@ public interface IWebhookContainerUnion extends IWebhookContainer
      *
      * @return The channel as a {@link GuildMessageChannel}
      */
-    @Nonnull
+    @NotNull
     GuildMessageChannel asGuildMessageChannel();
 
     /**
@@ -164,7 +164,7 @@ public interface IWebhookContainerUnion extends IWebhookContainer
      *
      * @return The channel as a {@link StandardGuildChannel}
      */
-    @Nonnull
+    @NotNull
     StandardGuildChannel asStandardGuildChannel();
 
     /**
@@ -183,6 +183,6 @@ public interface IWebhookContainerUnion extends IWebhookContainer
      *
      * @return The channel as a {@link StandardGuildMessageChannel}
      */
-    @Nonnull
+    @NotNull
     StandardGuildMessageChannel asStandardGuildMessageChannel();
 }

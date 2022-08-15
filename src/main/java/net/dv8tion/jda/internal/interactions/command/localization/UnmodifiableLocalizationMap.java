@@ -18,8 +18,8 @@ package net.dv8tion.jda.internal.interactions.command.localization;
 
 import net.dv8tion.jda.api.interactions.DiscordLocale;
 import net.dv8tion.jda.api.interactions.commands.localization.LocalizationMap;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -30,7 +30,7 @@ public class UnmodifiableLocalizationMap extends LocalizationMap
         throw new IllegalStateException("This LocalizationMap is unmodifiable.");
     };
 
-    public UnmodifiableLocalizationMap(@Nonnull Map<DiscordLocale, String> map)
+    public UnmodifiableLocalizationMap(@NotNull Map<DiscordLocale, String> map)
     {
         super(UNMODIFIABLE_CHECK);
 

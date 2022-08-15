@@ -193,11 +193,6 @@ class Context(
                 }
             }
         }
-
-        for (emote in message.mentions.emotes) {
-            content = content.replace(emote.asMention, ":${emote.name}:")
-        }
-
         return content
     }
 

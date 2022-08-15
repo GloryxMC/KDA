@@ -22,6 +22,7 @@ import net.dv8tion.jda.api.entities.Channel;
 import net.dv8tion.jda.api.utils.data.DataArray;
 import net.dv8tion.jda.api.utils.data.DataObject;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -283,4 +284,7 @@ public final class Helpers
         }
         return false;
     }
+
+    @NotNull
+    public static <T> T Null() { return (T) null; }
 }

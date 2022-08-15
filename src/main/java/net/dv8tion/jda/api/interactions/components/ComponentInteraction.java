@@ -96,7 +96,7 @@ public interface ComponentInteraction extends IReplyCallback, IMessageEditCallba
     @Override
     MessageChannelUnion getChannel();
 
-    @Nonnull
+    @NotNull
     @Override
     default GuildMessageChannelUnion getGuildChannel()
     {

@@ -18,11 +18,10 @@ package net.dv8tion.jda.api.events.guild.override;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.IPermissionContainer;
 import net.dv8tion.jda.api.entities.PermissionOverride;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.EnumSet;
 
 /**
@@ -35,7 +34,7 @@ public class PermissionOverrideUpdateEvent extends GenericPermissionOverrideEven
 {
     private final long oldAllow, oldDeny;
 
-    public PermissionOverrideUpdateEvent(@Nonnull JDA api, long responseNumber, @Nonnull IPermissionContainer channel, @Nonnull PermissionOverride override, long oldAllow, long oldDeny)
+    public PermissionOverrideUpdateEvent(@NotNull JDA api, long responseNumber, @NotNull IPermissionContainer channel, @NotNull PermissionOverride override, long oldAllow, long oldDeny)
     {
         super(api, responseNumber, channel, override);
         this.oldAllow = oldAllow;
@@ -77,7 +76,7 @@ public class PermissionOverrideUpdateEvent extends GenericPermissionOverrideEven
      *
      * @return The old allowed permissions
      */
-    @Nonnull
+    @NotNull
     public EnumSet<Permission> getOldAllow()
     {
         return Permission.getPermissions(oldAllow);
@@ -88,7 +87,7 @@ public class PermissionOverrideUpdateEvent extends GenericPermissionOverrideEven
      *
      * @return The old denied permissions
      */
-    @Nonnull
+    @NotNull
     public EnumSet<Permission> getOldDeny()
     {
         return Permission.getPermissions(oldDeny);
@@ -99,7 +98,7 @@ public class PermissionOverrideUpdateEvent extends GenericPermissionOverrideEven
      *
      * @return The old inherited permissions
      */
-    @Nonnull
+    @NotNull
     public EnumSet<Permission> getOldInherited()
     {
         return Permission.getPermissions(getOldInheritedRaw());

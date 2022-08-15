@@ -20,8 +20,8 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.interactions.commands.privileges.IntegrationPrivilege;
 import net.dv8tion.jda.api.interactions.commands.privileges.PrivilegeTargetType;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -32,12 +32,12 @@ import java.util.List;
  */
 public class ApplicationUpdatePrivilegesEvent extends GenericPrivilegeUpdateEvent
 {
-    public ApplicationUpdatePrivilegesEvent(@Nonnull JDA api, long responseNumber, @Nonnull Guild guild, long applicationId, @Nonnull List<IntegrationPrivilege> privileges)
+    public ApplicationUpdatePrivilegesEvent(@NotNull JDA api, long responseNumber, @NotNull Guild guild, long applicationId, @NotNull List<IntegrationPrivilege> privileges)
     {
         super(api, responseNumber, guild, applicationId, applicationId, privileges);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public PrivilegeTargetType getTargetType()
     {

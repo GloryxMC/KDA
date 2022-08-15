@@ -21,9 +21,9 @@ import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.interactions.AutoCompleteQuery;
 import net.dv8tion.jda.api.interactions.callbacks.IAutoCompleteCallback;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Interaction for auto-complete options in slash-commands.
@@ -45,14 +45,14 @@ public interface CommandAutoCompleteInteraction extends IAutoCompleteCallback, C
      *
      * @return The focused {@link AutoCompleteQuery}
      */
-    @Nonnull
+    @NotNull
     AutoCompleteQuery getFocusedOption();
 
     @Nullable
     @Override
     MessageChannelUnion getChannel();
 
-    @Nonnull
+    @NotNull
     @Override
     default GuildMessageChannelUnion getGuildChannel()
     {

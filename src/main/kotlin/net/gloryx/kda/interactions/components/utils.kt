@@ -58,7 +58,7 @@ inline fun <reified T> CommandInteractionPayload.getOption(name: String): T? = w
     Message.Attachment::class.java -> getOption(name, OptionMapping::getAsAttachment) as? T
     IMentionable::class.java -> getOption(name, OptionMapping::getAsMentionable) as? T
     else -> {
-        val channel = getOption(name, OptionMapping::getAsGuildChannel)
+        val channel = getOption(name, OptionMapping::getAsChannel)
         if (channel is T)
             channel
         else

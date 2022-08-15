@@ -23,9 +23,9 @@ import net.dv8tion.jda.api.entities.IPermissionContainer;
 import net.dv8tion.jda.api.entities.PermissionOverride;
 import net.dv8tion.jda.api.entities.channel.unions.IPermissionContainerUnion;
 import net.dv8tion.jda.internal.utils.Checks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.Collection;
 
 /**
@@ -70,7 +70,7 @@ public interface PermOverrideManager extends Manager<PermOverrideManager>
      *
      * @return PermOverrideManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @Override
     PermOverrideManager reset(long fields);
 
@@ -91,7 +91,7 @@ public interface PermOverrideManager extends Manager<PermOverrideManager>
      *
      * @return PermOverrideManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @Override
     PermOverrideManager reset(long... fields);
 
@@ -102,7 +102,7 @@ public interface PermOverrideManager extends Manager<PermOverrideManager>
      *
      * @return The parent {@link net.dv8tion.jda.api.entities.Guild Guild}
      */
-    @Nonnull
+    @NotNull
     default Guild getGuild()
     {
         return getPermissionOverride().getGuild();
@@ -115,7 +115,7 @@ public interface PermOverrideManager extends Manager<PermOverrideManager>
      *
      * @return The parent {@link GuildChannel GuildChannel}
      */
-    @Nonnull
+    @NotNull
     default IPermissionContainerUnion getChannel()
     {
         return getPermissionOverride().getChannel();
@@ -127,7 +127,7 @@ public interface PermOverrideManager extends Manager<PermOverrideManager>
      *
      * @return The target {@link net.dv8tion.jda.api.entities.PermissionOverride PermissionOverride}
      */
-    @Nonnull
+    @NotNull
     PermissionOverride getPermissionOverride();
 
     /**
@@ -139,7 +139,7 @@ public interface PermOverrideManager extends Manager<PermOverrideManager>
      *
      * @return PermOverrideManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     PermOverrideManager grant(long permissions);
 
@@ -157,9 +157,9 @@ public interface PermOverrideManager extends Manager<PermOverrideManager>
      *
      * @see    net.dv8tion.jda.api.Permission#getRaw(net.dv8tion.jda.api.Permission...) Permission.getRaw(Permission...)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default PermOverrideManager grant(@Nonnull Permission... permissions)
+    default PermOverrideManager grant(@NotNull Permission... permissions)
     {
         Checks.notNull(permissions, "Permissions");
         return grant(Permission.getRaw(permissions));
@@ -180,9 +180,9 @@ public interface PermOverrideManager extends Manager<PermOverrideManager>
      * @see    java.util.EnumSet EnumSet
      * @see    net.dv8tion.jda.api.Permission#getRaw(java.util.Collection) Permission.getRaw(Collection)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default PermOverrideManager grant(@Nonnull Collection<Permission> permissions)
+    default PermOverrideManager grant(@NotNull Collection<Permission> permissions)
     {
         return grant(Permission.getRaw(permissions));
     }
@@ -196,7 +196,7 @@ public interface PermOverrideManager extends Manager<PermOverrideManager>
      *
      * @return PermOverrideManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     PermOverrideManager deny(long permissions);
 
@@ -214,9 +214,9 @@ public interface PermOverrideManager extends Manager<PermOverrideManager>
      *
      * @see    net.dv8tion.jda.api.Permission#getRaw(net.dv8tion.jda.api.Permission...) Permission.getRaw(Permission...)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default PermOverrideManager deny(@Nonnull Permission... permissions)
+    default PermOverrideManager deny(@NotNull Permission... permissions)
     {
         Checks.notNull(permissions, "Permissions");
         return deny(Permission.getRaw(permissions));
@@ -237,9 +237,9 @@ public interface PermOverrideManager extends Manager<PermOverrideManager>
      * @see    java.util.EnumSet EnumSet
      * @see    net.dv8tion.jda.api.Permission#getRaw(java.util.Collection) Permission.getRaw(Collection)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default PermOverrideManager deny(@Nonnull Collection<Permission> permissions)
+    default PermOverrideManager deny(@NotNull Collection<Permission> permissions)
     {
         return deny(Permission.getRaw(permissions));
     }
@@ -254,7 +254,7 @@ public interface PermOverrideManager extends Manager<PermOverrideManager>
      *
      * @return PermOverrideManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     PermOverrideManager clear(long permissions);
 
@@ -271,9 +271,9 @@ public interface PermOverrideManager extends Manager<PermOverrideManager>
      *
      * @return PermOverrideManager for chaining convenience
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default PermOverrideManager clear(@Nonnull Permission... permissions)
+    default PermOverrideManager clear(@NotNull Permission... permissions)
     {
         Checks.notNull(permissions, "Permissions");
         return clear(Permission.getRaw(permissions));
@@ -295,9 +295,9 @@ public interface PermOverrideManager extends Manager<PermOverrideManager>
      * @see    java.util.EnumSet EnumSet
      * @see    net.dv8tion.jda.api.Permission#getRaw(java.util.Collection) Permission.getRaw(Collection)
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    default PermOverrideManager clear(@Nonnull Collection<Permission> permissions)
+    default PermOverrideManager clear(@NotNull Collection<Permission> permissions)
     {
         return clear(Permission.getRaw(permissions));
     }

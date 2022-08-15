@@ -19,9 +19,9 @@ package net.dv8tion.jda.api.entities;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 import net.dv8tion.jda.api.requests.restaction.WebhookAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -46,7 +46,7 @@ public interface IWebhookContainer extends GuildChannel
      * @return {@link net.dv8tion.jda.api.requests.RestAction} - Type: List{@literal <}{@link net.dv8tion.jda.api.entities.Webhook Webhook}{@literal >}
      *         <br>Retrieved an immutable list of Webhooks attached to this channel
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     RestAction<List<Webhook>> retrieveWebhooks();
 
@@ -78,9 +78,9 @@ public interface IWebhookContainer extends GuildChannel
      * @return A specific {@link WebhookAction WebhookAction}
      *         <br>This action allows to set fields for the new webhook before creating it
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    WebhookAction createWebhook(@Nonnull String name);
+    WebhookAction createWebhook(@NotNull String name);
 
     /**
      * Deletes a {@link net.dv8tion.jda.api.entities.Webhook Webhook} attached to this channel
@@ -114,7 +114,7 @@ public interface IWebhookContainer extends GuildChannel
      *
      * @return {@link net.dv8tion.jda.api.requests.restaction.AuditableRestAction AuditableRestAction}
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
-    AuditableRestAction<Void> deleteWebhookById(@Nonnull String id);
+    AuditableRestAction<Void> deleteWebhookById(@NotNull String id);
 }

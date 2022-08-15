@@ -17,8 +17,7 @@
 package net.dv8tion.jda.api.entities.channel.unions;
 
 import net.dv8tion.jda.api.entities.*;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A union representing all channel types that implement {@link Channel}.
@@ -57,7 +56,7 @@ public interface ChannelUnion extends Channel
      *
      * @return The channel as a {@link PrivateChannel}
      */
-    @Nonnull
+    @NotNull
     PrivateChannel asPrivateChannel();
 
 
@@ -80,7 +79,7 @@ public interface ChannelUnion extends Channel
      *
      * @return The channel as a {@link TextChannel}
      */
-    @Nonnull
+    @NotNull
     TextChannel asTextChannel();
 
     /**
@@ -102,7 +101,7 @@ public interface ChannelUnion extends Channel
      *
      * @return The channel as a {@link NewsChannel}
      */
-    @Nonnull
+    @NotNull
     NewsChannel asNewsChannel();
 
     /**
@@ -124,7 +123,7 @@ public interface ChannelUnion extends Channel
      *
      * @return The channel as a {@link ThreadChannel}
      */
-    @Nonnull
+    @NotNull
     ThreadChannel asThreadChannel();
 
     /**
@@ -146,7 +145,7 @@ public interface ChannelUnion extends Channel
      *
      * @return The channel as a {@link VoiceChannel}
      */
-    @Nonnull
+    @NotNull
     VoiceChannel asVoiceChannel();
 
     /**
@@ -168,7 +167,7 @@ public interface ChannelUnion extends Channel
      *
      * @return The channel as a {@link StageChannel}
      */
-    @Nonnull
+    @NotNull
     StageChannel asStageChannel();
 
     /**
@@ -190,7 +189,7 @@ public interface ChannelUnion extends Channel
      *
      * @return The channel as a {@link Category}
      */
-    @Nonnull
+    @NotNull
     Category asCategory();
 
     /**
@@ -212,7 +211,7 @@ public interface ChannelUnion extends Channel
      *
      * @return The channel as a {@link MessageChannel}
      */
-    @Nonnull
+    @NotNull
     MessageChannel asMessageChannel();
 
     /**
@@ -234,7 +233,7 @@ public interface ChannelUnion extends Channel
      *
      * @return The channel as a {@link GuildChannel}
      */
-    @Nonnull
+    @NotNull
     GuildChannel asGuildChannel();
 
     /**
@@ -257,7 +256,7 @@ public interface ChannelUnion extends Channel
      *
      * @return The channel as a {@link GuildMessageChannel}
      */
-    @Nonnull
+    @NotNull
     GuildMessageChannel asGuildMessageChannel();
 
     /**
@@ -279,7 +278,7 @@ public interface ChannelUnion extends Channel
      *
      * @return The channel as a {@link AudioChannel}
      */
-    @Nonnull
+    @NotNull
     AudioChannel asAudioChannel();
 
     /**
@@ -318,7 +317,7 @@ public interface ChannelUnion extends Channel
      *
      * @return The channel as a {@link StandardGuildChannel}
      */
-    @Nonnull
+    @NotNull
     StandardGuildChannel asStandardGuildChannel();
 
     /**
@@ -337,6 +336,6 @@ public interface ChannelUnion extends Channel
      *
      * @return The channel as a {@link StandardGuildMessageChannel}
      */
-    @Nonnull
+    @NotNull
     StandardGuildMessageChannel asStandardGuildMessageChannel();
 }

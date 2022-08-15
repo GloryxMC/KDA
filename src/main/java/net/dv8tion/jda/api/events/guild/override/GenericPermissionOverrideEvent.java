@@ -20,9 +20,9 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.entities.channel.unions.IPermissionContainerUnion;
 import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Indicates that a {@link PermissionOverride} for a {@link GuildChannel GuildChannel} was created, deleted, or updated.
@@ -35,7 +35,7 @@ public class GenericPermissionOverrideEvent extends GenericGuildEvent
     protected final IPermissionContainer channel;
     protected final PermissionOverride override;
 
-    public GenericPermissionOverrideEvent(@Nonnull JDA api, long responseNumber, @Nonnull IPermissionContainer channel, @Nonnull PermissionOverride override)
+    public GenericPermissionOverrideEvent(@NotNull JDA api, long responseNumber, @NotNull IPermissionContainer channel, @NotNull PermissionOverride override)
     {
         super(api, responseNumber, channel.getGuild());
         this.channel = channel;
@@ -47,7 +47,7 @@ public class GenericPermissionOverrideEvent extends GenericGuildEvent
      *
      * @return The {@link ChannelType}
      */
-    @Nonnull
+    @NotNull
     public ChannelType getChannelType()
     {
         return channel.getType();
@@ -58,7 +58,7 @@ public class GenericPermissionOverrideEvent extends GenericGuildEvent
      *
      * @return The {@link IPermissionContainer channel}
      */
-    @Nonnull
+    @NotNull
     public IPermissionContainerUnion getChannel()
     {
         return (IPermissionContainerUnion) channel;
@@ -69,7 +69,7 @@ public class GenericPermissionOverrideEvent extends GenericGuildEvent
      *
      * @return The override
      */
-    @Nonnull
+    @NotNull
     public PermissionOverride getPermissionOverride()
     {
         return override;

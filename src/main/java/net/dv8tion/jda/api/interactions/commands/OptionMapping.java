@@ -21,16 +21,16 @@ import gnu.trove.map.hash.TLongObjectHashMap;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.entities.channel.unions.GuildChannelUnion;
-import net.dv8tion.jda.api.entities.channel.unions.GuildMessageChannelUnion;
 import net.dv8tion.jda.api.interactions.Interaction;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
 import net.dv8tion.jda.internal.entities.GuildImpl;
 import net.dv8tion.jda.internal.entities.InteractionMentions;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Objects;
 
 /**
@@ -74,7 +74,7 @@ public class OptionMapping
      *
      * @return {@link net.dv8tion.jda.api.entities.Mentions} for this option
      */
-    @Nonnull
+    @NotNull
     public Mentions getMentions()
     {
         return mentions;
@@ -85,7 +85,7 @@ public class OptionMapping
      *
      * @return The {@link OptionType OptionType}
      */
-    @Nonnull
+    @NotNull
     public OptionType getType()
     {
         return type;
@@ -96,7 +96,7 @@ public class OptionMapping
      *
      * @return The option name
      */
-    @Nonnull
+    @NotNull
     public String getName()
     {
         return name;
@@ -112,7 +112,7 @@ public class OptionMapping
      *
      * @return {@link net.dv8tion.jda.api.entities.Message.Attachment Attachment}
      */
-    @Nonnull
+    @NotNull
     public Message.Attachment getAsAttachment()
     {
         Object obj = resolved.get(getAsLong());
@@ -128,7 +128,7 @@ public class OptionMapping
      *
      * @return The String representation of this option value
      */
-    @Nonnull
+    @NotNull
     public String getAsString()
     {
         return data.getString("value");
@@ -228,7 +228,7 @@ public class OptionMapping
      *
      * @return The resolved {@link IMentionable}
      */
-    @Nonnull
+    @NotNull
     public IMentionable getAsMentionable()
     {
         Object entity = resolved.get(getAsLong());
@@ -266,7 +266,7 @@ public class OptionMapping
      *
      * @return The resolved {@link User}
      */
-    @Nonnull
+    @NotNull
     public User getAsUser()
     {
         if (type != OptionType.USER && type != OptionType.MENTIONABLE)
@@ -288,7 +288,7 @@ public class OptionMapping
      *
      * @return The resolved {@link Role}
      */
-    @Nonnull
+    @NotNull
     public Role getAsRole()
     {
         if (type != OptionType.ROLE && type != OptionType.MENTIONABLE)
@@ -307,7 +307,7 @@ public class OptionMapping
      *
      * @return The {@link ChannelType}
      */
-    @Nonnull
+    @NotNull
     public ChannelType getChannelType()
     {
         return getAsChannel().getType();
@@ -323,7 +323,7 @@ public class OptionMapping
      *
      * @return The resolved {@link GuildChannel}
      */
-    @Nonnull
+    @NotNull
     public GuildChannelUnion getAsChannel()
     {
         if (type != OptionType.CHANNEL)

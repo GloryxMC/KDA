@@ -318,7 +318,7 @@ public interface RoleManager extends Manager<RoleManager>
      * @see    net.dv8tion.jda.api.entities.emoji.Emoji#fromUnicode(String) Emoji.fromUnicode(String)
      * @see    UnicodeEmoji
      */
-    @Nonnull
+    @NotNull
     @CheckReturnValue
     default RoleManager setIcon(@Nullable UnicodeEmoji emoji)
     {

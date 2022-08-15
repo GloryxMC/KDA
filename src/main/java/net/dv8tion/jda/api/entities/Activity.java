@@ -21,9 +21,9 @@ import net.dv8tion.jda.api.entities.emoji.EmojiUnion;
 import net.dv8tion.jda.internal.entities.EntityBuilder;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.Helpers;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.time.Instant;
 import java.time.temporal.TemporalUnit;
 import java.util.Objects;
@@ -72,7 +72,7 @@ public interface Activity
      *
      * @return String containing the Activity's name.
      */
-    @Nonnull
+    @NotNull
     String getName();
 
     /**
@@ -89,7 +89,7 @@ public interface Activity
      *
      * @return Never-null {@link net.dv8tion.jda.api.entities.Activity.ActivityType ActivityType} representing the type of Activity
      */
-    @Nonnull
+    @NotNull
     ActivityType getType();
 
     /**
@@ -121,8 +121,8 @@ public interface Activity
      *
      * @return A valid Activity instance with the provided name with {@link net.dv8tion.jda.api.entities.Activity.ActivityType#PLAYING}
      */
-    @Nonnull
-    static Activity playing(@Nonnull String name)
+    @NotNull
+    static Activity playing(@NotNull String name)
     {
         Checks.notBlank(name, "Name");
         name = name.trim();
@@ -147,8 +147,8 @@ public interface Activity
      *
      * @see    #isValidStreamingUrl(String)
      */
-    @Nonnull
-    static Activity streaming(@Nonnull String name, @Nullable String url)
+    @NotNull
+    static Activity streaming(@NotNull String name, @Nullable String url)
     {
         Checks.notEmpty(name, "Provided game name");
         name = Helpers.isBlank(name) ? name : name.trim();
@@ -173,8 +173,8 @@ public interface Activity
      *
      * @return A valid Activity instance with the provided name with {@link net.dv8tion.jda.api.entities.Activity.ActivityType#LISTENING}
      */
-    @Nonnull
-    static Activity listening(@Nonnull String name)
+    @NotNull
+    static Activity listening(@NotNull String name)
     {
         Checks.notBlank(name, "Name");
         name = name.trim();
@@ -196,9 +196,9 @@ public interface Activity
      *
      * @incubating This feature is not yet confirmed for the official bot API
      */
-    @Nonnull
+    @NotNull
     @Incubating
-    static Activity watching(@Nonnull String name)
+    static Activity watching(@NotNull String name)
     {
         Checks.notBlank(name, "Name");
         name = name.trim();
@@ -220,8 +220,8 @@ public interface Activity
      *
      * @since  4.2.1
      */
-    @Nonnull
-    static Activity competing(@Nonnull String name)
+    @NotNull
+    static Activity competing(@NotNull String name)
     {
         Checks.notBlank(name, "Name");
         name = name.trim();
@@ -245,8 +245,8 @@ public interface Activity
      *
      * @return A valid Activity instance with the provided name
      */
-    @Nonnull
-    static Activity of(@Nonnull ActivityType type, @Nonnull String name)
+    @NotNull
+    static Activity of(@NotNull ActivityType type, @NotNull String name)
     {
         return of(type, name, null);
     }
@@ -273,8 +273,8 @@ public interface Activity
      *
      * @see    #isValidStreamingUrl(String)
      */
-    @Nonnull
-    static Activity of(@Nonnull ActivityType type, @Nonnull String name, @Nullable String url)
+    @NotNull
+    static Activity of(@NotNull ActivityType type, @NotNull String name, @Nullable String url)
     {
         Checks.notNull(type, "Type");
         switch (type)
@@ -378,7 +378,7 @@ public interface Activity
          *
          * @return The ActivityType that has the key provided, or {@link #PLAYING} for unknown key.
          */
-        @Nonnull
+        @NotNull
         public static ActivityType fromKey(int key)
         {
             switch (key)

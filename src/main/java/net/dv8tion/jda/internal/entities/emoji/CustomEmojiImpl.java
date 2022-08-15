@@ -21,8 +21,8 @@ import net.dv8tion.jda.api.entities.emoji.EmojiUnion;
 import net.dv8tion.jda.api.entities.emoji.UnicodeEmoji;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.utils.Helpers;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public class CustomEmojiImpl implements CustomEmoji, EmojiUnion
@@ -38,13 +38,13 @@ public class CustomEmojiImpl implements CustomEmoji, EmojiUnion
         this.animated = animated;
     }
 
-    @Nonnull
+    @NotNull
     public String getAsReactionCode()
     {
         return name + ":" + id;
     }
 
-    @Nonnull
+    @NotNull
     public String getName()
     {
         return name;
@@ -62,7 +62,7 @@ public class CustomEmojiImpl implements CustomEmoji, EmojiUnion
         return animated;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public DataObject toData()
     {
@@ -72,14 +72,14 @@ public class CustomEmojiImpl implements CustomEmoji, EmojiUnion
                 .put("animated", animated);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getAsMention()
     {
         return Helpers.format("<%s:%s:%s>", animated ? "a" : "", name, getId());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getFormatted()
     {
@@ -109,14 +109,14 @@ public class CustomEmojiImpl implements CustomEmoji, EmojiUnion
         return "CustomEmoji:" + name + "(" + id + ")";
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public UnicodeEmoji asUnicode()
     {
         throw new IllegalStateException("Cannot convert CustomEmoji into UnicodeEmoji!");
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CustomEmoji asCustom()
     {

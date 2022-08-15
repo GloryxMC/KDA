@@ -92,11 +92,11 @@ public interface ModalInteraction extends IReplyCallback, IMessageEditCallback
     @Nullable
     Message getMessage();
 
-    @Nonnull
+    @NotNull
     @Override
     MessageChannelUnion getChannel();
 
-    @Nonnull
+    @NotNull
     @Override
     default GuildMessageChannelUnion getGuildChannel()
     {

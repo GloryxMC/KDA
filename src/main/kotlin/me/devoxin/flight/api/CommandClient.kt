@@ -83,7 +83,7 @@ class CommandClient(private val prefixProvider: PrefixProvider, private val cool
 
         if (event.channelType.isGuild) {
             if (props.userPermissions.isNotEmpty()) {
-                val userCheck = props.userPermissions.filterNot { event.member!!.hasPermission(event.textChannel, it) || event.author.idLong in ownerIds }
+                val userCheck = props.userPermissions.filterNot { event.member!!.hasPermission(event.guildChannel, it) || event.author.idLong in ownerIds }
 
                 if (userCheck.isNotEmpty()) {
                     return dispatchSafely { it.onUserMissingPermissions(ctx, cmd, userCheck) }
@@ -91,14 +91,14 @@ class CommandClient(private val prefixProvider: PrefixProvider, private val cool
             }
 
             if (props.botPermissions.isNotEmpty()) {
-                val botCheck = props.botPermissions.filterNot { event.guild.selfMember.hasPermission(event.textChannel, it) }
+                val botCheck = props.botPermissions.filterNot { event.guild.selfMember.hasPermission(event.guildChannel, it) }
 
                 if (botCheck.isNotEmpty()) {
                     return dispatchSafely { it.onBotMissingPermissions(ctx, cmd, botCheck) }
                 }
             }
 
-            if (props.nsfw && !event.textChannel.isNSFW) {
+            if (props.nsfw && !event.textChannel!!.isNSFW) {
                 return
             }
         }

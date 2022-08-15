@@ -41,6 +41,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.CheckReturnValue;
 
 import org.jetbrains.annotations.Nullable;
+
 import javax.security.auth.login.LoginException;
 import java.util.*;
 import java.util.concurrent.*;
@@ -534,7 +535,7 @@ public class  DefaultShardManagerBuilder
      *
      * @see    Event#getRawData()
      */
-    @Nonnull
+    @NotNull
     public DefaultShardManagerBuilder setEventPassthrough(boolean enable)
     {
         return setFlag(ConfigFlag.EVENT_PASSTHROUGH, enable);

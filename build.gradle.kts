@@ -36,7 +36,7 @@ plugins {
 }
 
 val javaVersion = JavaVersion.current()
-val versionObj = Version(major = "5", minor = "0", revision = "20")
+val versionObj = Version(major = "5", minor = "0", revision = "21")
 val isCI = System.getProperty("BUILD_NUMBER") != null // jenkins
         || System.getenv("BUILD_NUMBER") != null
         || System.getProperty("GIT_COMMIT") != null // jitpack
@@ -87,6 +87,7 @@ configure<SourceSetContainer> {
 repositories {
     mavenLocal()
     mavenCentral()
+    maven("https://dev.gloryx.net/main")
 }
 
 dependencies {
@@ -108,6 +109,13 @@ dependencies {
 
     //Collections Utility
     api("org.apache.commons:commons-collections4:4.4")
+
+    //Gloryx Commons & Gloryx Oknamer (TM)
+    api("net.gloryx:commons:0.1.52-SNAPSHOT") {
+        exclude("net.kyori")
+    }
+    api("net.gloryx:oknamer:0.1.01")
+    implementation("org.mockito:mockito-core:4.6.1")
 
     //we use this only together with opus-java
     // if that dependency is excluded it also doesn't need jna anymore
@@ -364,24 +372,24 @@ class Version(
 
 // Generate pom file for maven central
 
-fun generatePom(pom: Pom) {
-    pom.packaging = "jar"
-    pom.name.set(project.name)
-    pom.description.set("Java wrapper for the popular chat & VOIP service: Discord https://discord.com")
-    pom.url.set("https://github.com/DV8FromTheWorld/JDA")
-    pom.scm {
+fun generatePom(pom: Pom) = pom.apply {
+    packaging = "jar"
+    name.set(project.name)
+    description.set("Java wrapper for the popular chat & VOIP service: Discord https://discord.com")
+    url.set("https://github.com/DV8FromTheWorld/JDA")
+    scm {
         url.set("https://github.com/DV8FromTheWorld/JDA")
         connection.set("scm:git:git://github.com/DV8FromTheWorld/JDA")
         developerConnection.set("scm:git:ssh:git@github.com:DV8FromTheWorld/JDA")
     }
-    pom.licenses {
+    licenses {
         license {
             name.set("The Apache Software License, Version 2.0")
             url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
             distribution.set("repo")
         }
     }
-    pom.developers {
+    developers {
         developer {
             id.set("Minn")
             name.set("Florian Spieß")
@@ -391,6 +399,11 @@ fun generatePom(pom: Pom) {
             id.set("DV8FromTheWorld")
             name.set("Austin Keener")
             email.set("keeneraustin@yahoo.com")
+        }
+        developer {
+            id.set("nothen")
+            name.set("Ilya Nothen")
+            email.set("ilya@gloryx.net")
         }
     }
 }
@@ -423,12 +436,10 @@ publishing {
     }
 
     repositories {
-        maven {
-            url = uri("https://maven.pkg.jetbrains.space/gloryx/p/discord/maven")
-            name = "space"
+        maven("https://dev.gloryx.net/main") {
             credentials {
-                username = spaceUsername
-                password = spacePassword
+                username = System.getenv("GLORYX_USERNAME")
+                password = System.getenv("GLORYX_PASSWORD")
             }
         }
     }

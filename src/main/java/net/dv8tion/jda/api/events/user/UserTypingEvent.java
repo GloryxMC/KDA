@@ -18,9 +18,10 @@ package net.dv8tion.jda.api.events.user;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
 import java.time.OffsetDateTime;
 
 /**
@@ -41,7 +42,7 @@ public class UserTypingEvent extends GenericUserEvent
     private final MessageChannel channel;
     private final OffsetDateTime timestamp;
 
-    public UserTypingEvent(@Nonnull JDA api, long responseNumber, @Nonnull User user, @Nonnull MessageChannel channel, @Nonnull OffsetDateTime timestamp, @Nullable Member member)
+    public UserTypingEvent(@NotNull JDA api, long responseNumber, @NotNull User user, @NotNull MessageChannel channel, @NotNull OffsetDateTime timestamp, @Nullable Member member)
     {
         super(api, responseNumber, user);
         this.member = member;
@@ -54,7 +55,7 @@ public class UserTypingEvent extends GenericUserEvent
      *
      * @return The time when the typing started
      */
-    @Nonnull
+    @NotNull
     public OffsetDateTime getTimestamp()
     {
         return timestamp;
@@ -65,7 +66,7 @@ public class UserTypingEvent extends GenericUserEvent
      *
      * @return The channel
      */
-    @Nonnull
+    @NotNull
     public MessageChannelUnion getChannel()
     {
         return (MessageChannelUnion) channel;
@@ -79,7 +80,7 @@ public class UserTypingEvent extends GenericUserEvent
      *
      * @return True, if the user started typing in a channel of the specified type
      */
-    public boolean isFromType(@Nonnull ChannelType type)
+    public boolean isFromType(@NotNull ChannelType type)
     {
         return channel.getType() == type;
     }
@@ -89,7 +90,7 @@ public class UserTypingEvent extends GenericUserEvent
      *
      * @return The {@link net.dv8tion.jda.api.entities.ChannelType ChannelType}
      */
-    @Nonnull
+    @NotNull
     public ChannelType getType()
     {
         return channel.getType();
