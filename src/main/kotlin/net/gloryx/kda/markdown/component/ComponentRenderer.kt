@@ -8,7 +8,7 @@ import net.gloryx.kda.markdown.translation.render
 import java.util.Locale
 
 abstract class ComponentRenderer {
-    fun render(component: DiscordComponent<out DiscordStyle>, vararg args: Array<out Any>): String = when (component) {
+    fun render(component: DiscordComponent, vararg args: Array<out Any>): String = when (component) {
         is TextComponent -> component.toString()
         is TranslationComponent -> renderText(renderTranslatable(component, args[0].cast()))
     }
@@ -18,7 +18,7 @@ abstract class ComponentRenderer {
         Translatable.renderTranslatable(component, locale) // delegate to the designated renderer.
 
     companion object : ComponentRenderer() {
-        fun render(component: DiscordComponent<out DiscordStyle>, vararg args: Any) = render(component, args)
+        fun render(component: DiscordComponent, vararg args: Any) = render(component, args)
     }
 
     object Translatable : ComponentRenderer() {

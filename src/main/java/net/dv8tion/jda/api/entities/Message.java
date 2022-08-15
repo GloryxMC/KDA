@@ -50,14 +50,12 @@ import net.dv8tion.jda.internal.requests.FunctionalCallback;
 import net.dv8tion.jda.internal.requests.Requester;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.IOUtil;
-import net.gloryx.kda.markdown.component.EmbedComponent;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
 import java.io.*;
 import java.time.OffsetDateTime;
 import java.util.*;
@@ -591,14 +589,14 @@ public interface Message extends ISnowflake, Formattable
     List<Attachment> getAttachments();
 
     /**
-     * An immutable list of {@link EmbedComponent MessageEmbeds} that are part of this Message.
+     * An immutable list of {@link MessageEmbed MessageEmbeds} that are part of this Message.
      *
      * <p><b>Requires {@link net.dv8tion.jda.api.requests.GatewayIntent#MESSAGE_CONTENT GatewayIntent.MESSAGE_CONTENT}</b>
      *
      * @return Immutable list of all given MessageEmbeds.
      */
     @NotNull
-    List<EmbedComponent> getEmbeds();
+    List<MessageEmbed> getEmbeds();
 
     /**
      * Rows of interactive components such as {@link Button Buttons}.
@@ -761,7 +759,7 @@ public interface Message extends ISnowflake, Formattable
     MessageAction editMessage(@NotNull CharSequence newContent);
 
     /**
-     * Edits this Message's content to the provided {@link EmbedComponent MessageEmbeds}.
+     * Edits this Message's content to the provided {@link MessageEmbed MessageEmbeds}.
      * <br><b>Messages can only be edited by the account that sent them!</b>.
      *
      * <p>This message instance will not be updated by this operation, please use the response message instead.
@@ -788,17 +786,17 @@ public interface Message extends ISnowflake, Formattable
      * @throws java.lang.IllegalStateException
      *         If the message attempting to be edited was not created by the currently logged in account
      * @throws IllegalArgumentException
-     *         if any of the passed-in embeds is {@code null} or not {@link EmbedComponent#isSendable() sendable}.
+     *         if any of the passed-in embeds is {@code null} or not {@link MessageEmbed#isSendable() sendable}.
      *
      * @return {@link MessageAction MessageAction}
      *         <br>The {@link net.dv8tion.jda.api.entities.Message Message} with the updated content
      */
     @NotNull
     @CheckReturnValue
-    MessageAction editMessageEmbeds(@NotNull Collection<? extends EmbedComponent> embeds);
+    MessageAction editMessageEmbeds(@NotNull Collection<? extends MessageEmbed> embeds);
 
     /**
-     * Edits this Message's content to the provided {@link EmbedComponent MessageEmbeds}.
+     * Edits this Message's content to the provided {@link MessageEmbed MessageEmbeds}.
      * <br><b>Messages can only be edited by the account that sent them!</b>.
      *
      * <p>This message instance will not be updated by this operation, please use the response message instead.
@@ -825,14 +823,14 @@ public interface Message extends ISnowflake, Formattable
      * @throws java.lang.IllegalStateException
      *         If the message attempting to be edited was not created by the currently logged in account
      * @throws IllegalArgumentException
-     *         if any of the passed-in embeds is {@code null} or not {@link EmbedComponent#isSendable() sendable}.
+     *         if any of the passed-in embeds is {@code null} or not {@link MessageEmbed#isSendable() sendable}.
      *
      * @return {@link MessageAction MessageAction}
      *         <br>The {@link net.dv8tion.jda.api.entities.Message Message} with the updated content
      */
     @NotNull
     @CheckReturnValue
-    default MessageAction editMessageEmbeds(@NotNull EmbedComponent... embeds)
+    default MessageAction editMessageEmbeds(@NotNull MessageEmbed... embeds)
     {
         Checks.noneNull(embeds, "MessageEmbeds");
         return editMessageEmbeds(Arrays.asList(embeds));
@@ -1027,7 +1025,7 @@ public interface Message extends ISnowflake, Formattable
      *         <ul>
      *             <li>If the message attempting to be edited was not created by the currently logged in account</li>
      *             <li>If the message contains a MessageEmbed that is not
-     *                 {@link EmbedComponent#isSendable() sendable}</li>
+     *                 {@link MessageEmbed#isSendable() sendable}</li>
      *         </ul>
      *
      * @return {@link MessageAction MessageAction}
@@ -1153,7 +1151,7 @@ public interface Message extends ISnowflake, Formattable
      * <br>By default there won't be any error thrown if the referenced message does not exist.
      * This behavior can be changed with {@link MessageAction#failOnInvalidReply(boolean)}.
      *
-     * <p>For further info, see {@link MessageChannel#sendMessageEmbeds(EmbedComponent, EmbedComponent...)} and {@link MessageAction#reference(Message)}.
+     * <p>For further info, see {@link MessageChannel#sendMessageEmbeds(MessageEmbed, MessageEmbed...)} and {@link MessageAction#reference(Message)}.
      *
      * @param  embed
      *         The embed to reply with
@@ -1166,18 +1164,18 @@ public interface Message extends ISnowflake, Formattable
      *         If this is a {@link GuildChannel} and the logged in account does
      *         not have {@link Permission#MESSAGE_SEND Permission.MESSAGE_SEND}
      * @throws IllegalArgumentException
-     *         If null is provided, any of the embeds are not {@link EmbedComponent#isSendable() sendable}, more than {@value Message#MAX_EMBED_COUNT} embeds are provided,
-     *         or the sum of {@link EmbedComponent#getLength()} is greater than {@link EmbedComponent#EMBED_MAX_LENGTH_BOT}
+     *         If null is provided, any of the embeds are not {@link MessageEmbed#isSendable() sendable}, more than {@value Message#MAX_EMBED_COUNT} embeds are provided,
+     *         or the sum of {@link MessageEmbed#getLength()} is greater than {@link MessageEmbed#EMBED_MAX_LENGTH_BOT}
      *
      * @return {@link MessageAction} Providing the {@link Message} created from this upload.
      */
     @NotNull
     @CheckReturnValue
-    default MessageAction replyEmbeds(@NotNull EmbedComponent embed, @NotNull EmbedComponent... other)
+    default MessageAction replyEmbeds(@NotNull MessageEmbed embed, @NotNull MessageEmbed... other)
     {
         Checks.notNull(embed, "MessageEmbeds");
         Checks.noneNull(other, "MessageEmbeds");
-        List<EmbedComponent> embeds = new ArrayList<>(1 + other.length);
+        List<MessageEmbed> embeds = new ArrayList<>(1 + other.length);
         embeds.add(embed);
         Collections.addAll(embeds, other);
         return replyEmbeds(embeds);
@@ -1190,7 +1188,7 @@ public interface Message extends ISnowflake, Formattable
      * <br>By default there won't be any error thrown if the referenced message does not exist.
      * This behavior can be changed with {@link MessageAction#failOnInvalidReply(boolean)}.
      *
-     * <p>For further info, see {@link MessageChannel#sendMessageEmbeds(EmbedComponent, EmbedComponent...)} and {@link MessageAction#reference(Message)}.
+     * <p>For further info, see {@link MessageChannel#sendMessageEmbeds(MessageEmbed, MessageEmbed...)} and {@link MessageAction#reference(Message)}.
      *
      * @param  embeds
      *         The embeds to reply with
@@ -1201,14 +1199,14 @@ public interface Message extends ISnowflake, Formattable
      *         If this is a {@link GuildChannel} and the logged in account does
      *         not have {@link Permission#MESSAGE_SEND Permission.MESSAGE_SEND}
      * @throws IllegalArgumentException
-     *         If null is provided, any of the embeds are not {@link EmbedComponent#isSendable() sendable}, more than {@value Message#MAX_EMBED_COUNT} embeds are provided,
-     *         or the sum of {@link EmbedComponent#getLength()} is greater than {@link EmbedComponent#EMBED_MAX_LENGTH_BOT}
+     *         If null is provided, any of the embeds are not {@link MessageEmbed#isSendable() sendable}, more than {@value Message#MAX_EMBED_COUNT} embeds are provided,
+     *         or the sum of {@link MessageEmbed#getLength()} is greater than {@link MessageEmbed#EMBED_MAX_LENGTH_BOT}
      *
      * @return {@link MessageAction} Providing the {@link Message} created from this upload.
      */
     @NotNull
     @CheckReturnValue
-    default MessageAction replyEmbeds(@NotNull Collection<? extends EmbedComponent> embeds)
+    default MessageAction replyEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
     {
         return getChannel().sendMessageEmbeds(embeds).reference(this);
     }

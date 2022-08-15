@@ -45,7 +45,6 @@ import net.dv8tion.jda.internal.requests.restaction.AuditableRestActionImpl;
 import net.dv8tion.jda.internal.requests.restaction.MessageActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.Helpers;
-import net.gloryx.kda.markdown.component.EmbedComponent;
 import org.jetbrains.annotations.NotNull;
 
 import org.jetbrains.annotations.Nullable;
@@ -74,7 +73,7 @@ public class ReceivedMessage extends AbstractMessage
     protected final Mentions mentions;
     protected final List<MessageReaction> reactions;
     protected final List<Attachment> attachments;
-    protected final List<EmbedComponent> embeds;
+    protected final List<MessageEmbed> embeds;
     protected final List<StickerItem> stickers;
     protected final List<ActionRow> components;
     protected final int flags;
@@ -93,7 +92,7 @@ public class ReceivedMessage extends AbstractMessage
             long id, MessageChannel channel, MessageType type, MessageReference messageReference,
             boolean fromWebhook, boolean  tts, boolean pinned,
             String content, String nonce, User author, Member member, MessageActivity activity, OffsetDateTime editTime,
-            Mentions mentions, List<MessageReaction> reactions, List<Attachment> attachments, List<EmbedComponent> embeds,
+            Mentions mentions, List<MessageReaction> reactions, List<Attachment> attachments, List<MessageEmbed> embeds,
             List<StickerItem> stickers, List<ActionRow> components,
             int flags, Message.Interaction interaction, ThreadChannel startedThread)
     {
@@ -469,7 +468,7 @@ public class ReceivedMessage extends AbstractMessage
 
     @NotNull
     @Override
-    public List<EmbedComponent> getEmbeds()
+    public List<MessageEmbed> getEmbeds()
     {
         checkIntent();
         return embeds;
@@ -533,7 +532,7 @@ public class ReceivedMessage extends AbstractMessage
 
     @NotNull
     @Override
-    public MessageAction editMessageEmbeds(@NotNull Collection<? extends EmbedComponent> embeds)
+    public MessageAction editMessageEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
     {
         checkUser();
         return ((MessageActionImpl) channel.editMessageEmbedsById(getId(), embeds)).withHook(interactionHook);

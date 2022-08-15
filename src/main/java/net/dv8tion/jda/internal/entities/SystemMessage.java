@@ -21,7 +21,6 @@ import net.dv8tion.jda.api.entities.sticker.StickerItem;
 import net.dv8tion.jda.api.interactions.components.LayoutComponent;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.MessageAction;
-import net.gloryx.kda.markdown.component.EmbedComponent;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.OffsetDateTime;
@@ -35,7 +34,7 @@ public class SystemMessage extends ReceivedMessage
             long id, MessageChannel channel, MessageType type, MessageReference messageReference,
             boolean fromWebhook, boolean  tts, boolean pinned,
             String content, String nonce, User author, Member member, MessageActivity activity, OffsetDateTime editTime,
-            Mentions mentions, List<MessageReaction> reactions, List<Attachment> attachments, List<EmbedComponent> embeds,
+            Mentions mentions, List<MessageReaction> reactions, List<Attachment> attachments, List<MessageEmbed> embeds,
             List<StickerItem> stickers, int flags, ThreadChannel startedThread)
     {
         super(id, channel, type, messageReference, fromWebhook, tts, pinned, content, nonce, author, member,
@@ -65,7 +64,7 @@ public class SystemMessage extends ReceivedMessage
 
     @NotNull
     @Override
-    public MessageAction editMessageEmbeds(@NotNull Collection<? extends EmbedComponent> embeds)
+    public MessageAction editMessageEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
     {
         throw new UnsupportedOperationException("Cannot edit message of this Message Type. MessageType: " + getType());
     }

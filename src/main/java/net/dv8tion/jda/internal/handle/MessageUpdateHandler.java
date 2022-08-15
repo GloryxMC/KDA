@@ -23,7 +23,6 @@ import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.internal.JDAImpl;
 import net.dv8tion.jda.internal.entities.EntityBuilder;
 import net.dv8tion.jda.internal.requests.WebSocketClient;
-import net.gloryx.kda.markdown.component.EmbedComponent;
 
 import java.util.LinkedList;
 
@@ -136,7 +135,7 @@ public class MessageUpdateHandler extends SocketHandler
         EntityBuilder builder = getJDA().getEntityBuilder();
         final long messageId = content.getLong("id");
         final long channelId = content.getLong("channel_id");
-        LinkedList<EmbedComponent> embeds = new LinkedList<>();
+        LinkedList<MessageEmbed> embeds = new LinkedList<>();
 
         MessageChannel channel = getJDA().getChannelById(MessageChannel.class, channelId);
         if (channel == null)

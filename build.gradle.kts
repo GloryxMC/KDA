@@ -117,6 +117,7 @@ dependencies {
     api("net.gloryx:commons:0.1.52-SNAPSHOT") {
         exclude(mapOf("group" to "net.kyori"))
     }
+    api("net.gloryx:oknamer:0.1.01")
     implementation("com.electronwill.night-config:core:3.6.5")
     implementation("com.electronwill.night-config:hocon:3.6.5")
 

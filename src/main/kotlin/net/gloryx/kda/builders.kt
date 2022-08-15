@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.MessageBuilder
 import net.dv8tion.jda.api.entities.Message
-import net.gloryx.kda.markdown.component.EmbedComponent
+import net.dv8tion.jda.api.entities.MessageEmbed
 import net.dv8tion.jda.api.entities.Role
 import net.dv8tion.jda.api.entities.User
 import net.dv8tion.jda.api.interactions.components.ActionRow
@@ -26,12 +26,14 @@ import kotlin.time.Duration
 /**
  * Applies the [CoroutineEventManager] to this builder.
  */
-fun JDABuilder.injectKTX(timeout: Duration = Duration.INFINITE) = setEventManager(CoroutineEventManager(timeout=timeout))
+fun JDABuilder.injectKTX(timeout: Duration = Duration.INFINITE) =
+    setEventManager(CoroutineEventManager(timeout = timeout))
 
 /**
  * Applies the [CoroutineEventManager] to this builder.
  */
-fun DefaultShardManagerBuilder.injectKTX(timeout: Duration = Duration.INFINITE) = setEventManagerProvider { CoroutineEventManager(timeout=timeout) }
+fun DefaultShardManagerBuilder.injectKTX(timeout: Duration = Duration.INFINITE) =
+    setEventManagerProvider { CoroutineEventManager(timeout = timeout) }
 
 /**
  * The coroutine scope used by the underlying [CoroutineEventManager].
@@ -43,7 +45,8 @@ val JDA.scope: CoroutineScope get() = (eventManager as? CoroutineEventManager) ?
  * The coroutine scope used by the underlying [CoroutineEventManager].
  * If this instance does not use the coroutine event manager, this returns the default scope from [getDefaultScope].
  */
-val ShardManager.scope: CoroutineScope get() = (shardCache.firstOrNull()?.eventManager as? CoroutineEventManager) ?: getDefaultScope()
+val ShardManager.scope: CoroutineScope
+    get() = (shardCache.firstOrNull()?.eventManager as? CoroutineEventManager) ?: getDefaultScope()
 
 
 /**
@@ -64,14 +67,16 @@ val ShardManager.scope: CoroutineScope get() = (shardCache.firstOrNull()?.eventM
  *
  * @return [JDA][net.dv8tion.jda.api.JDA] instance returned by [JDABuilder.build]
  */
-inline fun light(token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE, intent: GatewayIntent, vararg intents: GatewayIntent, builder: JDABuilder.() -> Unit = {})
-        = JDABuilder.createLight(token, intent, *intents)
-        .apply(builder)
-        .apply {
-            if (enableCoroutines)
-                injectKTX(timeout=timeout)
-        }
-        .build()
+inline fun light(
+    token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE, intent: GatewayIntent,
+    vararg intents: GatewayIntent, builder: JDABuilder.() -> Unit = {}
+) = JDABuilder.createLight(token, intent, *intents)
+    .apply(builder)
+    .apply {
+        if (enableCoroutines)
+            injectKTX(timeout = timeout)
+    }
+    .build()
 
 /**
  * Convenience method to call [JDABuilder.createLight] and apply a coroutine manager.
@@ -89,14 +94,16 @@ inline fun light(token: String, enableCoroutines: Boolean = true, timeout: Durat
  *
  * @return [JDA][net.dv8tion.jda.api.JDA] instance returned by [JDABuilder.build]
  */
-inline fun light(token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE, intents: Collection<GatewayIntent>, builder: JDABuilder.() -> Unit = {})
-        = JDABuilder.createLight(token, intents)
-        .apply(builder)
-        .apply {
-            if (enableCoroutines)
-                injectKTX(timeout=timeout)
-        }
-        .build()
+inline fun light(
+    token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE,
+    intents: Collection<GatewayIntent>, builder: JDABuilder.() -> Unit = {}
+) = JDABuilder.createLight(token, intents)
+    .apply(builder)
+    .apply {
+        if (enableCoroutines)
+            injectKTX(timeout = timeout)
+    }
+    .build()
 
 /**
  * Convenience method to call [JDABuilder.createLight] and apply a coroutine manager.
@@ -113,16 +120,16 @@ inline fun light(token: String, enableCoroutines: Boolean = true, timeout: Durat
  *
  * @return [JDA][net.dv8tion.jda.api.JDA] instance returned by [JDABuilder.build]
  */
-inline fun light(token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE, builder: JDABuilder.() -> Unit = {})
-        = JDABuilder.createLight(token)
-        .apply(builder)
-        .apply {
-            if (enableCoroutines)
-                injectKTX(timeout=timeout)
-        }
-        .build()
-
-
+inline fun light(
+    token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE,
+    builder: JDABuilder.() -> Unit = {}
+) = JDABuilder.createLight(token)
+    .apply(builder)
+    .apply {
+        if (enableCoroutines)
+            injectKTX(timeout = timeout)
+    }
+    .build()
 
 
 /**
@@ -143,14 +150,16 @@ inline fun light(token: String, enableCoroutines: Boolean = true, timeout: Durat
  *
  * @return [JDA][net.dv8tion.jda.api.JDA] instance returned by [JDABuilder.build]
  */
-inline fun default(token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE, intent: GatewayIntent, vararg intents: GatewayIntent, builder: JDABuilder.() -> Unit = {})
-        = JDABuilder.createDefault(token, intent, *intents)
-        .apply(builder)
-        .apply {
-            if (enableCoroutines)
-                injectKTX(timeout=timeout)
-        }
-        .build()
+inline fun default(
+    token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE, intent: GatewayIntent,
+    vararg intents: GatewayIntent, builder: JDABuilder.() -> Unit = {}
+) = JDABuilder.createDefault(token, intent, *intents)
+    .apply(builder)
+    .apply {
+        if (enableCoroutines)
+            injectKTX(timeout = timeout)
+    }
+    .build()
 
 /**
  * Convenience method to call [JDABuilder.createDefault] and apply a coroutine manager.
@@ -168,14 +177,16 @@ inline fun default(token: String, enableCoroutines: Boolean = true, timeout: Dur
  *
  * @return [JDA][net.dv8tion.jda.api.JDA] instance returned by [JDABuilder.build]
  */
-inline fun default(token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE, intents: Collection<GatewayIntent>, builder: JDABuilder.() -> Unit = {})
-        = JDABuilder.createDefault(token, intents)
-        .apply(builder)
-        .apply {
-            if (enableCoroutines)
-                injectKTX(timeout=timeout)
-        }
-        .build()
+inline fun default(
+    token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE,
+    intents: Collection<GatewayIntent>, builder: JDABuilder.() -> Unit = {}
+) = JDABuilder.createDefault(token, intents)
+    .apply(builder)
+    .apply {
+        if (enableCoroutines)
+            injectKTX(timeout = timeout)
+    }
+    .build()
 
 /**
  * Convenience method to call [JDABuilder.createDefault] and apply a coroutine manager.
@@ -192,15 +203,16 @@ inline fun default(token: String, enableCoroutines: Boolean = true, timeout: Dur
  *
  * @return [JDA][net.dv8tion.jda.api.JDA] instance returned by [JDABuilder.build]
  */
-inline fun default(token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE, builder: JDABuilder.() -> Unit = {})
-        = JDABuilder.createDefault(token)
-        .apply(builder)
-        .apply {
-            if (enableCoroutines)
-                injectKTX(timeout=timeout)
-        }
-        .build()
-
+inline fun default(
+    token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE,
+    builder: JDABuilder.() -> Unit = {}
+) = JDABuilder.createDefault(token)
+    .apply(builder)
+    .apply {
+        if (enableCoroutines)
+            injectKTX(timeout = timeout)
+    }
+    .build()
 
 
 /**
@@ -221,14 +233,16 @@ inline fun default(token: String, enableCoroutines: Boolean = true, timeout: Dur
  *
  * @return [JDA][net.dv8tion.jda.api.JDA] instance returned by [JDABuilder.build]
  */
-inline fun createJDA(token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE, intent: GatewayIntent, vararg intents: GatewayIntent, builder: JDABuilder.() -> Unit = {})
-        = JDABuilder.create(token, intent, *intents)
-        .apply(builder)
-        .apply {
-            if (enableCoroutines)
-                injectKTX(timeout=timeout)
-        }
-        .build()
+inline fun createJDA(
+    token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE, intent: GatewayIntent,
+    vararg intents: GatewayIntent, builder: JDABuilder.() -> Unit = {}
+) = JDABuilder.create(token, intent, *intents)
+    .apply(builder)
+    .apply {
+        if (enableCoroutines)
+            injectKTX(timeout = timeout)
+    }
+    .build()
 
 /**
  * Convenience method to call [JDABuilder.create] and apply a coroutine manager.
@@ -246,14 +260,16 @@ inline fun createJDA(token: String, enableCoroutines: Boolean = true, timeout: D
  *
  * @return [JDA][net.dv8tion.jda.api.JDA] instance returned by [JDABuilder.build]
  */
-inline fun createJDA(token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE, intents: Collection<GatewayIntent>, builder: JDABuilder.() -> Unit = {})
-        = JDABuilder.create(token, intents)
-        .apply(builder)
-        .apply {
-            if (enableCoroutines)
-                injectKTX(timeout=timeout)
-        }
-        .build()
+inline fun createJDA(
+    token: String, enableCoroutines: Boolean = true, timeout: Duration = Duration.INFINITE,
+    intents: Collection<GatewayIntent>, builder: JDABuilder.() -> Unit = {}
+) = JDABuilder.create(token, intents)
+    .apply(builder)
+    .apply {
+        if (enableCoroutines)
+            injectKTX(timeout = timeout)
+    }
+    .build()
 
 
 /**
@@ -339,7 +355,7 @@ class CacheFlagAccumulator(private val builder: JDABuilder) {
 
 inline fun Message(
     content: String? = null,
-    embed: EmbedComponent? = null,
+    embed: MessageEmbed? = null,
     embeds: Embeds? = null,
     components: Components? = null,
     nonce: String? = null,
@@ -349,7 +365,18 @@ inline fun Message(
     mentionRoles: Collection<Long>? = null,
     builder: InlineMessage.() -> Unit = {},
 ): Message {
-    return MessageBuilder(content, embed, embeds, components, nonce, tts, allowedMentionTypes, mentionUsers, mentionRoles, builder).build()
+    return MessageBuilder(
+        content,
+        embed,
+        embeds,
+        components,
+        nonce,
+        tts,
+        allowedMentionTypes,
+        mentionUsers,
+        mentionRoles,
+        builder
+    ).build()
 }
 
 inline fun Embed(
@@ -365,17 +392,18 @@ inline fun Embed(
     timestamp: TemporalAccessor? = null,
     image: String? = null,
     thumbnail: String? = null,
-    fields: Collection<EmbedComponent.Field> = emptyList(),
+    fields: Collection<MessageEmbed.Field> = emptyList(),
     builder: InlineEmbed.() -> Unit = {},
-): EmbedComponent {
-    return EmbedBuilder(description, title, url, color, footerText, footerIcon,
-            authorName, authorIcon, authorUrl, timestamp, image, thumbnail, fields, builder
+): MessageEmbed {
+    return EmbedBuilder(
+        description, title, url, color, footerText, footerIcon,
+        authorName, authorIcon, authorUrl, timestamp, image, thumbnail, fields, builder
     ).build()
 }
 
 inline fun MessageBuilder(
     content: String? = null,
-    embed: EmbedComponent? = null,
+    embed: MessageEmbed? = null,
     embeds: Embeds? = null,
     components: Components? = null,
     nonce: String? = null,
@@ -414,7 +442,7 @@ inline fun EmbedBuilder(
     timestamp: TemporalAccessor? = null,
     image: String? = null,
     thumbnail: String? = null,
-    fields: Collection<EmbedComponent.Field> = emptyList(),
+    fields: Collection<MessageEmbed.Field> = emptyList(),
     builder: InlineEmbed.() -> Unit = {}
 ): InlineEmbed {
     return EmbedBuilder().run {
@@ -434,13 +462,13 @@ inline fun EmbedBuilder(
 class InlineMessage(val builder: MessageBuilder) {
     constructor(message: Message) : this(MessageBuilder(message))
 
-    internal val configuredEmbeds = mutableListOf<EmbedComponent>()
+    internal val configuredEmbeds = mutableListOf<MessageEmbed>()
     internal val configuredComponents = mutableListOf<LayoutComponent>()
 
     fun build() = builder
-            .setEmbeds(configuredEmbeds)
-            .setActionRows(configuredComponents.mapNotNull { it as? ActionRow })
-            .build()
+        .setEmbeds(configuredEmbeds)
+        .setActionRows(configuredComponents.mapNotNull { it as? ActionRow })
+        .build()
 
     var content: String? = null
         set(value) {
@@ -448,8 +476,12 @@ class InlineMessage(val builder: MessageBuilder) {
             field = value
         }
 
-    @Deprecated("You should use the embeds property instead, which accepts a collection of embeds", ReplaceWith("embeds"), DeprecationLevel.ERROR)
-    var embed: EmbedComponent? = null
+    @Deprecated(
+        "You should use the embeds property instead, which accepts a collection of embeds",
+        ReplaceWith("embeds"),
+        DeprecationLevel.ERROR
+    )
+    var embed: MessageEmbed? = null
         set(value) {
             configuredEmbeds.clear()
             value?.let(configuredEmbeds::add)
@@ -503,9 +535,11 @@ class InlineMessage(val builder: MessageBuilder) {
         fun user(user: User) {
             users.add(user.idLong)
         }
+
         fun user(id: String) {
             users.add(id.toLong())
         }
+
         fun user(id: Long) {
             users.add(id)
         }
@@ -513,9 +547,11 @@ class InlineMessage(val builder: MessageBuilder) {
         fun role(role: Role) {
             roles.add(role.idLong)
         }
+
         fun role(id: String) {
             roles.add(id.toLong())
         }
+
         fun role(id: Long) {
             roles.add(id)
         }
@@ -523,7 +559,7 @@ class InlineMessage(val builder: MessageBuilder) {
 }
 
 class InlineEmbed(val builder: EmbedBuilder) {
-    constructor(embed: EmbedComponent) : this(EmbedBuilder(embed))
+    constructor(embed: MessageEmbed) : this(EmbedBuilder(embed))
 
     fun build() = builder.build()
 
@@ -574,53 +610,55 @@ class InlineEmbed(val builder: EmbedBuilder) {
         this.builder.setFooter(footer.name, footer.iconUrl)
     }
 
-    inline fun author(name: String? = null, url: String? = null, iconUrl: String? = null, build: InlineAuthor.() -> Unit = {}) {
+    inline fun author(
+        name: String? = null, url: String? = null, iconUrl: String? = null, build: InlineAuthor.() -> Unit = {}
+    ) {
         val author = InlineAuthor(name, iconUrl, url).apply(build)
         builder.setAuthor(author.name, author.url, author.iconUrl)
     }
 
     inline fun field(
-            name: String = EmbedBuilder.ZERO_WIDTH_SPACE,
-            value: String = EmbedBuilder.ZERO_WIDTH_SPACE,
-            inline: Boolean = true,
-            build: InlineField.() -> Unit = {}
+        name: String = EmbedBuilder.ZERO_WIDTH_SPACE,
+        value: String = EmbedBuilder.ZERO_WIDTH_SPACE,
+        inline: Boolean = true,
+        build: InlineField.() -> Unit = {}
     ) {
         val field = InlineField(name, value, inline).apply(build)
         builder.addField(field.name, field.value, field.inline)
     }
 
     data class InlineFooter(
-            var name: String = "",
-            var iconUrl: String? = null
+        var name: String = "",
+        var iconUrl: String? = null
     )
 
     data class InlineAuthor(
-            var name: String? = null,
-            var iconUrl: String? = null,
-            var url: String? = null
+        var name: String? = null,
+        var iconUrl: String? = null,
+        var url: String? = null
     )
 
     data class InlineField(
-            var name: String = EmbedBuilder.ZERO_WIDTH_SPACE,
-            var value: String = EmbedBuilder.ZERO_WIDTH_SPACE,
-            var inline: Boolean = true
+        var name: String = EmbedBuilder.ZERO_WIDTH_SPACE,
+        var value: String = EmbedBuilder.ZERO_WIDTH_SPACE,
+        var inline: Boolean = true
     )
 }
 
 class EmbedAccumulator(private val builder: InlineMessage) {
-    operator fun plusAssign(embeds: Collection<EmbedComponent>) {
+    operator fun plusAssign(embeds: Collection<MessageEmbed>) {
         builder.configuredEmbeds += embeds
     }
 
-    operator fun plusAssign(embed: EmbedComponent) {
+    operator fun plusAssign(embed: MessageEmbed) {
         builder.configuredEmbeds += embed
     }
 
-    operator fun minusAssign(embeds: Collection<EmbedComponent>) {
+    operator fun minusAssign(embeds: Collection<MessageEmbed>) {
         builder.configuredEmbeds -= embeds.toSet()
     }
 
-    operator fun minusAssign(embed: EmbedComponent) {
+    operator fun minusAssign(embed: MessageEmbed) {
         builder.configuredEmbeds -= embed
     }
 }

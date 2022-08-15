@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.events.Event
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.requests.restaction.MessageAction
 import net.gloryx.kda.*
-import net.gloryx.kda.markdown.component.EmbedComponent
 import java.util.concurrent.TimeoutException
 import java.util.regex.Pattern
 
@@ -48,7 +47,7 @@ class Context(
      */
     fun reply(
         content: String? = SendDefaults.content,
-        embed: EmbedComponent? = null,
+        embed: MessageEmbed? = null,
         embeds: Embeds = SendDefaults.embeds,
         components: Components = SendDefaults.components,
         file: NamedFile? = null,
@@ -72,7 +71,7 @@ class Context(
      */
     suspend fun sendPrivate(
         content: String? = SendDefaults.content,
-        embed: EmbedComponent? = null,
+        embed: MessageEmbed? = null,
         embeds: Embeds = SendDefaults.embeds,
         components: Components = SendDefaults.components,
         file: NamedFile? = null,
@@ -95,7 +94,7 @@ class Context(
      */
     fun send(
         content: String? = SendDefaults.content,
-        embed: EmbedComponent? = null,
+        embed: MessageEmbed? = null,
         embeds: Embeds = SendDefaults.embeds,
         components: Components = SendDefaults.components,
         file: NamedFile? = null,

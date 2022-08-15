@@ -3,7 +3,7 @@ package net.gloryx.kda
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageChannel
-import net.gloryx.kda.markdown.component.EmbedComponent
+import net.dv8tion.jda.api.entities.MessageEmbed
 import net.dv8tion.jda.api.interactions.InteractionHook
 import net.dv8tion.jda.api.interactions.callbacks.IMessageEditCallback
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback
@@ -80,7 +80,7 @@ private inline fun <T> T.applyIf(check: Boolean, func: (T) -> Unit) {
  */
 fun IMessageEditCallback.editMessage_(
     content: String? = null,
-    embed: EmbedComponent? = null,
+    embed: MessageEmbed? = null,
     embeds: Embeds? = null,
     components: Components? = null,
     file: NamedFile? = null,
@@ -132,7 +132,7 @@ fun IMessageEditCallback.editMessage_(
 fun InteractionHook.editMessage(
     id: String = "@original",
     content: String? = null,
-    embed: EmbedComponent? = null,
+    embed: MessageEmbed? = null,
     embeds: Embeds? = null,
     components: Components? = null,
     file: NamedFile? = null,
@@ -185,7 +185,7 @@ fun InteractionHook.editMessage(
 fun MessageChannel.editMessage(
     id: String,
     content: String? = null,
-    embed: EmbedComponent? = null,
+    embed: MessageEmbed? = null,
     embeds: Embeds? = null,
     components: Components? = null,
     file: NamedFile? = null,
@@ -237,7 +237,7 @@ fun MessageChannel.editMessage(
  */
 fun Message.edit(
     content: String? = null,
-    embed: EmbedComponent? = null,
+    embed: MessageEmbed? = null,
     embeds: Embeds? = null,
     components: Components? = null,
     file: NamedFile? = null,
@@ -329,7 +329,7 @@ fun <T> WebhookMessageAction<T>.addFiles(files: Files) = apply {
  */
 fun IReplyCallback.reply_(
     content: String? = SendDefaults.content,
-    embed: EmbedComponent? = null,
+    embed: MessageEmbed? = null,
     embeds: Embeds = SendDefaults.embeds,
     components: Components = SendDefaults.components,
     file: NamedFile? = null,
@@ -374,7 +374,7 @@ fun IReplyCallback.reply_(
  */
 fun InteractionHook.send(
     content: String? = SendDefaults.content,
-    embed: EmbedComponent? = null,
+    embed: MessageEmbed? = null,
     embeds: Embeds = SendDefaults.embeds,
     components: Components = SendDefaults.components,
     file: NamedFile? = null,
@@ -416,7 +416,7 @@ fun InteractionHook.send(
  */
 fun MessageChannel.send(
     content: String? = SendDefaults.content,
-    embed: EmbedComponent? = null,
+    embed: MessageEmbed? = null,
     embeds: Embeds = SendDefaults.embeds,
     components: Components = SendDefaults.components,
     file: NamedFile? = null,
@@ -456,7 +456,7 @@ fun MessageChannel.send(
  */
 fun Message.reply_(
     content: String? = SendDefaults.content,
-    embed: EmbedComponent? = null,
+    embed: MessageEmbed? = null,
     embeds: Embeds = SendDefaults.embeds,
     components: Components = SendDefaults.components,
     file: NamedFile? = null,

@@ -41,7 +41,6 @@ import net.dv8tion.jda.internal.requests.restaction.pagination.MessagePagination
 import net.dv8tion.jda.internal.requests.restaction.pagination.ReactionPaginationActionImpl;
 import net.dv8tion.jda.internal.utils.Checks;
 import net.dv8tion.jda.internal.utils.EncodingUtil;
-import net.gloryx.kda.markdown.component.EmbedComponent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
@@ -367,7 +366,7 @@ public interface MessageChannel extends Channel, Formattable
     }
 
     /**
-     * Sends up to {@value Message#MAX_EMBED_COUNT} specified {@link EmbedComponent MessageEmbeds} as a {@link net.dv8tion.jda.api.entities.Message Message}
+     * Sends up to {@value Message#MAX_EMBED_COUNT} specified {@link MessageEmbed MessageEmbeds} as a {@link net.dv8tion.jda.api.entities.Message Message}
      * to this channel.
      * <br>This will fail if this channel is an instance of {@link net.dv8tion.jda.api.entities.GuildMessageChannel GuildMessageChannel} and
      * the currently logged in account does not have permissions to send a message to this channel.
@@ -378,9 +377,9 @@ public interface MessageChannel extends Channel, Formattable
      * <p>For {@link net.dv8tion.jda.api.requests.ErrorResponse} information, refer to {@link #sendMessage(Message)}.
      *
      * @param  embed
-     *         The {@link EmbedComponent MessageEmbed} to send
+     *         The {@link MessageEmbed MessageEmbed} to send
      * @param  other
-     *         Additional {@link EmbedComponent MessageEmbeds} to send
+     *         Additional {@link MessageEmbed MessageEmbeds} to send
      *
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If this is a {@link net.dv8tion.jda.api.entities.GuildMessageChannel GuildMessageChannel} and the logged in account does
@@ -391,8 +390,8 @@ public interface MessageChannel extends Channel, Formattable
      *             <li>{@link net.dv8tion.jda.api.Permission#MESSAGE_EMBED_LINKS Permission.MESSAGE_EMBED_LINKS}</li>
      *         </ul>
      * @throws java.lang.IllegalArgumentException
-     *         If null is provided, any of the embeds are not {@link EmbedComponent#isSendable() sendable}, more than {@value Message#MAX_EMBED_COUNT} embeds are provided,
-     *         or the sum of {@link EmbedComponent#getLength()} is greater than {@link EmbedComponent#EMBED_MAX_LENGTH_BOT}
+     *         If null is provided, any of the embeds are not {@link MessageEmbed#isSendable() sendable}, more than {@value Message#MAX_EMBED_COUNT} embeds are provided,
+     *         or the sum of {@link MessageEmbed#getLength()} is greater than {@link MessageEmbed#EMBED_MAX_LENGTH_BOT}
      * @throws java.lang.UnsupportedOperationException
      *         If this is a {@link net.dv8tion.jda.api.entities.PrivateChannel PrivateChannel}
      *         and both the currently logged in account and the target user are bots.
@@ -405,18 +404,18 @@ public interface MessageChannel extends Channel, Formattable
      */
     @NotNull
     @CheckReturnValue
-    default MessageAction sendMessageEmbeds(@NotNull EmbedComponent embed, @NotNull EmbedComponent... other)
+    default MessageAction sendMessageEmbeds(@NotNull MessageEmbed embed, @NotNull MessageEmbed... other)
     {
         Checks.notNull(embed, "MessageEmbeds");
         Checks.noneNull(other, "MessageEmbeds");
-        List<EmbedComponent> embeds = new ArrayList<>(1 + other.length);
+        List<MessageEmbed> embeds = new ArrayList<>(1 + other.length);
         embeds.add(embed);
         Collections.addAll(embeds, other);
         return new MessageActionImpl(getJDA(), null, this).setEmbeds(embeds);
     }
 
     /**
-     * Sends up to {@value Message#MAX_EMBED_COUNT} specified {@link EmbedComponent MessageEmbeds} as a {@link net.dv8tion.jda.api.entities.Message Message}
+     * Sends up to {@value Message#MAX_EMBED_COUNT} specified {@link MessageEmbed MessageEmbeds} as a {@link net.dv8tion.jda.api.entities.Message Message}
      * to this channel.
      * <br>This will fail if this channel is an instance of {@link net.dv8tion.jda.api.entities.GuildMessageChannel GuildMessageChannel} and
      * the currently logged in account does not have permissions to send a message to this channel.
@@ -427,7 +426,7 @@ public interface MessageChannel extends Channel, Formattable
      * <p>For {@link net.dv8tion.jda.api.requests.ErrorResponse} information, refer to {@link #sendMessage(Message)}.
      *
      * @param  embeds
-     *         The {@link EmbedComponent MessageEmbeds} to send
+     *         The {@link MessageEmbed MessageEmbeds} to send
      *
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If this is a {@link net.dv8tion.jda.api.entities.GuildMessageChannel GuildMessageChannel} and the logged in account does
@@ -438,8 +437,8 @@ public interface MessageChannel extends Channel, Formattable
      *             <li>{@link net.dv8tion.jda.api.Permission#MESSAGE_EMBED_LINKS Permission.MESSAGE_EMBED_LINKS}</li>
      *         </ul>
      * @throws java.lang.IllegalArgumentException
-     *         If any of the provided embeds is {@code null} or if the provided {@link EmbedComponent MessageEmbed}
-     *         is not {@link EmbedComponent#isSendable() sendable}
+     *         If any of the provided embeds is {@code null} or if the provided {@link MessageEmbed MessageEmbed}
+     *         is not {@link MessageEmbed#isSendable() sendable}
      * @throws java.lang.UnsupportedOperationException
      *         If this is a {@link net.dv8tion.jda.api.entities.PrivateChannel PrivateChannel}
      *         and both the currently logged in account and the target user are bots.
@@ -452,7 +451,7 @@ public interface MessageChannel extends Channel, Formattable
      */
     @NotNull
     @CheckReturnValue
-    default MessageAction sendMessageEmbeds(@NotNull Collection<? extends EmbedComponent> embeds)
+    default MessageAction sendMessageEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
     {
         return new MessageActionImpl(getJDA(), null, this).setEmbeds(embeds);
     }
@@ -497,8 +496,8 @@ public interface MessageChannel extends Channel, Formattable
      *         </ul>
      * @throws java.lang.IllegalArgumentException
      *         If the provided message is {@code null} or the provided {@link net.dv8tion.jda.api.entities.Message Message}
-     *         contains a {@link EmbedComponent MessageEmbed}
-     *         that is not {@link EmbedComponent#isSendable() sendable}
+     *         contains a {@link MessageEmbed MessageEmbed}
+     *         that is not {@link MessageEmbed#isSendable() sendable}
      * @throws java.lang.UnsupportedOperationException
      *         If this is a {@link net.dv8tion.jda.api.entities.PrivateChannel PrivateChannel}
      *         and both the currently logged in account and the target user are bots.
@@ -2356,8 +2355,8 @@ public interface MessageChannel extends Channel, Formattable
      *             <li>If provided {@code messageId} is {@code null} or empty.</li>
      *             <li>If provided {@code newContent} is {@code null}.</li>
      *             <li>If provided {@link net.dv8tion.jda.api.entities.Message Message}
-     *                 contains a {@link EmbedComponent MessageEmbed} which
-     *                 is not {@link EmbedComponent#isSendable() sendable}</li>
+     *                 contains a {@link MessageEmbed MessageEmbed} which
+     *                 is not {@link MessageEmbed#isSendable() sendable}</li>
      *         </ul>
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If this is a {@link net.dv8tion.jda.api.entities.GuildMessageChannel GuildMessageChannel} and this account does not have
@@ -2407,8 +2406,8 @@ public interface MessageChannel extends Channel, Formattable
      *             <li>If provided {@code messageId} is not positive.</li>
      *             <li>If provided {@code newContent} is {@code null}.</li>
      *             <li>If provided {@link net.dv8tion.jda.api.entities.Message Message}
-     *                 contains a {@link EmbedComponent MessageEmbed} which
-     *                 is not {@link EmbedComponent#isSendable() sendable}</li>
+     *                 contains a {@link MessageEmbed MessageEmbed} which
+     *                 is not {@link MessageEmbed#isSendable() sendable}</li>
      *         </ul>
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If this is a {@link net.dv8tion.jda.api.entities.GuildMessageChannel GuildMessageChannel} and this account does not have
@@ -2567,13 +2566,13 @@ public interface MessageChannel extends Channel, Formattable
      * @param  messageId
      *         The id referencing the Message that should be edited
      * @param  newEmbeds
-     *         Up to {@value Message#MAX_EMBED_COUNT} new {@link EmbedComponent MessageEmbeds} for the edited message
+     *         Up to {@value Message#MAX_EMBED_COUNT} new {@link MessageEmbed MessageEmbeds} for the edited message
      *
      * @throws IllegalArgumentException
      *         <ul>
      *             <li>If provided {@code messageId} is {@code null} or empty.</li>
-     *             <li>If provided {@link EmbedComponent MessageEmbed}
-     *                 is not {@link EmbedComponent#isSendable() sendable}</li>
+     *             <li>If provided {@link MessageEmbed MessageEmbed}
+     *                 is not {@link MessageEmbed#isSendable() sendable}</li>
      *         </ul>
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If this is a {@link net.dv8tion.jda.api.entities.GuildMessageChannel GuildMessageChannel} and this account does not have
@@ -2585,7 +2584,7 @@ public interface MessageChannel extends Channel, Formattable
      */
     @NotNull
     @CheckReturnValue
-    default MessageAction editMessageEmbedsById(@NotNull String messageId, @NotNull EmbedComponent... newEmbeds)
+    default MessageAction editMessageEmbedsById(@NotNull String messageId, @NotNull MessageEmbed... newEmbeds)
     {
         Checks.noneNull(newEmbeds, "MessageEmbeds");
         return editMessageEmbedsById(messageId, Arrays.asList(newEmbeds));
@@ -2616,13 +2615,13 @@ public interface MessageChannel extends Channel, Formattable
      * @param  messageId
      *         The id referencing the Message that should be edited
      * @param  newEmbeds
-     *         Up to {@value Message#MAX_EMBED_COUNT} new {@link EmbedComponent MessageEmbeds} for the edited message
+     *         Up to {@value Message#MAX_EMBED_COUNT} new {@link MessageEmbed MessageEmbeds} for the edited message
      *
      * @throws IllegalArgumentException
      *         <ul>
      *             <li>If provided {@code messageId} is {@code null} or empty.</li>
-     *             <li>If provided {@link EmbedComponent MessageEmbed}
-     *                 is not {@link EmbedComponent#isSendable() sendable}</li>
+     *             <li>If provided {@link MessageEmbed MessageEmbed}
+     *                 is not {@link MessageEmbed#isSendable() sendable}</li>
      *         </ul>
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If this is a {@link net.dv8tion.jda.api.entities.GuildMessageChannel GuildMessageChannel} and this account does not have
@@ -2634,7 +2633,7 @@ public interface MessageChannel extends Channel, Formattable
      */
     @NotNull
     @CheckReturnValue
-    default MessageAction editMessageEmbedsById(long messageId, @NotNull EmbedComponent... newEmbeds)
+    default MessageAction editMessageEmbedsById(long messageId, @NotNull MessageEmbed... newEmbeds)
     {
         return editMessageEmbedsById(Long.toUnsignedString(messageId), newEmbeds);
     }
@@ -2664,13 +2663,13 @@ public interface MessageChannel extends Channel, Formattable
      * @param  messageId
      *         The id referencing the Message that should be edited
      * @param  newEmbeds
-     *         Up to {@value Message#MAX_EMBED_COUNT} new {@link EmbedComponent MessageEmbeds} for the edited message
+     *         Up to {@value Message#MAX_EMBED_COUNT} new {@link MessageEmbed MessageEmbeds} for the edited message
      *
      * @throws IllegalArgumentException
      *         <ul>
      *             <li>If provided {@code messageId} is {@code null} or empty.</li>
-     *             <li>If provided {@link EmbedComponent MessageEmbed}
-     *                 is not {@link EmbedComponent#isSendable() sendable}</li>
+     *             <li>If provided {@link MessageEmbed MessageEmbed}
+     *                 is not {@link MessageEmbed#isSendable() sendable}</li>
      *         </ul>
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If this is a {@link net.dv8tion.jda.api.entities.GuildMessageChannel GuildMessageChannel} and this account does not have
@@ -2682,7 +2681,7 @@ public interface MessageChannel extends Channel, Formattable
      */
     @NotNull
     @CheckReturnValue
-    default MessageAction editMessageEmbedsById(@NotNull String messageId, @NotNull Collection<? extends EmbedComponent> newEmbeds)
+    default MessageAction editMessageEmbedsById(@NotNull String messageId, @NotNull Collection<? extends MessageEmbed> newEmbeds)
     {
         Checks.isSnowflake(messageId, "Message ID");
         return new MessageActionImpl(getJDA(), messageId, this).setEmbeds(newEmbeds);
@@ -2713,13 +2712,13 @@ public interface MessageChannel extends Channel, Formattable
      * @param  messageId
      *         The id referencing the Message that should be edited
      * @param  newEmbeds
-     *         Up to {@value Message#MAX_EMBED_COUNT} new {@link EmbedComponent MessageEmbeds} for the edited message
+     *         Up to {@value Message#MAX_EMBED_COUNT} new {@link MessageEmbed MessageEmbeds} for the edited message
      *
      * @throws IllegalArgumentException
      *         <ul>
      *             <li>If provided {@code messageId} is {@code null} or empty.</li>
-     *             <li>If provided {@link EmbedComponent MessageEmbed}
-     *                 is not {@link EmbedComponent#isSendable() sendable}</li>
+     *             <li>If provided {@link MessageEmbed MessageEmbed}
+     *                 is not {@link MessageEmbed#isSendable() sendable}</li>
      *         </ul>
      * @throws net.dv8tion.jda.api.exceptions.InsufficientPermissionException
      *         If this is a {@link net.dv8tion.jda.api.entities.GuildMessageChannel GuildMessageChannel} and this account does not have
@@ -2731,7 +2730,7 @@ public interface MessageChannel extends Channel, Formattable
      */
     @NotNull
     @CheckReturnValue
-    default MessageAction editMessageEmbedsById(long messageId, @NotNull Collection<? extends EmbedComponent> newEmbeds)
+    default MessageAction editMessageEmbedsById(long messageId, @NotNull Collection<? extends MessageEmbed> newEmbeds)
     {
         return editMessageEmbedsById(Long.toUnsignedString(messageId), newEmbeds);
     }
