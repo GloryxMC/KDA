@@ -18,7 +18,7 @@ package net.dv8tion.jda.internal.requests.restaction.interactions;
 
 import net.dv8tion.jda.api.entities.IMentionable;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.gloryx.kda.markdown.component.EmbedComponent;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
 import net.dv8tion.jda.api.utils.AttachmentOption;
@@ -41,7 +41,7 @@ import java.util.stream.Stream;
 
 public class ReplyCallbackActionImpl extends DeferrableCallbackActionImpl implements ReplyCallbackAction
 {
-    private final List<MessageEmbed> embeds = new ArrayList<>();
+    private final List<EmbedComponent> embeds = new ArrayList<>();
     private final AllowedMentionsImpl allowedMentions = new AllowedMentionsImpl();
     private final List<ActionRow> components = new ArrayList<>();
     private String content = "";
@@ -133,14 +133,14 @@ public class ReplyCallbackActionImpl extends DeferrableCallbackActionImpl implem
 
     @NotNull
     @Override
-    public ReplyCallbackAction addEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
+    public ReplyCallbackAction addEmbeds(@NotNull Collection<? extends EmbedComponent> embeds)
     {
         Checks.noneNull(embeds, "MessageEmbed");
-        for (MessageEmbed embed : embeds)
+        for (EmbedComponent embed : embeds)
         {
             Checks.check(embed.isSendable(),
                 "Provided Message contains an empty embed or an embed with a length greater than %d characters, which is the max for bot accounts!",
-                MessageEmbed.EMBED_MAX_LENGTH_BOT);
+                EmbedComponent.EMBED_MAX_LENGTH_BOT);
         }
 
         if (embeds.size() + this.embeds.size() > Message.MAX_EMBED_COUNT)

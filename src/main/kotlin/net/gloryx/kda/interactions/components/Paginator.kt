@@ -146,7 +146,7 @@ fun MessageChannel.sendPaginator(
 fun MessageChannel.sendPaginator(
     vararg pages: MessageEmbed,
     expireAfter: Duration,
-    filter: (ButtonInteraction) -> Boolean = {true}
+    filter: (ButtonInteraction) -> Boolean = { true }
 ) = sendPaginator(paginator(*pages, expireAfter=expireAfter).filterBy(filter))
 
 fun InteractionHook.sendPaginator(
@@ -157,7 +157,7 @@ fun InteractionHook.sendPaginator(
 fun InteractionHook.sendPaginator(
     vararg pages: MessageEmbed,
     expireAfter: Duration,
-    filter: (ButtonInteraction) -> Boolean = {true}
+    filter: (ButtonInteraction) -> Boolean = { true }
 ) = sendPaginator(paginator(*pages, expireAfter=expireAfter).filterBy(filter))
 
 fun IReplyCallback.replyPaginator(
@@ -168,5 +168,5 @@ fun IReplyCallback.replyPaginator(
 fun IReplyCallback.replyPaginator(
     vararg pages: MessageEmbed,
     expireAfter: Duration,
-    filter: (ButtonInteraction) -> Boolean = {true}
+    filter: (ButtonInteraction) -> Boolean = { true }
 ) = replyPaginator(paginator(*pages, expireAfter=expireAfter).filterBy(filter))
