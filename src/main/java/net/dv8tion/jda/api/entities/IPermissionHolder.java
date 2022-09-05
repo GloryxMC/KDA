@@ -17,6 +17,7 @@
 package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.marker.HasGuild;
 import net.dv8tion.jda.internal.utils.Checks;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,7 +32,7 @@ import java.util.EnumSet;
  * @see Role
  * @see Member
  */
-public interface IPermissionHolder extends ISnowflake
+public interface IPermissionHolder extends ISnowflake, HasGuild
 {
     /**
      * The Guild to which this PermissionHolder is related

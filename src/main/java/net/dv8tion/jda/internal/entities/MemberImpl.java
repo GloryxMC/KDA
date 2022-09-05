@@ -334,7 +334,7 @@ public class MemberImpl implements Member
     @Override
     public boolean canInteract(@NotNull Member member)
     {
-        return PermissionUtil.canInteract(this, member);
+        return PermissionUtil.canModerate(this, member);
     }
 
     @Override

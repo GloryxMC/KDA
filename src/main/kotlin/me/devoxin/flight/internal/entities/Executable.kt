@@ -5,6 +5,9 @@ import kotlinx.coroutines.launch
 import me.devoxin.flight.api.Context
 import me.devoxin.flight.api.entities.Cog
 import me.devoxin.flight.internal.arguments.Argument
+import net.dv8tion.jda.api.requests.RestAction
+import net.gloryx.commons.reflect.safeCast
+import net.gloryx.kda.scope
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.ThreadPoolExecutor
 import kotlin.reflect.KFunction
@@ -25,7 +28,7 @@ abstract class Executable(
         args[contextParameter] = ctx
 
         if (method.isSuspend) {
-            GlobalScope.launch {
+            ctx.jda.scope.launch {
                 executeAsync(args, complete)
             }
         } else {
@@ -44,7 +47,7 @@ abstract class Executable(
      */
     private fun executeSync(args: HashMap<KParameter, Any?>, complete: (Boolean, Throwable?) -> Unit) {
         try {
-            method.callBy(args)
+            method.callBy(args).q()
             complete(true, null)
         } catch (e: Throwable) {
             complete(false, e.cause ?: e)
@@ -56,11 +59,13 @@ abstract class Executable(
      */
     private suspend fun executeAsync(args: HashMap<KParameter, Any?>, complete: (Boolean, Throwable?) -> Unit) {
         try {
-            method.callSuspendBy(args)
+            method.callSuspendBy(args).q()
             complete(true, null)
         } catch (e: Throwable) {
             complete(false, e.cause ?: e)
         }
     }
+
+    private fun Any?.q() = safeCast<RestAction<*>>()?.queue()
 
 }

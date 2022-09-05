@@ -17,10 +17,7 @@ import java.net.URL
 import java.net.URLClassLoader
 import kotlin.reflect.KFunction
 import kotlin.reflect.KParameter
-import kotlin.reflect.full.findAnnotation
-import kotlin.reflect.full.functions
-import kotlin.reflect.full.hasAnnotation
-import kotlin.reflect.full.valueParameters
+import kotlin.reflect.full.*
 import kotlin.reflect.jvm.javaMethod
 import kotlin.reflect.jvm.jvmErasure
 
@@ -52,12 +49,12 @@ class Indexer {
     }
 
     fun getCogs(): List<Cog> {
-        val cogs = reflections.getSubTypesOf(Cog::class.java)
+        val cogs = reflections.getSubTypesOf(Cog::class.java).map(Class<out Cog>::kotlin)
         log.debug("Discovered ${cogs.size} cogs in $packageName")
 
         return cogs
-            .filter { !Modifier.isAbstract(it.modifiers) && !it.isInterface && Cog::class.java.isAssignableFrom(it) }
-            .map { it.getDeclaredConstructor().newInstance() }
+            .filter { !it.isAbstract && it.isSubclassOf(Cog::class) }
+            .map { it.objectInstance ?: it.createInstance() }
     }
 
     

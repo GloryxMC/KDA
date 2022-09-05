@@ -41,7 +41,7 @@ public class PermissionUtil
      *
      * @return True, if issuer can interact with target in guild
      */
-    public static boolean canInteract(Member issuer, Member target)
+    public static boolean canModerate(Member issuer, Member target)
     {
         Checks.notNull(issuer, "Issuer Member");
         Checks.notNull(target, "Target Member");

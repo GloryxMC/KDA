@@ -17,7 +17,7 @@
 package net.dv8tion.jda.api.requests.restaction.interactions;
 
 import net.dv8tion.jda.api.entities.Message;
-import net.gloryx.kda.markdown.component.EmbedComponent;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.ActionComponent;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
@@ -26,10 +26,9 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.utils.AttachmentOption;
 import net.dv8tion.jda.internal.utils.Checks;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Collection;
@@ -73,7 +72,7 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
     MessageEditCallbackAction setContent(@Nullable final String content);
 
     /**
-     * Set the {@link EmbedComponent MessageEmbeds} for the message
+     * Set the {@link MessageEmbed MessageEmbeds} for the message
      *
      * @param  embeds
      *         The message embeds
@@ -85,14 +84,14 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      */
     @NotNull
     @CheckReturnValue
-    default MessageEditCallbackAction setEmbeds(@NotNull EmbedComponent... embeds)
+    default MessageEditCallbackAction setEmbeds(@NotNull MessageEmbed... embeds)
     {
         Checks.noneNull(embeds, "MessageEmbed");
         return setEmbeds(Arrays.asList(embeds));
     }
 
     /**
-     * Set the {@link EmbedComponent MessageEmbeds} for the message
+     * Set the {@link MessageEmbed MessageEmbeds} for the message
      *
      * @param  embeds
      *         The message embeds
@@ -104,7 +103,7 @@ public interface MessageEditCallbackAction extends InteractionCallbackAction<Int
      */
     @NotNull
     @CheckReturnValue
-    MessageEditCallbackAction setEmbeds(@NotNull Collection<? extends EmbedComponent> embeds);
+    MessageEditCallbackAction setEmbeds(@NotNull Collection<? extends MessageEmbed> embeds);
 
     /**
      * Set the action rows for the message.

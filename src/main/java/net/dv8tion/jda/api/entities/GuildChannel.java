@@ -1,6 +1,7 @@
 package net.dv8tion.jda.api.entities;
 
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.marker.HasGuild;
 import net.dv8tion.jda.api.managers.channel.ChannelManager;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 
@@ -16,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
  * @see JDA#getGuildChannelById(long)
  * @see JDA#getGuildChannelById(ChannelType, long)
  */
-public interface GuildChannel extends Channel, Comparable<GuildChannel>
+public interface GuildChannel extends Channel, Comparable<GuildChannel>, HasGuild
 {
     /**
      * Returns the {@link Guild Guild} that this GuildChannel is part of.

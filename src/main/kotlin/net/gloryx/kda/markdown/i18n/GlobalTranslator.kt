@@ -1,19 +1,22 @@
 package net.gloryx.kda.markdown.i18n
 
-import com.fasterxml.jackson.annotation.Nulls
 import net.dv8tion.jda.api.interactions.DiscordLocale
-import net.dv8tion.jda.internal.utils.Helpers
 import net.gloryx.kda.markdown.components.TextComponent
 import net.gloryx.kda.markdown.components.TranslationComponent
-import net.gloryx.kda.markdown.render.ComponentRenderer
 import net.gloryx.oknamer.key.kinds.LangKey
 
 object GlobalTranslator : Translator {
+    var DEFAULT_LOCALE = DiscordLocale.ENGLISH_US
+    val languages = mutableListOf(DiscordLocale.ENGLISH_US)
     private val translators: MutableList<Translator> = mutableListOf()
 
-    fun register(translator: Translator) { if (!translators.contains(translator)) translators.add(translator) }
+    fun register(translator: Translator) {
+        if (!translators.contains(translator)) translators.add(translator)
+    }
 
-    override fun translate(key: LangKey, locale: DiscordLocale): String? = translators.map { it.translate(key, locale) }.firstOrNull()
+    override fun translate(key: LangKey, locale: DiscordLocale): String? =
+        translators.firstNotNullOfOrNull { it.translate(key, locale) }
 
-    fun render(component: TranslationComponent, locale: DiscordLocale) = ComponentRenderer.render(component, Env(locale))
+    fun renderToComponent(component: TranslationComponent, locale: DiscordLocale) =
+        TextComponent(String.format((translate(component.key, locale) ?: translate(component.key, DEFAULT_LOCALE)) ?: component.key.asString(), *component.args)).apply { style = component.style }
 }

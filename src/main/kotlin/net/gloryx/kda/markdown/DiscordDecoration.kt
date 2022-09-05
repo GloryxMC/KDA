@@ -30,3 +30,5 @@ enum class DiscordDecoration : Decoration {
         override fun apply(text: String): String = "```\n$text\n```"
     }
 }
+
+fun String.around(decoration: String) = "$decoration$this$decoration"

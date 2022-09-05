@@ -6,5 +6,6 @@ import net.gloryx.kda.markdown.i18n.GlobalTranslator
 import net.gloryx.kda.markdown.i18n.LanguageYeeter
 
 object TranslatableRenderer : ComponentRenderer<TranslationComponent>() {
-    override fun render(component: TranslationComponent, env: Env): String = GlobalTranslator.render(component, LanguageYeeter.criteria.yeet(env))
+    override fun render(component: TranslationComponent, env: Env): String =
+        NormalRenderer.render(GlobalTranslator.renderToComponent(component, LanguageYeeter.criteria.yeet(env)), env)
 }

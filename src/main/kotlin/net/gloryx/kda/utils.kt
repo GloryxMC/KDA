@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.interactions.components.ActionRow
 import net.dv8tion.jda.api.interactions.components.ItemComponent
 import net.dv8tion.jda.api.interactions.components.LayoutComponent
 import net.dv8tion.jda.api.utils.AttachmentOption
+import org.jetbrains.annotations.ApiStatus
 import java.io.File
 import java.io.InputStream
 
@@ -188,3 +189,5 @@ fun <T> allOf(first: T?, other: Collection<T>?): List<T>? {
     other?.let { list.addAll(it) }
     return list
 }
+
+internal typealias internal = ApiStatus.Internal

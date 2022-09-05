@@ -6,3 +6,5 @@ import net.gloryx.oknamer.key.kinds.LangKey
 interface Translator {
     fun translate(key: LangKey, locale: DiscordLocale): String?
 }
+
+val Translator.languages get() = GlobalTranslator.languages

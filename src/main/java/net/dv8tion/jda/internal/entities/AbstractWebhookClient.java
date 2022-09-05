@@ -18,7 +18,7 @@ package net.dv8tion.jda.internal.entities;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Message;
-import net.gloryx.kda.markdown.component.EmbedComponent;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.WebhookClient;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.LayoutComponent;
@@ -62,7 +62,7 @@ public abstract class AbstractWebhookClient<T> implements WebhookClient<T>
 
     @NotNull
     @Override
-    public WebhookMessageActionImpl<T> sendMessageEmbeds(@NotNull Collection<? extends EmbedComponent> embeds)
+    public WebhookMessageActionImpl<T> sendMessageEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
     {
         return sendRequest().addEmbeds(embeds);
     }
@@ -101,7 +101,7 @@ public abstract class AbstractWebhookClient<T> implements WebhookClient<T>
 
     @NotNull
     @Override
-    public WebhookMessageUpdateActionImpl<T> editMessageEmbedsById(@NotNull String messageId, @NotNull Collection<? extends EmbedComponent> embeds)
+    public WebhookMessageUpdateActionImpl<T> editMessageEmbedsById(@NotNull String messageId, @NotNull Collection<? extends MessageEmbed> embeds)
     {
         return (WebhookMessageUpdateActionImpl<T>) editRequest(messageId).setEmbeds(embeds);
     }

@@ -22,6 +22,7 @@ import net.dv8tion.jda.api.entities.channel.IGuildChannelContainer;
 import net.dv8tion.jda.api.entities.channel.unions.DefaultGuildChannelUnion;
 import net.dv8tion.jda.api.entities.emoji.CustomEmoji;
 import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
+import net.dv8tion.jda.api.entities.marker.HasGuild;
 import net.dv8tion.jda.api.entities.sticker.*;
 import net.dv8tion.jda.api.entities.templates.Template;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
@@ -79,7 +80,7 @@ import org.jetbrains.annotations.Nullable;
  * @see JDA#getGuildsByName(String, boolean)
  * @see JDA#getGuilds()
  */
-public interface Guild extends IGuildChannelContainer, ISnowflake
+public interface Guild extends IGuildChannelContainer, ISnowflake, HasGuild
 {
     /** Template for {@link #getIconUrl()}. */
     String ICON_URL = "https://cdn.discordapp.com/icons/%s/%s.%s";
@@ -87,6 +88,8 @@ public interface Guild extends IGuildChannelContainer, ISnowflake
     String SPLASH_URL = "https://cdn.discordapp.com/splashes/%s/%s.png";
     /** Template for {@link #getBannerUrl()}. */
     String BANNER_URL = "https://cdn.discordapp.com/banners/%s/%s.%s";
+
+    @NotNull default Guild getGuild() { return this; }
 
     /**
      * Retrieves the list of guild commands.

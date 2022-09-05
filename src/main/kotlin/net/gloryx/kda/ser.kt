@@ -50,39 +50,21 @@ fun hexChar(c: Char): Int {
 }
 
 fun hexToColor(it: String): Color? {
-    if (!it.startsWith("#")) return null
-    val trimmedColor = it.removePrefix("#")
-    var a: Int
-    var r: Int
-    var g: Int
-    var b: Int
-    a = 255
-
-    if (trimmedColor.length > 7) {
-        a = hexChar(trimmedColor[1]) * 16 + hexChar(trimmedColor[2])
-        r = hexChar(trimmedColor[3]) * 16 + hexChar(trimmedColor[4])
-        g = hexChar(trimmedColor[5]) * 16 + hexChar(trimmedColor[6])
-        b = hexChar(trimmedColor[7]) * 16 + hexChar(trimmedColor[8])
-    } else if (trimmedColor.length > 5) {
-        r = hexChar(trimmedColor[1]) * 16 + hexChar(trimmedColor[2])
-        g = hexChar(trimmedColor[3]) * 16 + hexChar(trimmedColor[4])
-        b = hexChar(trimmedColor[5]) * 16 + hexChar(trimmedColor[6])
-    } else if (trimmedColor.length > 4) {
-        a = hexChar(trimmedColor[1])
-        a += a * 16
-        r = hexChar(trimmedColor[2])
-        r += r * 16
-        g = hexChar(trimmedColor[3])
-        g += g * 16
-        b = hexChar(trimmedColor[4])
-        b += b * 16
-    } else {
-        r = hexChar(trimmedColor[1])
-        r += r * 16
-        g = hexChar(trimmedColor[2])
-        g += g * 16
-        b = hexChar(trimmedColor[3])
-        b += b * 16
+    var hex = it
+    hex = hex.replace("#", "")
+    when (hex.length) {
+        6 -> return Color(
+            Integer.valueOf(hex.substring(0, 2), 16),
+            Integer.valueOf(hex.substring(2, 4), 16),
+            Integer.valueOf(hex.substring(4, 6), 16)
+        )
+        8 -> return Color(
+            Integer.valueOf(hex.substring(0, 2), 16),
+            Integer.valueOf(hex.substring(2, 4), 16),
+            Integer.valueOf(hex.substring(4, 6), 16),
+            Integer.valueOf(hex.substring(6, 8), 16)
+        )
     }
-    return Color(r, g, b, a)
+    return null
 }
+

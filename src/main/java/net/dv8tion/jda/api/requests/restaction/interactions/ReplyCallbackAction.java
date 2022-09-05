@@ -16,7 +16,7 @@
 
 package net.dv8tion.jda.api.requests.restaction.interactions;
 
-import net.gloryx.kda.markdown.component.EmbedComponent;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.ActionComponent;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
@@ -40,8 +40,7 @@ import java.util.function.BooleanSupplier;
  * A {@link InteractionCallbackAction} which can be used to send a message reply for an interaction.
  * <br>You can use {@link #setEphemeral(boolean)} to hide this message from other users.
  */
-public interface ReplyCallbackAction extends InteractionCallbackAction<InteractionHook>, AllowedMentions<ReplyCallbackAction>
-{
+public interface ReplyCallbackAction extends InteractionCallbackAction<InteractionHook>, AllowedMentions<ReplyCallbackAction> {
     @NotNull
     @Override
     ReplyCallbackAction setCheck(@Nullable BooleanSupplier checks);
@@ -59,110 +58,83 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
     ReplyCallbackAction closeResources();
 
     /**
-     * Add {@link EmbedComponent MessageEmbeds} for the message
+     * Add {@link MessageEmbed MessageEmbeds} for the message
      *
-     * @param  embeds
-     *         The message embeds to add
-     *
-     * @throws IllegalArgumentException
-     *         If null is provided, or one of the embeds is too big
-     *
+     * @param embeds The message embeds to add
      * @return The same reply action, for chaining convenience
+     * @throws IllegalArgumentException If null is provided, or one of the embeds is too big
      */
     @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction addEmbeds(@NotNull EmbedComponent... embeds)
-    {
+    default ReplyCallbackAction addEmbeds(@NotNull MessageEmbed... embeds) {
         Checks.noneNull(embeds, "MessageEmbed");
         return addEmbeds(Arrays.asList(embeds));
     }
 
     /**
-     * Add {@link EmbedComponent MessageEmbeds} for the message
+     * Add {@link MessageEmbed MessageEmbeds} for the message
      *
-     * @param  embeds
-     *         The message embeds to add
-     *
-     * @throws IllegalArgumentException
-     *         If null is provided, or one of the embeds is too big
-     *
+     * @param embeds The message embeds to add
      * @return The same reply action, for chaining convenience
+     * @throws IllegalArgumentException If null is provided, or one of the embeds is too big
      */
     @NotNull
     @CheckReturnValue
-    ReplyCallbackAction addEmbeds(@NotNull Collection<? extends EmbedComponent> embeds);
+    ReplyCallbackAction addEmbeds(@NotNull Collection<? extends MessageEmbed> embeds);
 
     /**
      * Add a single {@link ActionRow} to the message.
      *
-     * @param  components
-     *         The components for this action row
-     *
-     * @throws IllegalArgumentException
-     *         <ul>
-     *             <li>If null is provided, or more than 5 ItemComponents are provided</li>
-     *             <li>If any custom {@link ActionComponent#getId() id} is duplicated</li>
-     *             <li>If any of the provided ItemComponents are not compatible with messages</li>
-     *         </ul>
-     *
+     * @param components The components for this action row
      * @return The same reply action, for chaining convenience
-     *
-     * @see    ActionRow#of(ItemComponent...)
-     * @see    ItemComponent#isMessageCompatible()
+     * @throws IllegalArgumentException <ul>
+     *                                              <li>If null is provided, or more than 5 ItemComponents are provided</li>
+     *                                              <li>If any custom {@link ActionComponent#getId() id} is duplicated</li>
+     *                                              <li>If any of the provided ItemComponents are not compatible with messages</li>
+     *                                          </ul>
+     * @see ActionRow#of(ItemComponent...)
+     * @see ItemComponent#isMessageCompatible()
      */
     @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction addActionRow(@NotNull ItemComponent... components)
-    {
+    default ReplyCallbackAction addActionRow(@NotNull ItemComponent... components) {
         return addActionRows(ActionRow.of(components));
     }
 
     /**
      * Add a single {@link ActionRow} to the message.
      *
-     * @param  components
-     *         The components for this action row
-     *
-     * @throws IllegalArgumentException
-     *         <ul>
-     *             <li>If null is provided, or more than 5 ItemComponents are provided</li>
-     *             <li>If any custom {@link ActionComponent#getId() id} is duplicated</li>
-     *             <li>If any of the provided ItemComponents are not compatible with messages</li>
-     *         </ul>
-     *
+     * @param components The components for this action row
      * @return The same reply action, for chaining convenience
-     *
-     * @see    ActionRow#of(Collection)
-     * @see    ItemComponent#isMessageCompatible()
+     * @throws IllegalArgumentException <ul>
+     *                                              <li>If null is provided, or more than 5 ItemComponents are provided</li>
+     *                                              <li>If any custom {@link ActionComponent#getId() id} is duplicated</li>
+     *                                              <li>If any of the provided ItemComponents are not compatible with messages</li>
+     *                                          </ul>
+     * @see ActionRow#of(Collection)
+     * @see ItemComponent#isMessageCompatible()
      */
     @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction addActionRow(@NotNull Collection<? extends ItemComponent> components)
-    {
+    default ReplyCallbackAction addActionRow(@NotNull Collection<? extends ItemComponent> components) {
         return addActionRows(ActionRow.of(components));
     }
 
     /**
      * Add {@link ActionRow ActionRows} to the message.
      *
-     * @param  rows
-     *         The action rows to add
-     *
-     * @throws IllegalArgumentException
-     *         <ul>
-     *             <li>If null is provided, or more than 5 action rows are provided</li>
-     *             <li>If any custom {@link ActionComponent#getId() id} is duplicated</li>
-     *             <li>If any of the provided action rows are not compatible with messages</li>
-     *         </ul>
-     *
+     * @param rows The action rows to add
      * @return The same reply action, for chaining convenience
-     *
-     * @see    ActionRow#isMessageCompatible()
+     * @throws IllegalArgumentException <ul>
+     *                                              <li>If null is provided, or more than 5 action rows are provided</li>
+     *                                              <li>If any custom {@link ActionComponent#getId() id} is duplicated</li>
+     *                                              <li>If any of the provided action rows are not compatible with messages</li>
+     *                                          </ul>
+     * @see ActionRow#isMessageCompatible()
      */
     @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction addActionRows(@NotNull Collection<? extends ActionRow> rows)
-    {
+    default ReplyCallbackAction addActionRows(@NotNull Collection<? extends ActionRow> rows) {
         Checks.noneNull(rows, "ActionRows");
         return addActionRows(rows.toArray(new ActionRow[0]));
     }
@@ -170,19 +142,14 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
     /**
      * Add {@link ActionRow ActionRows} to the message.
      *
-     * @param  rows
-     *         The action rows to add
-     *
-     * @throws IllegalArgumentException
-     *         <ul>
-     *             <li>If null is provided, or more than 5 action rows are provided</li>
-     *             <li>If any custom {@link ActionComponent#getId() id} is duplicated</li>
-     *             <li>If any of the provided action rows are not compatible with messages</li>
-     *         </ul>
-     *
+     * @param rows The action rows to add
      * @return The same reply action, for chaining convenience
-     *
-     * @see    ActionRow#isMessageCompatible()
+     * @throws IllegalArgumentException <ul>
+     *                                              <li>If null is provided, or more than 5 action rows are provided</li>
+     *                                              <li>If any custom {@link ActionComponent#getId() id} is duplicated</li>
+     *                                              <li>If any of the provided action rows are not compatible with messages</li>
+     *                                          </ul>
+     * @see ActionRow#isMessageCompatible()
      */
     @NotNull
     @CheckReturnValue
@@ -191,13 +158,9 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
     /**
      * Set the content for this message.
      *
-     * @param  content
-     *         The new message content or null to unset
-     *
-     * @throws IllegalArgumentException
-     *         If the provided content is longer than {@link net.dv8tion.jda.api.entities.Message#MAX_CONTENT_LENGTH MAX_CONTENT_LENGTH} characters
-     *
+     * @param content The new message content or null to unset
      * @return The same reply action, for chaining convenience
+     * @throws IllegalArgumentException If the provided content is longer than {@link net.dv8tion.jda.api.entities.Message#MAX_CONTENT_LENGTH MAX_CONTENT_LENGTH} characters
      */
     @NotNull
     ReplyCallbackAction setContent(@Nullable final String content);
@@ -205,9 +168,7 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
     /**
      * Enable/Disable Text-To-Speech for the resulting message.
      *
-     * @param  isTTS
-     *         True, if this should cause a Text-To-Speech effect when sent to the channel
-     *
+     * @param isTTS True, if this should cause a Text-To-Speech effect when sent to the channel
      * @return The same reply action, for chaining convenience
      */
     @NotNull
@@ -226,9 +187,7 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      *     <li>Cannot be retrieved</li>
      * </ul>
      *
-     * @param  ephemeral
-     *         True, if this message should be invisible for other users
-     *
+     * @param ephemeral True, if this message should be invisible for other users
      * @return The same reply action, for chaining convenience
      */
     @NotNull
@@ -241,20 +200,14 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      * <br><u>The stream will be closed upon execution!</u>
      * <br>The provided file will be appended to the message.
      *
-     * @param  file
-     *         The {@link File} data to upload in response to the interaction.
-     * @param  options
-     *         Possible options to apply to this attachment, such as marking it as spoiler image
-     *
-     * @throws java.lang.IllegalArgumentException
-     *         If the provided file is {@code null}.
-     *
+     * @param file    The {@link File} data to upload in response to the interaction.
+     * @param options Possible options to apply to this attachment, such as marking it as spoiler image
      * @return The same reply action, for chaining convenience
+     * @throws java.lang.IllegalArgumentException If the provided file is {@code null}.
      */
     @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction addFile(@NotNull File file, @NotNull AttachmentOption... options)
-    {
+    default ReplyCallbackAction addFile(@NotNull File file, @NotNull AttachmentOption... options) {
         Checks.notNull(file, "File");
         return addFile(file, file.getName(), options);
     }
@@ -276,30 +229,20 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      *         a name for the upload and append the fileName as the extension.</li>
      * </ol>
      *
-     * @param  file
-     *         The {@link File} data to upload in response to the interaction.
-     * @param  name
-     *         The file name that should be sent to discord
-     * @param  options
-     *         Possible options to apply to this attachment, such as marking it as spoiler image
-     *
-     * @throws java.lang.IllegalArgumentException
-     *         If the provided file or filename is {@code null}.
-     *
+     * @param file    The {@link File} data to upload in response to the interaction.
+     * @param name    The file name that should be sent to discord
+     * @param options Possible options to apply to this attachment, such as marking it as spoiler image
      * @return The same reply action, for chaining convenience
+     * @throws java.lang.IllegalArgumentException If the provided file or filename is {@code null}.
      */
     @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction addFile(@NotNull File file, @NotNull String name, @NotNull AttachmentOption... options)
-    {
-        try
-        {
+    default ReplyCallbackAction addFile(@NotNull File file, @NotNull String name, @NotNull AttachmentOption... options) {
+        try {
             Checks.notNull(file, "File");
             Checks.check(file.exists() && file.canRead(), "Provided file either does not exist or cannot be read from!");
             return addFile(new FileInputStream(file), name, options);
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             throw new IllegalArgumentException(e);
         }
     }
@@ -309,23 +252,16 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      * <br><u>The stream will be closed upon execution!</u>
      * <br>The provided file will be appended to the message.
      *
-     * @param  data
-     *         The {@code byte[]} data to upload in response to the interaction.
-     * @param  name
-     *         The file name that should be sent to discord
-     *         <br>Refer to the documentation for {@link #addFile(java.io.File, String, AttachmentOption...)} for information about this parameter.
-     * @param  options
-     *         Possible options to apply to this attachment, such as marking it as spoiler image
-     *
-     * @throws java.lang.IllegalArgumentException
-     *         If the provided data or filename is {@code null}.
-     *
+     * @param data    The {@code byte[]} data to upload in response to the interaction.
+     * @param name    The file name that should be sent to discord
+     *                <br>Refer to the documentation for {@link #addFile(java.io.File, String, AttachmentOption...)} for information about this parameter.
+     * @param options Possible options to apply to this attachment, such as marking it as spoiler image
      * @return The same reply action, for chaining convenience
+     * @throws java.lang.IllegalArgumentException If the provided data or filename is {@code null}.
      */
     @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction addFile(@NotNull byte[] data, @NotNull String name, @NotNull AttachmentOption... options)
-    {
+    default ReplyCallbackAction addFile(@NotNull byte[] data, @NotNull String name, @NotNull AttachmentOption... options) {
         Checks.notNull(data, "Data");
         return addFile(new ByteArrayInputStream(data), name, options);
     }
@@ -335,18 +271,12 @@ public interface ReplyCallbackAction extends InteractionCallbackAction<Interacti
      * <br><u>The stream will be closed upon execution!</u>
      * <br>The provided file will be appended to the message.
      *
-     * @param  data
-     *         The InputStream data to upload in response to the interaction.
-     * @param  name
-     *         The file name that should be sent to discord
-     *         <br>Refer to the documentation for {@link #addFile(java.io.File, String, AttachmentOption...)} for information about this parameter.
-     * @param  options
-     *         Possible options to apply to this attachment, such as marking it as spoiler image
-     *
-     * @throws java.lang.IllegalArgumentException
-     *         If the provided data or filename is {@code null}.
-     *
+     * @param data    The InputStream data to upload in response to the interaction.
+     * @param name    The file name that should be sent to discord
+     *                <br>Refer to the documentation for {@link #addFile(java.io.File, String, AttachmentOption...)} for information about this parameter.
+     * @param options Possible options to apply to this attachment, such as marking it as spoiler image
      * @return The same reply action, for chaining convenience
+     * @throws java.lang.IllegalArgumentException If the provided data or filename is {@code null}.
      */
     @NotNull
     @CheckReturnValue

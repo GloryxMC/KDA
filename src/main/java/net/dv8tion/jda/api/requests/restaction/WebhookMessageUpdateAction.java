@@ -17,7 +17,7 @@
 package net.dv8tion.jda.api.requests.restaction;
 
 import net.dv8tion.jda.api.entities.Message;
-import net.gloryx.kda.markdown.component.EmbedComponent;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.interactions.components.ActionComponent;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.ItemComponent;
@@ -26,10 +26,9 @@ import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.utils.AttachmentOption;
 import net.dv8tion.jda.internal.utils.Checks;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.CheckReturnValue;
-
-import org.jetbrains.annotations.Nullable;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Collection;
@@ -63,7 +62,7 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
     WebhookMessageUpdateAction<T> setContent(@Nullable String content);
 
     /**
-     * Set the {@link EmbedComponent MessageEmbeds} for the message
+     * Set the {@link MessageEmbed MessageEmbeds} for the message
      *
      * @param  embeds
      *         The message embeds
@@ -75,10 +74,10 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      */
     @NotNull
     @CheckReturnValue
-    WebhookMessageUpdateAction<T> setEmbeds(@NotNull Collection<? extends EmbedComponent> embeds); // Doesn't work on ephemeral messages!
+    WebhookMessageUpdateAction<T> setEmbeds(@NotNull Collection<? extends MessageEmbed> embeds); // Doesn't work on ephemeral messages!
 
     /**
-     * Set the {@link EmbedComponent MessageEmbeds} for the message
+     * Set the {@link MessageEmbed MessageEmbeds} for the message
      *
      * @param  embeds
      *         The message embeds
@@ -90,7 +89,7 @@ public interface WebhookMessageUpdateAction<T> extends RestAction<T>
      */
     @NotNull
     @CheckReturnValue
-    default WebhookMessageUpdateAction<T> setEmbeds(@NotNull EmbedComponent... embeds)
+    default WebhookMessageUpdateAction<T> setEmbeds(@NotNull MessageEmbed... embeds)
     {
         Checks.noneNull(embeds, "MessageEmbeds");
         return setEmbeds(Arrays.asList(embeds));

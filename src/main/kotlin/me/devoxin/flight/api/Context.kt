@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.events.Event
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.requests.restaction.MessageAction
 import net.gloryx.kda.*
+import net.gloryx.kda.markdown.i18n.Env
 import java.util.concurrent.TimeoutException
 import java.util.regex.Pattern
 
@@ -28,6 +29,8 @@ class Context(
     val textChannel: TextChannel? = if (event.isFromType(ChannelType.TEXT)) event.textChannel else null
     val privateChannel: PrivateChannel? = if (event.isFromType(ChannelType.PRIVATE)) event.privateChannel else null
     val messageChannel: MessageChannel = event.channel
+
+    val env = Env(author, guild)
 
 
 

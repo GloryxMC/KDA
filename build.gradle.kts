@@ -36,7 +36,7 @@ plugins {
 }
 
 val javaVersion = JavaVersion.current()
-val versionObj = Version(major = "5", minor = "0", revision = "21")
+val versionObj = Version(major = "5", minor = "0", revision = "21", classifier = "SNAPSHOT")
 val isCI = System.getProperty("BUILD_NUMBER") != null // jenkins
         || System.getenv("BUILD_NUMBER") != null
         || System.getProperty("GIT_COMMIT") != null // jitpack
@@ -64,7 +64,7 @@ val previousVersion: Version by lazy {
 
 val isNewVersion = previousVersion != versionObj
 // Use normal version string for new releases and commitHash for other builds
-project.version = "$versionObj" + if (isNewVersion) "" else "_$commitHash"
+project.version = "$versionObj"
 
 project.group = "net.gloryx"
 
@@ -88,6 +88,7 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven("https://dev.gloryx.net/main")
+    maven("https://dev.gloryx.net/snap")
 }
 
 dependencies {
@@ -114,7 +115,7 @@ dependencies {
     api("net.gloryx:commons:0.1.52-SNAPSHOT") {
         exclude("net.kyori")
     }
-    api("net.gloryx:oknamer:0.1.01")
+    api("net.gloryx:oknamer:0.1.02-SNAPSHOT")
     implementation("org.mockito:mockito-core:4.6.1")
 
     //we use this only together with opus-java
@@ -140,7 +141,10 @@ dependencies {
     }
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+
+    //Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+    implementation("com.typesafe:config:1.4.2")
 }
 
 val compileJava: JavaCompile by tasks

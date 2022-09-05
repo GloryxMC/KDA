@@ -17,7 +17,7 @@
 package net.dv8tion.jda.api.interactions.callbacks;
 
 import net.dv8tion.jda.api.entities.Message;
-import net.gloryx.kda.markdown.component.EmbedComponent;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
 import net.dv8tion.jda.api.utils.AttachmentOption;
@@ -162,7 +162,7 @@ public interface IReplyCallback extends IDeferrableCallback
      * <p>If your handling can take longer than 3 seconds, due to various rate limits or other conditions, you should use {@link #deferReply()} instead.
      *
      * @param  embeds
-     *         The {@link EmbedComponent MessageEmbeds} to send
+     *         The {@link MessageEmbed MessageEmbeds} to send
      *
      * @throws IllegalArgumentException
      *         If null is provided
@@ -171,7 +171,7 @@ public interface IReplyCallback extends IDeferrableCallback
      */
     @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction replyEmbeds(@NotNull Collection<? extends EmbedComponent> embeds)
+    default ReplyCallbackAction replyEmbeds(@NotNull Collection<? extends MessageEmbed> embeds)
     {
         return deferReply().addEmbeds(embeds);
     }
@@ -198,7 +198,7 @@ public interface IReplyCallback extends IDeferrableCallback
      */
     @NotNull
     @CheckReturnValue
-    default ReplyCallbackAction replyEmbeds(@NotNull EmbedComponent embed, @NotNull EmbedComponent... embeds)
+    default ReplyCallbackAction replyEmbeds(@NotNull MessageEmbed embed, @NotNull MessageEmbed... embeds)
     {
         Checks.notNull(embed, "MessageEmbed");
         Checks.noneNull(embeds, "MessageEmbed");
